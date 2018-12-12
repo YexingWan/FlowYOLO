@@ -1,0 +1,1004 @@
+from __future__ import division
+
+import torch
+import torch.nn as nn
+from torch.nn import init
+import torch.nn.functional as F
+from torch.autograd import Variable
+
+from PIL import Image
+import math
+import numpy as np
+import matplotlib.pyplot as plt
+import matplotlib.patches as patches
+from collections import defaultdict, deque
+import os, sys
+
+from flow_networks.resample2d_package.resample2d import Resample2d
+from flow_networks.channelnorm_package.channelnorm import ChannelNorm
+from flow_networks import FlowNetC
+from flow_networks import FlowNetS
+from flow_networks import FlowNetSD
+from flow_networks import FlowNetFusion
+from flow_networks.submodules import *
+
+from utils.parse_config import *
+from utils.utils import build_targets
+
+#-----------------------------------FlowNet---------------------------------
+
+class FlowNet2(nn.Module):
+    def __init__(self, args, batchNorm=False, div_flow=20.):
+        super(FlowNet2, self).__init__()
+        self.batchNorm = batchNorm
+        self.div_flow = div_flow
+        self.rgb_max = args.rgb_max
+        self.args = args
+
+        self.channelnorm = ChannelNorm()
+
+        # First Block (FlowNetC)
+        self.flownetc = FlowNetC.FlowNetC(args, batchNorm=self.batchNorm)
+        self.upsample1 = nn.Upsample(scale_factor=4, mode='bilinear')
+
+        if args.fp16:
+            self.resample1 = nn.Sequential(
+                tofp32(),
+                Resample2d(),
+                tofp16())
+        else:
+            self.resample1 = Resample2d()
+
+        # Block (FlowNetS1)
+        self.flownets_1 = FlowNetS.FlowNetS(args, batchNorm=self.batchNorm)
+        self.upsample2 = nn.Upsample(scale_factor=4, mode='bilinear')
+        if args.fp16:
+            self.resample2 = nn.Sequential(
+                tofp32(),
+                Resample2d(),
+                tofp16())
+        else:
+            self.resample2 = Resample2d()
+
+        # Block (FlowNetS2)
+        self.flownets_2 = FlowNetS.FlowNetS(args, batchNorm=self.batchNorm)
+
+        # Block (FlowNetSD)
+        self.flownets_d = FlowNetSD.FlowNetSD(args, batchNorm=self.batchNorm)
+        self.upsample3 = nn.Upsample(scale_factor=4, mode='nearest')
+        self.upsample4 = nn.Upsample(scale_factor=4, mode='nearest')
+
+        if args.fp16:
+            self.resample3 = nn.Sequential(
+                tofp32(),
+                Resample2d(),
+                tofp16())
+        else:
+            self.resample3 = Resample2d()
+
+        if args.fp16:
+            self.resample4 = nn.Sequential(
+                tofp32(),
+                Resample2d(),
+                tofp16())
+        else:
+            self.resample4 = Resample2d()
+
+        # Block (FLowNetFusion)
+        self.flownetfusion = FlowNetFusion.FlowNetFusion(args, batchNorm=self.batchNorm)
+
+        for m in self.modules():
+            if isinstance(m, nn.Conv2d):
+                if m.bias is not None:
+                    init.uniform_(m.bias)
+                init.xavier_uniform_(m.weight)
+
+            if isinstance(m, nn.ConvTranspose2d):
+                if m.bias is not None:
+                    init.uniform_(m.bias)
+                init.xavier_uniform_(m.weight)
+                # init_deconv_bilinear(m.weight)
+
+    def init_deconv_bilinear(self, weight):
+        f_shape = weight.size()
+        heigh, width = f_shape[-2], f_shape[-1]
+        f = np.ceil(width / 2.0)
+        c = (2 * f - 1 - f % 2) / (2.0 * f)
+        bilinear = np.zeros([heigh, width])
+        for x in range(width):
+            for y in range(heigh):
+                value = (1 - abs(x / f - c)) * (1 - abs(y / f - c))
+                bilinear[x, y] = value
+        min_dim = min(f_shape[0], f_shape[1])
+        weight.data.fill_(0.)
+        for i in range(min_dim):
+            weight.data[i, i, :, :] = torch.from_numpy(bilinear)
+        return
+
+    def forward(self, inputs):
+        rgb_mean = inputs.contiguous().view(inputs.size()[:2] + (-1,)).mean(dim=-1).view(inputs.size()[:2] + (1, 1, 1,))
+
+        x = (inputs - rgb_mean) / self.rgb_max
+        x1 = x[:, :, 0, :, :]
+        x2 = x[:, :, 1, :, :]
+        x = torch.cat((x1, x2), dim=1)
+
+        # flownetc
+        flownetc_flow2 = self.flownetc(x)[0]
+        flownetc_flow = self.upsample1(flownetc_flow2 * self.div_flow)
+
+        # warp img1 to img0; magnitude of diff between img0 and and warped_img1,
+        resampled_img1 = self.resample1(x[:, 3:, :, :], flownetc_flow)
+        diff_img0 = x[:, :3, :, :] - resampled_img1
+        norm_diff_img0 = self.channelnorm(diff_img0)
+
+        # concat img0, img1, img1->img0, flow, diff-mag ;
+        concat1 = torch.cat((x, resampled_img1, flownetc_flow / self.div_flow, norm_diff_img0), dim=1)
+
+        # flownets1
+        flownets1_flow2 = self.flownets_1(concat1)[0]
+        flownets1_flow = self.upsample2(flownets1_flow2 * self.div_flow)
+
+        # warp img1 to img0 using flownets1; magnitude of diff between img0 and and warped_img1
+        resampled_img1 = self.resample2(x[:, 3:, :, :], flownets1_flow)
+        diff_img0 = x[:, :3, :, :] - resampled_img1
+        norm_diff_img0 = self.channelnorm(diff_img0)
+
+        # concat img0, img1, img1->img0, flow, diff-mag
+        concat2 = torch.cat((x, resampled_img1, flownets1_flow / self.div_flow, norm_diff_img0), dim=1)
+
+        # flownets2
+        flownets2_flow2 = self.flownets_2(concat2)[0]
+        flownets2_flow = self.upsample4(flownets2_flow2 * self.div_flow)
+        norm_flownets2_flow = self.channelnorm(flownets2_flow)
+
+        diff_flownets2_flow = self.resample4(x[:, 3:, :, :], flownets2_flow)
+        # if not diff_flownets2_flow.volatile:
+        #     diff_flownets2_flow.register_hook(save_grad(self.args.grads, 'diff_flownets2_flow'))
+
+        diff_flownets2_img1 = self.channelnorm((x[:, :3, :, :] - diff_flownets2_flow))
+        # if not diff_flownets2_img1.volatile:
+        #     diff_flownets2_img1.register_hook(save_grad(self.args.grads, 'diff_flownets2_img1'))
+
+        # flownetsd
+        flownetsd_flow2 = self.flownets_d(x)[0]
+        flownetsd_flow = self.upsample3(flownetsd_flow2 / self.div_flow)
+        norm_flownetsd_flow = self.channelnorm(flownetsd_flow)
+
+        diff_flownetsd_flow = self.resample3(x[:, 3:, :, :], flownetsd_flow)
+        # if not diff_flownetsd_flow.volatile:
+        #     diff_flownetsd_flow.register_hook(save_grad(self.args.grads, 'diff_flownetsd_flow'))
+
+        diff_flownetsd_img1 = self.channelnorm((x[:, :3, :, :] - diff_flownetsd_flow))
+        # if not diff_flownetsd_img1.volatile:
+        #     diff_flownetsd_img1.register_hook(save_grad(self.args.grads, 'diff_flownetsd_img1'))
+
+        # concat img1 flownetsd, flownets2, norm_flownetsd, norm_flownets2, diff_flownetsd_img1, diff_flownets2_img1
+        concat3 = torch.cat((x[:, :3, :, :], flownetsd_flow, flownets2_flow, norm_flownetsd_flow, norm_flownets2_flow,
+                             diff_flownetsd_img1, diff_flownets2_img1), dim=1)
+        flownetfusion_flow = self.flownetfusion(concat3)
+
+        # if not flownetfusion_flow.volatile:
+        #     flownetfusion_flow.register_hook(save_grad(self.args.grads, 'flownetfusion_flow'))
+
+        return flownetfusion_flow
+
+
+class FlowNet2C(FlowNetC.FlowNetC):
+    def __init__(self, args, batchNorm=False, div_flow=20):
+        super(FlowNet2C, self).__init__(args, batchNorm=batchNorm, div_flow=div_flow)
+        self.rgb_max = args.rgb_max
+
+    def forward(self, inputs):
+        # input:[sam_idx_inbatch,channel_idx,2,row_idx,col_idx]
+        # rgb_mean球了样本的，三个通道（r,g,b）的的平均值
+        rgb_mean = inputs.contiguous().view(inputs.size()[:2] + (-1,)).mean(dim=-1).view(inputs.size()[:2] + (1, 1, 1,))
+
+        x = (inputs - rgb_mean) / self.rgb_max
+        x1 = x[:, :, 0, :, :]
+        x2 = x[:, :, 1, :, :]
+        # x1:[sam_idx_inbatch, col_idx,channel_idx，row_idx], represent all first frames in every samples in batch
+        # x2:[sam_idx_inbatch, col_idx,channel_idx，row_idx], represent all second frames in every samples in batch
+
+        # FlownetC top input stream
+        out_conv1a = self.conv1(x1)
+        out_conv2a = self.conv2(out_conv1a)
+        out_conv3a = self.conv3(out_conv2a)
+
+        # FlownetC bottom input stream
+        out_conv1b = self.conv1(x2)
+
+        out_conv2b = self.conv2(out_conv1b)
+        out_conv3b = self.conv3(out_conv2b)
+
+        # Merge streams
+        out_corr = self.corr(out_conv3a, out_conv3b)  # False
+        out_corr = self.corr_activation(out_corr)
+
+        # Redirect top input stream and concatenate
+        out_conv_redir = self.conv_redir(out_conv3a)
+
+        in_conv3_1 = torch.cat((out_conv_redir, out_corr), 1)
+
+        # Merged conv layers
+        out_conv3_1 = self.conv3_1(in_conv3_1)
+
+        out_conv4 = self.conv4_1(self.conv4(out_conv3_1))
+
+        out_conv5 = self.conv5_1(self.conv5(out_conv4))
+        out_conv6 = self.conv6_1(self.conv6(out_conv5))
+
+        flow6 = self.predict_flow6(out_conv6)
+        flow6_up = self.upsampled_flow6_to_5(flow6)
+        out_deconv5 = self.deconv5(out_conv6)
+
+        concat5 = torch.cat((out_conv5, out_deconv5, flow6_up), 1)
+
+        flow5 = self.predict_flow5(concat5)
+        flow5_up = self.upsampled_flow5_to_4(flow5)
+        out_deconv4 = self.deconv4(concat5)
+        concat4 = torch.cat((out_conv4, out_deconv4, flow5_up), 1)
+
+        flow4 = self.predict_flow4(concat4)
+        flow4_up = self.upsampled_flow4_to_3(flow4)
+        out_deconv3 = self.deconv3(concat4)
+        concat3 = torch.cat((out_conv3_1, out_deconv3, flow4_up), 1)
+
+        flow3 = self.predict_flow3(concat3)
+        flow3_up = self.upsampled_flow3_to_2(flow3)
+        out_deconv2 = self.deconv2(concat3)
+        concat2 = torch.cat((out_conv2a, out_deconv2, flow3_up), 1)
+
+        flow2 = self.predict_flow2(concat2)
+
+        if self.training:
+            return flow2, flow3, flow4, flow5, flow6
+        else:
+            return self.upsample1(flow2 * self.div_flow)
+
+
+class FlowNet2S(FlowNetS.FlowNetS):
+    def __init__(self, args, batchNorm=False, div_flow=20):
+        super(FlowNet2S, self).__init__(args, input_channels=6, batchNorm=batchNorm)
+        self.rgb_max = args.rgb_max
+        self.div_flow = div_flow
+
+    def forward(self, inputs):
+        rgb_mean = inputs.contiguous().view(inputs.size()[:2] + (-1,)).mean(dim=-1).view(inputs.size()[:2] + (1, 1, 1,))
+        x = (inputs - rgb_mean) / self.rgb_max
+        x = torch.cat((x[:, :, 0, :, :], x[:, :, 1, :, :]), dim=1)
+
+        out_conv1 = self.conv1(x)
+
+        out_conv2 = self.conv2(out_conv1)
+        out_conv3 = self.conv3_1(self.conv3(out_conv2))
+        out_conv4 = self.conv4_1(self.conv4(out_conv3))
+        out_conv5 = self.conv5_1(self.conv5(out_conv4))
+        out_conv6 = self.conv6_1(self.conv6(out_conv5))
+
+        flow6 = self.predict_flow6(out_conv6)
+        flow6_up = self.upsampled_flow6_to_5(flow6)
+        out_deconv5 = self.deconv5(out_conv6)
+
+        concat5 = torch.cat((out_conv5, out_deconv5, flow6_up), 1)
+        flow5 = self.predict_flow5(concat5)
+        flow5_up = self.upsampled_flow5_to_4(flow5)
+        out_deconv4 = self.deconv4(concat5)
+
+        concat4 = torch.cat((out_conv4, out_deconv4, flow5_up), 1)
+        flow4 = self.predict_flow4(concat4)
+        flow4_up = self.upsampled_flow4_to_3(flow4)
+        out_deconv3 = self.deconv3(concat4)
+
+        concat3 = torch.cat((out_conv3, out_deconv3, flow4_up), 1)
+        flow3 = self.predict_flow3(concat3)
+        flow3_up = self.upsampled_flow3_to_2(flow3)
+        out_deconv2 = self.deconv2(concat3)
+
+        concat2 = torch.cat((out_conv2, out_deconv2, flow3_up), 1)
+        flow2 = self.predict_flow2(concat2)
+
+        if self.training:
+            return flow2, flow3, flow4, flow5, flow6
+        else:
+            return self.upsample1(flow2 * self.div_flow)
+
+
+class FlowNet2SD(FlowNetSD.FlowNetSD):
+    def __init__(self, args, batchNorm=False, div_flow=20):
+        super(FlowNet2SD, self).__init__(args, batchNorm=batchNorm)
+        self.rgb_max = args.rgb_max
+        self.div_flow = div_flow
+
+    def forward(self, inputs):
+        rgb_mean = inputs.contiguous().view(inputs.size()[:2] + (-1,)).mean(dim=-1).view(inputs.size()[:2] + (1, 1, 1,))
+        x = (inputs - rgb_mean) / self.rgb_max
+        x = torch.cat((x[:, :, 0, :, :], x[:, :, 1, :, :]), dim=1)
+
+        out_conv0 = self.conv0(x)
+        out_conv1 = self.conv1_1(self.conv1(out_conv0))
+        out_conv2 = self.conv2_1(self.conv2(out_conv1))
+
+        out_conv3 = self.conv3_1(self.conv3(out_conv2))
+        out_conv4 = self.conv4_1(self.conv4(out_conv3))
+        out_conv5 = self.conv5_1(self.conv5(out_conv4))
+        out_conv6 = self.conv6_1(self.conv6(out_conv5))
+
+        flow6 = self.predict_flow6(out_conv6)
+        flow6_up = self.upsampled_flow6_to_5(flow6)
+        out_deconv5 = self.deconv5(out_conv6)
+
+        concat5 = torch.cat((out_conv5, out_deconv5, flow6_up), 1)
+        out_interconv5 = self.inter_conv5(concat5)
+        flow5 = self.predict_flow5(out_interconv5)
+
+        flow5_up = self.upsampled_flow5_to_4(flow5)
+        out_deconv4 = self.deconv4(concat5)
+
+        concat4 = torch.cat((out_conv4, out_deconv4, flow5_up), 1)
+        out_interconv4 = self.inter_conv4(concat4)
+        flow4 = self.predict_flow4(out_interconv4)
+        flow4_up = self.upsampled_flow4_to_3(flow4)
+        out_deconv3 = self.deconv3(concat4)
+
+        concat3 = torch.cat((out_conv3, out_deconv3, flow4_up), 1)
+        out_interconv3 = self.inter_conv3(concat3)
+        flow3 = self.predict_flow3(out_interconv3)
+        flow3_up = self.upsampled_flow3_to_2(flow3)
+        out_deconv2 = self.deconv2(concat3)
+
+        concat2 = torch.cat((out_conv2, out_deconv2, flow3_up), 1)
+        out_interconv2 = self.inter_conv2(concat2)
+        flow2 = self.predict_flow2(out_interconv2)
+
+        if self.training:
+            return flow2, flow3, flow4, flow5, flow6
+        else:
+            return self.upsample1(flow2 * self.div_flow)
+
+
+class FlowNet2CS(nn.Module):
+    def __init__(self, args, batchNorm=False, div_flow=20.):
+        super(FlowNet2CS, self).__init__()
+        self.batchNorm = batchNorm
+        self.div_flow = div_flow
+        self.rgb_max = args.rgb_max
+        self.args = args
+
+        self.channelnorm = ChannelNorm()
+
+        # First Block (FlowNetC)
+        self.flownetc = FlowNetC.FlowNetC(args, batchNorm=self.batchNorm)
+        self.upsample1 = nn.Upsample(scale_factor=4, mode='bilinear')
+
+        # if args.fp16:
+        #     self.resample1 = nn.Sequential(
+        #                     tofp32(),
+        #                     Resample2d(),
+        #                     tofp16())
+        # else:
+        self.resample1 = Resample2d()
+
+        # Block (FlowNetS1)
+        self.flownets_1 = FlowNetS.FlowNetS(args, batchNorm=self.batchNorm)
+        self.upsample2 = nn.Upsample(scale_factor=4, mode='bilinear')
+
+        for m in self.modules():
+            if isinstance(m, nn.Conv2d):
+                if m.bias is not None:
+                    init.uniform(m.bias)
+                init.xavier_uniform(m.weight)
+
+            if isinstance(m, nn.ConvTranspose2d):
+                if m.bias is not None:
+                    init.uniform(m.bias)
+                init.xavier_uniform(m.weight)
+                # init_deconv_bilinear(m.weight)
+
+    def forward(self, inputs):
+        rgb_mean = inputs.contiguous().view(inputs.size()[:2] + (-1,)).mean(dim=-1).view(inputs.size()[:2] + (1, 1, 1,))
+
+        x = (inputs - rgb_mean) / self.rgb_max
+        x1 = x[:, :, 0, :, :]
+        x2 = x[:, :, 1, :, :]
+        x = torch.cat((x1, x2), dim=1)
+
+        # flownetc
+        flownetc_flow2 = self.flownetc(x)[0]
+        flownetc_flow = self.upsample1(flownetc_flow2 * self.div_flow)
+
+        # warp img1 to img0; magnitude of diff between img0 and and warped_img1,
+        resampled_img1 = self.resample1(x[:, 3:, :, :], flownetc_flow)
+        diff_img0 = x[:, :3, :, :] - resampled_img1
+        norm_diff_img0 = self.channelnorm(diff_img0)
+
+        # concat img0, img1, img1->img0, flow, diff-mag ;
+        concat1 = torch.cat((x, resampled_img1, flownetc_flow / self.div_flow, norm_diff_img0), dim=1)
+
+        # flownets1
+        flownets1_flow2 = self.flownets_1(concat1)[0]
+        flownets1_flow = self.upsample2(flownets1_flow2 * self.div_flow)
+
+        return flownets1_flow
+
+
+class FlowNet2CSS(nn.Module):
+    def __init__(self, args, batchNorm=False, div_flow=20.):
+        super(FlowNet2CSS, self).__init__()
+        self.batchNorm = batchNorm
+        self.div_flow = div_flow
+        self.rgb_max = args.rgb_max
+        self.args = args
+
+        self.channelnorm = ChannelNorm()
+
+        # First Block (FlowNetC)
+        self.flownetc = FlowNetC.FlowNetC(args, batchNorm=self.batchNorm)
+        self.upsample1 = nn.Upsample(scale_factor=4, mode='bilinear')
+
+        if args.fp16:
+            self.resample1 = nn.Sequential(
+                tofp32(),
+                Resample2d(),
+                tofp16())
+        else:
+            self.resample1 = Resample2d()
+
+        # Block (FlowNetS1)
+        self.flownets_1 = FlowNetS.FlowNetS(args, batchNorm=self.batchNorm)
+        self.upsample2 = nn.Upsample(scale_factor=4, mode='bilinear')
+        if args.fp16:
+            self.resample2 = nn.Sequential(
+                tofp32(),
+                Resample2d(),
+                tofp16())
+        else:
+            self.resample2 = Resample2d()
+
+        # Block (FlowNetS2)
+        self.flownets_2 = FlowNetS.FlowNetS(args, batchNorm=self.batchNorm)
+        self.upsample3 = nn.Upsample(scale_factor=4, mode='nearest')
+
+        for m in self.modules():
+            if isinstance(m, nn.Conv2d):
+                if m.bias is not None:
+                    init.uniform(m.bias)
+                init.xavier_uniform(m.weight)
+
+            if isinstance(m, nn.ConvTranspose2d):
+                if m.bias is not None:
+                    init.uniform(m.bias)
+                init.xavier_uniform(m.weight)
+                # init_deconv_bilinear(m.weight)
+
+    def forward(self, inputs):
+        rgb_mean = inputs.contiguous().view(inputs.size()[:2] + (-1,)).mean(dim=-1).view(inputs.size()[:2] + (1, 1, 1,))
+
+        x = (inputs - rgb_mean) / self.rgb_max
+        x1 = x[:, :, 0, :, :]
+        x2 = x[:, :, 1, :, :]
+        x = torch.cat((x1, x2), dim=1)
+
+        # flownetc
+        flownetc_flow2 = self.flownetc(x)[0]
+        flownetc_flow = self.upsample1(flownetc_flow2 * self.div_flow)
+
+        # warp img1 to img0; magnitude of diff between img0 and and warped_img1,
+        resampled_img1 = self.resample1(x[:, 3:, :, :], flownetc_flow)
+        diff_img0 = x[:, :3, :, :] - resampled_img1
+        norm_diff_img0 = self.channelnorm(diff_img0)
+
+        # concat img0, img1, img1->img0, flow, diff-mag ;
+        concat1 = torch.cat((x, resampled_img1, flownetc_flow / self.div_flow, norm_diff_img0), dim=1)
+
+        # flownets1
+        flownets1_flow2 = self.flownets_1(concat1)[0]
+        flownets1_flow = self.upsample2(flownets1_flow2 * self.div_flow)
+
+        # warp img1 to img0 using flownets1; magnitude of diff between img0 and and warped_img1
+        resampled_img1 = self.resample2(x[:, 3:, :, :], flownets1_flow)
+        diff_img0 = x[:, :3, :, :] - resampled_img1
+        norm_diff_img0 = self.channelnorm(diff_img0)
+
+        # concat img0, img1, img1->img0, flow, diff-mag
+        concat2 = torch.cat((x, resampled_img1, flownets1_flow / self.div_flow, norm_diff_img0), dim=1)
+
+        # flownets2
+        flownets2_flow2 = self.flownets_2(concat2)[0]
+        flownets2_flow = self.upsample3(flownets2_flow2 * self.div_flow)
+
+        return flownets2_flow
+
+
+#------------------------------------YOLO--------------------------------------
+
+def create_modules(module_defs):
+    """
+    Constructs module list of layer blocks from module configuration in module_defs
+    """
+
+    # first dict save hyperparams
+    hyperparams = module_defs.pop(0)
+    output_filters = [int(hyperparams["channels"])]
+    module_list = nn.ModuleList()
+    for i, module_def in enumerate(module_defs):
+        modules = nn.Sequential()
+
+        # conv module
+        if module_def["type"] == "convolutional":
+            bn = int(module_def["batch_normalize"])
+            filters = int(module_def["filters"])
+            kernel_size = int(module_def["size"])
+            pad = (kernel_size - 1) // 2 if int(module_def["pad"]) else 0
+            modules.add_module(
+                "conv_%d" % i,
+                nn.Conv2d(
+                    in_channels=output_filters[-1],
+                    out_channels=filters,
+                    kernel_size=kernel_size,
+                    stride=int(module_def["stride"]),
+                    padding=pad,
+                    bias=not bn,
+                ),
+            )
+            if bn:
+                modules.add_module("batch_norm_%d" % i, nn.BatchNorm2d(filters))
+            if module_def["activation"] == "leaky":
+                modules.add_module("leaky_%d" % i, nn.LeakyReLU(0.1))
+
+        # maxpool module
+        elif module_def["type"] == "maxpool":
+            kernel_size = int(module_def["size"])
+            stride = int(module_def["stride"])
+            if kernel_size == 2 and stride == 1:
+                padding = nn.ZeroPad2d((0, 1, 0, 1))
+                modules.add_module("_debug_padding_%d" % i, padding)
+            maxpool = nn.MaxPool2d(
+                kernel_size=int(module_def["size"]),
+                stride=int(module_def["stride"]),
+                padding=int((kernel_size - 1) // 2),
+            )
+            modules.add_module("maxpool_%d" % i, maxpool)
+
+        # updample module for FPN
+        elif module_def["type"] == "upsample":
+            upsample = nn.Upsample(scale_factor=int(module_def["stride"]), mode="nearest")
+            modules.add_module("upsample_%d" % i, upsample)
+
+        # route feature map up-side down
+        elif module_def["type"] == "route":
+            layers = [int(x) for x in module_def["layers"].split(",")]
+            filters = sum([output_filters[layer_i] for layer_i in layers])
+            modules.add_module("route_%d" % i, EmptyLayer())
+
+        # shortcut module for ResBlock
+        elif module_def["type"] == "shortcut":
+            filters = output_filters[int(module_def["from"])]
+            modules.add_module("shortcut_%d" % i, EmptyLayer())
+
+        # other parameter for yolo anchor
+        elif module_def["type"] == "yolo":
+            anchor_idxs = [int(x) for x in module_def["mask"].split(",")]
+            # Extract anchors
+            anchors = [int(x) for x in module_def["anchors"].split(",")]
+            anchors = [(anchors[i], anchors[i + 1]) for i in range(0, len(anchors), 2)]
+            anchors = [anchors[i] for i in anchor_idxs]
+            num_classes = int(module_def["classes"])
+            img_height = int(hyperparams["height"])
+            # Define detection layer
+            yolo_layer = YOLOLayer(anchors, num_classes, img_height)
+            modules.add_module("yolo_%d" % i, yolo_layer)
+        # Register module list and number of output filters
+        module_list.append(modules)
+        output_filters.append(filters)
+
+    return hyperparams, module_list
+
+
+class EmptyLayer(nn.Module):
+    """Placeholder for 'route' and 'shortcut' layers"""
+
+    def __init__(self):
+        super(EmptyLayer, self).__init__()
+
+
+class YOLOLayer(nn.Module):
+    """Detection layer"""
+
+    def __init__(self, anchors, num_classes, img_dim):
+        super(YOLOLayer, self).__init__()
+        self.anchors = anchors
+        self.num_anchors = len(anchors)
+        self.num_classes = num_classes
+        self.bbox_attrs = 5 + num_classes
+        self.image_dim = img_dim
+        self.ignore_thres = 0.5
+        self.lambda_coord = 1
+
+        self.mse_loss = nn.MSELoss(size_average=True)  # Coordinate loss
+        self.bce_loss = nn.BCELoss(size_average=True)  # Confidence loss
+        self.ce_loss = nn.CrossEntropyLoss()  # Class loss
+
+    def forward(self, x, targets=None):
+        nA = self.num_anchors
+        nB = x.size(0)
+        nG = x.size(2)
+        stride = self.image_dim / nG
+
+        # Tensors for cuda support
+        FloatTensor = torch.cuda.FloatTensor if x.is_cuda else torch.FloatTensor
+        LongTensor = torch.cuda.LongTensor if x.is_cuda else torch.LongTensor
+        ByteTensor = torch.cuda.ByteTensor if x.is_cuda else torch.ByteTensor
+
+        prediction = x.view(nB, nA, self.bbox_attrs, nG, nG).permute(0, 1, 3, 4, 2).contiguous()
+
+        # Get outputs
+        x = torch.sigmoid(prediction[..., 0])  # Center x
+        y = torch.sigmoid(prediction[..., 1])  # Center y
+        w = prediction[..., 2]  # Width
+        h = prediction[..., 3]  # Height
+        pred_conf = torch.sigmoid(prediction[..., 4])  # Conf
+        pred_cls = torch.sigmoid(prediction[..., 5:])  # Cls pred.
+
+        # Calculate offsets for each grid
+        grid_x = torch.arange(nG).repeat(nG, 1).view([1, 1, nG, nG]).type(FloatTensor)
+        grid_y = torch.arange(nG).repeat(nG, 1).t().view([1, 1, nG, nG]).type(FloatTensor)
+        scaled_anchors = FloatTensor([(a_w / stride, a_h / stride) for a_w, a_h in self.anchors])
+        anchor_w = scaled_anchors[:, 0:1].view((1, nA, 1, 1))
+        anchor_h = scaled_anchors[:, 1:2].view((1, nA, 1, 1))
+
+        # Add offset and scale with anchors
+        pred_boxes = FloatTensor(prediction[..., :4].shape)
+        pred_boxes[..., 0] = x.data + grid_x
+        pred_boxes[..., 1] = y.data + grid_y
+        pred_boxes[..., 2] = torch.exp(w.data) * anchor_w
+        pred_boxes[..., 3] = torch.exp(h.data) * anchor_h
+
+        # Training
+        if targets is not None:
+
+            if x.is_cuda:
+                self.mse_loss = self.mse_loss.cuda()
+                self.bce_loss = self.bce_loss.cuda()
+                self.ce_loss = self.ce_loss.cuda()
+
+            nGT, nCorrect, mask, conf_mask, tx, ty, tw, th, tconf, tcls = build_targets(
+                pred_boxes=pred_boxes.cpu().data,
+                pred_conf=pred_conf.cpu().data,
+                pred_cls=pred_cls.cpu().data,
+                target=targets.cpu().data,
+                anchors=scaled_anchors.cpu().data,
+                num_anchors=nA,
+                num_classes=self.num_classes,
+                grid_size=nG,
+                ignore_thres=self.ignore_thres,
+                img_dim=self.image_dim,
+            )
+
+            nProposals = int((pred_conf > 0.5).sum().item())
+            recall = float(nCorrect / nGT) if nGT else 1
+            precision = float(nCorrect / nProposals)
+
+            # Handle masks
+            mask = Variable(mask.type(ByteTensor))
+            conf_mask = Variable(conf_mask.type(ByteTensor))
+
+            # Handle target variables
+            tx = Variable(tx.type(FloatTensor), requires_grad=False)
+            ty = Variable(ty.type(FloatTensor), requires_grad=False)
+            tw = Variable(tw.type(FloatTensor), requires_grad=False)
+            th = Variable(th.type(FloatTensor), requires_grad=False)
+            tconf = Variable(tconf.type(FloatTensor), requires_grad=False)
+            tcls = Variable(tcls.type(LongTensor), requires_grad=False)
+
+            # Get conf mask where gt and where there is no gt
+            conf_mask_true = mask
+            conf_mask_false = conf_mask - mask
+
+            # Mask outputs to ignore non-existing objects
+            loss_x = self.mse_loss(x[mask], tx[mask])
+            loss_y = self.mse_loss(y[mask], ty[mask])
+            loss_w = self.mse_loss(w[mask], tw[mask])
+            loss_h = self.mse_loss(h[mask], th[mask])
+            loss_conf = self.bce_loss(pred_conf[conf_mask_false], tconf[conf_mask_false]) + self.bce_loss(
+                pred_conf[conf_mask_true], tconf[conf_mask_true]
+            )
+            loss_cls = (1 / nB) * self.ce_loss(pred_cls[mask], torch.argmax(tcls[mask], 1))
+            loss = loss_x + loss_y + loss_w + loss_h + loss_conf + loss_cls
+
+            return (
+                loss,
+                loss_x.item(),
+                loss_y.item(),
+                loss_w.item(),
+                loss_h.item(),
+                loss_conf.item(),
+                loss_cls.item(),
+                recall,
+                precision,
+            )
+
+        else:
+            # If not in training phase return predictions
+            output = torch.cat(
+                (
+                    pred_boxes.view(nB, -1, 4) * stride,
+                    pred_conf.view(nB, -1, 1),
+                    pred_cls.view(nB, -1, self.num_classes),
+                ),
+                -1,
+            )
+            return output
+
+# modify Darknet for flow guided aggregate
+class Darknet(nn.Module):
+    """YOLOv3 object detection model"""
+
+    def __init__(self, config_path, img_size=416):
+        super(Darknet, self).__init__()
+        # list of dictionary of model config
+        self.module_defs = parse_model_config(config_path)
+        self.hyperparams, self.module_list = create_modules(self.module_defs)
+        self.img_size = img_size
+        self.seen = 0
+        self.header_info = np.array([0, 0, 0, self.seen, 0])
+        self.loss_names = ["x", "y", "w", "h", "conf", "cls", "recall", "precision"]
+        self.flow_warp = F.grid_sample
+
+
+    def forward(self,x,forward_feats:deque,flow,targets=None):
+        is_training = targets is not None
+        output = []
+        self.losses = defaultdict(float)
+        layer_outputs = []
+        output_features = deque()
+
+        for i, (module_def, module) in enumerate(zip(self.module_defs, self.module_list)):
+            if module_def["type"] in ["convolutional", "upsample", "maxpool"]:
+                x = module(x)
+
+            elif module_def["type"] == "route":
+                layer_i = [int(x) for x in module_def["layers"].split(",")]
+                x = torch.cat([layer_outputs[i] for i in layer_i], 1)
+
+            elif module_def["type"] == "shortcut":
+                layer_i = int(module_def["from"])
+                x = layer_outputs[-1] + layer_outputs[layer_i]
+                # warp and aggregate at layer 37 62, which are the layers before downsampling
+                if i in [36,61]:
+                    output_features.append(x)
+                    print("flow aggregate in  L62/37")
+                    x = x + self.flow_warp(forward_feats.popleft(), flow)
+
+
+            elif module_def["type"] == "yolo":
+                # Train phase: get loss
+                if is_training:
+                    x, *losses = module[0](x, targets)
+                    for name, loss in zip(self.loss_names, losses):
+                        self.losses[name] += loss
+                # Test phase: Get detections
+                else:
+                    x = module(x)
+                output.append(x)
+            layer_outputs.append(x)
+
+        self.losses["recall"] /= 3
+        self.losses["precision"] /= 3
+
+        return (sum(output),output_features) if is_training else (torch.cat(output, 1), output_features)
+
+    def load_weights(self, weights_path):
+        """Parses and loads the weights stored in 'weights_path'"""
+
+        # Open the weights file
+        fp = open(weights_path, "rb")
+        header = np.fromfile(fp, dtype=np.int32, count=5)  # First five are header values
+
+        # Needed to write header when saving weights
+        self.header_info = header
+
+        self.seen = header[3]
+        weights = np.fromfile(fp, dtype=np.float32)  # The rest are weights
+        fp.close()
+
+        ptr = 0
+        for i, (module_def, module) in enumerate(zip(self.module_defs, self.module_list)):
+            if module_def["type"] == "convolutional":
+                conv_layer = module[0]
+                if module_def["batch_normalize"]:
+                    # Load BN bias, weights, running mean and running variance
+                    bn_layer = module[1]
+                    num_b = bn_layer.bias.numel()  # Number of biases
+                    # Bias
+                    bn_b = torch.from_numpy(weights[ptr : ptr + num_b]).view_as(bn_layer.bias)
+                    bn_layer.bias.data.copy_(bn_b)
+                    ptr += num_b
+                    # Weight
+                    bn_w = torch.from_numpy(weights[ptr : ptr + num_b]).view_as(bn_layer.weight)
+                    bn_layer.weight.data.copy_(bn_w)
+                    ptr += num_b
+                    # Running Mean
+                    bn_rm = torch.from_numpy(weights[ptr : ptr + num_b]).view_as(bn_layer.running_mean)
+                    bn_layer.running_mean.data.copy_(bn_rm)
+                    ptr += num_b
+                    # Running Var
+                    bn_rv = torch.from_numpy(weights[ptr : ptr + num_b]).view_as(bn_layer.running_var)
+                    bn_layer.running_var.data.copy_(bn_rv)
+                    ptr += num_b
+                else:
+                    # Load conv. bias
+                    num_b = conv_layer.bias.numel()
+                    conv_b = torch.from_numpy(weights[ptr : ptr + num_b]).view_as(conv_layer.bias)
+                    conv_layer.bias.data.copy_(conv_b)
+                    ptr += num_b
+                # Load conv. weights
+                num_w = conv_layer.weight.numel()
+                conv_w = torch.from_numpy(weights[ptr : ptr + num_w]).view_as(conv_layer.weight)
+                conv_layer.weight.data.copy_(conv_w)
+                ptr += num_w
+
+    """
+        @:param path    - path of the new weights file
+        @:param cutoff  - save layers between 0 and cutoff (cutoff = -1 -> all are saved)
+    """
+
+    def save_weights(self, path, cutoff=-1):
+
+        fp = open(path, "wb")
+        self.header_info[3] = self.seen
+        self.header_info.tofile(fp)
+
+        # Iterate through layers
+        for i, (module_def, module) in enumerate(zip(self.module_defs[:cutoff], self.module_list[:cutoff])):
+            if module_def["type"] == "convolutional":
+                conv_layer = module[0]
+                # If batch norm, load bn first
+                if module_def["batch_normalize"]:
+                    bn_layer = module[1]
+                    bn_layer.bias.data.cpu().numpy().tofile(fp)
+                    bn_layer.weight.data.cpu().numpy().tofile(fp)
+                    bn_layer.running_mean.data.cpu().numpy().tofile(fp)
+                    bn_layer.running_var.data.cpu().numpy().tofile(fp)
+                # Load conv bias
+                else:
+                    conv_layer.bias.data.cpu().numpy().tofile(fp)
+                # Load conv weights
+                conv_layer.weight.data.cpu().numpy().tofile(fp)
+
+        fp.close()
+
+
+#------------------------------------FLOW-YOLO---------------------------------
+
+class FlowYOLO(nn.Module):
+    def __init__(self, args):
+        super(FlowYOLO, self).__init__()
+        self.flow_model = args.flow_model_class(args)
+        self.detect_model = args.yolo_model_class(args,args.yolo_config_path)
+        self.last_frames = None
+        self.last_feature = 0
+
+
+    def forward(self, data, target, inference=False):
+        # data [batch_size,h,w,3] nparray RGB
+        # TODO:
+        #   1. pre-processing data: built pairs for flow, first image pairs by last image of last batch
+        #   2. batch input to flowNet -> get flow
+        #   3. sequence input to yolo and get result
+        if not self.last_frames:
+            self.last_frames = data[0]
+
+        flow_input = []
+        # flow_input:[batch_size,3(channel),2,row_idx,col_idx]
+        flow_input.append(np.array([self.last_frames,data[0]]).transpose((3, 0, 1, 2)))
+        for idx in range(data.shape[0]-1):
+            flow_input.append(np.array([data[idx], data[idx+1]]).transpose((3, 0, 1, 2)))
+        flow_input = np.array(flow_input).astype(np.float32)
+        flow_input = torch.from_numpy(flow_input)
+        _, flows_output = self.flow_model(flow_input)
+
+        # get the flows list and images list
+        flows_list = [flows_output[i].permute(1, 2, 0) for i in range(flows_output.shape[0])]
+        images_list = [data[i] for i in range(data.shape[0])]
+        self.last_frames = data[-1]
+        results = []
+        for i in range(data.shape[0]):
+            result, features = self.detect_model(torch.unsqueeze(images_list[i],0),forward_feat=self.last_feature,flow=flows_list[i])
+            results.append(results)
+            self.last_feature = features
+
+        # concat all output by batch_dim
+        return torch.cat(results,0)
+
+    def load_weights(self, flow_weights_path=None, yolo_weights_path=None):
+        """Parses and loads the weights stored in 'weights_path'"""
+        if flow_weights_path and os.path.isfile(flow_weights_path):
+            checkpoint = torch.load(flow_weights_path)
+            self.flow_model.load_state_dict(checkpoint['state_dict'])
+
+        elif flow_weights_path:
+            print(sys.stderr,"no checkpoint finded")
+            exit(1)
+
+        else:
+            print("Random initialization")
+
+        # Open the weights file
+        yolo_w = open(yolo_weights_path, "rb")
+        header = np.fromfile(yolo_w, dtype=np.int32, count=5)  # First five are header values
+
+        # Needed to write header when saving weights
+        self.header_info = header
+
+        self.seen = header[3]
+        weights = np.fromfile(yolo_w, dtype=np.float32)  # The rest are weights
+        yolo_w.close()
+
+        ptr = 0
+        for i, (module_def, module) in enumerate(zip(self.module_defs, self.module_list)):
+            if module_def["type"] == "convolutional":
+                conv_layer = module[0]
+                if module_def["batch_normalize"]:
+                    # Load BN bias, weights, running mean and running variance
+                    bn_layer = module[1]
+                    num_b = bn_layer.bias.numel()  # Number of biases
+                    # Bias
+                    bn_b = torch.from_numpy(weights[ptr : ptr + num_b]).view_as(bn_layer.bias)
+                    bn_layer.bias.data.copy_(bn_b)
+                    ptr += num_b
+                    # Weight
+                    bn_w = torch.from_numpy(weights[ptr : ptr + num_b]).view_as(bn_layer.weight)
+                    bn_layer.weight.data.copy_(bn_w)
+                    ptr += num_b
+                    # Running Mean
+                    bn_rm = torch.from_numpy(weights[ptr : ptr + num_b]).view_as(bn_layer.running_mean)
+                    bn_layer.running_mean.data.copy_(bn_rm)
+                    ptr += num_b
+                    # Running Var
+                    bn_rv = torch.from_numpy(weights[ptr : ptr + num_b]).view_as(bn_layer.running_var)
+                    bn_layer.running_var.data.copy_(bn_rv)
+                    ptr += num_b
+                else:
+                    # Load conv. bias
+                    num_b = conv_layer.bias.numel()
+                    conv_b = torch.from_numpy(weights[ptr : ptr + num_b]).view_as(conv_layer.bias)
+                    conv_layer.bias.data.copy_(conv_b)
+                    ptr += num_b
+                # Load conv. weights
+                num_w = conv_layer.weight.numel()
+                conv_w = torch.from_numpy(weights[ptr : ptr + num_w]).view_as(conv_layer.weight)
+                conv_layer.weight.data.copy_(conv_w)
+                ptr += num_w
+
+    """
+        @:param path    - path of the new weights file
+        @:param cutoff  - save layers between 0 and cutoff (cutoff = -1 -> all are saved)
+    """
+
+    def save_weights(self, path, cutoff=-1):
+
+        fp = open(path, "wb")
+        self.header_info[3] = self.seen
+        self.header_info.tofile(fp)
+
+        # Iterate through layers
+        for i, (module_def, module) in enumerate(zip(self.module_defs[:cutoff], self.module_list[:cutoff])):
+            if module_def["type"] == "convolutional":
+                conv_layer = module[0]
+                # If batch norm, load bn first
+                if module_def["batch_normalize"]:
+                    bn_layer = module[1]
+                    bn_layer.bias.data.cpu().numpy().tofile(fp)
+                    bn_layer.weight.data.cpu().numpy().tofile(fp)
+                    bn_layer.running_mean.data.cpu().numpy().tofile(fp)
+                    bn_layer.running_var.data.cpu().numpy().tofile(fp)
+                # Load conv bias
+                else:
+                    conv_layer.bias.data.cpu().numpy().tofile(fp)
+                # Load conv weights
+                conv_layer.weight.data.cpu().numpy().tofile(fp)
+
+        fp.close()
+
+

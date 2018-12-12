@@ -299,6 +299,7 @@ if __name__ == '__main__':
     for argument, value in sorted(vars(args).items()):
         block.log2file(args.log_file, '{}: {}'.format(argument, value))
 
+
     # Reusable function for training and validataion
     def train(args, epoch, start_iteration, data_loader, model, optimizer, logger, is_validate=False, offset=0):
         statistics = []
@@ -395,6 +396,9 @@ if __name__ == '__main__':
         progress.close()
 
         return total_loss / float(batch_idx + 1), (batch_idx + 1)
+
+
+
 
     # Reusable function for inference
     def inference(args, epoch, data_loader, model, offset=0):
@@ -501,6 +505,12 @@ if __name__ == '__main__':
             ori_cap.release()
         progress.close()
         return
+
+
+
+
+
+
 
 
 
