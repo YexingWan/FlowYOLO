@@ -33,7 +33,7 @@ def built_args():
     parser.add_argument("--batched_n_cpu", type=int, default=0, help="number of cpu threads to use during batch generation")
     parser.add_argument("--save_video", action='store_true', default=False)
     parser.add_argument("--camera", action='store_true',default=False,help='inference from camera')
-    parser.add_argument("--data_config_path", type=str, default="config/train.data", help="path to data config file")
+    parser.add_argument("--data_config_path", type=str, default="config/data.data", help="path to data config file")
 
     parser.add_argument('--start_epoch', type=int, default=1)
     parser.add_argument('--total_epochs', type=int, default=10000)
