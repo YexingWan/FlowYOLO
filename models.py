@@ -848,8 +848,7 @@ class FlowYOLO(nn.Module):
     def load_weights(self, flow_weights_path=None, yolo_weights_path=None):
         # load flownet weight
         if flow_weights_path and os.path.isfile(flow_weights_path):
-            checkpoint = torch.load(flow_weights_path)
-            self.flow_model.load_state_dict(checkpoint['state_dict'])
+            self.flow_model.load_state_dict(torch.load(flow_weights_path))
 
         elif flow_weights_path:
             print(sys.stderr,"flowNet no checkpoint finded")
