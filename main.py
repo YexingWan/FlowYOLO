@@ -125,6 +125,8 @@ def inference(args):
             flow_yolo = flow_yolo.cuda()
             torch.cuda.manual_seed(args.seed)
 
+    print(flow_yolo.state_dict().keys())
+
 
 
 
