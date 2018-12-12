@@ -121,7 +121,7 @@ def inference(args):
         number_gpus=torch.cuda.device_count()
         if number_gpus > 0:
             print("GPU_NUMBER:{}".format(number_gpus))
-            flow_yolo = nn.parallel.DataParallel(flow_yolo, device_ids=list(range(args.number_gpus)))
+            flow_yolo = nn.parallel.DataParallel(flow_yolo, device_ids=list(range(number_gpus)))
             flow_yolo = flow_yolo.cuda()
             torch.cuda.manual_seed(args.seed)
 
