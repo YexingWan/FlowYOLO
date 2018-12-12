@@ -792,7 +792,7 @@ class Darknet(nn.Module):
         #   load weights from yolov3.pth if exists
         #   else, initialize all weights
         if weights_path and os.path.isfile(weights_path):
-            self.module_list.load_state_dict(torch.load('weights_path'))
+            self.module_list.load_state_dict(torch.load(weights_path))
         else:
             print('Weight file is not given or not exits, random initialize')
             self.apply(utils.utils.weights_init_normal)
