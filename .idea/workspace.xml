@@ -2,9 +2,24 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9ff04544-841e-4ebf-8528-543c869fa01e" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/YOLOv3_with_flow.iml" afterPath="$PROJECT_DIR$/.idea/YOLOv3_with_flow.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/flow_networks/channelnorm_package/build/lib.linux-x86_64-3.5/channelnorm_cuda.cpython-35m-x86_64-linux-gnu.so" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/flow_networks/channelnorm_package/channelnorm_cuda.egg-info/PKG-INFO" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/flow_networks/channelnorm_package/channelnorm_cuda.egg-info/SOURCES.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/flow_networks/channelnorm_package/channelnorm_cuda.egg-info/dependency_links.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/flow_networks/channelnorm_package/channelnorm_cuda.egg-info/top_level.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/flow_networks/channelnorm_package/dist/channelnorm_cuda-0.0.0-py3.5-linux-x86_64.egg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/flow_networks/correlation_package/build/lib.linux-x86_64-3.5/correlation_cuda.cpython-35m-x86_64-linux-gnu.so" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/flow_networks/correlation_package/correlation_cuda.egg-info/PKG-INFO" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/flow_networks/correlation_package/correlation_cuda.egg-info/SOURCES.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/flow_networks/correlation_package/correlation_cuda.egg-info/dependency_links.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/flow_networks/correlation_package/correlation_cuda.egg-info/top_level.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/flow_networks/correlation_package/dist/correlation_cuda-0.0.0-py3.5-linux-x86_64.egg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/flow_networks/resample2d_package/build/lib.linux-x86_64-3.5/resample2d_cuda.cpython-35m-x86_64-linux-gnu.so" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/flow_networks/resample2d_package/dist/resample2d_cuda-0.0.0-py3.5-linux-x86_64.egg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/flow_networks/resample2d_package/resample2d_cuda.egg-info/PKG-INFO" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/flow_networks/resample2d_package/resample2d_cuda.egg-info/SOURCES.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/flow_networks/resample2d_package/resample2d_cuda.egg-info/dependency_links.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/flow_networks/resample2d_package/resample2d_cuda.egg-info/top_level.txt" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$USER_HOME$/flownet2-pytorch/.idea/flownet2-pytorch.iml" afterPath="$USER_HOME$/flownet2-pytorch/.idea/flownet2-pytorch.iml" />
       <change type="MODIFICATION" beforePath="$USER_HOME$/flownet2-pytorch/.idea/modules.xml" afterPath="$USER_HOME$/flownet2-pytorch/.idea/modules.xml" />
@@ -19,66 +34,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/models.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="808" column="27" lean-forward="false" selection-start-line="808" selection-start-column="23" selection-end-line="808" selection-end-column="27" />
-              <folding>
-                <element signature="e#0#31#0" expanded="true" />
-                <element signature="e#861#7135#0" expanded="false" />
-                <element signature="e#7178#9867#0" expanded="false" />
-                <element signature="e#7242#7355#0" expanded="false" />
-                <element signature="e#9910#11720#0" expanded="false" />
-                <element signature="e#11766#13862#0" expanded="false" />
-                <element signature="e#13898#16232#0" expanded="false" />
-                <element signature="e#16269#19524#0" expanded="false" />
-                <element signature="e#19642#23071#0" expanded="false" />
-                <element signature="e#23107#23226#0" expanded="false" />
-                <element signature="e#23261#28451#0" expanded="false" />
-                <element signature="e#28524#31327#0" expanded="false" />
-                <element signature="e#29069#30732#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="resample2d.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/flownet/networks/resample2d_package/resample2d.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="690">
-              <caret line="46" column="0" lean-forward="false" selection-start-line="46" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
-              <folding>
-                <element signature="e#0#42#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="channelnorm.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/flow_networks/channelnorm_package/channelnorm.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="30">
-              <caret line="2" column="18" lean-forward="false" selection-start-line="2" selection-start-column="18" selection-end-line="2" selection-end-column="18" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="resample2d.py" pinned="false" current-in-tab="true">
-        <entry file="file://$USER_HOME$/flownet2-pytorch/networks/resample2d_package/resample2d.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="315">
-              <caret line="21" column="0" lean-forward="true" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
-              <folding>
-                <element signature="e#0#42#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -192,10 +148,38 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
+            <path>
+              <item name="YOLOv3_with_flow" type="b2602c69:ProjectViewProjectNode" />
+              <item name="YOLOv3_with_flow" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="YOLOv3_with_flow" type="b2602c69:ProjectViewProjectNode" />
+              <item name="YOLOv3_with_flow" type="462c0819:PsiDirectoryNode" />
+              <item name="flow_networks" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="YOLOv3_with_flow" type="b2602c69:ProjectViewProjectNode" />
+              <item name="YOLOv3_with_flow" type="462c0819:PsiDirectoryNode" />
+              <item name="flow_networks" type="462c0819:PsiDirectoryNode" />
+              <item name="channelnorm_package" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="YOLOv3_with_flow" type="b2602c69:ProjectViewProjectNode" />
+              <item name="YOLOv3_with_flow" type="462c0819:PsiDirectoryNode" />
+              <item name="flow_networks" type="462c0819:PsiDirectoryNode" />
+              <item name="correlation_package" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="YOLOv3_with_flow" type="b2602c69:ProjectViewProjectNode" />
+              <item name="YOLOv3_with_flow" type="462c0819:PsiDirectoryNode" />
+              <item name="flow_networks" type="462c0819:PsiDirectoryNode" />
+              <item name="resample2d_package" type="462c0819:PsiDirectoryNode" />
+            </path>
             <path>
               <item name="YOLOv3_with_flow" type="b2602c69:ProjectViewProjectNode" />
               <item name="flownet2-pytorch" type="462c0819:PsiDirectoryNode" />
@@ -215,7 +199,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -261,19 +244,18 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1680" height="1050" extended-state="0" />
-    <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24358974" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24664225" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32958034" sideWeight="0.502442" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32958034" sideWeight="0.497558" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32958034" sideWeight="0.497558" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -335,23 +317,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="9045">
-          <caret line="622" column="105" lean-forward="false" selection-start-line="622" selection-start-column="105" selection-end-line="622" selection-end-column="105" />
-          <folding>
-            <element signature="e#0#11#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/yolo/config/coco.data">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/config/yolov3.cfg">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
@@ -372,9 +337,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="480">
           <caret line="50" column="11" lean-forward="false" selection-start-line="50" selection-start-column="0" selection-end-line="50" selection-end-column="11" />
-          <folding>
-            <element signature="e#0#31#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -524,7 +486,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -552,9 +513,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="374">
           <caret line="27" column="0" lean-forward="false" selection-start-line="27" selection-start-column="0" selection-end-line="28" selection-end-column="49" />
-          <folding>
-            <element signature="e#0#31#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -572,9 +530,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="319">
           <caret line="61" column="20" lean-forward="false" selection-start-line="61" selection-start-column="8" selection-end-line="61" selection-end-column="20" />
-          <folding>
-            <element signature="e#0#31#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -604,14 +559,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/config/hyper.cfg">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="10" column="14" lean-forward="true" selection-start-line="10" selection-start-column="14" selection-end-line="10" selection-end-column="14" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/config/hyper.cfg" />
     <entry file="file://$PROJECT_DIR$/yolo/config/yolov3.cfg">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="7590">
@@ -745,6 +693,22 @@
           <folding>
             <element signature="e#0#42#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/flownet2-pytorch/networks/resample2d_package/resample2d_cuda.cc">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="17" lean-forward="true" selection-start-line="0" selection-start-column="17" selection-end-line="0" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/flownet2-pytorch/networks/resample2d_package/resample2d_kernel.cu">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="10" column="27" lean-forward="false" selection-start-line="10" selection-start-column="27" selection-end-line="10" selection-end-column="27" />
+          <folding />
         </state>
       </provider>
     </entry>
