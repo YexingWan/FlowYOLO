@@ -18,10 +18,8 @@ import time
 
 import flownet.flowlib as flowlib
 import flownet.models, flownet.losses, flownet.datasets
-from flownet.utils import flow_utils, tools
-
-import yolo.models
-from yolo.utils.parse_config import parse_data_config, parse_model_config
+from utils import flow_utils, tools
+from utils.parse_config import parse_data_config, parse_model_config
 
 
 def built_args():
@@ -141,6 +139,6 @@ def main(args,task):
 
 
 
-if __name__ == "__main__":
-    args = built_args()
-    main(args,task = args.task)
+# if __name__ == "__main__":
+#     args = built_args()
+#     main(args,task = args.task)
