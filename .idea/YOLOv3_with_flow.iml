@@ -7,5 +7,6 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="flownet2-pytorch" />
+    <orderEntry type="module" module-name="PyTorch-YOLOv3" />
   </component>
 </module>
