@@ -1,6 +1,4 @@
-import yolo
 import models
-import flownet
 import torch
 import torch.nn as nn
 import cv2
@@ -14,12 +12,20 @@ import numpy as np
 from tqdm import tqdm
 from glob import glob
 from os.path import *
+import random
 import time
+
+from matplotlib.ticker import NullLocator
+from matplotlib import pyplot as plt
+import matplotlib as mpl
+from matplotlib import patches as patches
+from PIL import Image
 
 import flownet.flowlib as flowlib
 import flownet.models, flownet.losses, flownet.datasets
-from utils import flow_utils, tools
+from utils import flow_utils, tools, utils
 from utils.parse_config import parse_data_config, parse_model_config
+
 
 
 def built_args():
@@ -112,25 +118,98 @@ def test(args):
     pass
 
 
-def inference(args):
-    #dataloader = DataLoader()
+def inference(args,dataloader):
+    # built module
     flow_yolo = models.FlowYOLO(args)
+
+    #load weight
     flow_yolo.load_weights(args.flow_resume, args.yolo_resume)
-    flow_yolo.eval()
+
+    # set cuda
     if torch.cuda.is_available() and args.use_cuda:
         number_gpus=torch.cuda.device_count()
         if number_gpus > 0:
             print("GPU_NUMBER:{}".format(number_gpus))
             flow_yolo = nn.parallel.DataParallel(flow_yolo, device_ids=list(range(number_gpus)))
-            flow_yolo = flow_yolo.cuda()
-            torch.cuda.manual_seed(args.seed)
+            flow_yolo.cuda()
 
-    print(flow_yolo.state_dict().keys())
+    # set to eval mode
+    flow_yolo.eval()
+    classes = utils.load_classes(args.data_names_path)  # Extracts class labels from file
 
+    imgs = []
+    img_detections = []
+    for batch_i, (img_paths, input_imgs) in enumerate(dataloader):
+        if args.cuda:
+            input_imgs = input_imgs.cuda(async=True)
+        # Get detections
 
+        with torch.no_grad():
+            detections = flow_yolo(data = input_imgs, target = None)
+            detections = utils.non_max_suppression(detections, len(classes), args.conf_thres, args.nms_thres)
 
+        # Save image and detections
+        imgs.extend(img_paths)
+        img_detections.extend(detections)
 
+    draw_and_save(imgs,img_detections,classes,args.save)
 
+def draw_and_save(imgs,img_detections,classes,path):
+    cmap = plt.get_cmap('tab20b')
+    colors = [cmap(i) for i in np.linspace(0, 1, 20)]
+    print('\nSaving images:')
+    # Iterate through images and save plot of detections
+    for img_i, (path, detections) in enumerate(zip(imgs, img_detections)):
+
+        print("(%d) Image: '%s'" % (img_i, path))
+
+        # Create plot
+        img = np.array(Image.open(path))
+        print("h:%d w:%d " % (img.shape[0], img.shape[1]))
+        plt.figure()
+        fig, ax = plt.subplots(1)
+        ax.imshow(img)
+
+        # The amount of padding that was added
+        pad_x = max(img.shape[0] - img.shape[1], 0) * (args.inference_size / max(img.shape))
+        pad_y = max(img.shape[1] - img.shape[0], 0) * (args.inference_size / max(img.shape))
+        print("pad_x:%d pad_y:%d " % (pad_x, pad_y))
+
+        # Image height and width after padding is removed
+        unpad_h = args.inference_size - pad_y
+        unpad_w = args.inference_size - pad_x
+
+        # Draw bounding boxes and labels of detections
+        if detections is not None:
+            unique_labels = detections[:, -1].cpu().unique()
+            n_cls_preds = len(unique_labels)
+            bbox_colors = random.sample(colors, n_cls_preds)
+            for x1, y1, x2, y2, conf, cls_conf, cls_pred in detections:
+                print('\t+ Label: %s, Conf: %.5f' % (classes[int(cls_pred)], cls_conf.item()))
+
+                # Rescale coordinates to original dimensions
+                box_h = ((y2 - y1) / unpad_h) * img.shape[0]
+                box_w = ((x2 - x1) / unpad_w) * img.shape[1]
+                y1 = ((y1 - pad_y // 2) / unpad_h) * img.shape[0]
+                x1 = ((x1 - pad_x // 2) / unpad_w) * img.shape[1]
+
+                color = bbox_colors[int(np.where(unique_labels == int(cls_pred))[0])]
+                # Create a Rectangle patch
+                bbox = patches.Rectangle((x1, y1), box_w, box_h, linewidth=2,
+                                         edgecolor=color,
+                                         facecolor='none')
+                # Add the bbox to the plot
+                ax.add_patch(bbox)
+                # Add label
+                plt.text(x1, y1, s=classes[int(cls_pred)], color='white', verticalalignment='top',
+                         bbox={'color': color, 'pad': 0})
+
+        # Save generated image with detections
+        plt.axis('off')
+        plt.gca().xaxis.set_major_locator(NullLocator())
+        plt.gca().yaxis.set_major_locator(NullLocator())
+        plt.savefig('output/%d.png' % (img_i), bbox_inches='tight', pad_inches=0.0)
+        plt.close()
 
     pass
 

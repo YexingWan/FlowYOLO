@@ -767,7 +767,9 @@ class Darknet(nn.Module):
                 if i in [36,61]:
                     output_features.append(x)
                     print("flow aggregate in  L62/37")
-                    x = x + self.flow_warp(forward_feats.popleft(), flow)
+                    f = forward_feats.popleft()
+                    if f:
+                        x = x + self.flow_warp(f, flow)
 
 
             elif module_def["type"] == "yolo":
@@ -811,10 +813,15 @@ class FlowYOLO(nn.Module):
         self.flow_model = args.flow_model_class(args)
         self.detect_model = args.yolo_model_class(args.yolo_config_path)
         self.last_frames = None
-        self.last_feature = 0
+        self.last_feature = deque([0,0])
+        self.args = args
 
 
-    def forward(self, data, target, inference=False):
+    def forward(self, data, target=None):
+        if self.args.task == "train" and not target:
+            print(sys.stderr,"Error: No target in training mode.")
+            exit(1)
+
         # data [batch_size,h,w,3] nparray RGB
         # TODO:
         #   1. pre-processing data: built pairs for flow, first image pairs by last image of last batch
@@ -830,7 +837,7 @@ class FlowYOLO(nn.Module):
             flow_input.append(np.array([data[idx], data[idx+1]]).transpose((3, 0, 1, 2)))
         flow_input = np.array(flow_input).astype(np.float32)
         flow_input = torch.from_numpy(flow_input)
-        _, flows_output = self.flow_model(flow_input)
+        flows_output = self.flow_model(flow_input)
 
         # get the flows list and images list
         flows_list = [flows_output[i].permute(1, 2, 0) for i in range(flows_output.shape[0])]
