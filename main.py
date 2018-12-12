@@ -28,7 +28,7 @@ def built_args():
     parser = argparse.ArgumentParser(argparse.ArgumentParser)
 
     parser.add_argument('--seed', type=int, default=1)
-    parser.add_argument('--task', choices=['train','test','inference'])
+    parser.add_argument('--task', choices=['train','test','inference'], default='inference')
     parser.add_argument("--use_cuda", type=bool, default=True, help="whether to use cuda if available")
     parser.add_argument('--number_gpus', '-ng', type=int, default=-1, help='number of GPUs to use')
     parser.add_argument('--number_workers', '-nw', '--num_workers', type=int, default=8)
@@ -113,7 +113,19 @@ def test(args):
 
 
 def inference(args):
+    dataloader = DataLoader()
     flow_yolo = models.FlowYOLO(args)
+    flow_yolo.load_weights(args.flow_resume, args.yolo_resume)
+    flow_yolo.eval()
+    if torch.cuda.is_available() and args.use_cuda:
+        number_gpus=torch.cuda.device_count()
+        if number_gpus > 0:
+            flow_yolo = nn.parallel.DataParallel(flow_yolo, device_ids=list(range(args.number_gpus)))
+            flow_yolo = flow_yolo.cuda()
+            torch.cuda.manual_seed(args.seed)
+
+
+
 
 
 
