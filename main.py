@@ -71,7 +71,8 @@ def built_args():
     parser.add_argument('--skip_validation', action='store_true')
 
     #--------------------------------------flownet--------------------------------------------
-
+    parser.add_argument('--rgb_max', type=float, default=255.)
+    parser.add_argument('--flow_model', default='FlowNet2CS')
     parser.add_argument('--flow_resume', default='', type=str, metavar='PATH',
                         help='path to latest checkpoint (default: none)')
     parser.add_argument('--save_flow', action='store_true', help='save predicted flows from flownet to file', default=False)
@@ -111,7 +112,7 @@ def test(args):
 
 
 def inference(args):
-    dataloader = DataLoader()
+    #dataloader = DataLoader()
     flow_yolo = models.FlowYOLO(args)
     flow_yolo.load_weights(args.flow_resume, args.yolo_resume)
     flow_yolo.eval()
@@ -138,7 +139,10 @@ def main(args,task):
         inference(args)
 
 
+"""
+python3 main.py --task inference --yolo_config_path "./config/yolov3.cfg" --flow_model "FlowNet2CS" --flow_resume ""
+"""
 
-# if __name__ == "__main__":
-#     args = built_args()
-#     main(args,task = args.task)
+if __name__ == "__main__":
+    args = built_args()
+    main(args,task = args.task)

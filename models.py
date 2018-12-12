@@ -735,7 +735,7 @@ class YOLOLayer(nn.Module):
 class Darknet(nn.Module):
     """YOLOv3 object detection model"""
 
-    def __init__(self,args, config_path, img_size=416):
+    def __init__(self, config_path, img_size=416):
         super(Darknet, self).__init__()
         # list of dictionary of model config
         self.module_defs = parse_model_config(config_path)
@@ -809,7 +809,7 @@ class FlowYOLO(nn.Module):
     def __init__(self, args):
         super(FlowYOLO, self).__init__()
         self.flow_model = args.flow_model_class(args)
-        self.detect_model = args.yolo_model_class(args,args.yolo_config_path)
+        self.detect_model = args.yolo_model_class(args.yolo_config_path)
         self.last_frames = None
         self.last_feature = 0
 
