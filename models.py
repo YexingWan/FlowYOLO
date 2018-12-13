@@ -836,7 +836,7 @@ class FlowYOLO(nn.Module):
         # flow_input:[batch_size,3(channel),2,row_idx,col_idx]
         for idx in range(data.shape[0]):
             images_list.append(data[idx])
-            flow_input.append(torch.Tensor([self.last_frames,data[idx]]).permute(1, 0, 2, 3))
+            flow_input.append(torch.stack([self.last_frames,data[idx]]).permute(1, 0, 2, 3))
             self.last_frames = data[idx]
         flow_input = torch.stack(flow_input)
 
