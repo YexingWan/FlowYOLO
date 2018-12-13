@@ -770,7 +770,7 @@ class Darknet(nn.Module):
                     f = forward_feats.popleft()
                     if isinstance(f,torch.Tensor):
                         # resizing flow by bi-linear  interpolation
-                        x = x + self.flow_warp(
+                        x = 0.7*x + 0.3*self.flow_warp(
                             f,
                             F.interpolate(torch.unsqueeze(flow.permute(2,0,1),0),size=(x.shape[-2],x.shape[-1]),mode="bilinear").permute(0,2,3,1),
                             mode="bilinear")
@@ -837,17 +837,19 @@ class FlowYOLO(nn.Module):
 
         flow_input = []
         images_list = []
+
         # flow_input:[batch_size,3(channel),2,row_idx,col_idx]
         for idx in range(data.shape[0]):
             images_list.append(data[idx])
             flow_input.append(torch.stack([self.last_frames,data[idx]]).permute(1, 0, 2, 3))
             self.last_frames = data[idx]
         flow_input = torch.stack(flow_input)
+        print("flow_net input shape:{}".format(flow_input.shape))
 
         # predict flows, output[batchsize,]
         flows_output = self.flow_model(flow_input)
-
-        # get the flows list and images list
+        print("max_ouput of flow:{}".format(lows_output.max()))
+        # get the flows
         flows_list = [flows_output[i].permute(1, 2, 0) for i in range(flows_output.shape[0])]
 
         results = []

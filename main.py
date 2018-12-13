@@ -162,20 +162,21 @@ def inference(args):
     # for each batch
     for batch_i, (paths, input_imgs) in enumerate(dataloader):
 
-        print("paths_type:{}".format(type(paths)))
-        print("input_imgs_type:{}".format(type(input_imgs)))
+        #print("paths_type:{}".format(type(paths)))
+        #print("input_imgs_type:{}".format(type(input_imgs)))
 
 
         if args.use_cuda:
-            input_imgs = input_imgs.cuda(async=True)
+            input_imgs = input_imgs.cuda()
 
         # Get detections
         s = time.time()
+        print("input_tenser_shape:{}".format(input_imgs.shape))
         with torch.no_grad():
-            detections = flow_yolo(data = input_imgs, target = None)
+            detections = flow_yolo(input_imgs)
             print("thred:{}".format(args.conf_thres))
             detections = utils.non_max_suppression(detections, len(classes), args.conf_thres, args.nms_thres)
-            print(detections)
+
         e = time.time()
         print("forward_time:{}s".format(e-s))
 
