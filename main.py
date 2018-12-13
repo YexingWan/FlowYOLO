@@ -77,7 +77,6 @@ def built_args():
     parser.add_argument('--skip_validation', action='store_true')
 
     #--------------------------------------flownet--------------------------------------------
-    parser.add_argument('--rgb_max', type=float, default=255.)
     parser.add_argument('--flow_model', default='FlowNet2CS')
     parser.add_argument('--flow_resume', default='', type=str, metavar='PATH',
                         help='path to latest checkpoint (default: none)')
@@ -100,9 +99,11 @@ def built_args():
     data_config = parse_data_config(args.data_config_path)
     args.data_test_path = data_config["valid"]
     args.data_train_path = data_config["train"]
+    args.data_infer_path = data_config["infer"]
     args.data_num_classes = int(data_config["classes"])
     args.data_names_path = data_config["names"]
-    args.data_infer_path = data_config["infer"]
+    args.rgb_max=data_config["rgb_max"]
+
     args.fp16=None
 
     return args
@@ -118,7 +119,7 @@ def test(args):
     pass
 
 
-def inference(args,src =''):
+def inference(args):
     # built module
     flow_yolo = models.FlowYOLO(args)
 
@@ -140,12 +141,12 @@ def inference(args,src =''):
     classes = utils.load_classes(args.data_names_path)  # Extracts class labels from file
 
     # init dataset and load cap and writer if source is video
-    if args.camera or (os.path.splitext(src)[-1] in ('.mkv', '.avi', '.mp4', '.rmvb', '.AVI', '.MKV', '.MP4') and os.path.isfile(src)):
+    if args.camera or (os.path.splitext(args.data_infer_path)[-1] in ('.mkv', '.avi', '.mp4', '.rmvb', '.AVI', '.MKV', '.MP4') and os.path.isfile(args.data_infer_path)):
         dataset = datasets.VideoFile(args,src = args.data_infer_path, camera =args.camera)
         if args.camera:
             cap = cv2.VideoCapture(0)
         else:
-            cap = cv2.VideoCapture(src)
+            cap = cv2.VideoCapture(args.data_infer_path)
 
         v_writer = cv2.VideoWriter("output/result.avi",
                                    apiPreference=cv2.CAP_ANY,
@@ -163,7 +164,7 @@ def inference(args,src =''):
 
     # for each batch
     for batch_i, (paths, input_imgs) in enumerate(dataloader):
-        if args.cuda:
+        if args.use_cuda:
             input_imgs = input_imgs.cuda(async=True)
 
         # Get detections
@@ -273,7 +274,7 @@ def main(args,task):
 
 
 """
-python3 main.py --task inference --yolo_config_path "./config/yolov3.cfg" --flow_model "FlowNet2CS" --flow_resume ""
+python3 main.py --task inference --yolo_config_path "./config/yolov3.cfg" "--yolo_resume "yolo_weight/yolov3.pth" --flow_model "FlowNet2CS" --flow_resume "flow_weight/FlowNet2-CS_checkpoint.pth"
 """
 
 if __name__ == "__main__":
