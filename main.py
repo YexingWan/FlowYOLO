@@ -269,7 +269,7 @@ def draw_and_save(args,source,img_detections,classes,v_writer = None):
             data = data.reshape(fig.canvas.get_width_height()[::-1] + (3,))
             v_writer.write(data)
         else:
-            plt.savefig('output/%s%06d.png' % (img_i), bbox_inches='tight', pad_inches=0.0)
+            plt.savefig('output/%s_%06d.png' % (str(os.path.split(source)[-1]).split(".")[0],img_i), bbox_inches='tight', pad_inches=0.0)
             plt.close()
 
 
