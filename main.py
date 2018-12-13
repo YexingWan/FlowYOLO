@@ -102,7 +102,7 @@ def built_args():
     args.data_infer_path = data_config["infer"]
     args.data_num_classes = int(data_config["classes"])
     args.data_names_path = data_config["names"]
-    args.rgb_max=data_config["rgb_max"]
+    args.rgb_max=int(data_config["rgb_max"])
 
     args.fp16=None
 
