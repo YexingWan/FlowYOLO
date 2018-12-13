@@ -270,7 +270,7 @@ def draw_and_save(args,source,img_detections,classes,v_writer = None):
                                            apiPreference=cv2.CAP_ANY,
                                            fourcc=cv2.VideoWriter_fourcc(*'MJPG'),
                                            fps=int(args.fps),
-                                           frameSize=data.shape[:-1])
+                                           frameSize=(data.shape[1],data.shape[0]))
                 print("data_shape:{}".format(data.shape))
                 v_writer.write(data)
 
