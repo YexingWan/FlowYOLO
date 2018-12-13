@@ -173,7 +173,9 @@ def inference(args):
         s = time.time()
         with torch.no_grad():
             detections = flow_yolo(data = input_imgs, target = None)
+            print("thred:{}".format(args.conf_thres))
             detections = utils.non_max_suppression(detections, len(classes), args.conf_thres, args.nms_thres)
+            print(detections)
         e = time.time()
         print("forward_time:{}s".format(e-s))
 
