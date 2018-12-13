@@ -850,6 +850,7 @@ class FlowYOLO(nn.Module):
         flows_output = self.flow_model(flow_input)
         print("max_ouput of flow:{}".format(flows_output.max()))
         print("mean_ouput of flow:{}".format(flows_output.mean()))
+        print(flows_output)
         # get the flows
         flows_list = [flows_output[i].permute(1, 2, 0) for i in range(flows_output.shape[0])]
 
