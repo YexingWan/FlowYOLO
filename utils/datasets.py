@@ -11,10 +11,9 @@ from skimage.transform import resize
 
 
 class VideoFile(Dataset):
-    def __init__(self,args, image_size = 416, src = '',camera = False, gap = 1, start = 0, duration = -1):
+    def __init__(self,args, image_size = 448, src = '',camera = False, gap = 1, start = 0, duration = -1):
         self.args = args
         self.src = src if not self.camera else ""
-        self.crop_size = args.crop_size
         self.gap = gap if not self.camera else -1
         self.camera = camera
 
@@ -27,7 +26,7 @@ class VideoFile(Dataset):
             self.camera = True
             self.cap = cv2.VideoCapture(0)
         else:
-            print(sys.stderr, "ERROR: Video {} is not exist or with wrong path.".format(root))
+            print(sys.stderr, "ERROR: Video {} is not exist or with wrong path.".format(src))
             quit(1)
 
         # Video
@@ -65,7 +64,10 @@ class VideoFile(Dataset):
             quit(1)
             return
 
-        args.inference_size = tuple(self.image_size,self.image_size)
+        self.img_shape = (image_size,image_size)
+        args.inference_size = self.img_shape
+        args.fps = self.fps
+        args.frame_size = self.frame_size
         return
 
 
@@ -74,35 +76,27 @@ class VideoFile(Dataset):
             index = index + self.start_frame
             # get 2 frame with gap set
             self.cap.set(cv2.CAP_PROP_POS_FRAMES,index)
-            ret1, img1 = self.cap.read()
-            self.cap.set(cv2.CAP_PROP_POS_FRAMES, index+self.gap)
-            ret2, img2 = self.cap.read()
+            ret, img = self.cap.read()
         else:
-            ret1, img1 = self.cap.read()
-            ret2, img2 = self.cap.read()
+            ret, img = self.cap.read()
 
-        if ret1 and ret2:
-            """
-            image_size = img1.shape[:2]
-            rgb1 = cv2.cvtColor(img1, cv2.COLOR_BGR2RGB)
-            rgb2 = cv2.cvtColor(img2, cv2.COLOR_BGR2RGB)
-            images = [rgb1, rgb2]
-            # if require crop, the frame is random crop to crop_size (256*256 default)
-            # in reference, is_crop default false
-            #print("render_size:{}".format(self.render_size))
-            images = [cv2.resize(img,dsize=(self.render_size[1],self.render_size[0]),interpolation=cv2.INTER_LINEAR) for img in images]
+        if ret:
+            h, w, _ = img.shape
+            dim_diff = np.abs(h - w)
+            # Upper (left) and lower (right) padding
+            pad1, pad2 = dim_diff // 2, dim_diff - dim_diff // 2
+            # Determine padding
+            pad = ((pad1, pad2), (0, 0), (0, 0)) if h <= w else ((0, 0), (pad1, pad2), (0, 0))
+            # Add padding(127.5)
+            input_img = np.pad(img, pad, 'constant', constant_values=127.5)
+            # Resize
+            input_img = resize(input_img, (*self.img_shape, 3), mode='reflect')
+            # Channels-first
+            input_img = np.transpose(input_img, (2, 0, 1))
+            # As pytorch tensor
+            input_img = torch.from_numpy(input_img).float()
 
-            #print("final_input_size:{}".format(images[0].shape))
-
-            # images[channel,2,row_idx,col_idx]
-            images = np.array(images).transpose(3, 0, 1, 2)
-            images = torch.from_numpy(images.astype(np.float32))
-            fake_flow = torch.zeros((2,)+images.size()[-2:])
-            #print("fack_flow_size:{}".format(fake_flow.size()))
-            """
-            pass
-
-            #return images, fake_flow
+            return None,input_img
         else:
             print(sys.stderr, "ERROR: try to get frames{} and {}. But video {} only has {} frames.".format(index,index+self.gap,self.src,self.frames_num))
             exit(1)
@@ -121,12 +115,9 @@ class VideoFile(Dataset):
 
 
 
-
-
-
 # one sequence one dataset
 class SequenceImage(Dataset):
-    def __init__(self, folder_path, img_size=416):
+    def __init__(self, folder_path, img_size=448):
         self.files = sorted(glob.glob('%s/*.*' % folder_path))
         self.img_shape = (img_size, img_size)
 
@@ -140,9 +131,9 @@ class SequenceImage(Dataset):
         pad1, pad2 = dim_diff // 2, dim_diff - dim_diff // 2
         # Determine padding
         pad = ((pad1, pad2), (0, 0), (0, 0)) if h <= w else ((0, 0), (pad1, pad2), (0, 0))
-        # Add padding
-        input_img = np.pad(img, pad, 'constant', constant_values=127.5) / 255.
-        # Resize and normalize
+        # Add padding (127.5)
+        input_img = np.pad(img, pad, 'constant', constant_values=127.5)
+        # Resize
         input_img = resize(input_img, (*self.img_shape, 3), mode='reflect')
         # Channels-first
         input_img = np.transpose(input_img, (2, 0, 1))

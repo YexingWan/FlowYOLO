@@ -513,7 +513,7 @@ class VideoFile(data.Dataset):
 
             #print("final_input_size:{}".format(images[0].shape))
 
-            # images[channel,2,row_idx,col_idx]
+            # images[3,2,row_idx,col_idx] channel-first
             images = np.array(images).transpose(3, 0, 1, 2)
             images = torch.from_numpy(images.astype(np.float32))
             fake_flow = torch.zeros((2,)+images.size()[-2:])

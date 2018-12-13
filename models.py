@@ -735,7 +735,7 @@ class YOLOLayer(nn.Module):
 class Darknet(nn.Module):
     """YOLOv3 object detection model"""
 
-    def __init__(self, config_path, img_size=416):
+    def __init__(self, config_path, img_size=448):
         super(Darknet, self).__init__()
         # list of dictionary of model config
         self.module_defs = parse_model_config(config_path)
@@ -751,7 +751,7 @@ class Darknet(nn.Module):
         self.losses = defaultdict(float)
         layer_outputs = []
         output_features = deque()
-
+        x = x/255.
         for i, (module_def, module) in enumerate(zip(self.module_defs, self.module_list)):
             if module_def["type"] in ["convolutional", "upsample", "maxpool"]:
                 x = module(x)
@@ -818,11 +818,12 @@ class FlowYOLO(nn.Module):
 
 
     def forward(self, data, target=None):
+        # data is a torch Tensor [b,3,h,w]
         if self.args.task == "train" and not target:
             print(sys.stderr,"Error: No target in training mode.")
             exit(1)
 
-        # data [batch_size,h,w,3] nparray RGB
+        # data [batch_size,3,h,w] nparray RGB
         # TODO:
         #   1. pre-processing data: built pairs for flow, first image pairs by last image of last batch
         #   2. batch input to flowNet -> get flow
@@ -831,18 +832,20 @@ class FlowYOLO(nn.Module):
             self.last_frames = data[0]
 
         flow_input = []
+        images_list = []
         # flow_input:[batch_size,3(channel),2,row_idx,col_idx]
-        flow_input.append(np.array([self.last_frames,data[0]]).transpose((3, 0, 1, 2)))
-        for idx in range(data.shape[0]-1):
-            flow_input.append(np.array([data[idx], data[idx+1]]).transpose((3, 0, 1, 2)))
-        flow_input = np.array(flow_input).astype(np.float32)
-        flow_input = torch.from_numpy(flow_input)
+        for idx in range(data.shape[0]):
+            images_list.append(data[idx])
+            flow_input.append(torch.Tensor([self.last_frames,data[idx]]).permute(1, 0, 2, 3))
+            self.last_frames = data[idx]
+        flow_input = torch.stack(flow_input)
+
+        # predict flows, output[batchsize,]
         flows_output = self.flow_model(flow_input)
 
         # get the flows list and images list
         flows_list = [flows_output[i].permute(1, 2, 0) for i in range(flows_output.shape[0])]
-        images_list = [data[i] for i in range(data.shape[0])]
-        self.last_frames = data[-1]
+
         results = []
         for i in range(data.shape[0]):
             result, features = self.detect_model(torch.unsqueeze(images_list[i],0),forward_feat=self.last_feature,flow=flows_list[i])

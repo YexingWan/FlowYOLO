@@ -23,7 +23,7 @@ from PIL import Image
 
 import flownet.flowlib as flowlib
 import flownet.models, flownet.losses, flownet.datasets
-from utils import flow_utils, tools, utils
+from utils import flow_utils, tools, utils, datasets
 from utils.parse_config import parse_data_config, parse_model_config
 
 
@@ -53,7 +53,7 @@ def built_args():
     parser.add_argument('--schedule_lr_frequency', type=int, default=0,
                         help='in number of iterations (0 for no schedule)')
     parser.add_argument('--schedule_lr_fraction', type=float, default=10)
-    parser.add_argument('--crop_size', type=int, nargs='+', default=[416, 416],
+    parser.add_argument('--crop_size', type=int, nargs='+', default=[448, 448],
                         help="Spatial dimension to crop training samples for training")
     parser.add_argument('--learning_rate', type=float, default=0.0001,help="Learning rate for edn-to-end traning")
     parser.add_argument('--momentum', type=float, default=0.9,help="Momentum for edn-to-end traning")
@@ -63,7 +63,7 @@ def built_args():
     parser.add_argument('--inference_batch_size', type=int, default=8)
     parser.add_argument('--inference_n_batches', type=int, default=-1,
                         help='Number of min-batches for inference. If < 0, it will be determined by training_dataloader')
-    parser.add_argument('--inference_size', type=int, nargs='+', default=[416, 416],
+    parser.add_argument('--inference_size', type=int, nargs='+', default=[448, 448],
                         help='image size for inference by flownet, image will resize to such size')
     parser.add_argument('--aggregate_range', type=int, default=2)
 
@@ -118,7 +118,7 @@ def test(args):
     pass
 
 
-def inference(args,dataloader):
+def inference(args,src =''):
     # built module
     flow_yolo = models.FlowYOLO(args)
 
@@ -135,37 +135,76 @@ def inference(args,dataloader):
 
     # set to eval mode
     flow_yolo.eval()
+
+    # load classes labels
     classes = utils.load_classes(args.data_names_path)  # Extracts class labels from file
 
-    imgs = []
-    img_detections = []
-    for batch_i, (img_paths, input_imgs) in enumerate(dataloader):
+    # init dataset and load cap and writer if source is video
+    if args.camera or (os.path.splitext(src)[-1] in ('.mkv', '.avi', '.mp4', '.rmvb', '.AVI', '.MKV', '.MP4') and os.path.isfile(src)):
+        dataset = datasets.VideoFile(args,src = args.data_infer_path, camera =args.camera)
+        if args.camera:
+            cap = cv2.VideoCapture(0)
+        else:
+            cap = cv2.VideoCapture(src)
+
+        v_writer = cv2.VideoWriter("output/result.avi",
+                                   apiPreference=cv2.CAP_ANY,
+                                   fourcc=cv2.VideoWriter_fourcc(*'MJPG'),
+                                   fps=int(args.fps),
+                                   frameSize=(args.frame_size[1], args.frame_size[0]))
+
+    else:
+        dataset = datasets.SequenceImage(folder_path=args.data_infer_path)
+        cap = None
+        v_writer= None
+
+    # init data loader
+    dataloader = DataLoader(dataset,batch_size=args.inference_batch_size)
+
+    # for each batch
+    for batch_i, (paths, input_imgs) in enumerate(dataloader):
         if args.cuda:
             input_imgs = input_imgs.cuda(async=True)
-        # Get detections
 
+        # Get detections
         with torch.no_grad():
             detections = flow_yolo(data = input_imgs, target = None)
             detections = utils.non_max_suppression(detections, len(classes), args.conf_thres, args.nms_thres)
 
-        # Save image and detections
-        imgs.extend(img_paths)
-        img_detections.extend(detections)
+        # Save image and detections depends on type of source
+        if cap and v_writer:
+            draw_and_save(args,
+                          [cap.read()[1] for _ in range(args.inference_batch_size)],
+                          detections,
+                          classes,
+                          v_writer)
+        else:
+            if paths:
+                draw_and_save(args,
+                              paths,
+                              detections,
+                              classes)
+            else:
+                print(sys.stderr,"Error: something wrong with dataloader, loss image path.")
 
-    draw_and_save(imgs,img_detections,classes,args.save)
 
-def draw_and_save(imgs,img_detections,classes,path):
+def draw_and_save(args,source,img_detections,classes,v_writer = None):
     cmap = plt.get_cmap('tab20b')
     colors = [cmap(i) for i in np.linspace(0, 1, 20)]
-    print('\nSaving images:')
-    # Iterate through images and save plot of detections
-    for img_i, (path, detections) in enumerate(zip(imgs, img_detections)):
 
-        print("(%d) Image: '%s'" % (img_i, path))
+
+    print('\nSaving result:')
+    # Iterate through images and save plot of detections
+    for img_i, (source, detections) in enumerate(zip(source, img_detections)):
+
+        #print("(%d) Image: '%s'" % (img_i, path))
 
         # Create plot
-        img = np.array(Image.open(path))
-        print("h:%d w:%d " % (img.shape[0], img.shape[1]))
+        if isinstance(source,str):
+            img = np.array(Image.open(source))
+        else:
+            img = source
+        #print("h:%d w:%d " % (img.shape[0], img.shape[1]))
         plt.figure()
         fig, ax = plt.subplots(1)
         ax.imshow(img)
@@ -173,7 +212,7 @@ def draw_and_save(imgs,img_detections,classes,path):
         # The amount of padding that was added
         pad_x = max(img.shape[0] - img.shape[1], 0) * (args.inference_size / max(img.shape))
         pad_y = max(img.shape[1] - img.shape[0], 0) * (args.inference_size / max(img.shape))
-        print("pad_x:%d pad_y:%d " % (pad_x, pad_y))
+        #print("pad_x:%d pad_y:%d " % (pad_x, pad_y))
 
         # Image height and width after padding is removed
         unpad_h = args.inference_size - pad_y
@@ -185,7 +224,7 @@ def draw_and_save(imgs,img_detections,classes,path):
             n_cls_preds = len(unique_labels)
             bbox_colors = random.sample(colors, n_cls_preds)
             for x1, y1, x2, y2, conf, cls_conf, cls_pred in detections:
-                print('\t+ Label: %s, Conf: %.5f' % (classes[int(cls_pred)], cls_conf.item()))
+                #print('\t+ Label: %s, Conf: %.5f' % (classes[int(cls_pred)], cls_conf.item()))
 
                 # Rescale coordinates to original dimensions
                 box_h = ((y2 - y1) / unpad_h) * img.shape[0]
@@ -208,10 +247,21 @@ def draw_and_save(imgs,img_detections,classes,path):
         plt.axis('off')
         plt.gca().xaxis.set_major_locator(NullLocator())
         plt.gca().yaxis.set_major_locator(NullLocator())
-        plt.savefig('output/%d.png' % (img_i), bbox_inches='tight', pad_inches=0.0)
-        plt.close()
 
-    pass
+
+        if v_writer and v_writer.isOpened():
+            # If we haven't already shown or saved the plot, then we need to
+            # draw the figure first...
+            fig.canvas.draw()
+
+            # Now we can save it to a numpy array.
+            data = np.fromstring(fig.canvas.tostring_rgb(), dtype=np.uint8, sep='')
+            data = data.reshape(fig.canvas.get_width_height()[::-1] + (3,))
+            v_writer.write(data)
+        else:
+            plt.savefig('output/%s%06d.png' % (img_i), bbox_inches='tight', pad_inches=0.0)
+            plt.close()
+
 
 def main(args,task):
     if task == "train":
