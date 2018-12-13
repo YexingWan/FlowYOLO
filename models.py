@@ -832,7 +832,7 @@ class FlowYOLO(nn.Module):
         #   1. pre-processing data: built pairs for flow, first image pairs by last image of last batch
         #   2. batch input to flowNet -> get flow
         #   3. sequence input to yolo and get result
-        if not self.last_frames:
+        if self.last_frames is None:
             self.last_frames = data[0]
 
         flow_input = []
