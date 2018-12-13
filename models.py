@@ -856,12 +856,15 @@ class FlowYOLO(nn.Module):
         return torch.cat(results,0)
 
     def load_weights(self, flow_weights_path=None, yolo_weights_path=None):
+        print("flow_weigth: {}".format(flow_weights_path))
+        print("yolo_weights: {}".format(yolo_weights_path))
+
         # load flownet weight
         if flow_weights_path and os.path.isfile(flow_weights_path):
             self.flow_model.load_state_dict(torch.load(flow_weights_path))
 
         elif flow_weights_path:
-            print(sys.stderr,"flowNet no checkpoint finded")
+            print(sys.stderr,"Error: flowNet no checkpoint finded")
             exit(1)
         else:
             print("Random initialization")
