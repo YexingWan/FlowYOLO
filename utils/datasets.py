@@ -96,7 +96,7 @@ class VideoFile(Dataset):
             # As pytorch tensor
             input_img = torch.from_numpy(input_img).float()
 
-            return [None],input_img
+            return "ignore",input_img
         else:
             print(sys.stderr, "ERROR: try to get frames{} and {}. But video {} only has {} frames.".format(index,index+self.gap,self.src,self.frames_num))
             exit(1)

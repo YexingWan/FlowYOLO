@@ -164,7 +164,7 @@ def inference(args):
 
     # for each batch
     for batch_i, (paths, input_imgs) in enumerate(dataloader):
-        
+
         print("paths_type:{}".format(type(paths)))
         print("input_imgs_type:{}".format(type(input_imgs)))
 
