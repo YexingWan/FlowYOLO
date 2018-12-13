@@ -13,24 +13,24 @@ from skimage.transform import resize
 class VideoFile(Dataset):
     def __init__(self,args, image_size = 448, src = '',camera = False, gap = 1, start = 0, duration = -1):
         self.args = args
+        self.camera = camera
         self.src = src if not self.camera else ""
         self.gap = gap if not self.camera else -1
-        self.camera = camera
 
-        if (not camera) and src:
+
+        if (not self.camera) and src:
             ext = os.path.splitext(src)[-1]
             ext_set = ('.mkv', '.avi', '.mp4', '.rmvb', '.AVI', '.MKV', '.MP4')
             if os.path.isfile(src) and ext in ext_set:
                 self.cap = cv2.VideoCapture(src)
-        elif camera:
-            self.camera = True
+        elif self.camera:
             self.cap = cv2.VideoCapture(0)
         else:
             print(sys.stderr, "ERROR: Video {} is not exist or with wrong path.".format(src))
             quit(1)
 
         # Video
-        if not camera and self.cap.isOpened():
+        if not self.camera and self.cap.isOpened():
             self.frames_num = int(self.cap.get(cv2.CAP_PROP_FRAME_COUNT))
             self.fps = int(self.cap.get(cv2.CAP_PROP_FPS))
             self.frame_size = (self.cap.get(cv2.CAP_PROP_FRAME_HEIGHT),self.cap.get(cv2.CAP_PROP_FRAME_WIDTH))
@@ -48,7 +48,7 @@ class VideoFile(Dataset):
             self.start_frame = floor(self.start * self.fps)
 
         # Camera
-        elif camera and self.cap.isOpened():
+        elif self.camera and self.cap.isOpened():
             self.fps = int(self.cap.get(cv2.CAP_PROP_FPS))
             self.frame_size = (self.cap.get(cv2.CAP_PROP_FRAME_HEIGHT),self.cap.get(cv2.CAP_PROP_FRAME_WIDTH))
             # set range of video to infer
