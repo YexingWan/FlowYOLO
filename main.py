@@ -220,13 +220,13 @@ def draw_and_save(args,source,img_detections,classes,v_writer = None):
         ax.imshow(img)
 
         # The amount of padding that was added
-        pad_x = max(img.shape[0] - img.shape[1], 0) * (args.inference_size / max(img.shape))
-        pad_y = max(img.shape[1] - img.shape[0], 0) * (args.inference_size / max(img.shape))
+        pad_x = max(img.shape[0] - img.shape[1], 0) * (args.inference_size[1] / max(img.shape))
+        pad_y = max(img.shape[1] - img.shape[0], 0) * (args.inference_size[0] / max(img.shape))
         #print("pad_x:%d pad_y:%d " % (pad_x, pad_y))
 
         # Image height and width after padding is removed
-        unpad_h = args.inference_size - pad_y
-        unpad_w = args.inference_size - pad_x
+        unpad_h = args.inference_size[0] - pad_y
+        unpad_w = args.inference_size[1] - pad_x
 
         # Draw bounding boxes and labels of detections
         if detections is not None:
