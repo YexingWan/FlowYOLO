@@ -735,7 +735,7 @@ class YOLOLayer(nn.Module):
 class Darknet(nn.Module):
     """YOLOv3 object detection model"""
 
-    def __init__(self,args, config_path, img_size=416):
+    def __init__(self, config_path, img_size=448):
         super(Darknet, self).__init__()
         # list of dictionary of model config
         self.module_defs = parse_model_config(config_path)
@@ -751,7 +751,7 @@ class Darknet(nn.Module):
         self.losses = defaultdict(float)
         layer_outputs = []
         output_features = deque()
-
+        x = x/255.
         for i, (module_def, module) in enumerate(zip(self.module_defs, self.module_list)):
             if module_def["type"] in ["convolutional", "upsample", "maxpool"]:
                 x = module(x)
@@ -767,7 +767,9 @@ class Darknet(nn.Module):
                 if i in [36,61]:
                     output_features.append(x)
                     print("flow aggregate in  L62/37")
-                    x = x + self.flow_warp(forward_feats.popleft(), flow)
+                    f = forward_feats.popleft()
+                    if f:
+                        x = x + self.flow_warp(f, flow)
 
 
             elif module_def["type"] == "yolo":
@@ -792,7 +794,7 @@ class Darknet(nn.Module):
         #   load weights from yolov3.pth if exists
         #   else, initialize all weights
         if weights_path and os.path.isfile(weights_path):
-            self.module_list.load_state_dict(torch.load('weights_path'))
+            self.module_list.load_state_dict(torch.load(weights_path))
         else:
             print('Weight file is not given or not exits, random initialize')
             self.apply(utils.utils.weights_init_normal)
@@ -809,13 +811,19 @@ class FlowYOLO(nn.Module):
     def __init__(self, args):
         super(FlowYOLO, self).__init__()
         self.flow_model = args.flow_model_class(args)
-        self.detect_model = args.yolo_model_class(args,args.yolo_config_path)
+        self.detect_model = args.yolo_model_class(args.yolo_config_path)
         self.last_frames = None
-        self.last_feature = 0
+        self.last_feature = deque([0,0])
+        self.args = args
 
 
-    def forward(self, data, target, inference=False):
-        # data [batch_size,h,w,3] nparray RGB
+    def forward(self, data, target=None):
+        # data is a torch Tensor [b,3,h,w]
+        if self.args.task == "train" and not target:
+            print(sys.stderr,"Error: No target in training mode.")
+            exit(1)
+
+        # data [batch_size,3,h,w] nparray RGB
         # TODO:
         #   1. pre-processing data: built pairs for flow, first image pairs by last image of last batch
         #   2. batch input to flowNet -> get flow
@@ -824,18 +832,20 @@ class FlowYOLO(nn.Module):
             self.last_frames = data[0]
 
         flow_input = []
+        images_list = []
         # flow_input:[batch_size,3(channel),2,row_idx,col_idx]
-        flow_input.append(np.array([self.last_frames,data[0]]).transpose((3, 0, 1, 2)))
-        for idx in range(data.shape[0]-1):
-            flow_input.append(np.array([data[idx], data[idx+1]]).transpose((3, 0, 1, 2)))
-        flow_input = np.array(flow_input).astype(np.float32)
-        flow_input = torch.from_numpy(flow_input)
-        _, flows_output = self.flow_model(flow_input)
+        for idx in range(data.shape[0]):
+            images_list.append(data[idx])
+            flow_input.append(torch.Tensor([self.last_frames,data[idx]]).permute(1, 0, 2, 3))
+            self.last_frames = data[idx]
+        flow_input = torch.stack(flow_input)
+
+        # predict flows, output[batchsize,]
+        flows_output = self.flow_model(flow_input)
 
         # get the flows list and images list
         flows_list = [flows_output[i].permute(1, 2, 0) for i in range(flows_output.shape[0])]
-        images_list = [data[i] for i in range(data.shape[0])]
-        self.last_frames = data[-1]
+
         results = []
         for i in range(data.shape[0]):
             result, features = self.detect_model(torch.unsqueeze(images_list[i],0),forward_feat=self.last_feature,flow=flows_list[i])
@@ -846,18 +856,21 @@ class FlowYOLO(nn.Module):
         return torch.cat(results,0)
 
     def load_weights(self, flow_weights_path=None, yolo_weights_path=None):
+        print("flow_weigth: {}".format(flow_weights_path))
+        print("yolo_weights: {}".format(yolo_weights_path))
+
         # load flownet weight
         if flow_weights_path and os.path.isfile(flow_weights_path):
-            checkpoint = torch.load(flow_weights_path)
-            self.flow_model.load_state_dict(checkpoint['state_dict'])
+            self.flow_model.load_state_dict(torch.load(flow_weights_path))
 
         elif flow_weights_path:
-            print(sys.stderr,"flowNet no checkpoint finded")
+            print(sys.stderr,"Error: flowNet no checkpoint finded")
             exit(1)
         else:
             print("Random initialization")
         # load yolo weight
         self.detect_model.load_weights(weights_path=yolo_weights_path)
+
 
     def save_weights(self, path):
         torch.save(self.flow_model.state_dict(),os.path.join(path,"flow.pth"))
