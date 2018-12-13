@@ -770,7 +770,7 @@ class Darknet(nn.Module):
                     f = forward_feats.popleft()
                     if isinstance(f,torch.Tensor):
                         # resizing flow by bi-linear  interpolation
-                        x = x + self.flow_warp(f, F.interpolate(flow,(x.shape[-2],x.shape[-1],2)),mode="bilinear")
+                        x = x + self.flow_warp(f, torch.squeeze(F.interpolate(torch.unsqueeze(flow,0),size=(x.shape[-2],x.shape[-1])),mode="bilinear"))
 
 
             elif module_def["type"] == "yolo":
