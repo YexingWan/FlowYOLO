@@ -853,7 +853,7 @@ class FlowYOLO(nn.Module):
         results = []
         for i in range(data.shape[0]):
             result, features = self.detect_model(torch.unsqueeze(images_list[i],0),forward_feats=self.last_feature,flow=flows_list[i])
-            results.append(results)
+            results.append(result)
             self.last_feature = features
 
         # concat all output by batch_dim
