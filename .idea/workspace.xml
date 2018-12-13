@@ -76,8 +76,8 @@
       <file leaf-file-name="main.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="747">
-              <caret line="276" column="181" lean-forward="false" selection-start-line="276" selection-start-column="0" selection-end-line="277" selection-end-column="0" />
+            <state relative-caret-position="635">
+              <caret line="154" column="61" lean-forward="false" selection-start-line="154" selection-start-column="51" selection-end-line="154" selection-end-column="61" />
               <folding>
                 <element signature="e#0#13#0" expanded="true" />
                 <element signature="e#6131#6383#0" expanded="false" />
@@ -89,11 +89,11 @@
       <file leaf-file-name="datasets.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/utils/datasets.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1097">
-              <caret line="26" column="42" lean-forward="true" selection-start-line="26" selection-start-column="42" selection-end-line="26" selection-end-column="42" />
+            <state relative-caret-position="299">
+              <caret line="69" column="41" lean-forward="false" selection-start-line="69" selection-start-column="31" selection-end-line="69" selection-end-column="41" />
               <folding>
                 <element signature="e#0#20#0" expanded="true" />
-                <element signature="e#5457#8247#0" expanded="false" />
+                <element signature="e#5477#8267#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -131,8 +131,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>ap</find>
-      <find>app</find>
       <find>load</find>
       <find>weight</find>
       <find>init</find>
@@ -161,6 +159,8 @@
       <find>chan</find>
       <find>filter</find>
       <find>checkpoint</find>
+      <find>camera</find>
+      <find>frame_size</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -738,8 +738,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="747">
-          <caret line="276" column="181" lean-forward="false" selection-start-line="276" selection-start-column="0" selection-end-line="277" selection-end-column="0" />
+        <state relative-caret-position="635">
+          <caret line="154" column="61" lean-forward="false" selection-start-line="154" selection-start-column="51" selection-end-line="154" selection-end-column="61" />
           <folding>
             <element signature="e#0#13#0" expanded="true" />
             <element signature="e#6131#6383#0" expanded="false" />
@@ -749,11 +749,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/utils/datasets.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1097">
-          <caret line="26" column="42" lean-forward="true" selection-start-line="26" selection-start-column="42" selection-end-line="26" selection-end-column="42" />
+        <state relative-caret-position="299">
+          <caret line="69" column="41" lean-forward="false" selection-start-line="69" selection-start-column="31" selection-end-line="69" selection-end-column="41" />
           <folding>
             <element signature="e#0#20#0" expanded="true" />
-            <element signature="e#5457#8247#0" expanded="false" />
+            <element signature="e#5477#8267#0" expanded="false" />
           </folding>
         </state>
       </provider>

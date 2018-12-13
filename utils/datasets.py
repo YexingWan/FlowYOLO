@@ -33,7 +33,7 @@ class VideoFile(Dataset):
         if not self.camera and self.cap.isOpened():
             self.frames_num = int(self.cap.get(cv2.CAP_PROP_FRAME_COUNT))
             self.fps = int(self.cap.get(cv2.CAP_PROP_FPS))
-            self.frame_size = (self.cap.get(cv2.CAP_PROP_FRAME_HEIGHT),self.cap.get(cv2.CAP_PROP_FRAME_WIDTH))
+            self.frame_size = (int(self.cap.get(cv2.CAP_PROP_FRAME_HEIGHT)),int(self.cap.get(cv2.CAP_PROP_FRAME_WIDTH)))
 
             # set range of video to infer
             start = 0 if start < 0 else start
@@ -50,7 +50,7 @@ class VideoFile(Dataset):
         # Camera
         elif self.camera and self.cap.isOpened():
             self.fps = int(self.cap.get(cv2.CAP_PROP_FPS))
-            self.frame_size = (self.cap.get(cv2.CAP_PROP_FRAME_HEIGHT),self.cap.get(cv2.CAP_PROP_FRAME_WIDTH))
+            self.frame_size = (int(self.cap.get(cv2.CAP_PROP_FRAME_HEIGHT)),int(self.cap.get(cv2.CAP_PROP_FRAME_WIDTH)))
             # set range of video to infer
             self.start = 0
             if duration<=0:
