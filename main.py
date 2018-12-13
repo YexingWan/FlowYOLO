@@ -87,7 +87,7 @@ def built_args():
 
     parser.add_argument("--yolo_config_path", type=str, default="config/yolov3.cfg", help="path to model config file")
     parser.add_argument("--yolo_resume", type=str, default="weights/yolov3.weights", help="path to weights file")
-    parser.add_argument("--conf_thres", type=float, default=0.0000001, help="object confidence threshold")
+    parser.add_argument("--conf_thres", type=float, default=0.0001, help="object confidence threshold")
     parser.add_argument("--nms_thres", type=float, default=0.8, help="iou thresshold for non-maximum suppression")
     parser.add_argument("--iou_thres", type=float, default=0.2, help="iou threshold required to qualify as detected")
     args = parser.parse_args()
