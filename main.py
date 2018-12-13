@@ -178,9 +178,9 @@ def inference(args):
         print("forward_time:{}s".format(e-s))
 
         # Save image and detections depends on type of source
-        if cap and v_writer:
+        if cap is not None and v_writer is not None:
             print("save result as video")
-            draw_and_save(args,
+            v_writer = draw_and_save(args,
                           [cap.read()[1] for _ in range(args.inference_batch_size)],
                           detections,
                           classes,
@@ -277,7 +277,7 @@ def draw_and_save(args,source,img_detections,classes,v_writer = None):
         else:
             plt.savefig('output/%06d.png' % (img_i), bbox_inches='tight', pad_inches=0.0)
             plt.close()
-
+    return v_writer
 
 def main(args,task):
     if task == "train":
