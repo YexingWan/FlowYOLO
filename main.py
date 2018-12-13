@@ -56,7 +56,7 @@ def built_args():
     parser.add_argument('--schedule_lr_fraction', type=float, default=10)
     parser.add_argument('--crop_size', type=int, nargs='+', default=[448, 448],
                         help="Spatial dimension to crop training samples for training")
-    parser.add_argument('--learning_rate', type=float, default=0.0001,help="Learning rate for edn-to-end traning")
+    parser.add_argument('--learning_rate', type=float, default=0.001,help="Learning rate for edn-to-end traning")
     parser.add_argument('--momentum', type=float, default=0.9,help="Momentum for edn-to-end traning")
     parser.add_argument('--decay', type=float, default=0.005, help="Weight decay for edn-to-end traning")
 
@@ -87,7 +87,7 @@ def built_args():
 
     parser.add_argument("--yolo_config_path", type=str, default="config/yolov3.cfg", help="path to model config file")
     parser.add_argument("--yolo_resume", type=str, default="weights/yolov3.weights", help="path to weights file")
-    parser.add_argument("--conf_thres", type=float, default=0.001, help="object confidence threshold")
+    parser.add_argument("--conf_thres", type=float, default=0.0000001, help="object confidence threshold")
     parser.add_argument("--nms_thres", type=float, default=0.8, help="iou thresshold for non-maximum suppression")
     parser.add_argument("--iou_thres", type=float, default=0.2, help="iou threshold required to qualify as detected")
     args = parser.parse_args()
