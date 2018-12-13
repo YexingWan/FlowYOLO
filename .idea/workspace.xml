@@ -76,8 +76,8 @@
       <file leaf-file-name="main.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="635">
-              <caret line="154" column="61" lean-forward="false" selection-start-line="154" selection-start-column="51" selection-end-line="154" selection-end-column="61" />
+            <state relative-caret-position="163">
+              <caret line="144" column="68" lean-forward="false" selection-start-line="144" selection-start-column="53" selection-end-line="144" selection-end-column="68" />
               <folding>
                 <element signature="e#0#13#0" expanded="true" />
                 <element signature="e#6131#6383#0" expanded="false" />
@@ -89,11 +89,11 @@
       <file leaf-file-name="datasets.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/utils/datasets.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="299">
-              <caret line="69" column="41" lean-forward="false" selection-start-line="69" selection-start-column="31" selection-end-line="69" selection-end-column="41" />
+            <state relative-caret-position="134">
+              <caret line="102" column="0" lean-forward="true" selection-start-line="102" selection-start-column="0" selection-end-line="102" selection-end-column="0" />
               <folding>
                 <element signature="e#0#20#0" expanded="true" />
-                <element signature="e#5477#8267#0" expanded="false" />
+                <element signature="e#5481#8271#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -113,7 +113,7 @@
         <entry file="file://$PROJECT_DIR$/config/data.data">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="105">
-              <caret line="7" column="40" lean-forward="false" selection-start-line="7" selection-start-column="40" selection-end-line="7" selection-end-column="40" />
+              <caret line="7" column="76" lean-forward="true" selection-start-line="7" selection-start-column="76" selection-end-line="7" selection-end-column="76" />
               <folding />
             </state>
           </provider>
@@ -673,14 +673,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/config/data.data">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="7" column="40" lean-forward="false" selection-start-line="7" selection-start-column="40" selection-end-line="7" selection-end-column="40" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/config/yolov3.cfg">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="626">
@@ -738,8 +730,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="635">
-          <caret line="154" column="61" lean-forward="false" selection-start-line="154" selection-start-column="51" selection-end-line="154" selection-end-column="61" />
+        <state relative-caret-position="163">
+          <caret line="144" column="68" lean-forward="false" selection-start-line="144" selection-start-column="53" selection-end-line="144" selection-end-column="68" />
           <folding>
             <element signature="e#0#13#0" expanded="true" />
             <element signature="e#6131#6383#0" expanded="false" />
@@ -747,13 +739,21 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/config/data.data">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" column="76" lean-forward="true" selection-start-line="7" selection-start-column="76" selection-end-line="7" selection-end-column="76" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/utils/datasets.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="299">
-          <caret line="69" column="41" lean-forward="false" selection-start-line="69" selection-start-column="31" selection-end-line="69" selection-end-column="41" />
+        <state relative-caret-position="134">
+          <caret line="102" column="0" lean-forward="true" selection-start-line="102" selection-start-column="0" selection-end-line="102" selection-end-column="0" />
           <folding>
             <element signature="e#0#20#0" expanded="true" />
-            <element signature="e#5477#8267#0" expanded="false" />
+            <element signature="e#5481#8271#0" expanded="false" />
           </folding>
         </state>
       </provider>
