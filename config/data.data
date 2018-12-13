@@ -5,4 +5,4 @@ valid=data/coco/5k.txt
 names=data/coco.names
 #backup=backup/
 #eval=coco
-infer=data/infer
+infer=/home/user/wanyx/vedio/HCVR_ch1_main_20181007170000_20181007180000.avi

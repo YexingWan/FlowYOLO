@@ -142,7 +142,7 @@ def inference(args):
 
     # init dataset and load cap and writer if source is video
     if args.camera or (os.path.splitext(args.data_infer_path)[-1] in ('.mkv', '.avi', '.mp4', '.rmvb', '.AVI', '.MKV', '.MP4') and os.path.isfile(args.data_infer_path)):
-        dataset = datasets.VideoFile(args,src = args.data_infer_path, camera =args.camera)
+        dataset = datasets.VideoFile(args,src = args.data_infer_path, camera =args.camera, start=0, duration=10)
         if args.camera:
             cap = cv2.VideoCapture(0)
         else:
