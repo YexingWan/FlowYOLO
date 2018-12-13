@@ -149,11 +149,7 @@ def inference(args):
         else:
             cap = cv2.VideoCapture(args.data_infer_path)
 
-        v_writer = cv2.VideoWriter("output/result.avi",
-                                   apiPreference=cv2.CAP_ANY,
-                                   fourcc=cv2.VideoWriter_fourcc(*'MJPG'),
-                                   fps=int(args.fps),
-                                   frameSize=(args.frame_size[1], args.frame_size[0]))
+        v_writer = cv2.VideoWriter()
 
     else:
         dataset = datasets.SequenceImage(folder_path=args.data_infer_path)
@@ -263,11 +259,20 @@ def draw_and_save(args,source,img_detections,classes,v_writer = None):
         # draw the figure first...
         fig.canvas.draw()
 
-        if v_writer and v_writer.isOpened():
-            # Now we can save it to a numpy array.
+        if v_writer is not None:
             data = np.fromstring(fig.canvas.tostring_rgb(), dtype=np.uint8, sep='')
             data = data.reshape(fig.canvas.get_width_height()[::-1] + (3,))
-            v_writer.write(data)
+            if v_writer.isOpened():
+            # Now we can save it to a numpy array.
+                v_writer.write(data)
+            else:
+                v_writer = cv2.VideoWriter("output/result.avi",
+                                           apiPreference=cv2.CAP_ANY,
+                                           fourcc=cv2.VideoWriter_fourcc(*'MJPG'),
+                                           fps=int(args.fps),
+                                           frameSize=data.shape[:-1])
+                v_writer.write(data)
+
         else:
             plt.savefig('output/%06d.png' % (img_i), bbox_inches='tight', pad_inches=0.0)
             plt.close()
