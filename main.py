@@ -1,3 +1,5 @@
+import matplotlib as mpl
+mpl.use('Agg')
 import models
 import torch
 import torch.nn as nn
@@ -17,7 +19,6 @@ import time
 
 from matplotlib.ticker import NullLocator
 from matplotlib import pyplot as plt
-import matplotlib as mpl
 from matplotlib import patches as patches
 from PIL import Image
 
