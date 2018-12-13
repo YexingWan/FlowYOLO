@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9ff04544-841e-4ebf-8528-543c869fa01e" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.py" afterPath="$PROJECT_DIR$/main.py" />
+      <change type="MODIFICATION" beforePath="$USER_HOME$/PyTorch-YOLOv3/weights/download_weights.sh" afterPath="$USER_HOME$/PyTorch-YOLOv3/weights/download_weights.sh" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/yolov3.cfg" afterPath="$PROJECT_DIR$/config/yolov3.cfg" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/models.py" afterPath="$PROJECT_DIR$/models.py" />
       <change type="MODIFICATION" beforePath="$USER_HOME$/flownet2-pytorch/.idea/flownet2-pytorch.iml" afterPath="$USER_HOME$/flownet2-pytorch/.idea/flownet2-pytorch.iml" />
       <change type="MODIFICATION" beforePath="$USER_HOME$/flownet2-pytorch/.idea/modules.xml" afterPath="$USER_HOME$/flownet2-pytorch/.idea/modules.xml" />
@@ -18,11 +20,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="models.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="612">
-              <caret line="859" column="27" lean-forward="false" selection-start-line="859" selection-start-column="27" selection-end-line="859" selection-end-column="27" />
+            <state relative-caret-position="660">
+              <caret line="571" column="19" lean-forward="false" selection-start-line="571" selection-start-column="12" selection-end-line="571" selection-end-column="19" />
               <folding>
                 <element signature="e#0#31#0" expanded="true" />
                 <element signature="e#7178#9867#0" expanded="false" />
@@ -30,10 +32,45 @@
                 <element signature="e#9910#11720#0" expanded="false" />
                 <element signature="e#11766#13862#0" expanded="false" />
                 <element signature="e#16269#19524#0" expanded="false" />
-                <element signature="e#19642#23071#0" expanded="false" />
                 <element signature="e#23107#23226#0" expanded="false" />
                 <element signature="e#23261#28451#0" expanded="false" />
+                <element signature="e#31506#34134#0" expanded="false" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="models.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/yolo/models.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="988">
+              <caret line="96" column="37" lean-forward="false" selection-start-line="96" selection-start-column="30" selection-end-line="96" selection-end-column="37" />
+              <folding>
+                <element signature="e#3860#3979#0" expanded="false" />
+                <element signature="e#4014#9202#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
+        <entry file="file://$USER_HOME$/PyTorch-YOLOv3/models.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="595">
+              <caret line="244" column="29" lean-forward="false" selection-start-line="244" selection-start-column="27" selection-end-line="244" selection-end-column="29" />
+              <folding>
+                <element signature="e#0#31#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="yolov3.cfg" pinned="false" current-in-tab="false">
+        <entry file="file://$USER_HOME$/PyTorch-YOLOv3/config/yolov3.cfg">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-9326">
+              <caret line="9" column="10" lean-forward="false" selection-start-line="9" selection-start-column="10" selection-end-line="9" selection-end-column="10" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -41,8 +78,8 @@
       <file leaf-file-name="main.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="280">
-              <caret line="126" column="26" lean-forward="false" selection-start-line="126" selection-start-column="14" selection-end-line="126" selection-end-column="26" />
+            <state relative-caret-position="747">
+              <caret line="276" column="111" lean-forward="false" selection-start-line="276" selection-start-column="89" selection-end-line="276" selection-end-column="111" />
               <folding>
                 <element signature="e#0#13#0" expanded="true" />
                 <element signature="e#6131#6383#0" expanded="false" />
@@ -54,8 +91,8 @@
       <file leaf-file-name="yolov3.cfg" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/config/yolov3.cfg">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="15">
-              <caret line="8" column="10" lean-forward="false" selection-start-line="8" selection-start-column="10" selection-end-line="8" selection-end-column="10" />
+            <state relative-caret-position="626">
+              <caret line="815" column="11" lean-forward="true" selection-start-line="815" selection-start-column="11" selection-end-line="815" selection-end-column="11" />
               <folding />
             </state>
           </provider>
@@ -83,8 +120,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>weights_init_normal</find>
-      <find>apply</find>
       <find>ap</find>
       <find>app</find>
       <find>load</find>
@@ -112,6 +147,8 @@
       <find>data_config</find>
       <find>rgb</find>
       <find>start</find>
+      <find>chan</find>
+      <find>filter</find>
       <find>checkpoint</find>
     </findStrings>
   </component>
@@ -136,13 +173,13 @@
         <option value="$PROJECT_DIR$/config/hyper.cfg" />
         <option value="$PROJECT_DIR$/flow_networks/resample2d_package/resample2d.py" />
         <option value="$PROJECT_DIR$/flownet/networks/resample2d_package/resample2d.py" />
-        <option value="$PROJECT_DIR$/config/yolov3.cfg" />
         <option value="$PROJECT_DIR$/yolo/detect.py" />
         <option value="$PROJECT_DIR$/flownet/datasets.py" />
         <option value="$PROJECT_DIR$/utils/datasets.py" />
         <option value="$PROJECT_DIR$/config/data.data" />
         <option value="$PROJECT_DIR$/main.py" />
         <option value="$PROJECT_DIR$/models.py" />
+        <option value="$PROJECT_DIR$/config/yolov3.cfg" />
       </list>
     </option>
   </component>
@@ -188,8 +225,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -197,10 +232,26 @@
               <item name="YOLOv3_with_flow" type="b2602c69:ProjectViewProjectNode" />
               <item name="YOLOv3_with_flow" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="YOLOv3_with_flow" type="b2602c69:ProjectViewProjectNode" />
+              <item name="YOLOv3_with_flow" type="462c0819:PsiDirectoryNode" />
+              <item name="config" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="YOLOv3_with_flow" type="b2602c69:ProjectViewProjectNode" />
+              <item name="PyTorch-YOLOv3" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="YOLOv3_with_flow" type="b2602c69:ProjectViewProjectNode" />
+              <item name="PyTorch-YOLOv3" type="462c0819:PsiDirectoryNode" />
+              <item name="config" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -250,7 +301,7 @@
     <frame x="0" y="0" width="1680" height="1050" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25579977" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25885227" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32958034" sideWeight="0.502442" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -306,24 +357,12 @@
           <line>2</line>
           <option name="timeStamp" value="2" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/yolo/models.py</url>
-          <line>108</line>
-          <option name="timeStamp" value="9" />
-        </line-breakpoint>
       </breakpoints>
       <option name="time" value="13" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/flow_networks/FlowNetC.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="520">
@@ -349,17 +388,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/config/hyper.cfg" />
-    <entry file="file://$PROJECT_DIR$/yolo/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="448">
-          <caret line="335" column="31" lean-forward="false" selection-start-line="335" selection-start-column="27" selection-end-line="335" selection-end-column="31" />
-          <folding>
-            <element signature="e#3860#3979#0" expanded="false" />
-            <element signature="e#4014#9202#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/flow_networks/resample2d_package/resample2d.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="195">
@@ -549,13 +577,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/PyTorch-YOLOv3/config/yolov3.cfg">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1329">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/yolo/config/yolov3.cfg">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="7590">
@@ -598,7 +619,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="9">
           <caret line="63" column="22" lean-forward="false" selection-start-line="63" selection-start-column="22" selection-end-line="63" selection-end-column="22" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -606,7 +626,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="165">
           <caret line="19" column="12" lean-forward="false" selection-start-line="19" selection-start-column="5" selection-end-line="19" selection-end-column="12" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -614,7 +633,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-29">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -622,7 +640,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="331">
           <caret line="181" column="19" lean-forward="false" selection-start-line="181" selection-start-column="19" selection-end-line="181" selection-end-column="19" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -630,9 +647,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="527">
           <caret line="515" column="22" lean-forward="false" selection-start-line="515" selection-start-column="22" selection-end-line="515" selection-end-column="22" />
-          <folding>
-            <element signature="e#0#12#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -647,19 +661,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/config/yolov3.cfg">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="8" column="10" lean-forward="false" selection-start-line="8" selection-start-column="10" selection-end-line="8" selection-end-column="10" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/data/coco.names">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -667,10 +672,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1095">
           <caret line="73" column="31" lean-forward="false" selection-start-line="73" selection-start-column="26" selection-end-line="73" selection-end-column="31" />
-          <folding>
-            <element signature="e#0#20#0" expanded="true" />
-            <element signature="e#5467#8257#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -682,10 +683,36 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/config/yolov3.cfg">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="626">
+          <caret line="815" column="11" lean-forward="true" selection-start-line="815" selection-start-column="11" selection-end-line="815" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/PyTorch-YOLOv3/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="595">
+          <caret line="244" column="29" lean-forward="false" selection-start-line="244" selection-start-column="27" selection-end-line="244" selection-end-column="29" />
+          <folding>
+            <element signature="e#0#31#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/PyTorch-YOLOv3/config/yolov3.cfg">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-9326">
+          <caret line="9" column="10" lean-forward="false" selection-start-line="9" selection-start-column="10" selection-end-line="9" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="280">
-          <caret line="126" column="26" lean-forward="false" selection-start-line="126" selection-start-column="14" selection-end-line="126" selection-end-column="26" />
+        <state relative-caret-position="747">
+          <caret line="276" column="111" lean-forward="false" selection-start-line="276" selection-start-column="89" selection-end-line="276" selection-end-column="111" />
           <folding>
             <element signature="e#0#13#0" expanded="true" />
             <element signature="e#6131#6383#0" expanded="false" />
@@ -695,8 +722,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="612">
-          <caret line="859" column="27" lean-forward="false" selection-start-line="859" selection-start-column="27" selection-end-line="859" selection-end-column="27" />
+        <state relative-caret-position="660">
+          <caret line="571" column="19" lean-forward="false" selection-start-line="571" selection-start-column="12" selection-end-line="571" selection-end-column="19" />
           <folding>
             <element signature="e#0#31#0" expanded="true" />
             <element signature="e#7178#9867#0" expanded="false" />
@@ -704,9 +731,20 @@
             <element signature="e#9910#11720#0" expanded="false" />
             <element signature="e#11766#13862#0" expanded="false" />
             <element signature="e#16269#19524#0" expanded="false" />
-            <element signature="e#19642#23071#0" expanded="false" />
             <element signature="e#23107#23226#0" expanded="false" />
             <element signature="e#23261#28451#0" expanded="false" />
+            <element signature="e#31506#34134#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/yolo/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="988">
+          <caret line="96" column="37" lean-forward="false" selection-start-line="96" selection-start-column="30" selection-end-line="96" selection-end-column="37" />
+          <folding>
+            <element signature="e#3860#3979#0" expanded="false" />
+            <element signature="e#4014#9202#0" expanded="false" />
           </folding>
         </state>
       </provider>

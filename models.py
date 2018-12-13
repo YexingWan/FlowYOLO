@@ -871,6 +871,7 @@ class FlowYOLO(nn.Module):
         # load yolo weight
         self.detect_model.load_weights(weights_path=yolo_weights_path)
 
+
     def save_weights(self, path):
         torch.save(self.flow_model.state_dict(),os.path.join(path,"flow.pth"))
         self.detect_model.save_weights(path)
