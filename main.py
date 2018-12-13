@@ -198,7 +198,7 @@ def inference(args):
 
 
 def draw_and_save(args,source,img_detections,classes,v_writer = None):
-    cmap = plt.get_cmap('tab20b')
+    cmap = plt.get_cmap('hot')
     colors = [cmap(i) for i in np.linspace(0, 1, 20)]
 
 
