@@ -772,7 +772,7 @@ class Darknet(nn.Module):
                         # resizing flow by bi-linear  interpolation
                         x = x + self.flow_warp(
                             f,
-                            torch.squeeze(F.interpolate(torch.unsqueeze(flow,0),size=(x.shape[-2],x.shape[-1]),mode="bilinear"),0),
+                            torch.squeeze(F.interpolate(torch.unsqueeze(flow.permute(2,0,1),0),size=(x.shape[-2],x.shape[-1]),mode="bilinear"),0).permute(1,2,0),
                             mode="bilinear")
 
 
