@@ -848,7 +848,7 @@ class FlowYOLO(nn.Module):
 
         results = []
         for i in range(data.shape[0]):
-            result, features = self.detect_model(torch.unsqueeze(images_list[i],0),forward_feat=self.last_feature,flow=flows_list[i])
+            result, features = self.detect_model(torch.unsqueeze(images_list[i],0),forward_feats=self.last_feature,flow=flows_list[i])
             results.append(results)
             self.last_feature = features
 
