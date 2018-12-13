@@ -768,7 +768,7 @@ class Darknet(nn.Module):
                     output_features.append(x)
                     print("flow aggregate in  L62/37")
                     f = forward_feats.popleft()
-                    if f:
+                    if isinstance(f,torch.Tensor):
                         x = x + self.flow_warp(f, flow)
 
 
