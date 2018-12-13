@@ -183,13 +183,15 @@ def inference(args):
 
         # Save image and detections depends on type of source
         if cap and v_writer:
+            print("save result as video")
             draw_and_save(args,
                           [cap.read()[1] for _ in range(args.inference_batch_size)],
                           detections,
                           classes,
-                          v_writer)
+                          v_writer=v_writer)
         else:
             if paths:
+                print("save result pre pic")
                 draw_and_save(args,
                               paths,
                               detections,
@@ -257,19 +259,17 @@ def draw_and_save(args,source,img_detections,classes,v_writer = None):
         plt.axis('off')
         plt.gca().xaxis.set_major_locator(NullLocator())
         plt.gca().yaxis.set_major_locator(NullLocator())
-
+        # If we haven't already shown or saved the plot, then we need to
+        # draw the figure first...
+        fig.canvas.draw()
 
         if v_writer and v_writer.isOpened():
-            # If we haven't already shown or saved the plot, then we need to
-            # draw the figure first...
-            fig.canvas.draw()
-
             # Now we can save it to a numpy array.
             data = np.fromstring(fig.canvas.tostring_rgb(), dtype=np.uint8, sep='')
             data = data.reshape(fig.canvas.get_width_height()[::-1] + (3,))
             v_writer.write(data)
         else:
-            plt.savefig('output/%s_%06d.png' % (str(os.path.split(source)[-1]).split(".")[0],img_i), bbox_inches='tight', pad_inches=0.0)
+            plt.savefig('output/%06d.png' % (img_i), bbox_inches='tight', pad_inches=0.0)
             plt.close()
 
 
