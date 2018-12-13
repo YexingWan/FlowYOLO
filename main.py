@@ -173,9 +173,12 @@ def inference(args):
             input_imgs = input_imgs.cuda(async=True)
 
         # Get detections
+        s = time.time()
         with torch.no_grad():
             detections = flow_yolo(data = input_imgs, target = None)
             detections = utils.non_max_suppression(detections, len(classes), args.conf_thres, args.nms_thres)
+        e = time.time()
+        print("forward_time:{}s".format(e-s))
 
         # Save image and detections depends on type of source
         if cap and v_writer:

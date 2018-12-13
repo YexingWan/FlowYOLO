@@ -766,10 +766,11 @@ class Darknet(nn.Module):
                 # warp and aggregate at layer 37 62, which are the layers before down-sampling
                 if i in [36,61]:
                     output_features.append(x)
-                    print("flow aggregate in  L62/37")
+                    #print("flow aggregate in  L62/37")
                     f = forward_feats.popleft()
                     if isinstance(f,torch.Tensor):
-                        x = x + self.flow_warp(f, flow)
+                        # resizing flow by bi-linear  interpolation
+                        x = x + self.flow_warp(f, F.interpolate(flow,(x.shape[-2],x.shape[-1],2)),mode="bilinear")
 
 
             elif module_def["type"] == "yolo":
