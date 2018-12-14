@@ -482,6 +482,7 @@ class FlowNet2CSS(nn.Module):
         x = torch.cat((x1, x2), dim=1)
 
         # flownetc
+        # stride: 4 for origin resolution
         flownetc_flow2 = self.flownetc(x)[0]
         flownetc_flow = self.upsample1(flownetc_flow2 * self.div_flow)
 
@@ -509,6 +510,7 @@ class FlowNet2CSS(nn.Module):
         flownets2_flow2 = self.flownets_2(concat2)[0]
         flownets2_flow = self.upsample3(flownets2_flow2 * self.div_flow)
 
+        #  origin resolution output
         return flownets2_flow
 
 
@@ -746,7 +748,7 @@ class Darknet(nn.Module):
 
         # TODO:
         #   wrong way to do warp!!!
-        self.flow_warp = F.grid_sample
+        self.flow_warp = Resample2d()
 
 
     def forward(self,x,forward_feats:deque,flow,targets=None):
@@ -772,12 +774,11 @@ class Darknet(nn.Module):
                     output_features.append(x)
                     #print("flow aggregate in  L62/37")
                     f = forward_feats.popleft()
+                    div = {36:8,61:16}
                     if isinstance(f,torch.Tensor):
                         # resizing flow by bi-linear  interpolation
-                        x = 0.7*x + 0.3*self.flow_warp(
-                            f,
-                            F.interpolate(torch.unsqueeze(flow.permute(2,0,1),0),size=(x.shape[-2],x.shape[-1]),mode="bilinear").permute(0,2,3,1),
-                            mode="bilinear")
+                        _flow = (F.interpolate(torch.unsqueeze(flow.permute(2,0,1),0),size=(x.shape[-2],x.shape[-1]),mode="bilinear")/div[i]).permute(0,2,3,1)
+                        x = 0.5*x + 0.5*self.flow_warp(f,_flow)
 
 
             elif module_def["type"] == "yolo":
@@ -845,18 +846,18 @@ class FlowYOLO(nn.Module):
         # flow_input:[batch_size,3(channel),2,row_idx,col_idx]
         for idx in range(data.shape[0]):
             images_list.append(data[idx])
-            flow_input.append(torch.stack([self.last_frames,data[idx]]).permute(1, 0, 2, 3))
+            flow_input.append(torch.stack([data[idx],self.last_frames]).permute(1, 0, 2, 3))
             self.last_frames = data[idx]
 
         flow_input = torch.stack(flow_input)
-        print("flow_net input shape:{}".format(flow_input.shape))
-        print("flow_net input mean:{}".format(flow_input.mean()))
-        print("flow_net input max:{}".format(flow_input.max()))
+        # print("flow_net input shape:{}".format(flow_input.shape))
+        # print("flow_net input mean:{}".format(flow_input.mean()))
+        # print("flow_net input max:{}".format(flow_input.max()))
 
         # predict flows, output[batchsize,]
         flows_output = self.flow_model(flow_input)
-        print("max_ouput of flow:{}".format(flows_output.max()))
-        print("mean_ouput of flow:{}".format(flows_output.mean()))
+        # print("max_ouput of flow:{}".format(flows_output.max()))
+        # print("mean_ouput of flow:{}".format(flows_output.mean()))
         print(flows_output)
         # get the flows
         flows_list = [flows_output[i].permute(1, 2, 0) for i in range(flows_output.shape[0])]

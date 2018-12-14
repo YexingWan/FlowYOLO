@@ -115,6 +115,7 @@ class FlowNet2(nn.Module):
         x = torch.cat((x1,x2), dim = 1)
 
         # flownetc
+        # get flow from x1 to x2 : x1+f=x2
         flownetc_flow2 = self.flownetc(x)[0]
         flownetc_flow = self.upsample1(flownetc_flow2*self.div_flow)
         
