@@ -171,7 +171,7 @@ def inference(args):
             input_imgs = input_imgs.cuda()
 
         # Get detections
-        print("outer check data max:{}".format(input_imgs.max))
+        print("outer check data max:{}".format(input_imgs.max()))
         s = time.time()
         print("input_tensor_shape:{}".format(input_imgs.shape))
         with torch.no_grad():
