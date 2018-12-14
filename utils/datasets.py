@@ -99,6 +99,7 @@ class VideoFile(Dataset):
             # As pytorch tensor
             input_img = torch.from_numpy(input_img).float()
 
+
             return "ignore",input_img
         else:
             print(sys.stderr, "ERROR: try to get frames{} and {}. But video {} only has {} frames.".format(index,index+self.gap,self.src,self.frames_num))
@@ -128,6 +129,7 @@ class SequenceImage(Dataset):
         img_path = self.files[index % len(self.files)]
         # Extract image
         img = np.array(Image.open(img_path))
+        print("Image.open max:{}".format(img.max()))
         h, w, _ = img.shape
         dim_diff = np.abs(h - w)
         # Upper (left) and lower (right) padding

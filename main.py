@@ -144,6 +144,7 @@ def inference(args):
     # init dataset and load cap and writer if source is video
     if args.camera or (os.path.splitext(args.data_infer_path)[-1] in ('.mkv', '.avi', '.mp4', '.rmvb', '.AVI', '.MKV', '.MP4') and os.path.isfile(args.data_infer_path)):
         dataset = datasets.VideoFile(args,src = args.data_infer_path, camera =args.camera, start=0, duration=10)
+        print("video dataset!")
         if args.camera:
             cap = cv2.VideoCapture(0)
         else:
@@ -170,8 +171,9 @@ def inference(args):
             input_imgs = input_imgs.cuda()
 
         # Get detections
+        print("outer check data max:{}".format(input_imgs.max))
         s = time.time()
-        print("input_tenser_shape:{}".format(input_imgs.shape))
+        print("input_tensor_shape:{}".format(input_imgs.shape))
         with torch.no_grad():
             detections = flow_yolo(input_imgs)
             print("thred:{}".format(args.conf_thres))
