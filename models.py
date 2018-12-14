@@ -784,7 +784,7 @@ class Darknet(nn.Module):
                         _flow = _flow.contiguous()
                         _re = self.flow_warp(f,_flow)
                         # print("warped feature shape:{}".format(_re.shape))
-                        x = 0.5*x + 0.5*_re
+                        x = 0.7*x + 0.3*_re
 
 
             elif module_def["type"] == "yolo":
