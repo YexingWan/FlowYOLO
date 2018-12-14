@@ -771,20 +771,20 @@ class Darknet(nn.Module):
                 layer_i = int(module_def["from"])
                 x = layer_outputs[-1] + layer_outputs[layer_i]
                 # warp and aggregate at layer 37 62, which are the layers before down-sampling
-                if i in [36,61]:
-                    output_features.append(x)
-                    #print("flow aggregate in  L62/37")
-                    f = forward_feats.popleft()
-                    div = {36:8,61:16}
-                    if isinstance(f,torch.Tensor):
-                        # print("last feature shape:{}".format(f.shape))
-                        # print("current feature shape:{}".format(x.shape))
-                        # resizing flow by bi-linear  interpolation
-                        _flow = F.interpolate(torch.unsqueeze(flow.permute(2,0,1),0),size=(x.shape[-2],x.shape[-1]),mode="bilinear")/div[i]
-                        _flow = _flow.contiguous()
-                        _re = self.flow_warp(f,_flow)
-                        # print("warped feature shape:{}".format(_re.shape))
-                        x = 0.7*x + 0.3*_re
+                # if i in [36,61]:
+                #     output_features.append(x)
+                #     #print("flow aggregate in  L62/37")
+                #     f = forward_feats.popleft()
+                #     div = {36:8,61:16}
+                #     if isinstance(f,torch.Tensor):
+                #         # print("last feature shape:{}".format(f.shape))
+                #         # print("current feature shape:{}".format(x.shape))
+                #         # resizing flow by bi-linear  interpolation
+                #         _flow = F.interpolate(torch.unsqueeze(flow.permute(2,0,1),0),size=(x.shape[-2],x.shape[-1]),mode="bilinear")/div[i]
+                #         _flow = _flow.contiguous()
+                #         _re = self.flow_warp(f,_flow)
+                #         # print("warped feature shape:{}".format(_re.shape))
+                #         x = 0.7*x + 0.3*_re
 
 
             elif module_def["type"] == "yolo":
