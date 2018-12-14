@@ -292,7 +292,7 @@ def main(args,task):
 
 
 """
-python3 main.py --task inference --yolo_config_path "./config/yolov3.cfg" --yolo_resume "yolo_weight/yolov3.pth" --flow_model "FlowNet2CS" --flow_resume "flow_weight/FlowNet2-CS_checkpoint.pth"
+python3 main.py --task inference --yolo_config_path "./config/yolov3.cfg" --yolo_resume "../yolo_weight/yolov3.pth" --flow_model "FlowNet2CS" --flow_resume "../flow_weight/FlowNet2-CS_checkpoint.pth"
 """
 
 if __name__ == "__main__":

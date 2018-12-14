@@ -364,6 +364,7 @@ class FlowNet2CS(nn.Module):
         self.batchNorm = batchNorm
         self.div_flow = div_flow
         self.rgb_max = args.rgb_max
+        print("rgb_max:{}".format(self.rgb_max))
         self.args = args
 
         self.channelnorm = ChannelNorm()
@@ -846,8 +847,11 @@ class FlowYOLO(nn.Module):
             images_list.append(data[idx])
             flow_input.append(torch.stack([self.last_frames,data[idx]]).permute(1, 0, 2, 3))
             self.last_frames = data[idx]
+
         flow_input = torch.stack(flow_input)
         print("flow_net input shape:{}".format(flow_input.shape))
+        print("flow_net input mean:{}".format(flow_input.mean()))
+        print("flow_net input max:{}".format(flow_input.max()))
 
         # predict flows, output[batchsize,]
         flows_output = self.flow_model(flow_input)
