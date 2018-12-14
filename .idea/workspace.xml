@@ -17,8 +17,8 @@
       <file leaf-file-name="models.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="620">
-              <caret line="860" column="10" lean-forward="false" selection-start-line="860" selection-start-column="10" selection-end-line="860" selection-end-column="10" />
+            <state relative-caret-position="487">
+              <caret line="772" column="32" lean-forward="true" selection-start-line="772" selection-start-column="32" selection-end-line="772" selection-end-column="32" />
               <folding>
                 <element signature="e#0#31#0" expanded="true" />
                 <element signature="e#861#7135#0" expanded="false" />
@@ -37,7 +37,7 @@
       <file leaf-file-name="submodules.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/flownet/networks/submodules.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="324">
+            <state relative-caret-position="420">
               <caret line="30" column="26" lean-forward="false" selection-start-line="30" selection-start-column="17" selection-end-line="30" selection-end-column="26" />
               <folding />
             </state>
@@ -47,8 +47,8 @@
       <file leaf-file-name="main.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="296">
-              <caret line="176" column="19" lean-forward="true" selection-start-line="176" selection-start-column="19" selection-end-line="176" selection-end-column="19" />
+            <state relative-caret-position="273">
+              <caret line="177" column="42" lean-forward="true" selection-start-line="177" selection-start-column="42" selection-end-line="177" selection-end-column="42" />
               <folding>
                 <element signature="e#6153#6405#0" expanded="false" />
               </folding>
@@ -115,8 +115,8 @@
       <find>forward</find>
       <find>36</find>
       <find>#36</find>
-      <find>Downsample</find>
       <find>Resample2d</find>
+      <find>Downsample</find>
       <find>print</find>
     </findStrings>
   </component>
@@ -679,7 +679,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/flownet/networks/submodules.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="324">
+        <state relative-caret-position="420">
           <caret line="30" column="26" lean-forward="false" selection-start-line="30" selection-start-column="17" selection-end-line="30" selection-end-column="26" />
           <folding />
         </state>
@@ -687,8 +687,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="296">
-          <caret line="176" column="19" lean-forward="true" selection-start-line="176" selection-start-column="19" selection-end-line="176" selection-end-column="19" />
+        <state relative-caret-position="273">
+          <caret line="177" column="42" lean-forward="true" selection-start-line="177" selection-start-column="42" selection-end-line="177" selection-end-column="42" />
           <folding>
             <element signature="e#6153#6405#0" expanded="false" />
           </folding>
@@ -697,8 +697,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="620">
-          <caret line="860" column="10" lean-forward="false" selection-start-line="860" selection-start-column="10" selection-end-line="860" selection-end-column="10" />
+        <state relative-caret-position="487">
+          <caret line="772" column="32" lean-forward="true" selection-start-line="772" selection-start-column="32" selection-end-line="772" selection-end-column="32" />
           <folding>
             <element signature="e#0#31#0" expanded="true" />
             <element signature="e#861#7135#0" expanded="false" />
