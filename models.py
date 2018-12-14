@@ -752,6 +752,7 @@ class Darknet(nn.Module):
 
 
     def forward(self,x,forward_feats:deque,flow,targets=None):
+        # flow dim is [h,w,channel]
         is_training = targets is not None
         output = []
         self.losses = defaultdict(float)
@@ -779,7 +780,7 @@ class Darknet(nn.Module):
                         print("last feature shape:{}".format(f.shape))
                         print("current feature shape:{}".format(x.shape))
                         # resizing flow by bi-linear  interpolation
-                        _flow = (F.interpolate(torch.unsqueeze(flow.permute(2,0,1),0),size=(x.shape[-2],x.shape[-1]),mode="bilinear")/div[i]).permute(0,2,3,1)
+                        _flow = F.interpolate(torch.unsqueeze(flow.permute(2,0,1),0),size=(x.shape[-2],x.shape[-1]),mode="bilinear")/div[i]
                         _flow = _flow.contiguous()
                         _re = self.flow_warp(f,_flow)
                         print("warped feature shape:{}".format(_re.shape))
@@ -869,6 +870,7 @@ class FlowYOLO(nn.Module):
 
         results = []
         for i in range(data.shape[0]):
+            # flow dim is [h,w,channel]
             result, features = self.detect_model(torch.unsqueeze(images_list[i],0),forward_feats=self.last_feature,flow=flows_list[i])
             results.append(result)
             self.last_feature = features
