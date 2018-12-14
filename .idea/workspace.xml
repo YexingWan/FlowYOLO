@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="9ff04544-841e-4ebf-8528-543c869fa01e" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$USER_HOME$/PyTorch-YOLOv3/weights/download_weights.sh" afterPath="$USER_HOME$/PyTorch-YOLOv3/weights/download_weights.sh" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/flownet/models.py" afterPath="$PROJECT_DIR$/flownet/models.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.py" afterPath="$PROJECT_DIR$/main.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/models.py" afterPath="$PROJECT_DIR$/models.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -15,11 +15,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="models.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="492">
-              <caret line="782" column="139" lean-forward="false" selection-start-line="782" selection-start-column="139" selection-end-line="782" selection-end-column="139" />
+            <state relative-caret-position="3625">
+              <caret line="785" column="26" lean-forward="false" selection-start-line="785" selection-start-column="26" selection-end-line="785" selection-end-column="26" />
               <folding>
                 <element signature="e#0#31#0" expanded="true" />
                 <element signature="e#861#7135#0" expanded="false" />
@@ -80,13 +80,13 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="main.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="main.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="990">
-              <caret line="177" column="42" lean-forward="true" selection-start-line="177" selection-start-column="42" selection-end-line="177" selection-end-column="42" />
+            <state relative-caret-position="574">
+              <caret line="90" column="62" lean-forward="false" selection-start-line="90" selection-start-column="62" selection-end-line="90" selection-end-column="62" />
               <folding>
-                <element signature="e#6153#6405#0" expanded="false" />
+                <element signature="e#6150#6402#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -172,12 +172,12 @@
         <option value="$PROJECT_DIR$/yolo/models.py" />
         <option value="$PROJECT_DIR$/yolo/utils/datasets.py" />
         <option value="$USER_HOME$/flownet2-pytorch/main.py" />
-        <option value="$PROJECT_DIR$/main.py" />
         <option value="$USER_HOME$/flownet2-pytorch/models.py" />
         <option value="$PROJECT_DIR$/utils/datasets.py" />
         <option value="$PROJECT_DIR$/flownet/networks/FlowNetC.py" />
         <option value="$PROJECT_DIR$/flownet/models.py" />
         <option value="$PROJECT_DIR$/models.py" />
+        <option value="$PROJECT_DIR$/main.py" />
       </list>
     </option>
   </component>
@@ -698,16 +698,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="990">
-          <caret line="177" column="42" lean-forward="true" selection-start-line="177" selection-start-column="42" selection-end-line="177" selection-end-column="42" />
-          <folding>
-            <element signature="e#6153#6405#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/flownet/utils/flow_utils.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="375">
@@ -739,8 +729,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="492">
-          <caret line="782" column="139" lean-forward="false" selection-start-line="782" selection-start-column="139" selection-end-line="782" selection-end-column="139" />
+        <state relative-caret-position="3625">
+          <caret line="785" column="26" lean-forward="false" selection-start-line="785" selection-start-column="26" selection-end-line="785" selection-end-column="26" />
           <folding>
             <element signature="e#0#31#0" expanded="true" />
             <element signature="e#861#7135#0" expanded="false" />
@@ -751,6 +741,16 @@
             <element signature="e#19769#23198#0" expanded="false" />
             <element signature="e#23234#23353#0" expanded="false" />
             <element signature="e#23388#28578#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="574">
+          <caret line="90" column="62" lean-forward="false" selection-start-line="90" selection-start-column="62" selection-end-line="90" selection-end-column="62" />
+          <folding>
+            <element signature="e#6150#6402#0" expanded="false" />
           </folding>
         </state>
       </provider>
