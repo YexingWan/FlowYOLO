@@ -184,7 +184,6 @@ def inference(args):
 
         # Save image and detections depends on type of source
         if cap is not None and v_writer is not None:
-            print("save result as video")
             v_writer = draw_and_save(args,
                           [cap.read()[1] for _ in range(args.inference_batch_size)],
                           detections,
@@ -192,7 +191,6 @@ def inference(args):
                           v_writer=v_writer)
         else:
             if paths:
-                print("save result pre pic")
                 draw_and_save(args,
                               paths,
                               detections,
@@ -258,8 +256,8 @@ def draw_and_save(args,source,img_detections,classes,v_writer = None):
 
         # Save generated image with detections
         plt.axis('off')
-        plt.gca().xaxis.set_major_locator(NullLocator())
-        plt.gca().yaxis.set_major_locator(NullLocator())
+        # plt.gca().xaxis.set_major_locator(NullLocator())
+        # plt.gca().yaxis.set_major_locator(NullLocator())
         # If we haven't already shown or saved the plot, then we need to
         # draw the figure first...
         fig.canvas.draw()

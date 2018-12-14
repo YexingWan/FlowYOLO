@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="9ff04544-841e-4ebf-8528-543c869fa01e" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$USER_HOME$/PyTorch-YOLOv3/weights/download_weights.sh" afterPath="$USER_HOME$/PyTorch-YOLOv3/weights/download_weights.sh" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/models.py" afterPath="$PROJECT_DIR$/models.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.py" afterPath="$PROJECT_DIR$/main.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -14,11 +14,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="models.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="465">
-              <caret line="786" column="39" lean-forward="false" selection-start-line="786" selection-start-column="39" selection-end-line="786" selection-end-column="39" />
+            <state relative-caret-position="1665">
+              <caret line="789" column="27" lean-forward="false" selection-start-line="789" selection-start-column="17" selection-end-line="789" selection-end-column="27" />
               <folding>
                 <element signature="e#0#31#0" expanded="true" />
                 <element signature="e#861#7135#0" expanded="false" />
@@ -36,56 +36,14 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/flownet/models.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="286">
-              <caret line="119" column="21" lean-forward="false" selection-start-line="119" selection-start-column="8" selection-end-line="119" selection-end-column="21" />
-              <folding>
-                <element signature="e#0#12#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="flow_utils.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/flownet/utils/flow_utils.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="375">
-              <caret line="25" column="22" lean-forward="false" selection-start-line="25" selection-start-column="14" selection-end-line="25" selection-end-column="22" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="submodules.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/flownet/networks/submodules.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="1" lean-forward="false" selection-start-line="0" selection-start-column="1" selection-end-line="0" selection-end-column="1" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="main.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="main.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1350">
-              <caret line="90" column="36" lean-forward="false" selection-start-line="90" selection-start-column="27" selection-end-line="90" selection-end-column="36" />
+            <state relative-caret-position="514">
+              <caret line="277" column="36" lean-forward="false" selection-start-line="277" selection-start-column="35" selection-end-line="277" selection-end-column="36" />
               <folding>
                 <element signature="e#6150#6402#0" expanded="false" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="yolov3.cfg" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/config/yolov3.cfg">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="317" column="12" lean-forward="false" selection-start-line="317" selection-start-column="2" selection-end-line="317" selection-end-column="12" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -102,7 +60,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>checkpoint</find>
       <find>camera</find>
       <find>frame_size</find>
       <find>module_defs</find>
@@ -132,6 +89,7 @@
       <find>print</find>
       <find>Downsample</find>
       <find>Resample2d</find>
+      <find>pad</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -164,8 +122,8 @@
         <option value="$PROJECT_DIR$/utils/datasets.py" />
         <option value="$PROJECT_DIR$/flownet/networks/FlowNetC.py" />
         <option value="$PROJECT_DIR$/flownet/models.py" />
-        <option value="$PROJECT_DIR$/main.py" />
         <option value="$PROJECT_DIR$/models.py" />
+        <option value="$PROJECT_DIR$/main.py" />
       </list>
     </option>
   </component>
@@ -218,17 +176,6 @@
             <path>
               <item name="YOLOv3_with_flow" type="b2602c69:ProjectViewProjectNode" />
               <item name="YOLOv3_with_flow" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="YOLOv3_with_flow" type="b2602c69:ProjectViewProjectNode" />
-              <item name="YOLOv3_with_flow" type="462c0819:PsiDirectoryNode" />
-              <item name="flownet" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="YOLOv3_with_flow" type="b2602c69:ProjectViewProjectNode" />
-              <item name="YOLOv3_with_flow" type="462c0819:PsiDirectoryNode" />
-              <item name="flownet" type="462c0819:PsiDirectoryNode" />
-              <item name="utils" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -670,16 +617,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1350">
-          <caret line="90" column="36" lean-forward="false" selection-start-line="90" selection-start-column="27" selection-end-line="90" selection-end-column="36" />
-          <folding>
-            <element signature="e#6150#6402#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/flownet/networks/submodules.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -696,14 +633,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/flownet/utils/flow_utils.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="375">
-          <caret line="25" column="22" lean-forward="false" selection-start-line="25" selection-start-column="14" selection-end-line="25" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/flownet/main.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="82">
@@ -712,6 +641,14 @@
             <element signature="e#23#35#0" expanded="true" />
             <element signature="e#14851#15285#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/flownet/utils/flow_utils.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="375">
+          <caret line="25" column="22" lean-forward="false" selection-start-line="25" selection-start-column="14" selection-end-line="25" selection-end-column="22" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -727,8 +664,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="465">
-          <caret line="786" column="39" lean-forward="false" selection-start-line="786" selection-start-column="39" selection-end-line="786" selection-end-column="39" />
+        <state relative-caret-position="1665">
+          <caret line="789" column="27" lean-forward="false" selection-start-line="789" selection-start-column="17" selection-end-line="789" selection-end-column="27" />
           <folding>
             <element signature="e#0#31#0" expanded="true" />
             <element signature="e#861#7135#0" expanded="false" />
@@ -741,6 +678,16 @@
             <element signature="e#19769#23198#0" expanded="false" />
             <element signature="e#23234#23353#0" expanded="false" />
             <element signature="e#23388#28578#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="514">
+          <caret line="277" column="36" lean-forward="false" selection-start-line="277" selection-start-column="35" selection-end-line="277" selection-end-column="36" />
+          <folding>
+            <element signature="e#6150#6402#0" expanded="false" />
           </folding>
         </state>
       </provider>
