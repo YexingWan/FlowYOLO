@@ -17,8 +17,8 @@
       <file leaf-file-name="models.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
-              <caret line="781" column="63" lean-forward="true" selection-start-line="781" selection-start-column="63" selection-end-line="781" selection-end-column="63" />
+            <state relative-caret-position="377">
+              <caret line="781" column="71" lean-forward="true" selection-start-line="781" selection-start-column="71" selection-end-line="781" selection-end-column="71" />
               <folding>
                 <element signature="e#0#31#0" expanded="true" />
                 <element signature="e#861#7135#0" expanded="false" />
@@ -60,7 +60,7 @@
         <entry file="file://$PROJECT_DIR$/config/yolov3.cfg">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="306">
-              <caret line="511" column="12" lean-forward="false" selection-start-line="511" selection-start-column="2" selection-end-line="511" selection-end-column="12" />
+              <caret line="317" column="12" lean-forward="false" selection-start-line="317" selection-start-column="2" selection-end-line="317" selection-end-column="12" />
               <folding />
             </state>
           </provider>
@@ -116,8 +116,8 @@
       <find>36</find>
       <find>#36</find>
       <find>print</find>
-      <find>Downsample</find>
       <find>Resample2d</find>
+      <find>Downsample</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -661,14 +661,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/config/yolov3.cfg">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="511" column="12" lean-forward="false" selection-start-line="511" selection-start-column="2" selection-end-line="511" selection-end-column="12" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/flownet/models.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="105">
@@ -695,10 +687,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/config/yolov3.cfg">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="317" column="12" lean-forward="false" selection-start-line="317" selection-start-column="2" selection-end-line="317" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="781" column="63" lean-forward="true" selection-start-line="781" selection-start-column="63" selection-end-line="781" selection-end-column="63" />
+        <state relative-caret-position="377">
+          <caret line="781" column="71" lean-forward="true" selection-start-line="781" selection-start-column="71" selection-end-line="781" selection-end-column="71" />
           <folding>
             <element signature="e#0#31#0" expanded="true" />
             <element signature="e#861#7135#0" expanded="false" />

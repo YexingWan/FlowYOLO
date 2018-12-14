@@ -776,10 +776,14 @@ class Darknet(nn.Module):
                     f = forward_feats.popleft()
                     div = {36:8,61:16}
                     if isinstance(f,torch.Tensor):
+                        print("last feature shape:{}".format(f.shape))
+                        print("current feature shape:{}".format(x.shape))
                         # resizing flow by bi-linear  interpolation
                         _flow = (F.interpolate(torch.unsqueeze(flow.permute(2,0,1),0),size=(x.shape[-2],x.shape[-1]),mode="bilinear")/div[i]).permute(0,2,3,1)
                         _flow = _flow.contiguous()
-                        x = 0.5*x + 0.5*self.flow_warp(f,_flow)
+                        _re = self.flow_warp(f,_flow)
+                        print("warped feature shape:{}".format(_re.shape))
+                        x = 0.5*x + 0.5*_re
 
 
             elif module_def["type"] == "yolo":
