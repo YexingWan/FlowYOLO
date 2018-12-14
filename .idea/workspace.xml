@@ -17,8 +17,8 @@
       <file leaf-file-name="models.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="47">
-              <caret line="753" column="36" lean-forward="false" selection-start-line="753" selection-start-column="23" selection-end-line="753" selection-end-column="36" />
+            <state relative-caret-position="465">
+              <caret line="786" column="39" lean-forward="false" selection-start-line="786" selection-start-column="39" selection-end-line="786" selection-end-column="39" />
               <folding>
                 <element signature="e#0#31#0" expanded="true" />
                 <element signature="e#861#7135#0" expanded="false" />
@@ -26,6 +26,8 @@
                 <element signature="e#7242#7355#0" expanded="false" />
                 <element signature="e#9910#11720#0" expanded="false" />
                 <element signature="e#11766#13862#0" expanded="false" />
+                <element signature="e#13898#16281#0" expanded="false" />
+                <element signature="e#16318#19651#0" expanded="false" />
                 <element signature="e#19769#23198#0" expanded="false" />
                 <element signature="e#23234#23353#0" expanded="false" />
                 <element signature="e#23388#28578#0" expanded="false" />
@@ -34,24 +36,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="main.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/flownet/main.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3479">
-              <caret line="403" column="17" lean-forward="false" selection-start-line="403" selection-start-column="8" selection-end-line="403" selection-end-column="17" />
-              <folding>
-                <element signature="e#23#35#0" expanded="true" />
-                <element signature="e#14851#15285#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/flownet/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="526">
-              <caret line="134" column="67" lean-forward="false" selection-start-line="134" selection-start-column="53" selection-end-line="134" selection-end-column="67" />
+            <state relative-caret-position="286">
+              <caret line="119" column="21" lean-forward="false" selection-start-line="119" selection-start-column="8" selection-end-line="119" selection-end-column="21" />
               <folding>
                 <element signature="e#0#12#0" expanded="true" />
               </folding>
@@ -141,8 +130,8 @@
       <find>36</find>
       <find>#36</find>
       <find>print</find>
-      <find>Resample2d</find>
       <find>Downsample</find>
+      <find>Resample2d</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -691,17 +680,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/flownet/main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3479">
-          <caret line="403" column="17" lean-forward="false" selection-start-line="403" selection-start-column="8" selection-end-line="403" selection-end-column="17" />
-          <folding>
-            <element signature="e#23#35#0" expanded="true" />
-            <element signature="e#14851#15285#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/flownet/networks/submodules.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -726,10 +704,21 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/flownet/main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="82">
+          <caret line="403" column="17" lean-forward="false" selection-start-line="403" selection-start-column="8" selection-end-line="403" selection-end-column="17" />
+          <folding>
+            <element signature="e#23#35#0" expanded="true" />
+            <element signature="e#14851#15285#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/flownet/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="526">
-          <caret line="134" column="67" lean-forward="false" selection-start-line="134" selection-start-column="53" selection-end-line="134" selection-end-column="67" />
+        <state relative-caret-position="286">
+          <caret line="119" column="21" lean-forward="false" selection-start-line="119" selection-start-column="8" selection-end-line="119" selection-end-column="21" />
           <folding>
             <element signature="e#0#12#0" expanded="true" />
           </folding>
@@ -738,8 +727,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="47">
-          <caret line="753" column="36" lean-forward="false" selection-start-line="753" selection-start-column="23" selection-end-line="753" selection-end-column="36" />
+        <state relative-caret-position="465">
+          <caret line="786" column="39" lean-forward="false" selection-start-line="786" selection-start-column="39" selection-end-line="786" selection-end-column="39" />
           <folding>
             <element signature="e#0#31#0" expanded="true" />
             <element signature="e#861#7135#0" expanded="false" />
@@ -747,6 +736,8 @@
             <element signature="e#7242#7355#0" expanded="false" />
             <element signature="e#9910#11720#0" expanded="false" />
             <element signature="e#11766#13862#0" expanded="false" />
+            <element signature="e#13898#16281#0" expanded="false" />
+            <element signature="e#16318#19651#0" expanded="false" />
             <element signature="e#19769#23198#0" expanded="false" />
             <element signature="e#23234#23353#0" expanded="false" />
             <element signature="e#23388#28578#0" expanded="false" />
