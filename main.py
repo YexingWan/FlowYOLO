@@ -110,10 +110,39 @@ def built_args():
     return args
 
 
+
+
+
+
 def train(args):
 
+    # TODO:
+    #   design spectial dataset for tranning
+    dataset_list = datasets.ImagenetVID(args)
 
-    pass
+    dataloader_list = [DataLoader(dataset_list[i], 8) for i in range(len(dataset_list))]
+
+    flow_yolo = models.FlowYOLO(args)
+    flow_yolo.load_weights(args.flow_resume, args.yolo_resume)
+
+    if torch.cuda.is_available() and args.use_cuda:
+        number_gpus = torch.cuda.device_count()
+        if number_gpus > 0:
+            print("GPU_NUMBER:{}".format(number_gpus))
+            flow_yolo = nn.parallel.DataParallel(flow_yolo, device_ids=list(range(number_gpus)))
+            flow_yolo.cuda()
+
+    flow_yolo.train()
+
+    for epoch in range(args.total_epochs):
+        dataloader_list = random.shuffle(dataloader_list)
+        for idx in range(len(dataloader_list)):
+            for batch_i, (imgs, targets) in enumerate(dataloader_list[idx]):
+                if args.use_cuda:
+                    input_imgs = imgs.cuda()
+
+                pass
+
 
 def test(args):
 
@@ -151,7 +180,6 @@ def inference(args):
             cap = cv2.VideoCapture(args.data_infer_path)
 
         v_writer = cv2.VideoWriter()
-
     else:
         dataset = datasets.SequenceImage(folder_path=args.data_infer_path)
         cap = None
@@ -160,12 +188,21 @@ def inference(args):
     # init data loader
     dataloader = DataLoader(dataset,batch_size=args.inference_batch_size)
 
+    loader_writer = cv2.VideoWriter("output/loader.avi",
+                               apiPreference=cv2.CAP_ANY,
+                               fourcc=cv2.VideoWriter_fourcc(*'MJPG'),
+                               fps=int(args.fps),
+                               frameSize=(args.inference_size[1], args.inference_size[0]))
+
+
     # for each batch
     for batch_i, (paths, input_imgs) in enumerate(dataloader):
 
-        #print("paths_type:{}".format(type(paths)))
-        #print("input_imgs_type:{}".format(type(input_imgs)))
+        # imput_imgs:[batch,channel,h,w]
 
+        _tem = input_imgs.numpy()
+        for idx in range(_tem.shape[0]):
+            loader_writer.write(cv2.cvtColor(_tem[idx].transpose(1,2,0),cv2.COLOR_RGB2BGR))
 
         if args.use_cuda:
             input_imgs = input_imgs.cuda()
@@ -197,6 +234,8 @@ def inference(args):
                               classes)
             else:
                 print(sys.stderr,"Error: something wrong with dataloader, loss image path.")
+    v_writer.release()
+    loader_writer.release()
 
 
 def draw_and_save(args,source,img_detections,classes,v_writer = None):
@@ -281,6 +320,7 @@ def draw_and_save(args,source,img_detections,classes,v_writer = None):
             plt.savefig('output/%06d.png' % (img_i), bbox_inches='tight', pad_inches=0.0)
             plt.close()
     return v_writer
+
 
 def main(args,task):
     if task == "train":
