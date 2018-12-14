@@ -81,6 +81,8 @@ class VideoFile(Dataset):
             ret, img = self.cap.read()
 
         if ret:
+            # convert to RGB
+            img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
             h, w, _ = img.shape
             dim_diff = np.abs(h - w)
             # Upper (left) and lower (right) padding

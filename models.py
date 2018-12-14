@@ -742,6 +742,9 @@ class Darknet(nn.Module):
         self.hyperparams, self.module_list = create_modules(self.module_defs)
         self.img_size = img_size
         self.loss_names = ["x", "y", "w", "h", "conf", "cls", "recall", "precision"]
+
+        # TODO:
+        #   wrong way to do warp!!!
         self.flow_warp = F.grid_sample
 
 
