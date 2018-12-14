@@ -84,6 +84,7 @@ class VideoFile(Dataset):
             # convert to RGB
             img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
             print("conver to RGB")
+            print("dataset inner check 1 max:{}".format(img.max()))
             h, w, _ = img.shape
             dim_diff = np.abs(h - w)
             # Upper (left) and lower (right) padding
@@ -92,8 +93,10 @@ class VideoFile(Dataset):
             pad = ((pad1, pad2), (0, 0), (0, 0)) if h <= w else ((0, 0), (pad1, pad2), (0, 0))
             # Add padding(127.5)
             input_img = np.pad(img, pad, 'constant', constant_values=127.5)
+            print("dataset inner check 2 max:{}".format(img.max()))
             # Resize
             input_img = resize(input_img, (*self.img_shape, 3), mode='reflect')
+            print("dataset inner check 3 max:{}".format(img.max()))
             # Channels-first
             input_img = np.transpose(input_img, (2, 0, 1))
             # As pytorch tensor
