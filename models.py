@@ -820,15 +820,21 @@ class Darknet(nn.Module):
         torch.save(self.module_list.state_dict(),os.path.join(path,"yolo.pth"))
 
     def load_my_weight(self, weights_path):
+        # random init all weights
+        self.apply(utils.utils.weights_init_normal)
+
         model_dict = self.module_list.state_dict()
+
+        # get pre-trained weight
         if weights_path and os.path.isfile(weights_path):
             pretrained_dict = torch.load(weights_path)
         else:
             print('Weight file is not given or not exits, random initialize')
             self.apply(utils.utils.weights_init_normal)
             return
+
         # 1. filter out unnecessary keys
-        pretrained_dict = {k: v for k, v in pretrained_dict.items() if k in model_dict}
+        pretrained_dict = {k: v for k, v in pretrained_dict.items() if k in model_dict and model_dict[k].shape == pretrained_dict[k].shape}
         # 2. overwrite entries in the existing state dict
         model_dict.update(pretrained_dict)
         # 3. load the new state dict

@@ -28,8 +28,8 @@
       <file leaf-file-name="models.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="263">
-              <caret line="824" column="53" lean-forward="false" selection-start-line="824" selection-start-column="53" selection-end-line="824" selection-end-column="53" />
+            <state relative-caret-position="629">
+              <caret line="836" column="23" lean-forward="false" selection-start-line="836" selection-start-column="8" selection-end-line="836" selection-end-column="23" />
               <folding>
                 <element signature="e#0#31#0" expanded="true" />
                 <element signature="e#861#7135#0" expanded="false" />
@@ -51,8 +51,8 @@
       <file leaf-file-name="yolov3.cfg" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/config/yolov3.cfg">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="605">
-              <caret line="872" column="5" lean-forward="true" selection-start-line="872" selection-start-column="5" selection-end-line="872" selection-end-column="5" />
+            <state relative-caret-position="635">
+              <caret line="874" column="7" lean-forward="false" selection-start-line="874" selection-start-column="0" selection-end-line="874" selection-end-column="7" />
               <folding />
             </state>
           </provider>
@@ -136,7 +136,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>data_config</find>
       <find>ImageFolder</find>
       <find>class</find>
       <find>load</find>
@@ -166,6 +165,7 @@
       <find>pad</find>
       <find>BatchGenerator</find>
       <find>yolo</find>
+      <find>apply</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -743,14 +743,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/config/yolov3.cfg">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="605">
-          <caret line="872" column="5" lean-forward="true" selection-start-line="872" selection-start-column="5" selection-end-line="872" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/main.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1426">
@@ -766,10 +758,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/config/yolov3.cfg">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="635">
+          <caret line="874" column="7" lean-forward="false" selection-start-line="874" selection-start-column="0" selection-end-line="874" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="263">
-          <caret line="824" column="53" lean-forward="false" selection-start-line="824" selection-start-column="53" selection-end-line="824" selection-end-column="53" />
+        <state relative-caret-position="629">
+          <caret line="836" column="23" lean-forward="false" selection-start-line="836" selection-start-column="8" selection-end-line="836" selection-end-column="23" />
           <folding>
             <element signature="e#0#31#0" expanded="true" />
             <element signature="e#861#7135#0" expanded="false" />
