@@ -3,5 +3,6 @@
   <component name="VcsDirectoryMappings">
     <mapping directory="" vcs="Git" />
     <mapping directory="$USER_HOME$/PyTorch-YOLOv3" vcs="Git" />
+    <mapping directory="$USER_HOME$/Smart-Road" vcs="Git" />
   </component>
 </project>

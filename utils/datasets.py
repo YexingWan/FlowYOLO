@@ -157,7 +157,6 @@ class SequenceImage(Dataset):
 
 
 
-
 # Traning dataset
 class ImagenetVID(Dataset):
     def __init__(self, list_path, img_size=416):
