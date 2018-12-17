@@ -159,7 +159,7 @@ class SequenceImage(Dataset):
 
 # Traning dataset
 class ImagenetVID(Dataset):
-    def __init__(self, list_path, img_size=416):
+    def __init__(self, list_path, img_size=448):
         with open(list_path, 'r') as file:
             self.img_files = file.readlines()
         self.label_files = [path.replace('images', 'labels').replace('.png', '.txt').replace('.jpg', '.txt') for path in self.img_files]

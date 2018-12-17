@@ -819,6 +819,22 @@ class Darknet(nn.Module):
         #   save weight
         torch.save(self.module_list.state_dict(),os.path.join(path,"yolo.pth"))
 
+    def load_my_weight(self, weights_path):
+        model_dict = self.module_list.state_dict()
+        if weights_path and os.path.isfile(weights_path):
+            pretrained_dict = torch.load(torch.load(weights_path))
+        else:
+            print('Weight file is not given or not exits, random initialize')
+            self.apply(utils.utils.weights_init_normal)
+            return
+        # 1. filter out unnecessary keys
+        pretrained_dict = {k: v for k, v in pretrained_dict.items() if k in model_dict}
+        # 2. overwrite entries in the existing state dict
+        model_dict.update(pretrained_dict)
+        # 3. load the new state dict
+        self.module_list.load_state_dict(pretrained_dict)
+        return
+
 
 #------------------------------------FLOW-YOLO---------------------------------
 
@@ -893,10 +909,13 @@ class FlowYOLO(nn.Module):
         else:
             print("Random initialization")
         # load yolo weight
-        self.detect_model.load_weights(weights_path=yolo_weights_path)
+        # self.detect_model.load_weights(weights_path=yolo_weights_path)
+        self.detect_model.load_my_weight(weights_path=yolo_weights_path)
 
 
     def save_weights(self, path):
         torch.save(self.flow_model.state_dict(),os.path.join(path,"flow.pth"))
         self.detect_model.save_weights(path)
+
+
 
