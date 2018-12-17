@@ -744,7 +744,7 @@ class Darknet(nn.Module):
         self.module_defs = parse_model_config(config_path)
         self.hyperparams, self.module_list = create_modules(self.module_defs)
         self.img_size = img_size
-        self.loss_names = ["x", "y", "w", "h", "conf", "cls", "recall", "precision"]
+        self.loss_names = ["loss","x", "y", "w", "h", "conf", "cls", "recall", "precision"]
 
         # TODO:
         #   wrong way to do warp!!!
@@ -755,7 +755,7 @@ class Darknet(nn.Module):
         # flow dim is [h,w,channel]
         is_training = targets is not None
         output = []
-        self.losses = defaultdict(float)
+        losses = defaultdict(float)
         layer_outputs = []
         output_features = deque()
         x = x/255.
@@ -790,19 +790,21 @@ class Darknet(nn.Module):
             elif module_def["type"] == "yolo":
                 # Train phase: get loss
                 if is_training:
-                    x, *losses = module[0](x, targets)
-                    for name, loss in zip(self.loss_names, losses):
-                        self.losses[name] += loss
+                    # x, *losses = module[0](x, targets)
+                    x = module[0](x, targets)
+                    for name, loss in zip(self.loss_names, x):
+                        losses[name] += loss
                 # Test phase: Get detections
                 else:
                     x = module(x)
                 output.append(x)
             layer_outputs.append(x)
 
-        self.losses["recall"] /= 3
-        self.losses["precision"] /= 3
+        losses["recall"] /= 3
+        losses["precision"] /= 3
 
-        return (sum(output),output_features) if is_training else (torch.cat(output, 1), output_features)
+        return (losses,output_features) if is_training else (torch.cat(output, 1), output_features)
+
 
     def load_weights(self, weights_path = None):
         # TODO:
@@ -814,10 +816,12 @@ class Darknet(nn.Module):
             print('Weight file is not given or not exits, random initialize')
             self.apply(utils.utils.weights_init_normal)
 
+
     def save_weights(self, path):
         # TODO:
         #   save weight
         torch.save(self.module_list.state_dict(),os.path.join(path,"yolo.pth"))
+
 
     def load_my_weight(self, weights_path):
         # random init all weights
@@ -865,6 +869,9 @@ class FlowYOLO(nn.Module):
         #   1. pre-processing data: built pairs for flow, first image pairs by last image of last batch
         #   2. batch input to flowNet -> get flow
         #   3. sequence input to yolo and get result
+
+
+
         if self.last_frames is None:
             self.last_frames = data[0]
 
@@ -879,27 +886,30 @@ class FlowYOLO(nn.Module):
             self.last_frames = data[idx]
 
         flow_input = torch.stack(flow_input)
-        # print("flow_net input shape:{}".format(flow_input.shape))
-        # print("flow_net input mean:{}".format(flow_input.mean()))
-        # print("flow_net input max:{}".format(flow_input.max()))
 
         # predict flows, output[batchsize,]
         flows_output = self.flow_model(flow_input)
-        # print("max_ouput of flow:{}".format(flows_output.max()))
-        # print("mean_ouput of flow:{}".format(flows_output.mean()))
-        # print(flows_output)
+
         # get the flows
         flows_list = [flows_output[i].permute(1, 2, 0) for i in range(flows_output.shape[0])]
 
         results = []
+        losses = defaultdict(float)
         for i in range(data.shape[0]):
             # flow dim is [h,w,channel]
-            result, features = self.detect_model(torch.unsqueeze(images_list[i],0),forward_feats=self.last_feature,flow=flows_list[i])
-            results.append(result)
+            result, features = self.detect_model(torch.unsqueeze(images_list[i],0),forward_feats=self.last_feature,flow=flows_list[i],target = target)
+            if target is not None:
+                for name, loss in result.items():
+                    losses[name] += loss
+            else:
+                results.append(result)
             self.last_feature = features
 
+        for name in losses.keys():
+            losses[name] /= data.shape[0]
         # concat all output by batch_dim
-        return torch.cat(results,0)
+        return losses if target is not None else torch.cat(results,0)
+
 
     def load_weights(self, flow_weights_path=None, yolo_weights_path=None):
         print("flow_weigth: {}".format(flow_weights_path))
@@ -920,6 +930,10 @@ class FlowYOLO(nn.Module):
 
 
     def save_weights(self, path):
+        if not os.path.isdir(path):
+            os.mkdir(path)
+
+        # no use format of weight of origin FlowNet, use torch format
         torch.save(self.flow_model.state_dict(),os.path.join(path,"flow.pth"))
         self.detect_model.save_weights(path)
 

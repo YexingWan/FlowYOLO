@@ -59,6 +59,7 @@ def built_args():
     parser.add_argument('--learning_rate', type=float, default=0.001,help="Learning rate for edn-to-end traning")
     parser.add_argument('--momentum', type=float, default=0.9,help="Momentum for edn-to-end traning")
     parser.add_argument('--decay', type=float, default=0.005, help="Weight decay for edn-to-end traning")
+    parser.add_argument('--saving_checkpoint_interval', type=int, default=10, help="Number of epoch for saving weight")
 
 
     parser.add_argument('--inference_batch_size', type=int, default=8)
@@ -110,21 +111,18 @@ def built_args():
     return args
 
 
-
-
-
-
 def train(args):
 
     # TODO:
     #   design spectial dataset for tranning
     dataset_list = datasets.ImagenetVID(args)
 
-    dataloader_list = [DataLoader(dataset_list[i], 8) for i in range(len(dataset_list))]
+    dataloader_list = [DataLoader(dataset_list[i], args.train_batch_size) for i in range(len(dataset_list))]
 
     flow_yolo = models.FlowYOLO(args)
-    flow_yolo.load_weights(args.flow_resume, args.yolo_resume)
 
+    flow_yolo.train()
+    flow_yolo.load_weights(args.flow_resume, args.yolo_resume)
     if torch.cuda.is_available() and args.use_cuda:
         number_gpus = torch.cuda.device_count()
         if number_gpus > 0:
@@ -132,16 +130,51 @@ def train(args):
             flow_yolo = nn.parallel.DataParallel(flow_yolo, device_ids=list(range(number_gpus)))
             flow_yolo.cuda()
 
-    flow_yolo.train()
+    for p in flow_yolo.parameters():
+        p.requires_grad = True
 
+    optimizer = torch.optim.Adam(filter(lambda p: p.requires_grad, flow_yolo.parameters()))
+
+    cur_batch = 0
+    total_batch = sum([len(d) for d in dataloader_list])
     for epoch in range(args.total_epochs):
         dataloader_list = random.shuffle(dataloader_list)
         for idx in range(len(dataloader_list)):
             for batch_i, (imgs, targets) in enumerate(dataloader_list[idx]):
                 if args.use_cuda:
-                    input_imgs = imgs.cuda()
+                    imgs.cuda()
+                    targets.cuda()
 
-                pass
+                # return a loss dict
+                losses = flow_yolo(imgs,targets)
+
+                # get loss tensor and backward to get grad
+                losses["loss"].backward()
+
+                # update weights
+                optimizer.step()
+                print(
+                    "[Epoch %d/%d, Batch %d/%d] [Losses: x %f, y %f, w %f, h %f, conf %f, cls %f, total %f, recall: %.5f, precision: %.5f]"
+                    % (
+                        epoch,
+                        args.epochs,
+                        cur_batch,
+                        total_batch,
+                        losses["loss"].item(),
+                        losses["x"],
+                        losses["y"],
+                        losses["w"],
+                        losses["h"],
+                        losses["conf"],
+                        losses["cls"],
+                        losses["recall"],
+                        losses["precision"],
+                    )
+                )
+                cur_batch += 1
+        if epoch % args.saving_checkpoint_interval == 0:
+            flow_yolo.save_weights("%s/%d.weights" % (os.path.join(args.save+"checkpoints"), epoch))
+    print("Done!")
 
 
 def test(args):
@@ -337,4 +370,8 @@ python3 main.py --task inference --yolo_config_path "./config/yolov3.cfg" --yolo
 
 if __name__ == "__main__":
     args = built_args()
+    if not os.path.isdir(args.save):
+        os.mkdir(args.save)
+    if not os.path.isdir(os.path.join(args.save,"checkpoints")):
+        os.mkdir(os.path.join(args.save,"checkpoints"))
     main(args,task = args.task)
