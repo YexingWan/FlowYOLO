@@ -838,7 +838,7 @@ class Darknet(nn.Module):
         # 2. overwrite entries in the existing state dict
         model_dict.update(pretrained_dict)
         # 3. load the new state dict
-        self.module_list.load_state_dict(pretrained_dict)
+        self.module_list.load_state_dict(model_dict)
         return
 
 
