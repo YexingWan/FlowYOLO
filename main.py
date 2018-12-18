@@ -142,7 +142,7 @@ def train(args):
     cur_batch = 0
     total_batch = sum([len(d) for d in dataloader_list])
     for epoch in range(args.total_epochs):
-        dataloader_list = random.shuffle(dataloader_list)
+        random.shuffle(dataloader_list)
         for idx in range(len(dataloader_list)):
 
             for batch_i, (imgs, targets) in enumerate(dataloader_list[idx]):
