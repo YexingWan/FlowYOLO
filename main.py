@@ -11,6 +11,7 @@ from tensorboardX import SummaryWriter
 import argparse, os, sys, subprocess
 import setproctitle, colorama
 import numpy as np
+from collections import deque
 from tqdm import tqdm
 from glob import glob
 from os.path import *
@@ -143,6 +144,7 @@ def train(args):
     for epoch in range(args.total_epochs):
         dataloader_list = random.shuffle(dataloader_list)
         for idx in range(len(dataloader_list)):
+
             for batch_i, (imgs, targets) in enumerate(dataloader_list[idx]):
                 if args.use_cuda:
                     imgs.cuda()
@@ -175,6 +177,9 @@ def train(args):
                     )
                 )
                 cur_batch += 1
+
+            flow_yolo.last_feature = deque([0,0])
+            flow_yolo.last_frames = None
         if epoch % args.saving_checkpoint_interval == 0:
             flow_yolo.save_weights("%s/%d.weights" % (os.path.join(args.save+"checkpoints"), epoch))
     print("Done!")
