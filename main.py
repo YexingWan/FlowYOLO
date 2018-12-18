@@ -1,3 +1,5 @@
+import matplotlib as mpl
+mpl.use('Agg')
 import models
 import torch
 import torch.nn as nn
@@ -17,7 +19,6 @@ import time
 
 from matplotlib.ticker import NullLocator
 from matplotlib import pyplot as plt
-import matplotlib as mpl
 from matplotlib import patches as patches
 from PIL import Image
 
@@ -55,9 +56,10 @@ def built_args():
     parser.add_argument('--schedule_lr_fraction', type=float, default=10)
     parser.add_argument('--crop_size', type=int, nargs='+', default=[448, 448],
                         help="Spatial dimension to crop training samples for training")
-    parser.add_argument('--learning_rate', type=float, default=0.0001,help="Learning rate for edn-to-end traning")
+    parser.add_argument('--learning_rate', type=float, default=0.001,help="Learning rate for edn-to-end traning")
     parser.add_argument('--momentum', type=float, default=0.9,help="Momentum for edn-to-end traning")
     parser.add_argument('--decay', type=float, default=0.005, help="Weight decay for edn-to-end traning")
+    parser.add_argument('--saving_checkpoint_interval', type=int, default=10, help="Number of epoch for saving weight")
 
 
     parser.add_argument('--inference_batch_size', type=int, default=8)
@@ -86,9 +88,9 @@ def built_args():
 
     parser.add_argument("--yolo_config_path", type=str, default="config/yolov3.cfg", help="path to model config file")
     parser.add_argument("--yolo_resume", type=str, default="weights/yolov3.weights", help="path to weights file")
-    parser.add_argument("--conf_thres", type=float, default=0.8, help="object confidence threshold")
-    parser.add_argument("--nms_thres", type=float, default=0.4, help="iou thresshold for non-maximum suppression")
-    parser.add_argument("--iou_thres", type=float, default=0.5, help="iou threshold required to qualify as detected")
+    parser.add_argument("--conf_thres", type=float, default=0.1, help="object confidence threshold")
+    parser.add_argument("--nms_thres", type=float, default=0.5, help="iou thresshold for non-maximum suppression")
+    parser.add_argument("--iou_thres", type=float, default=0.2, help="iou threshold required to qualify as detected")
     args = parser.parse_args()
 
     # model class
@@ -102,7 +104,7 @@ def built_args():
     args.data_infer_path = data_config["infer"]
     args.data_num_classes = int(data_config["classes"])
     args.data_names_path = data_config["names"]
-    args.rgb_max=data_config["rgb_max"]
+    args.rgb_max=int(data_config["rgb_max"])
 
     args.fp16=None
 
@@ -111,8 +113,69 @@ def built_args():
 
 def train(args):
 
+    # TODO:
+    #   design spectial dataset for tranning
+    dataset_list = datasets.ImagenetVID(args)
 
-    pass
+    dataloader_list = [DataLoader(dataset_list[i], args.train_batch_size) for i in range(len(dataset_list))]
+
+    flow_yolo = models.FlowYOLO(args)
+
+    flow_yolo.train()
+    flow_yolo.load_weights(args.flow_resume, args.yolo_resume)
+    if torch.cuda.is_available() and args.use_cuda:
+        number_gpus = torch.cuda.device_count()
+        if number_gpus > 0:
+            print("GPU_NUMBER:{}".format(number_gpus))
+            flow_yolo = nn.parallel.DataParallel(flow_yolo, device_ids=list(range(number_gpus)))
+            flow_yolo.cuda()
+
+    for p in flow_yolo.parameters():
+        p.requires_grad = True
+
+    optimizer = torch.optim.Adam(filter(lambda p: p.requires_grad, flow_yolo.parameters()))
+
+    cur_batch = 0
+    total_batch = sum([len(d) for d in dataloader_list])
+    for epoch in range(args.total_epochs):
+        dataloader_list = random.shuffle(dataloader_list)
+        for idx in range(len(dataloader_list)):
+            for batch_i, (imgs, targets) in enumerate(dataloader_list[idx]):
+                if args.use_cuda:
+                    imgs.cuda()
+                    targets.cuda()
+
+                # return a loss dict
+                losses = flow_yolo(imgs,targets)
+
+                # get loss tensor and backward to get grad
+                losses["loss"].backward()
+
+                # update weights
+                optimizer.step()
+                print(
+                    "[Epoch %d/%d, Batch %d/%d] [Losses: x %f, y %f, w %f, h %f, conf %f, cls %f, total %f, recall: %.5f, precision: %.5f]"
+                    % (
+                        epoch,
+                        args.epochs,
+                        cur_batch,
+                        total_batch,
+                        losses["loss"].item(),
+                        losses["x"],
+                        losses["y"],
+                        losses["w"],
+                        losses["h"],
+                        losses["conf"],
+                        losses["cls"],
+                        losses["recall"],
+                        losses["precision"],
+                    )
+                )
+                cur_batch += 1
+        if epoch % args.saving_checkpoint_interval == 0:
+            flow_yolo.save_weights("%s/%d.weights" % (os.path.join(args.save+"checkpoints"), epoch))
+    print("Done!")
+
 
 def test(args):
 
@@ -143,17 +206,13 @@ def inference(args):
     # init dataset and load cap and writer if source is video
     if args.camera or (os.path.splitext(args.data_infer_path)[-1] in ('.mkv', '.avi', '.mp4', '.rmvb', '.AVI', '.MKV', '.MP4') and os.path.isfile(args.data_infer_path)):
         dataset = datasets.VideoFile(args,src = args.data_infer_path, camera =args.camera, start=0, duration=10)
+        print("video dataset!")
         if args.camera:
             cap = cv2.VideoCapture(0)
         else:
             cap = cv2.VideoCapture(args.data_infer_path)
 
-        v_writer = cv2.VideoWriter("output/result.avi",
-                                   apiPreference=cv2.CAP_ANY,
-                                   fourcc=cv2.VideoWriter_fourcc(*'MJPG'),
-                                   fps=int(args.fps),
-                                   frameSize=(args.frame_size[1], args.frame_size[0]))
-
+        v_writer = cv2.VideoWriter()
     else:
         dataset = datasets.SequenceImage(folder_path=args.data_infer_path)
         cap = None
@@ -162,23 +221,44 @@ def inference(args):
     # init data loader
     dataloader = DataLoader(dataset,batch_size=args.inference_batch_size)
 
+    loader_writer = cv2.VideoWriter("output/loader.avi",
+                               apiPreference=cv2.CAP_ANY,
+                               fourcc=cv2.VideoWriter_fourcc(*'MJPG'),
+                               fps=int(args.fps),
+                               frameSize=(args.inference_size[1], args.inference_size[0]))
+
+
     # for each batch
     for batch_i, (paths, input_imgs) in enumerate(dataloader):
+
+        # imput_imgs:[batch,channel,h,w]
+
+        _tem = input_imgs.numpy()
+        for idx in range(_tem.shape[0]):
+            loader_writer.write(cv2.cvtColor(_tem[idx].transpose(1,2,0),cv2.COLOR_RGB2BGR))
+
         if args.use_cuda:
-            input_imgs = input_imgs.cuda(async=True)
+            input_imgs = input_imgs.cuda()
 
         # Get detections
+        print("outer check data max:{}".format(input_imgs.max()))
+        s = time.time()
+        print("input_tensor_shape:{}".format(input_imgs.shape))
         with torch.no_grad():
-            detections = flow_yolo(data = input_imgs, target = None)
+            detections = flow_yolo(input_imgs)
+            print("thred:{}".format(args.conf_thres))
             detections = utils.non_max_suppression(detections, len(classes), args.conf_thres, args.nms_thres)
 
+        e = time.time()
+        print("forward_time:{}s".format(e-s))
+
         # Save image and detections depends on type of source
-        if cap and v_writer:
-            draw_and_save(args,
+        if cap is not None and v_writer is not None:
+            v_writer = draw_and_save(args,
                           [cap.read()[1] for _ in range(args.inference_batch_size)],
                           detections,
                           classes,
-                          v_writer)
+                          v_writer=v_writer)
         else:
             if paths:
                 draw_and_save(args,
@@ -187,10 +267,12 @@ def inference(args):
                               classes)
             else:
                 print(sys.stderr,"Error: something wrong with dataloader, loss image path.")
+    v_writer.release()
+    loader_writer.release()
 
 
 def draw_and_save(args,source,img_detections,classes,v_writer = None):
-    cmap = plt.get_cmap('tab20b')
+    cmap = plt.get_cmap('hot')
     colors = [cmap(i) for i in np.linspace(0, 1, 20)]
 
 
@@ -211,13 +293,13 @@ def draw_and_save(args,source,img_detections,classes,v_writer = None):
         ax.imshow(img)
 
         # The amount of padding that was added
-        pad_x = max(img.shape[0] - img.shape[1], 0) * (args.inference_size / max(img.shape))
-        pad_y = max(img.shape[1] - img.shape[0], 0) * (args.inference_size / max(img.shape))
+        pad_x = max(img.shape[0] - img.shape[1], 0) * (args.inference_size[1] / max(img.shape))
+        pad_y = max(img.shape[1] - img.shape[0], 0) * (args.inference_size[0] / max(img.shape))
         #print("pad_x:%d pad_y:%d " % (pad_x, pad_y))
 
         # Image height and width after padding is removed
-        unpad_h = args.inference_size - pad_y
-        unpad_w = args.inference_size - pad_x
+        unpad_h = args.inference_size[0] - pad_y
+        unpad_w = args.inference_size[1] - pad_x
 
         # Draw bounding boxes and labels of detections
         if detections is not None:
@@ -246,22 +328,31 @@ def draw_and_save(args,source,img_detections,classes,v_writer = None):
 
         # Save generated image with detections
         plt.axis('off')
-        plt.gca().xaxis.set_major_locator(NullLocator())
-        plt.gca().yaxis.set_major_locator(NullLocator())
+        # plt.gca().xaxis.set_major_locator(NullLocator())
+        # plt.gca().yaxis.set_major_locator(NullLocator())
+        # If we haven't already shown or saved the plot, then we need to
+        # draw the figure first...
+        fig.canvas.draw()
 
-
-        if v_writer and v_writer.isOpened():
-            # If we haven't already shown or saved the plot, then we need to
-            # draw the figure first...
-            fig.canvas.draw()
-
-            # Now we can save it to a numpy array.
+        if v_writer is not None:
             data = np.fromstring(fig.canvas.tostring_rgb(), dtype=np.uint8, sep='')
             data = data.reshape(fig.canvas.get_width_height()[::-1] + (3,))
-            v_writer.write(data)
+            if v_writer.isOpened():
+            # Now we can save it to a numpy array.
+                v_writer.write(data)
+            else:
+                v_writer = cv2.VideoWriter("output/result.avi",
+                                           apiPreference=cv2.CAP_ANY,
+                                           fourcc=cv2.VideoWriter_fourcc(*'MJPG'),
+                                           fps=int(args.fps),
+                                           frameSize=(data.shape[1],data.shape[0]))
+                print("data_shape:{}".format(data.shape))
+                v_writer.write(data)
+
         else:
-            plt.savefig('output/%s%06d.png' % (img_i), bbox_inches='tight', pad_inches=0.0)
+            plt.savefig('output/%06d.png' % (img_i), bbox_inches='tight', pad_inches=0.0)
             plt.close()
+    return v_writer
 
 
 def main(args,task):
@@ -274,9 +365,13 @@ def main(args,task):
 
 
 """
-python3 main.py --task inference --yolo_config_path "./config/yolov3.cfg" --yolo_resume "yolo_weight/yolov3.pth" --flow_model "FlowNet2CS" --flow_resume "flow_weight/FlowNet2-CS_checkpoint.pth"
+python3 main.py --task inference --yolo_config_path "./config/yolov3.cfg" --yolo_resume "../yolo_weight/yolov3.pth" --flow_model "FlowNet2CS" --flow_resume "../flow_weight/FlowNet2-CS_checkpoint.pth"
 """
 
 if __name__ == "__main__":
     args = built_args()
+    if not os.path.isdir(args.save):
+        os.mkdir(args.save)
+    if not os.path.isdir(os.path.join(args.save,"checkpoints")):
+        os.mkdir(os.path.join(args.save,"checkpoints"))
     main(args,task = args.task)

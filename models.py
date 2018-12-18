@@ -364,6 +364,7 @@ class FlowNet2CS(nn.Module):
         self.batchNorm = batchNorm
         self.div_flow = div_flow
         self.rgb_max = args.rgb_max
+        print("rgb_max:{}".format(self.rgb_max))
         self.args = args
 
         self.channelnorm = ChannelNorm()
@@ -481,6 +482,7 @@ class FlowNet2CSS(nn.Module):
         x = torch.cat((x1, x2), dim=1)
 
         # flownetc
+        # stride: 4 for origin resolution
         flownetc_flow2 = self.flownetc(x)[0]
         flownetc_flow = self.upsample1(flownetc_flow2 * self.div_flow)
 
@@ -508,6 +510,7 @@ class FlowNet2CSS(nn.Module):
         flownets2_flow2 = self.flownets_2(concat2)[0]
         flownets2_flow = self.upsample3(flownets2_flow2 * self.div_flow)
 
+        #  origin resolution output
         return flownets2_flow
 
 
@@ -741,14 +744,18 @@ class Darknet(nn.Module):
         self.module_defs = parse_model_config(config_path)
         self.hyperparams, self.module_list = create_modules(self.module_defs)
         self.img_size = img_size
-        self.loss_names = ["x", "y", "w", "h", "conf", "cls", "recall", "precision"]
-        self.flow_warp = F.grid_sample
+        self.loss_names = ["loss","x", "y", "w", "h", "conf", "cls", "recall", "precision"]
+
+        # TODO:
+        #   wrong way to do warp!!!
+        self.flow_warp = Resample2d()
 
 
     def forward(self,x,forward_feats:deque,flow,targets=None):
+        # flow dim is [h,w,channel]
         is_training = targets is not None
         output = []
-        self.losses = defaultdict(float)
+        losses = defaultdict(float)
         layer_outputs = []
         output_features = deque()
         x = x/255.
@@ -763,31 +770,41 @@ class Darknet(nn.Module):
             elif module_def["type"] == "shortcut":
                 layer_i = int(module_def["from"])
                 x = layer_outputs[-1] + layer_outputs[layer_i]
-                # warp and aggregate at layer 37 62, which are the layers before down-sampling
+                #warp and aggregate at layer 37 62, which are the layers before down-sampling
                 if i in [36,61]:
                     output_features.append(x)
-                    print("flow aggregate in  L62/37")
+                    #print("flow aggregate in  L62/37")
                     f = forward_feats.popleft()
-                    if f:
-                        x = x + self.flow_warp(f, flow)
+                    div = {36:8,61:16}
+                    if isinstance(f,torch.Tensor):
+                        # print("last feature shape:{}".format(f.shape))
+                        # print("current feature shape:{}".format(x.shape))
+                        # resizing flow by bi-linear interpolation
+                        _flow = F.interpolate(torch.unsqueeze(flow.permute(2,0,1),0),size=(x.shape[-2],x.shape[-1]),mode="bilinear")/div[i]
+                        _flow = _flow.contiguous()
+                        _re = self.flow_warp(f,_flow)
+                        # print("warped feature shape:{}".format(_re.shape))
+                        x = 0.5*x + 0.5*_re
 
 
             elif module_def["type"] == "yolo":
                 # Train phase: get loss
                 if is_training:
-                    x, *losses = module[0](x, targets)
-                    for name, loss in zip(self.loss_names, losses):
-                        self.losses[name] += loss
+                    # x, *losses = module[0](x, targets)
+                    x = module[0](x, targets)
+                    for name, loss in zip(self.loss_names, x):
+                        losses[name] += loss
                 # Test phase: Get detections
                 else:
                     x = module(x)
                 output.append(x)
             layer_outputs.append(x)
 
-        self.losses["recall"] /= 3
-        self.losses["precision"] /= 3
+        losses["recall"] /= 3
+        losses["precision"] /= 3
 
-        return (sum(output),output_features) if is_training else (torch.cat(output, 1), output_features)
+        return (losses,output_features) if is_training else (torch.cat(output, 1), output_features)
+
 
     def load_weights(self, weights_path = None):
         # TODO:
@@ -799,10 +816,34 @@ class Darknet(nn.Module):
             print('Weight file is not given or not exits, random initialize')
             self.apply(utils.utils.weights_init_normal)
 
+
     def save_weights(self, path):
         # TODO:
         #   save weight
         torch.save(self.module_list.state_dict(),os.path.join(path,"yolo.pth"))
+
+
+    def load_my_weight(self, weights_path):
+        # random init all weights
+        self.apply(utils.utils.weights_init_normal)
+
+        model_dict = self.module_list.state_dict()
+
+        # get pre-trained weight
+        if weights_path and os.path.isfile(weights_path):
+            pretrained_dict = torch.load(weights_path)
+        else:
+            print('Weight file is not given or not exits, random initialize')
+            self.apply(utils.utils.weights_init_normal)
+            return
+
+        # 1. filter out unnecessary keys
+        pretrained_dict = {k: v for k, v in pretrained_dict.items() if k in model_dict and model_dict[k].shape == pretrained_dict[k].shape}
+        # 2. overwrite entries in the existing state dict
+        model_dict.update(pretrained_dict)
+        # 3. load the new state dict
+        self.module_list.load_state_dict(model_dict)
+        return
 
 
 #------------------------------------FLOW-YOLO---------------------------------
@@ -828,32 +869,47 @@ class FlowYOLO(nn.Module):
         #   1. pre-processing data: built pairs for flow, first image pairs by last image of last batch
         #   2. batch input to flowNet -> get flow
         #   3. sequence input to yolo and get result
-        if not self.last_frames:
+
+
+
+        if self.last_frames is None:
             self.last_frames = data[0]
 
         flow_input = []
         images_list = []
+
         # flow_input:[batch_size,3(channel),2,row_idx,col_idx]
         for idx in range(data.shape[0]):
             images_list.append(data[idx])
-            flow_input.append(torch.Tensor([self.last_frames,data[idx]]).permute(1, 0, 2, 3))
+            flow_input.append(torch.stack([data[idx],self.last_frames]).permute(1, 0, 2, 3))
+            # flow_input.append(torch.stack([self.last_frames,data[idx]]).permute(1, 0, 2, 3))
             self.last_frames = data[idx]
+
         flow_input = torch.stack(flow_input)
 
         # predict flows, output[batchsize,]
         flows_output = self.flow_model(flow_input)
 
-        # get the flows list and images list
+        # get the flows
         flows_list = [flows_output[i].permute(1, 2, 0) for i in range(flows_output.shape[0])]
 
         results = []
+        losses = defaultdict(float)
         for i in range(data.shape[0]):
-            result, features = self.detect_model(torch.unsqueeze(images_list[i],0),forward_feat=self.last_feature,flow=flows_list[i])
-            results.append(results)
+            # flow dim is [h,w,channel]
+            result, features = self.detect_model(torch.unsqueeze(images_list[i],0),forward_feats=self.last_feature,flow=flows_list[i],target = target)
+            if target is not None:
+                for name, loss in result.items():
+                    losses[name] += loss
+            else:
+                results.append(result)
             self.last_feature = features
 
+        for name in losses.keys():
+            losses[name] /= data.shape[0]
         # concat all output by batch_dim
-        return torch.cat(results,0)
+        return losses if target is not None else torch.cat(results,0)
+
 
     def load_weights(self, flow_weights_path=None, yolo_weights_path=None):
         print("flow_weigth: {}".format(flow_weights_path))
@@ -869,10 +925,17 @@ class FlowYOLO(nn.Module):
         else:
             print("Random initialization")
         # load yolo weight
-        self.detect_model.load_weights(weights_path=yolo_weights_path)
+        # self.detect_model.load_weights(weights_path=yolo_weights_path)
+        self.detect_model.load_my_weight(weights_path=yolo_weights_path)
 
 
     def save_weights(self, path):
+        if not os.path.isdir(path):
+            os.mkdir(path)
+
+        # no use format of weight of origin FlowNet, use torch format
         torch.save(self.flow_model.state_dict(),os.path.join(path,"flow.pth"))
         self.detect_model.save_weights(path)
+
+
 

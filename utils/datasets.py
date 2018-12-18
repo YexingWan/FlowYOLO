@@ -13,27 +13,27 @@ from skimage.transform import resize
 class VideoFile(Dataset):
     def __init__(self,args, image_size = 448, src = '',camera = False, gap = 1, start = 0, duration = -1):
         self.args = args
+        self.camera = camera
         self.src = src if not self.camera else ""
         self.gap = gap if not self.camera else -1
-        self.camera = camera
 
-        if (not camera) and src:
+
+        if (not self.camera) and src:
             ext = os.path.splitext(src)[-1]
             ext_set = ('.mkv', '.avi', '.mp4', '.rmvb', '.AVI', '.MKV', '.MP4')
             if os.path.isfile(src) and ext in ext_set:
                 self.cap = cv2.VideoCapture(src)
-        elif camera:
-            self.camera = True
+        elif self.camera:
             self.cap = cv2.VideoCapture(0)
         else:
             print(sys.stderr, "ERROR: Video {} is not exist or with wrong path.".format(src))
             quit(1)
 
         # Video
-        if not camera and self.cap.isOpened():
+        if not self.camera and self.cap.isOpened():
             self.frames_num = int(self.cap.get(cv2.CAP_PROP_FRAME_COUNT))
             self.fps = int(self.cap.get(cv2.CAP_PROP_FPS))
-            self.frame_size = (self.cap.get(cv2.CAP_PROP_FRAME_HEIGHT),self.cap.get(cv2.CAP_PROP_FRAME_WIDTH))
+            self.frame_size = (int(self.cap.get(cv2.CAP_PROP_FRAME_HEIGHT)),int(self.cap.get(cv2.CAP_PROP_FRAME_WIDTH)))
 
             # set range of video to infer
             start = 0 if start < 0 else start
@@ -48,9 +48,9 @@ class VideoFile(Dataset):
             self.start_frame = floor(self.start * self.fps)
 
         # Camera
-        elif camera and self.cap.isOpened():
+        elif self.camera and self.cap.isOpened():
             self.fps = int(self.cap.get(cv2.CAP_PROP_FPS))
-            self.frame_size = (self.cap.get(cv2.CAP_PROP_FRAME_HEIGHT),self.cap.get(cv2.CAP_PROP_FRAME_WIDTH))
+            self.frame_size = (int(self.cap.get(cv2.CAP_PROP_FRAME_HEIGHT)),int(self.cap.get(cv2.CAP_PROP_FRAME_WIDTH)))
             # set range of video to infer
             self.start = 0
             if duration<=0:
@@ -81,6 +81,10 @@ class VideoFile(Dataset):
             ret, img = self.cap.read()
 
         if ret:
+            # convert to RGB
+            img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+            # print("conver to RGB")
+            # print("dataset inner check 1 max:{}".format(img.max()))
             h, w, _ = img.shape
             dim_diff = np.abs(h - w)
             # Upper (left) and lower (right) padding
@@ -89,14 +93,18 @@ class VideoFile(Dataset):
             pad = ((pad1, pad2), (0, 0), (0, 0)) if h <= w else ((0, 0), (pad1, pad2), (0, 0))
             # Add padding(127.5)
             input_img = np.pad(img, pad, 'constant', constant_values=127.5)
+            # print("dataset inner check 2 max:{}".format(input_img.max()))
             # Resize
-            input_img = resize(input_img, (*self.img_shape, 3), mode='reflect')
+            # input_img = resize(input_img, (*self.img_shape, 3), mode='reflect')
+            input_img = cv2.resize(input_img,self.img_shape)
+            # print("dataset inner check 3 max:{}".format(input_img.max()))
             # Channels-first
             input_img = np.transpose(input_img, (2, 0, 1))
             # As pytorch tensor
             input_img = torch.from_numpy(input_img).float()
 
-            return None,input_img
+
+            return "ignore",input_img
         else:
             print(sys.stderr, "ERROR: try to get frames{} and {}. But video {} only has {} frames.".format(index,index+self.gap,self.src,self.frames_num))
             exit(1)
@@ -125,6 +133,7 @@ class SequenceImage(Dataset):
         img_path = self.files[index % len(self.files)]
         # Extract image
         img = np.array(Image.open(img_path))
+        print("Image.open max:{}".format(img.max()))
         h, w, _ = img.shape
         dim_diff = np.abs(h - w)
         # Upper (left) and lower (right) padding
@@ -134,13 +143,13 @@ class SequenceImage(Dataset):
         # Add padding (127.5)
         input_img = np.pad(img, pad, 'constant', constant_values=127.5)
         # Resize
-        input_img = resize(input_img, (*self.img_shape, 3), mode='reflect')
+        input_img = cv2.resize(input_img, self.img_shape)
         # Channels-first
         input_img = np.transpose(input_img, (2, 0, 1))
         # As pytorch tensor
         input_img = torch.from_numpy(input_img).float()
 
-        return img_path, input_img
+        return [img_path], input_img
 
     def __len__(self):
         return len(self.files)
@@ -148,10 +157,9 @@ class SequenceImage(Dataset):
 
 
 
-
 # Traning dataset
 class ImagenetVID(Dataset):
-    def __init__(self, list_path, img_size=416):
+    def __init__(self, list_path, img_size=448):
         with open(list_path, 'r') as file:
             self.img_files = file.readlines()
         self.label_files = [path.replace('images', 'labels').replace('.png', '.txt').replace('.jpg', '.txt') for path in self.img_files]
@@ -180,10 +188,10 @@ class ImagenetVID(Dataset):
         # Determine padding
         pad = ((pad1, pad2), (0, 0), (0, 0)) if h <= w else ((0, 0), (pad1, pad2), (0, 0))
         # Add padding
-        input_img = np.pad(img, pad, 'constant', constant_values=128) / 255.
+        input_img = np.pad(img, pad, 'constant', constant_values=127.5)
         padded_h, padded_w, _ = input_img.shape
-        # Resize and normalize
-        input_img = resize(input_img, (*self.img_shape, 3), mode='reflect')
+        # Resize
+        input_img = cv2.resize(input_img,self.img_shape)
         # Channels-first
         input_img = np.transpose(input_img, (2, 0, 1))
         # As pytorch tensor
