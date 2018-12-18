@@ -861,7 +861,7 @@ class FlowYOLO(nn.Module):
 
     def forward(self, data, target=None):
         # data is a torch Tensor [b,3,h,w]
-        if self.args.task == "train" and not target:
+        if self.args.task == "train" and target is None:
             print(sys.stderr,"Error: No target in training mode.")
             exit(1)
 
