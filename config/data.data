@@ -1,8 +1,8 @@
 rgb_max=255
-classes= 80
-train=data/coco/trainvalno5k.txt
+classes= 30
+train=/disk2/wanyx/ILSVRC2015/
 valid=data/coco/5k.txt
-names=data/coco.names
+names=data/VID.names
 #backup=backup/
 #eval=coco
 infer=/home/user/wanyx/vedio/HCVR_ch1_main_20181007170000_20181007180000.avi

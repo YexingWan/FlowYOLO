@@ -22,8 +22,6 @@ from matplotlib import pyplot as plt
 from matplotlib import patches as patches
 from PIL import Image
 
-import flownet.flowlib as flowlib
-import flownet.models, flownet.losses, flownet.datasets
 from utils import flow_utils, tools, utils, datasets
 from utils.parse_config import parse_data_config, parse_model_config
 
@@ -114,8 +112,13 @@ def built_args():
 def train(args):
 
     # TODO:
-    #   design spectial dataset for tranning
-    dataset_list = datasets.ImagenetVID(args)
+    #   design special dataset for training
+    #   for each sequence, generate a dataset, so we can get a list of dataset
+    #   for each dataset, generate a dataloader, so we can get a list of dataloader
+    #   for one epoch, go through the list of dataloader one time
+    #   once loader change, initialize model.last_frames and model.last_feature
+
+    dataset_list = datasets.built_training_datasets(args.data_train_path)
 
     dataloader_list = [DataLoader(dataset_list[i], args.train_batch_size) for i in range(len(dataset_list))]
 
@@ -366,6 +369,8 @@ def main(args,task):
 
 """
 python3 main.py --task inference --yolo_config_path "./config/yolov3.cfg" --yolo_resume "../yolo_weight/yolov3.pth" --flow_model "FlowNet2CS" --flow_resume "../flow_weight/FlowNet2-CS_checkpoint.pth"
+
+python3 main.py --task train --yolo_config_path "./config/yolov3.cfg" --yolo_resume "../yolo_weight/yolov3.pth" --flow_model "FlowNet2CS" --flow_resume "../flow_weight/FlowNet2-CS_checkpoint.pth"
 """
 
 if __name__ == "__main__":
