@@ -898,7 +898,7 @@ class FlowYOLO(nn.Module):
         losses = defaultdict(float)
         for i in range(data.shape[0]):
             # flow dim is [h,w,channel]
-            result, features = self.detect_model(torch.unsqueeze(images_list[i],0),forward_feats=self.last_feature,flow=flows_list[i],target = target)
+            result, features = self.detect_model(torch.unsqueeze(images_list[i],0),forward_feats=self.last_feature,flow=flows_list[i],targets = target)
             if target is not None:
                 for name, loss in result.items():
                     losses[name] += loss

@@ -28,8 +28,8 @@
       <file leaf-file-name="models.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="76">
-              <caret line="859" column="0" lean-forward="true" selection-start-line="859" selection-start-column="0" selection-end-line="859" selection-end-column="0" />
+            <state relative-caret-position="522">
+              <caret line="909" column="41" lean-forward="true" selection-start-line="909" selection-start-column="41" selection-end-line="909" selection-end-column="41" />
               <folding>
                 <element signature="e#861#7135#0" expanded="false" />
                 <element signature="e#7178#9867#0" expanded="false" />
@@ -43,7 +43,7 @@
                 <element signature="e#29292#31673#0" expanded="false" />
                 <element signature="e#31733#32109#0" expanded="false" />
                 <element signature="e#32320#33151#0" expanded="false" />
-                <element signature="e#35612#36247#0" expanded="false" />
+                <element signature="e#35613#36248#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -168,8 +168,8 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="163" />
-    <option name="y" value="134" />
+    <option name="x" value="80" />
+    <option name="y" value="39" />
     <option name="width" value="1680" />
     <option name="height" value="1027" />
   </component>
@@ -269,7 +269,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="163" y="134" width="1680" height="1027" extended-state="0" />
+    <frame x="80" y="39" width="1680" height="1027" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2741148" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -720,8 +720,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="76">
-          <caret line="859" column="0" lean-forward="true" selection-start-line="859" selection-start-column="0" selection-end-line="859" selection-end-column="0" />
+        <state relative-caret-position="522">
+          <caret line="909" column="41" lean-forward="true" selection-start-line="909" selection-start-column="41" selection-end-line="909" selection-end-column="41" />
           <folding>
             <element signature="e#861#7135#0" expanded="false" />
             <element signature="e#7178#9867#0" expanded="false" />
@@ -735,7 +735,7 @@
             <element signature="e#29292#31673#0" expanded="false" />
             <element signature="e#31733#32109#0" expanded="false" />
             <element signature="e#32320#33151#0" expanded="false" />
-            <element signature="e#35612#36247#0" expanded="false" />
+            <element signature="e#35613#36248#0" expanded="false" />
           </folding>
         </state>
       </provider>
