@@ -190,7 +190,11 @@ def build_targets(
     nB = target.size(0)
     nA = num_anchors
     nC = num_classes
+
+    # there are nG*nG girds
     nG = grid_size
+
+    # 1 position for 1 bbox
     mask = torch.zeros(nB, nA, nG, nG)
     conf_mask = torch.ones(nB, nA, nG, nG)
     tx = torch.zeros(nB, nA, nG, nG)
@@ -202,34 +206,54 @@ def build_targets(
 
     nGT = 0
     nCorrect = 0
+    # for each batch
     for b in range(nB):
+
         for t in range(target.shape[1]):
             if target[b, t].sum() == 0:
                 continue
+
+
+            # for each gt bbox
             nGT += 1
+
             # Convert to position relative to box
+            # target is the relative 0-1 of size of img(448 as default)
             gx = target[b, t, 1] * nG
             gy = target[b, t, 2] * nG
             gw = target[b, t, 3] * nG
             gh = target[b, t, 4] * nG
+
             # Get grid box indices
             gi = int(gx)
             gj = int(gy)
+
             # Get shape of gt box
             gt_box = torch.FloatTensor(np.array([0, 0, gw, gh])).unsqueeze(0)
+
             # Get shape of anchor box
             anchor_shapes = torch.FloatTensor(np.concatenate((np.zeros((len(anchors), 2)), np.array(anchors)), 1))
+
             # Calculate iou between gt and anchor shapes
             anch_ious = bbox_iou(gt_box, anchor_shapes)
+
             # Where the overlap is larger than threshold set mask to zero (ignore)
             conf_mask[b, anch_ious > ignore_thres, gj, gi] = 0
+
+
             # Find the best matching anchor box
             best_n = np.argmax(anch_ious)
+
+
             # Get ground truth box
             gt_box = torch.FloatTensor(np.array([gx, gy, gw, gh])).unsqueeze(0)
-            # Get the best prediction
+
+
+            # Get the best prediction from best match anchor
             pred_box = pred_boxes[b, best_n, gj, gi].unsqueeze(0)
-            # Masks
+
+
+            # Masks of prediction of each target
             mask[b, best_n, gj, gi] = 1
             conf_mask[b, best_n, gj, gi] = 1
             # Coordinates
@@ -243,7 +267,7 @@ def build_targets(
             tcls[b, best_n, gj, gi, target_label] = 1
             tconf[b, best_n, gj, gi] = 1
 
-            # Calculate iou between ground truth and best matching prediction
+            # Calculate iou between ground truth() and best matching prediction
             iou = bbox_iou(gt_box, pred_box, x1y1x2y2=False)
             pred_label = torch.argmax(pred_cls[b, best_n, gj, gi])
             score = pred_conf[b, best_n, gj, gi]

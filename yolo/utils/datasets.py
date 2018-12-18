@@ -16,6 +16,7 @@ from skimage.transform import resize
 
 import sys
 
+# for predict
 class ImageFolder(Dataset):
     def __init__(self, folder_path, img_size=416):
         self.files = sorted(glob.glob('%s/*.*' % folder_path))
@@ -45,7 +46,7 @@ class ImageFolder(Dataset):
     def __len__(self):
         return len(self.files)
 
-
+# from train
 class ListDataset(Dataset):
     def __init__(self, list_path, img_size=416):
         with open(list_path, 'r') as file:
