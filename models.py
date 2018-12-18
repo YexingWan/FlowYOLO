@@ -776,6 +776,7 @@ class Darknet(nn.Module):
                     output_features.append(x)
                     #print("flow aggregate in  L62/37")
                     f = forward_feats.popleft()
+                    print(forward_feats)
                     div = {36:8,61:16}
                     if isinstance(f,torch.Tensor):
                         # print("last feature shape:{}".format(f.shape))
