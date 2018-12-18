@@ -233,10 +233,11 @@ class SequenceImage(Dataset):
         for object in root.iter("object"):
             box = dict()
             # Grab the 'index' annotation.
-            box["xmin"] = int(object.find('xmin').text)
-            box["ymin"] = int(object.find('ymin').text)
-            box["xmax"] = int(object.find('xmax').text)
-            box["ymax"] = int(object.find('ymax').text)
+            box_tree = object.find("bndbox")
+            box["xmin"] = int(box_tree.find('xmin').text)
+            box["ymin"] = int(box_tree.find('ymin').text)
+            box["xmax"] = int(box_tree.find('xmax').text)
+            box["ymax"] = int(box_tree.find('ymax').text)
             box["name"] = object.find("name").text
             boxes.append(box)
         return boxes
