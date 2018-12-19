@@ -891,7 +891,6 @@ class FlowYOLO(nn.Module):
         flow_input = torch.stack(flow_input)
 
         flow_input = flow_input.cuda()
-        data = data.cuda()
         print("flow_input in cuda:{}".format(flow_input.is_cuda))
         # predict flows, output[batchsize,]
         flows_output = self.flow_model(flow_input)

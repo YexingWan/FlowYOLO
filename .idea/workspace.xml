@@ -28,8 +28,8 @@
       <file leaf-file-name="models.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="646">
-              <caret line="905" column="137" lean-forward="false" selection-start-line="905" selection-start-column="127" selection-end-line="905" selection-end-column="137" />
+            <state relative-caret-position="145">
+              <caret line="862" column="26" lean-forward="false" selection-start-line="862" selection-start-column="22" selection-end-line="862" selection-end-column="26" />
               <folding>
                 <element signature="e#861#7135#0" expanded="false" />
                 <element signature="e#7178#9867#0" expanded="false" />
@@ -44,7 +44,7 @@
                 <element signature="e#28741#29170#0" expanded="false" />
                 <element signature="e#31726#32102#0" expanded="false" />
                 <element signature="e#32313#33144#0" expanded="false" />
-                <element signature="e#35746#36381#0" expanded="false" />
+                <element signature="e#35719#36354#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -713,8 +713,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="646">
-          <caret line="905" column="137" lean-forward="false" selection-start-line="905" selection-start-column="127" selection-end-line="905" selection-end-column="137" />
+        <state relative-caret-position="145">
+          <caret line="862" column="26" lean-forward="false" selection-start-line="862" selection-start-column="22" selection-end-line="862" selection-end-column="26" />
           <folding>
             <element signature="e#861#7135#0" expanded="false" />
             <element signature="e#7178#9867#0" expanded="false" />
@@ -729,7 +729,7 @@
             <element signature="e#28741#29170#0" expanded="false" />
             <element signature="e#31726#32102#0" expanded="false" />
             <element signature="e#32313#33144#0" expanded="false" />
-            <element signature="e#35746#36381#0" expanded="false" />
+            <element signature="e#35719#36354#0" expanded="false" />
           </folding>
         </state>
       </provider>
