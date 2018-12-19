@@ -238,8 +238,8 @@ def build_targets(
             anch_ious = bbox_iou(gt_box, anchor_shapes)
 
             # Where the overlap is larger than threshold set mask to zero (ignore) ???
-            # conf_mask[b, anch_ious > ignore_thres, gj, gi] = 0
-            conf_mask[b, anch_ious < ignore_thres, gj, gi] = 0
+            #conf_mask[b, anch_ious > ignore_thres, gj, gi] = 0
+            #conf_mask[b, anch_ious < ignore_thres, gj, gi] = 0
 
 
             # Find the best matching anchor box
@@ -256,7 +256,7 @@ def build_targets(
 
             # Masks of prediction of each target
             mask[b, best_n, gj, gi] = 1
-            conf_mask[b, best_n, gj, gi] = 1
+            #conf_mask[b, best_n, gj, gi] = 1
 
 
             # Coordinates
