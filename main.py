@@ -167,7 +167,7 @@ def train(args):
                     "[Epoch %d/%d, Batch %d/%d] [Losses: x %f, y %f, w %f, h %f, conf %f, cls %f, total %f, recall: %.5f, precision: %.5f]"
                     % (
                         epoch,
-                        args.epochs,
+                        args.total_epochs,
                         cur_batch,
                         total_batch,
                         losses["loss"].item(),
