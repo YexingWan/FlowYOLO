@@ -662,9 +662,9 @@ class YOLOLayer(nn.Module):
         if targets is not None:
 
             if x.is_cuda:
-                self.mse_loss = self.mse_loss.cuda(2)
-                self.bce_loss = self.bce_loss.cuda(2)
-                self.ce_loss = self.ce_loss.cuda(2)
+                self.mse_loss = self.mse_loss.cuda()
+                self.bce_loss = self.bce_loss.cuda()
+                self.ce_loss = self.ce_loss.cuda()
 
             # mask is the mask of gt bbox
             nGT, nCorrect, mask, conf_mask, tx, ty, tw, th, tconf, tcls = build_targets(
@@ -889,7 +889,7 @@ class FlowYOLO(nn.Module):
 
         flow_input = torch.stack(flow_input)
 
-        flow_input = flow_input.cuda(2)
+        flow_input = flow_input.cuda()
 
         # predict flows, output[batchsize,]
         flows_output = self.flow_model(flow_input)
@@ -901,7 +901,7 @@ class FlowYOLO(nn.Module):
         losses = defaultdict(float)
         for i in range(data.shape[0]):
             # flow dim is [h,w,channel]
-            result, features = self.detect_model(torch.unsqueeze(images_list[i],0).cuda(2),
+            result, features = self.detect_model(torch.unsqueeze(images_list[i],0).cuda(),
                                                  forward_feats=self.last_feature,
                                                  flow=flows_list[i],
                                                  targets =torch.unsqueeze(target[i],0))

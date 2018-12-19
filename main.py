@@ -132,7 +132,7 @@ def train(args):
             # print("GPU_NUMBER:{}".format(number_gpus))
             # can only use one gpu
             # flow_yolo = nn.parallel.DataParallel(flow_yolo, device_ids=list(range(number_gpus)))
-            flow_yolo.cuda(2)
+            flow_yolo.cuda()
 
     for p in flow_yolo.parameters():
         p.requires_grad = True
@@ -151,7 +151,7 @@ def train(args):
                 if args.use_cuda:
                     # the imgs will be rerange and cuda() in model
                     # imgs.cuda()
-                    targets.cuda(2)
+                    targets.cuda()
 
                 # return a loss dict
                 #print("target shape:{}".format(targets.shape))
