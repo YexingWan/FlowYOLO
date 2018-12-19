@@ -125,6 +125,7 @@ def train(args):
     flow_yolo = models.FlowYOLO(args)
 
     flow_yolo.train()
+
     flow_yolo.load_weights(args.flow_resume, args.yolo_resume)
     if torch.cuda.is_available() and args.use_cuda:
         number_gpus = torch.cuda.device_count()
@@ -136,6 +137,8 @@ def train(args):
 
     for p in flow_yolo.parameters():
         p.requires_grad = True
+    for p in flow_yolo.flow_model.parameters():
+        p.requires_grad = False
 
     optimizer = torch.optim.Adam(filter(lambda p: p.requires_grad, flow_yolo.parameters()),lr=1e-5)
 
