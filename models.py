@@ -364,7 +364,6 @@ class FlowNet2CS(nn.Module):
         self.batchNorm = batchNorm
         self.div_flow = div_flow
         self.rgb_max = args.rgb_max
-        print("rgb_max:{}".format(self.rgb_max))
         self.args = args
 
         self.channelnorm = ChannelNorm()
@@ -398,7 +397,6 @@ class FlowNet2CS(nn.Module):
                 # init_deconv_bilinear(m.weight)
 
     def forward(self, inputs):
-        print("input in GPU:{}".format(inputs.is_cuda))
 
         rgb_mean = inputs.contiguous().view(inputs.size()[:2] + (-1,)).mean(dim=-1).view(inputs.size()[:2] + (1, 1, 1,))
 
@@ -893,6 +891,7 @@ class FlowYOLO(nn.Module):
         flow_input = torch.stack(flow_input)
 
         flow_input = flow_input.cuda()
+        data = data.cuda()
         print("flow_input in cuda:{}".format(flow_input.is_cuda))
         # predict flows, output[batchsize,]
         flows_output = self.flow_model(flow_input)
@@ -904,7 +903,7 @@ class FlowYOLO(nn.Module):
         losses = defaultdict(float)
         for i in range(data.shape[0]):
             # flow dim is [h,w,channel]
-            result, features = self.detect_model(torch.unsqueeze(images_list[i],0),forward_feats=self.last_feature,flow=flows_list[i],targets = target)
+            result, features = self.detect_model(torch.unsqueeze(images_list[i],0).cuda(),forward_feats=self.last_feature,flow=flows_list[i],targets = target)
             if target is not None:
                 for name, loss in result.items():
                     losses[name] += loss
