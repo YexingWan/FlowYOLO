@@ -118,7 +118,6 @@ def train(args):
     #   for each dataset, generate a dataloader, so we can get a list of dataloader
     #   for one epoch, go through the list of dataloader one time
     #   once loader change, initialize model.last_frames and model.last_feature
-
     dataset_list = datasets.built_training_datasets(args.data_train_path)
 
     dataloader_list = [DataLoader(dataset_list[i], args.train_batch_size) for i in range(len(dataset_list))]
@@ -129,12 +128,11 @@ def train(args):
     flow_yolo.load_weights(args.flow_resume, args.yolo_resume)
     if torch.cuda.is_available() and args.use_cuda:
         number_gpus = torch.cuda.device_count()
-        torch.cuda.device(number_gpus-1)
         if number_gpus > 0:
             # print("GPU_NUMBER:{}".format(number_gpus))
             # can only use one gpu
             # flow_yolo = nn.parallel.DataParallel(flow_yolo, device_ids=list(range(number_gpus)))
-            flow_yolo.cuda()
+            flow_yolo.cuda(2)
 
     for p in flow_yolo.parameters():
         p.requires_grad = True
@@ -153,7 +151,7 @@ def train(args):
                 if args.use_cuda:
                     # the imgs will be rerange and cuda() in model
                     # imgs.cuda()
-                    targets.cuda()
+                    targets.cuda(2)
 
                 # return a loss dict
                 #print("target shape:{}".format(targets.shape))
