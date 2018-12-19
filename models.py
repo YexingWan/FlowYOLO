@@ -776,7 +776,6 @@ class Darknet(nn.Module):
                     output_features.append(x)
                     #print("flow aggregate in  L62/37")
                     f = forward_feats.popleft()
-                    print(forward_feats)
                     div = {36:8,61:16}
                     if isinstance(f,torch.Tensor):
                         # print("last feature shape:{}".format(f.shape))
@@ -786,7 +785,7 @@ class Darknet(nn.Module):
                         _flow = _flow.contiguous()
                         _re = self.flow_warp(f,_flow)
                         # print("warped feature shape:{}".format(_re.shape))
-                        x = 0.5*x + 0.5*_re
+                        x = 0.6*x + 0.4*_re
 
 
             elif module_def["type"] == "yolo":
@@ -902,7 +901,10 @@ class FlowYOLO(nn.Module):
         losses = defaultdict(float)
         for i in range(data.shape[0]):
             # flow dim is [h,w,channel]
-            result, features = self.detect_model(torch.unsqueeze(images_list[i],0).cuda(),forward_feats=self.last_feature,flow=flows_list[i],targets = target)
+            result, features = self.detect_model(torch.unsqueeze(images_list[i],0).cuda(),
+                                                 forward_feats=self.last_feature,
+                                                 flow=flows_list[i],
+                                                 targets =torch.unsqueeze(target[i],0))
             if target is not None:
                 for name, loss in result.items():
                     losses[name] += loss
