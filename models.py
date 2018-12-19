@@ -711,7 +711,7 @@ class YOLOLayer(nn.Module):
                     pred_conf[conf_mask_true], tconf[conf_mask_true]
                 )
                 print("pred_cls shape:{}".format(pred_cls[mask].shape))
-                print("target shape:{}".format(torch.argmax(tcls[mask], 1)))
+                print("target shape:{}".format(tcls[mask].shape))
 
                 loss_cls = (1 / nB) * self.ce_loss(pred_cls[mask], torch.argmax(tcls[mask], 1))
             else:
