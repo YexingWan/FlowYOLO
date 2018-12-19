@@ -398,7 +398,7 @@ class FlowNet2CS(nn.Module):
                 # init_deconv_bilinear(m.weight)
 
     def forward(self, inputs):
-        print("input type:{}".format(type(inputs)))
+        print("input in GPU:{}".format(inputs.is_cuda))
 
         rgb_mean = inputs.contiguous().view(inputs.size()[:2] + (-1,)).mean(dim=-1).view(inputs.size()[:2] + (1, 1, 1,))
 
@@ -889,8 +889,11 @@ class FlowYOLO(nn.Module):
             # flow_input.append(torch.stack([self.last_frames,data[idx]]).permute(1, 0, 2, 3))
             self.last_frames = data[idx]
 
+
         flow_input = torch.stack(flow_input)
 
+        flow_input = flow_input.cuda()
+        print("flow_input in cuda:{}".format(flow_input.is_cuda))
         # predict flows, output[batchsize,]
         flows_output = self.flow_model(flow_input)
 
