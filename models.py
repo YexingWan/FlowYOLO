@@ -697,8 +697,8 @@ class YOLOLayer(nn.Module):
             tcls = Variable(tcls.type(LongTensor), requires_grad=False)
 
             # Get conf mask where gt and where there is no gt
-            #conf_mask_true = mask
-            #conf_mask_false = conf_mask - mask
+            conf_mask_true = mask
+            conf_mask_false = conf_mask - mask
 
             vaild_mask = torch.max(mask).item()
 
@@ -707,10 +707,10 @@ class YOLOLayer(nn.Module):
                 loss_y = self.mse_loss(y[mask], ty[mask])
                 loss_w = self.mse_loss(w[mask], tw[mask])
                 loss_h = self.mse_loss(h[mask], th[mask])
-                # loss_conf = self.bce_loss(pred_conf[conf_mask_false], tconf[conf_mask_false]) + self.bce_loss(
-                #     pred_conf[conf_mask_true], tconf[conf_mask_true]
-                # )
-                loss_conf = self.bce_loss(pred_conf[conf_mask], tconf[conf_mask])
+                loss_conf = self.bce_loss(pred_conf[conf_mask_false], tconf[conf_mask_false]) + 10*self.bce_loss(
+                    pred_conf[conf_mask_true], tconf[conf_mask_true]
+                )
+                #loss_conf = self.bce_loss(pred_conf[conf_mask], tconf[conf_mask])
 
                 loss_cls = (1 / nB) * self.ce_loss(pred_cls[mask], torch.argmax(tcls[mask],1))
 
