@@ -159,7 +159,7 @@ def train(args):
                 losses = flow_yolo(imgs,targets)
 
                 # get loss tensor and backward to get grad
-                losses["loss"].backward()
+                losses["loss"].backward(retain_graph=True)
 
                 # update weights
                 optimizer.step()
