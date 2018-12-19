@@ -147,6 +147,8 @@ def train(args):
         random.shuffle(dataloader_list)
         for idx in range(len(dataloader_list)):
 
+            print("Running on {}/{} sequence...".format(idx+1,len(dataloader_list)))
+
             for batch_i, (imgs, targets) in enumerate(dataloader_list[idx]):
                 if args.use_cuda:
                     # the imgs will be rerange and cuda() in model
@@ -184,6 +186,7 @@ def train(args):
 
             flow_yolo.last_feature = deque([0,0])
             flow_yolo.last_frames = None
+
         if epoch % args.saving_checkpoint_interval == 0:
             flow_yolo.save_weights("%s/%d.weights" % (os.path.join(args.save,"checkpoints"), epoch))
     print("Done!")
