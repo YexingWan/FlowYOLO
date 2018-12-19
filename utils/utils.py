@@ -237,8 +237,9 @@ def build_targets(
             # Calculate iou between gt and anchor shapes
             anch_ious = bbox_iou(gt_box, anchor_shapes)
 
-            # Where the overlap is larger than threshold set mask to zero (ignore)
-            conf_mask[b, anch_ious > ignore_thres, gj, gi] = 0
+            # Where the overlap is larger than threshold set mask to zero (ignore) ???
+            # conf_mask[b, anch_ious > ignore_thres, gj, gi] = 0
+            conf_mask[b, anch_ious < ignore_thres, gj, gi] = 0
 
 
             # Find the best matching anchor box
@@ -256,12 +257,18 @@ def build_targets(
             # Masks of prediction of each target
             mask[b, best_n, gj, gi] = 1
             conf_mask[b, best_n, gj, gi] = 1
+
+
             # Coordinates
             tx[b, best_n, gj, gi] = gx - gi
             ty[b, best_n, gj, gi] = gy - gj
             # Width and height
             tw[b, best_n, gj, gi] = math.log(gw / anchors[best_n][0] + 1e-16)
             th[b, best_n, gj, gi] = math.log(gh / anchors[best_n][1] + 1e-16)
+
+
+
+
             # One-hot encoding of label
             target_label = int(target[b, t, 0])
             tcls[b, best_n, gj, gi, target_label] = 1
