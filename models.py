@@ -702,7 +702,7 @@ class YOLOLayer(nn.Module):
 
             vaild_mask = torch.max(mask).item()
 
-            if vaild_mask:
+            if vaild_mask==1:
                 loss_x = self.mse_loss(x[mask], tx[mask])
                 loss_y = self.mse_loss(y[mask], ty[mask])
                 loss_w = self.mse_loss(w[mask], tw[mask])
@@ -710,6 +710,9 @@ class YOLOLayer(nn.Module):
                 loss_conf = self.bce_loss(pred_conf[conf_mask_false], tconf[conf_mask_false]) + self.bce_loss(
                     pred_conf[conf_mask_true], tconf[conf_mask_true]
                 )
+                print("pred_cls shape:{}".format(pred_cls[mask].shape))
+                print("target shape:{}".format(torch.argmax(tcls[mask], 1)))
+
                 loss_cls = (1 / nB) * self.ce_loss(pred_cls[mask], torch.argmax(tcls[mask], 1))
             else:
                 loss_x = torch.Tensor([0])
