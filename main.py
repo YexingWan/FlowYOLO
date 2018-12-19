@@ -129,6 +129,7 @@ def train(args):
     flow_yolo.load_weights(args.flow_resume, args.yolo_resume)
     if torch.cuda.is_available() and args.use_cuda:
         number_gpus = torch.cuda.device_count()
+        torch.cuda.device(number_gpus-1)
         if number_gpus > 0:
             # print("GPU_NUMBER:{}".format(number_gpus))
             # can only use one gpu
@@ -155,7 +156,7 @@ def train(args):
                     targets.cuda()
 
                 # return a loss dict
-                print("target shape:{}".format(targets.shape))
+                #print("target shape:{}".format(targets.shape))
                 losses = flow_yolo(imgs,targets)
 
                 # get loss tensor and backward to get grad

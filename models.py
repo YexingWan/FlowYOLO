@@ -919,6 +919,7 @@ class FlowYOLO(nn.Module):
 
 
     def load_weights(self, flow_weights_path=None, yolo_weights_path=None):
+
         print("flow_weigth: {}".format(flow_weights_path))
         print("yolo_weights: {}".format(yolo_weights_path))
 
