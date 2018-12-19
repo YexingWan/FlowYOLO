@@ -756,7 +756,6 @@ class Darknet(nn.Module):
         self.hyperparams, self.module_list = create_modules(self.module_defs)
         self.img_size = img_size
         self.loss_names = ["loss","x", "y", "w", "h", "conf", "cls", "recall", "precision"]
-        self.w = nn.Parameter(torch.tensor(0.5))
 
         # TODO:
         #   wrong way to do warp!!!
@@ -796,7 +795,7 @@ class Darknet(nn.Module):
                         _flow = _flow.contiguous()
                         _re = self.flow_warp(f,_flow)
                         # print("warped feature shape:{}".format(_re.shape))
-                        x = self.w *x + (1-self.w) *_re
+                        x =  0.7*x + 0.3 *_re
 
 
             elif module_def["type"] == "yolo":

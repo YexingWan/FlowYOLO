@@ -26,11 +26,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="models.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="591">
-              <caret line="889" column="0" lean-forward="true" selection-start-line="889" selection-start-column="0" selection-end-line="889" selection-end-column="0" />
+            <state relative-caret-position="3149">
+              <caret line="792" column="46" lean-forward="false" selection-start-line="792" selection-start-column="46" selection-end-line="792" selection-end-column="46" />
               <folding>
                 <element signature="e#0#31#0" expanded="true" />
                 <element signature="e#861#7135#0" expanded="false" />
@@ -48,7 +48,7 @@
       <file leaf-file-name="yolov3.cfg" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/config/yolov3.cfg">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-9955">
+            <state relative-caret-position="-8931">
               <caret line="168" column="7" lean-forward="false" selection-start-line="168" selection-start-column="0" selection-end-line="168" selection-end-column="7" />
               <folding />
             </state>
@@ -58,18 +58,18 @@
       <file leaf-file-name="utils.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/utils/utils.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="623">
+            <state relative-caret-position="3225">
               <caret line="225" column="0" lean-forward="true" selection-start-line="225" selection-start-column="0" selection-end-line="225" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="main.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="main.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="217">
-              <caret line="166" column="39" lean-forward="false" selection-start-line="166" selection-start-column="31" selection-end-line="166" selection-end-column="39" />
+            <state relative-caret-position="662">
+              <caret line="143" column="98" lean-forward="false" selection-start-line="143" selection-start-column="98" selection-end-line="143" selection-end-column="98" />
               <folding>
                 <element signature="e#9268#9272#0" expanded="false" />
                 <element signature="e#9300#12592#0" expanded="false" />
@@ -168,8 +168,8 @@
       <find>print</find>
       <find>loss</find>
       <find>grad</find>
-      <find>batch</find>
       <find>filters</find>
+      <find>batch</find>
       <find>cuda</find>
     </findStrings>
   </component>
@@ -206,8 +206,8 @@
         <option value="$PROJECT_DIR$/flow_networks/channelnorm_package/channelnorm.py" />
         <option value="$PROJECT_DIR$/utils/datasets.py" />
         <option value="$PROJECT_DIR$/utils/utils.py" />
-        <option value="$PROJECT_DIR$/main.py" />
         <option value="$PROJECT_DIR$/models.py" />
+        <option value="$PROJECT_DIR$/main.py" />
       </list>
     </option>
   </component>
@@ -728,36 +728,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/config/yolov3.cfg">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-9955">
-          <caret line="168" column="7" lean-forward="false" selection-start-line="168" selection-start-column="0" selection-end-line="168" selection-end-column="7" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/utils/utils.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="623">
-          <caret line="225" column="0" lean-forward="true" selection-start-line="225" selection-start-column="0" selection-end-line="225" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="217">
-          <caret line="166" column="39" lean-forward="false" selection-start-line="166" selection-start-column="31" selection-end-line="166" selection-end-column="39" />
-          <folding>
-            <element signature="e#9268#9272#0" expanded="false" />
-            <element signature="e#9300#12592#0" expanded="false" />
-            <element signature="e#12670#16300#0" expanded="false" />
-            <element signature="e#16328#16465#0" expanded="false" />
-            <element signature="e#16905#17142#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/flow_networks/channelnorm_package/channelnorm.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="30">
@@ -780,10 +750,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/config/yolov3.cfg">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-8931">
+          <caret line="168" column="7" lean-forward="false" selection-start-line="168" selection-start-column="0" selection-end-line="168" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="591">
-          <caret line="889" column="0" lean-forward="true" selection-start-line="889" selection-start-column="0" selection-end-line="889" selection-end-column="0" />
+        <state relative-caret-position="3149">
+          <caret line="792" column="46" lean-forward="false" selection-start-line="792" selection-start-column="46" selection-end-line="792" selection-end-column="46" />
           <folding>
             <element signature="e#0#31#0" expanded="true" />
             <element signature="e#861#7135#0" expanded="false" />
@@ -793,6 +771,28 @@
             <element signature="e#11766#13862#0" expanded="false" />
             <element signature="e#16270#19603#0" expanded="false" />
             <element signature="e#23187#23306#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/utils/utils.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3225">
+          <caret line="225" column="0" lean-forward="true" selection-start-line="225" selection-start-column="0" selection-end-line="225" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="662">
+          <caret line="143" column="98" lean-forward="false" selection-start-line="143" selection-start-column="98" selection-end-line="143" selection-end-column="98" />
+          <folding>
+            <element signature="e#9268#9272#0" expanded="false" />
+            <element signature="e#9300#12592#0" expanded="false" />
+            <element signature="e#12670#16300#0" expanded="false" />
+            <element signature="e#16328#16465#0" expanded="false" />
+            <element signature="e#16905#17142#0" expanded="false" />
           </folding>
         </state>
       </provider>
