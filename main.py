@@ -155,6 +155,7 @@ def train(args):
                     targets.cuda()
 
                 # return a loss dict
+                print("target shape:{}".format(targets.shape))
                 losses = flow_yolo(imgs,targets)
 
                 # get loss tensor and backward to get grad
