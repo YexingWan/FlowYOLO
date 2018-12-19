@@ -150,7 +150,8 @@ def train(args):
 
             for batch_i, (imgs, targets) in enumerate(dataloader_list[idx]):
                 if args.use_cuda:
-                    imgs.cuda()
+                    # the imgs will be rerange and cuda() in model
+                    # imgs.cuda()
                     targets.cuda()
 
                 # return a loss dict
