@@ -715,12 +715,12 @@ class YOLOLayer(nn.Module):
                 loss_cls = (1 / nB) * self.ce_loss(pred_cls[mask], torch.argmax(tcls[mask],1))
 
             else:
-                loss_x = torch.tensor(0)
-                loss_y = torch.tensor(0)
-                loss_w = torch.tensor(0)
-                loss_h = torch.tensor(0)
+                loss_x = torch.tensor(0).cuda()
+                loss_y = torch.tensor(0).cuda()
+                loss_w = torch.tensor(0).cuda()
+                loss_h = torch.tensor(0).cuda()
                 loss_conf = self.bce_loss(pred_conf[conf_mask], tconf[conf_mask])
-                loss_cls = torch.tensor(0)
+                loss_cls = torch.tensor(0).cuda()
 
             loss = loss_x + loss_y + loss_w + loss_h + loss_conf + loss_cls
 
