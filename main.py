@@ -130,8 +130,9 @@ def train(args):
     if torch.cuda.is_available() and args.use_cuda:
         number_gpus = torch.cuda.device_count()
         if number_gpus > 0:
-            print("GPU_NUMBER:{}".format(number_gpus))
-            flow_yolo = nn.parallel.DataParallel(flow_yolo, device_ids=list(range(number_gpus)))
+            # print("GPU_NUMBER:{}".format(number_gpus))
+            # can only use one gpu
+            # flow_yolo = nn.parallel.DataParallel(flow_yolo, device_ids=list(range(number_gpus)))
             flow_yolo.cuda()
 
     for p in flow_yolo.parameters():
