@@ -700,15 +700,25 @@ class YOLOLayer(nn.Module):
             conf_mask_true = mask
             conf_mask_false = conf_mask - mask
 
-            # Mask outputs to ignore non-existing objects
-            loss_x = self.mse_loss(x[mask], tx[mask])
-            loss_y = self.mse_loss(y[mask], ty[mask])
-            loss_w = self.mse_loss(w[mask], tw[mask])
-            loss_h = self.mse_loss(h[mask], th[mask])
-            loss_conf = self.bce_loss(pred_conf[conf_mask_false], tconf[conf_mask_false]) + self.bce_loss(
-                pred_conf[conf_mask_true], tconf[conf_mask_true]
-            )
-            loss_cls = (1 / nB) * self.ce_loss(pred_cls[mask], torch.argmax(tcls[mask], 1))
+            vaild_mask = torch.max(mask).item()
+
+            if vaild_mask:
+                loss_x = self.mse_loss(x[mask], tx[mask])
+                loss_y = self.mse_loss(y[mask], ty[mask])
+                loss_w = self.mse_loss(w[mask], tw[mask])
+                loss_h = self.mse_loss(h[mask], th[mask])
+                loss_conf = self.bce_loss(pred_conf[conf_mask_false], tconf[conf_mask_false]) + self.bce_loss(
+                    pred_conf[conf_mask_true], tconf[conf_mask_true]
+                )
+                loss_cls = (1 / nB) * self.ce_loss(pred_cls[mask], torch.argmax(tcls[mask], 1))
+            else:
+                loss_x = torch.Tensor([0])
+                loss_y = torch.Tensor([0])
+                loss_w = torch.Tensor([0])
+                loss_h = torch.Tensor([0])
+                loss_conf = self.bce_loss(pred_conf[conf_mask_false], tconf[conf_mask_false])
+                loss_cls = torch.Tensor([0])
+
             loss = loss_x + loss_y + loss_w + loss_h + loss_conf + loss_cls
 
             return (
