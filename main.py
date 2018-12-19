@@ -130,8 +130,9 @@ def train(args):
     if torch.cuda.is_available() and args.use_cuda:
         number_gpus = torch.cuda.device_count()
         if number_gpus > 0:
-            print("GPU_NUMBER:{}".format(number_gpus))
-            flow_yolo = nn.parallel.DataParallel(flow_yolo, device_ids=list(range(number_gpus)))
+            # print("GPU_NUMBER:{}".format(number_gpus))
+            # can only use one gpu
+            # flow_yolo = nn.parallel.DataParallel(flow_yolo, device_ids=list(range(number_gpus)))
             flow_yolo.cuda()
 
     for p in flow_yolo.parameters():
@@ -141,6 +142,8 @@ def train(args):
 
     cur_batch = 0
     total_batch = sum([len(d) for d in dataloader_list])
+    print("total_batch:{}".format(total_batch))
+    print("total_epoch:{}".format(args.total_epochs))
     for epoch in range(args.total_epochs):
         random.shuffle(dataloader_list)
         for idx in range(len(dataloader_list)):
@@ -181,7 +184,7 @@ def train(args):
             flow_yolo.last_feature = deque([0,0])
             flow_yolo.last_frames = None
         if epoch % args.saving_checkpoint_interval == 0:
-            flow_yolo.save_weights("%s/%d.weights" % (os.path.join(args.save+"checkpoints"), epoch))
+            flow_yolo.save_weights("%s/%d.weights" % (os.path.join(args.save,"checkpoints"), epoch))
     print("Done!")
 
 
