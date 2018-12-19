@@ -172,7 +172,7 @@ class SequenceImage(Dataset):
         img_path = self.files[index % len(self.files)]
         # Extract image
         img = np.array(Image.open(img_path))
-        print("Image.open max:{}".format(img.max()))
+        #print("Image.open max:{}".format(img.max()))
         h, w, _ = img.shape
         dim_diff = np.abs(h - w)
         # Upper (left) and lower (right) padding
