@@ -137,10 +137,11 @@ def train(args):
 
     for p in flow_yolo.parameters():
         p.requires_grad = True
+    # freeze flownet
     for p in flow_yolo.flow_model.parameters():
         p.requires_grad = False
 
-    optimizer = torch.optim.Adam(filter(lambda p: p.requires_grad, flow_yolo.parameters()),lr=1e-5)
+    optimizer = torch.optim.Adam(filter(lambda p: p.requires_grad, flow_yolo.parameters()),lr=1e-3)
 
     cur_batch = 0
     total_batch = sum([len(d) for d in dataloader_list])
