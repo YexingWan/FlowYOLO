@@ -697,8 +697,8 @@ class YOLOLayer(nn.Module):
             tcls = Variable(tcls.type(LongTensor), requires_grad=False)
 
             # Get conf mask where gt and where there is no gt
-            conf_mask_true = mask
-            conf_mask_false = conf_mask - mask
+            #conf_mask_true = mask
+            #conf_mask_false = conf_mask - mask
 
             vaild_mask = torch.max(mask).item()
 
@@ -707,20 +707,19 @@ class YOLOLayer(nn.Module):
                 loss_y = self.mse_loss(y[mask], ty[mask])
                 loss_w = self.mse_loss(w[mask], tw[mask])
                 loss_h = self.mse_loss(h[mask], th[mask])
-                loss_conf = self.bce_loss(pred_conf[conf_mask_false], tconf[conf_mask_false]) + self.bce_loss(
-                    pred_conf[conf_mask_true], tconf[conf_mask_true]
-                )
-                print("pred_cls shape:{}".format(pred_cls[mask].shape))
-                print("target shape:{}".format(tcls[mask].shape))
+                # loss_conf = self.bce_loss(pred_conf[conf_mask_false], tconf[conf_mask_false]) + self.bce_loss(
+                #     pred_conf[conf_mask_true], tconf[conf_mask_true]
+                # )
+                loss_conf = self.bce_loss(pred_conf[conf_mask], tconf[conf_mask])
 
-                loss_cls = (1 / nB) * self.ce_loss(pred_cls[mask], torch.argmax(tcls[mask], 1))
+                loss_cls = (1 / nB) * self.ce_loss(pred_cls[mask], tcls[mask])
             else:
-                loss_x = torch.Tensor([0])
-                loss_y = torch.Tensor([0])
-                loss_w = torch.Tensor([0])
-                loss_h = torch.Tensor([0])
-                loss_conf = self.bce_loss(pred_conf[conf_mask_false], tconf[conf_mask_false])
-                loss_cls = torch.Tensor([0])
+                loss_x = torch.tensor(0)
+                loss_y = torch.tensor(0)
+                loss_w = torch.tensor(0)
+                loss_h = torch.tensor(0)
+                loss_conf = self.bce_loss(pred_conf[conf_mask], tconf[conf_mask])
+                loss_cls = torch.tensor(0)
 
             loss = loss_x + loss_y + loss_w + loss_h + loss_conf + loss_cls
 
