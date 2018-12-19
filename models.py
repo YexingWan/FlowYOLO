@@ -546,7 +546,7 @@ def create_modules(module_defs):
                 ),
             )
             if bn:
-                modules.add_module("batch_norm_%d" % i, nn.BatchNorm2d(filters))
+                modules.add_module("batch_norm_%d" % i, nn.GroupNorm(16,filters))
             if module_def["activation"] == "leaky":
                 modules.add_module("leaky_%d" % i, nn.LeakyReLU(0.1))
 
