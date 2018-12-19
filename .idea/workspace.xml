@@ -14,6 +14,7 @@
       <change type="MODIFICATION" beforePath="$USER_HOME$/Smart-Road/03 Execution/frontend.py" afterPath="$USER_HOME$/Smart-Road/03 Execution/frontend.py" />
       <change type="MODIFICATION" beforePath="$USER_HOME$/Smart-Road/03 Execution/gen_anchors.py" afterPath="$USER_HOME$/Smart-Road/03 Execution/gen_anchors.py" />
       <change type="MODIFICATION" beforePath="$USER_HOME$/Smart-Road/03 Execution/predict.py" afterPath="$USER_HOME$/Smart-Road/03 Execution/predict.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/flow_networks/channelnorm_package/channelnorm.py" afterPath="$PROJECT_DIR$/flow_networks/channelnorm_package/channelnorm.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/models.py" afterPath="$PROJECT_DIR$/models.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -25,11 +26,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="models.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="566">
-              <caret line="901" column="38" lean-forward="true" selection-start-line="901" selection-start-column="38" selection-end-line="901" selection-end-column="38" />
+            <state relative-caret-position="2752">
+              <caret line="905" column="64" lean-forward="false" selection-start-line="905" selection-start-column="54" selection-end-line="905" selection-end-column="64" />
               <folding>
                 <element signature="e#861#7135#0" expanded="false" />
                 <element signature="e#7178#9867#0" expanded="false" />
@@ -42,7 +43,7 @@
                 <element signature="e#28741#29170#0" expanded="false" />
                 <element signature="e#31685#32061#0" expanded="false" />
                 <element signature="e#32272#33103#0" expanded="false" />
-                <element signature="e#35849#36484#0" expanded="false" />
+                <element signature="e#35784#36419#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -51,7 +52,7 @@
       <file leaf-file-name="utils.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/utils/utils.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
+            <state relative-caret-position="2292">
               <caret line="189" column="15" lean-forward="false" selection-start-line="189" selection-start-column="9" selection-end-line="189" selection-end-column="15" />
               <folding />
             </state>
@@ -61,16 +62,49 @@
       <file leaf-file-name="main.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="396">
-              <caret line="158" column="47" lean-forward="false" selection-start-line="158" selection-start-column="40" selection-end-line="158" selection-end-column="47" />
+            <state relative-caret-position="481">
+              <caret line="51" column="43" lean-forward="false" selection-start-line="51" selection-start-column="27" selection-end-line="51" selection-end-column="43" />
               <folding>
-                <element signature="e#716#5915#0" expanded="false" />
                 <element signature="e#9048#9052#0" expanded="false" />
                 <element signature="e#9080#12372#0" expanded="false" />
                 <element signature="e#9290#9542#0" expanded="false" />
                 <element signature="e#12450#16080#0" expanded="false" />
                 <element signature="e#16108#16245#0" expanded="false" />
                 <element signature="e#16685#16922#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="channelnorm.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/flow_networks/channelnorm_package/channelnorm.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="360">
+              <caret line="24" column="24" lean-forward="false" selection-start-line="24" selection-start-column="24" selection-end-line="24" selection-end-column="24" />
+              <folding>
+                <element signature="e#0#45#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="correlation.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/flow_networks/correlation_package/correlation.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="30">
+              <caret line="5" column="23" lean-forward="false" selection-start-line="5" selection-start-column="23" selection-end-line="5" selection-end-column="23" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="resample2d.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/flow_networks/resample2d_package/resample2d.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="30">
+              <caret line="2" column="22" lean-forward="false" selection-start-line="2" selection-start-column="7" selection-end-line="2" selection-end-column="22" />
+              <folding>
+                <element signature="e#0#42#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -130,7 +164,6 @@
       <find>load_my_weight</find>
       <find>self.losses</find>
       <find>train</find>
-      <find>cuda</find>
       <find>check</find>
       <find>yolo</find>
       <find>BatchGenerator</find>
@@ -142,6 +175,7 @@
       <find>classes_name</find>
       <find>classes</find>
       <find>number</find>
+      <find>cuda</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -178,6 +212,7 @@
         <option value="$PROJECT_DIR$/config/yolov3.cfg" />
         <option value="$PROJECT_DIR$/main.py" />
         <option value="$PROJECT_DIR$/models.py" />
+        <option value="$PROJECT_DIR$/flow_networks/channelnorm_package/channelnorm.py" />
       </list>
     </option>
   </component>
@@ -233,12 +268,25 @@
             <path>
               <item name="YOLOv3_with_flow" type="b2602c69:ProjectViewProjectNode" />
               <item name="YOLOv3_with_flow" type="462c0819:PsiDirectoryNode" />
-              <item name="config" type="462c0819:PsiDirectoryNode" />
+              <item name="flow_networks" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="YOLOv3_with_flow" type="b2602c69:ProjectViewProjectNode" />
               <item name="YOLOv3_with_flow" type="462c0819:PsiDirectoryNode" />
-              <item name="utils" type="462c0819:PsiDirectoryNode" />
+              <item name="flow_networks" type="462c0819:PsiDirectoryNode" />
+              <item name="channelnorm_package" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="YOLOv3_with_flow" type="b2602c69:ProjectViewProjectNode" />
+              <item name="YOLOv3_with_flow" type="462c0819:PsiDirectoryNode" />
+              <item name="flow_networks" type="462c0819:PsiDirectoryNode" />
+              <item name="correlation_package" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="YOLOv3_with_flow" type="b2602c69:ProjectViewProjectNode" />
+              <item name="YOLOv3_with_flow" type="462c0819:PsiDirectoryNode" />
+              <item name="flow_networks" type="462c0819:PsiDirectoryNode" />
+              <item name="resample2d_package" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -357,20 +405,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/utils/tools.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/flownet/networks/channelnorm_package/channelnorm_cuda.cc">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/flownet/networks/channelnorm_package/channelnorm_kernel.cu">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1766">
@@ -473,13 +507,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="306">
           <caret line="41" column="35" lean-forward="false" selection-start-line="41" selection-start-column="28" selection-end-line="41" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/flow_networks/correlation_package/correlation.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="5" column="23" lean-forward="false" selection-start-line="5" selection-start-column="23" selection-end-line="5" selection-end-column="23" />
         </state>
       </provider>
     </entry>
@@ -703,34 +730,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="396">
-          <caret line="158" column="47" lean-forward="false" selection-start-line="158" selection-start-column="40" selection-end-line="158" selection-end-column="47" />
-          <folding>
-            <element signature="e#716#5915#0" expanded="false" />
-            <element signature="e#9048#9052#0" expanded="false" />
-            <element signature="e#9080#12372#0" expanded="false" />
-            <element signature="e#9290#9542#0" expanded="false" />
-            <element signature="e#12450#16080#0" expanded="false" />
-            <element signature="e#16108#16245#0" expanded="false" />
-            <element signature="e#16685#16922#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/utils/utils.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="189" column="15" lean-forward="false" selection-start-line="189" selection-start-column="9" selection-end-line="189" selection-end-column="15" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="566">
-          <caret line="901" column="38" lean-forward="true" selection-start-line="901" selection-start-column="38" selection-end-line="901" selection-end-column="38" />
+        <state relative-caret-position="2752">
+          <caret line="905" column="64" lean-forward="false" selection-start-line="905" selection-start-column="54" selection-end-line="905" selection-end-column="64" />
           <folding>
             <element signature="e#861#7135#0" expanded="false" />
             <element signature="e#7178#9867#0" expanded="false" />
@@ -743,7 +746,58 @@
             <element signature="e#28741#29170#0" expanded="false" />
             <element signature="e#31685#32061#0" expanded="false" />
             <element signature="e#32272#33103#0" expanded="false" />
-            <element signature="e#35849#36484#0" expanded="false" />
+            <element signature="e#35784#36419#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/utils/utils.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2292">
+          <caret line="189" column="15" lean-forward="false" selection-start-line="189" selection-start-column="9" selection-end-line="189" selection-end-column="15" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="481">
+          <caret line="51" column="43" lean-forward="false" selection-start-line="51" selection-start-column="27" selection-end-line="51" selection-end-column="43" />
+          <folding>
+            <element signature="e#9048#9052#0" expanded="false" />
+            <element signature="e#9080#12372#0" expanded="false" />
+            <element signature="e#9290#9542#0" expanded="false" />
+            <element signature="e#12450#16080#0" expanded="false" />
+            <element signature="e#16108#16245#0" expanded="false" />
+            <element signature="e#16685#16922#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/flow_networks/channelnorm_package/channelnorm.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="24" column="24" lean-forward="false" selection-start-line="24" selection-start-column="24" selection-end-line="24" selection-end-column="24" />
+          <folding>
+            <element signature="e#0#45#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/flow_networks/correlation_package/correlation.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="5" column="23" lean-forward="false" selection-start-line="5" selection-start-column="23" selection-end-line="5" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/flow_networks/resample2d_package/resample2d.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="2" column="22" lean-forward="false" selection-start-line="2" selection-start-column="7" selection-end-line="2" selection-end-column="22" />
+          <folding>
+            <element signature="e#0#42#0" expanded="true" />
           </folding>
         </state>
       </provider>
