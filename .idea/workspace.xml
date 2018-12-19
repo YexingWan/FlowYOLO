@@ -14,7 +14,6 @@
       <change type="MODIFICATION" beforePath="$USER_HOME$/Smart-Road/03 Execution/frontend.py" afterPath="$USER_HOME$/Smart-Road/03 Execution/frontend.py" />
       <change type="MODIFICATION" beforePath="$USER_HOME$/Smart-Road/03 Execution/gen_anchors.py" afterPath="$USER_HOME$/Smart-Road/03 Execution/gen_anchors.py" />
       <change type="MODIFICATION" beforePath="$USER_HOME$/Smart-Road/03 Execution/predict.py" afterPath="$USER_HOME$/Smart-Road/03 Execution/predict.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/models.py" afterPath="$PROJECT_DIR$/models.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -28,8 +27,8 @@
       <file leaf-file-name="models.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="396">
-              <caret line="714" column="89" lean-forward="true" selection-start-line="714" selection-start-column="89" selection-end-line="714" selection-end-column="89" />
+            <state relative-caret-position="321">
+              <caret line="709" column="43" lean-forward="false" selection-start-line="709" selection-start-column="35" selection-end-line="709" selection-end-column="43" />
               <folding>
                 <element signature="e#0#31#0" expanded="true" />
                 <element signature="e#861#7135#0" expanded="false" />
@@ -781,8 +780,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="396">
-          <caret line="714" column="89" lean-forward="true" selection-start-line="714" selection-start-column="89" selection-end-line="714" selection-end-column="89" />
+        <state relative-caret-position="321">
+          <caret line="709" column="43" lean-forward="false" selection-start-line="709" selection-start-column="35" selection-end-line="709" selection-end-column="43" />
           <folding>
             <element signature="e#0#31#0" expanded="true" />
             <element signature="e#861#7135#0" expanded="false" />
