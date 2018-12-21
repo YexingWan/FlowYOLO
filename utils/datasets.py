@@ -255,6 +255,7 @@ class dictDataset_coco_intersect_VID(Dataset):
 
         # save each iter of loader in a dict with class index as key
         for idx,loader in enumerate(dataloader_list):
+            print("each_loader_len:{}".format(len(loader)))
             self.iter_dict[idx+1] = iter(loader)
             self.loader_dict[idx+1] = loader
             max  = len(loader) if len(loader) > max else max
