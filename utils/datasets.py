@@ -248,7 +248,7 @@ class SequenceImage(Dataset):
 
 class dictDataset_coco_intersect_VID(Dataset):
     def __init__(self, dataset_list):
-        print("sequence_num:{}".format(dataset_list))
+        print("sequence_num:{}".format(len(dataset_list)))
         dataloader_list = [DataLoader(dataset_list[i], 1) for i in range(len(dataset_list))]
         max = 0
         self.iter_dict = dict()
