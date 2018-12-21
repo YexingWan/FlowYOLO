@@ -303,7 +303,14 @@ def built_training_datasets(path):
     intersect = [1,3,4,5,6,7,9,10,11,15,22,26,30]
     class_folder_dict = defaultdict(list)
     print("traing_root_path:{}".format(path))
-    for idx, f in enumerate([os.path.join(path,p_f) for p_f in ["/ImageSets/VID/train_{}.txt".format(d) for d in intersect]]):
+
+    p_list = ["ImageSets/VID/train_{}.txt".format(d) for d in intersect]
+    print(p_list)
+    tem = [os.path.join(path,p_f) for p_f in p_list]
+    print(tem)
+
+
+    for idx, f in enumerate(tem):
         print(f)
         if os.path.isfile(f):
             with open(f,"r") as file:
