@@ -187,16 +187,16 @@ def train(args):
                     last_frame_dict[idx] = images[i]
 
                 flow_input.append(torch.stack([images[i],last_frame_dict[idx]]).permute(1, 0, 2, 3))
-                last_feature.append(feature_dict[idx])
+                last_feature.append(feature_dict[idx].cuda())
 
             for i, t_idx in enumerate(class_index):
                 idx = t_idx.item()
                 last_frame_dict[idx] = images[i]
 
-            for q in last_feature:
-                if q is not None:
-                    for f in q:
-                        f.cuda()
+            # if not None in last_feature:
+            #     for q in last_feature:
+            #         for f in q:
+            #             f.cuda()
 
             flow_input = torch.stack(flow_input)
 
@@ -206,7 +206,7 @@ def train(args):
                 #print("flow_input type:{}".format(flow_input.type()))
                 images = images.type(torch.cuda.FloatTensor).cuda()
                 #print("images type:{}".format(images.type()))
-                target = target.type(torch.cuda.FloatTensor).cuda()
+                # target = target.type(torch.cuda.FloatTensor).cuda()
                 #print("target type:{}".format(target.type()))
 
             # feature is a list of deque for each input
@@ -269,8 +269,7 @@ def inference(args):
         number_gpus=torch.cuda.device_count()
         if number_gpus > 0:
             print("GPU_NUMBER:{}".format(number_gpus))
-            flow_yolo = nn.parallel.DataParallel(flow_yolo, device_ids=list(range(number_gpus)))
-            flow_yolo.cuda()
+            flow_yolo = nn.parallel.DataParallel(flow_yolo, device_ids=list(range(number_gpus))).cuda()
 
     # set to eval mode
     flow_yolo.eval()

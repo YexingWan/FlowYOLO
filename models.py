@@ -723,12 +723,12 @@ class YOLOLayer(nn.Module):
                 loss_cls = (1 / nB) * self.ce_loss(pred_cls[mask], torch.argmax(tcls[mask],1))
 
             else:
-                loss_x = torch.tensor(0).cuda()
-                loss_y = torch.tensor(0).cuda()
-                loss_w = torch.tensor(0).cuda()
-                loss_h = torch.tensor(0).cuda()
+                loss_x = torch.tensor(0)
+                loss_y = torch.tensor(0)
+                loss_w = torch.tensor(0)
+                loss_h = torch.tensor(0)
                 loss_conf = self.bce_loss(pred_conf[conf_mask], tconf[conf_mask])
-                loss_cls = torch.tensor(0).cuda()
+                loss_cls = torch.tensor(0)
 
             loss = loss_x + loss_y + loss_w + loss_h + loss_conf + loss_cls
 
@@ -804,8 +804,7 @@ class Darknet(nn.Module):
                     # append feature in each deque pre sample
                     for idx in range(x.shape[0]):
 
-                        #
-                        output_features[idx].append(x[idx])
+                        output_features[idx].append(x[idx].cpu())
 
                     # flow aggregate in  L62/37/12
                     if None not in forward_feats:
@@ -831,6 +830,7 @@ class Darknet(nn.Module):
 
             elif module_def["type"] == "yolo":
                 # Train phase: get loss
+                x = x.cpu()
                 if is_training:
                     # x, *losses = module[0](x, targets)
                     x = module[0](x, targets)
