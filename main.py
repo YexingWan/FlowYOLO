@@ -168,9 +168,9 @@ def train(args):
     for epoch in range(args.total_epochs):
 
         for b, (class_index, images, target) in enumerate(final_loader):
-            print("class_index_shape:{}".format(class_index.shape))
-            print("images_shape:{}".format(images.shape))
-            print("target_shape:{}".format(target.shape))
+            #print("class_index_shape:{}".format(class_index.shape))
+            #print("images_shape:{}".format(images.shape))
+            #print("target_shape:{}".format(target.shape))
             flow_input = []
 
             # last_feature is the list of deque that store last feature used in this batch
