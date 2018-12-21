@@ -809,6 +809,7 @@ class Darknet(nn.Module):
 
                     # flow aggregate in  L62/37/12
                     if None not in forward_feats:
+                        print("start learning sequence info!!!!")
                         print("current feature shape:{}".format(x.shape))
                         # resizing flow by bi-linear interpolation
                         _flow = F.interpolate(flow,size=(x.shape[-2],x.shape[-1]),mode="bilinear")/div[i]
