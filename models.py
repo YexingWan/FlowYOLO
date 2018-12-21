@@ -765,8 +765,8 @@ class Darknet(nn.Module):
         # list of dictionary of model config
         self.module_defs = parse_model_config(config_path)
         self.hyperparams, self.module_list = create_modules(self.module_defs)
-        #self.down_channel_62= torch.nn.Conv2d(1024, 512, 1)
-        #self.down_channel_37 = torch.nn.Conv2d(512, 256, 1)
+        self.down_channel_62= torch.nn.Conv2d(1024, 512, 1)
+        self.down_channel_37 = torch.nn.Conv2d(512, 256, 1)
         self.down_channel_12 = torch.nn.Conv2d(256, 128, 1)
         self.img_size = img_size
         self.loss_names = ["loss","x", "y", "w", "h", "conf", "cls", "recall", "precision"]
@@ -819,11 +819,11 @@ class Darknet(nn.Module):
                         print("warped feature shape:{}".format(_re.shape))
                         x = torch.cat([x,_re],1)
                         if i == 36:
-                            x = 0.6 * x + 0.4 * _re
+                            x = self.down_channel_37(x)
                         elif i == 11:
                             x = self.down_channel_12(x)
                         else:
-                            x = 0.6 * x + 0.4 * _re
+                            x = self.down_channel_62(x)
 
                         #x =  0.7*x + 0.3 *_re
 
@@ -897,8 +897,8 @@ class Darknet(nn.Module):
                 module = nn.parallel.DataParallel(module,device_ids=gpu_id_list).cuda()
             paralll_model_list.append(module)
         self.module_list = paralll_model_list
-        #self.down_channel_62 = nn.parallel.DataParallel(self.down_channel_62,gpu_id_list).cuda()
-        #self.down_channel_37 = nn.parallel.DataParallel(self.down_channel_37,gpu_id_list).cuda()
+        self.down_channel_62 = nn.parallel.DataParallel(self.down_channel_62,gpu_id_list).cuda()
+        self.down_channel_37 = nn.parallel.DataParallel(self.down_channel_37,gpu_id_list).cuda()
         self.down_channel_12 = nn.parallel.DataParallel(self.down_channel_12,gpu_id_list).cuda()
         return
 
