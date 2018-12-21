@@ -273,16 +273,15 @@ def build_targets(
 
             target_label = int(target[b, t, 4])
             print("target_label:{}".format(target[b, t, 4]))
-            print("box:{}".format(target[b, t]))
-
-            tcls[b, best_n, gj, gi, target_label] = 1
+            #print("box:{}".format(target[b, t]))
+            tcls[b, best_n, gj, gi, target_label-1] = 1
             tconf[b, best_n, gj, gi] = 1
 
             # Calculate iou between ground truth() and best matching prediction
             iou = bbox_iou(gt_box, pred_box, x1y1x2y2=False)
             pred_label = torch.argmax(pred_cls[b, best_n, gj, gi])
             score = pred_conf[b, best_n, gj, gi]
-            if iou > 0.5 and pred_label == target_label and score > 0.5:
+            if iou > 0.5 and pred_label == target_label-1 and score > 0.5:
                 nCorrect += 1
 
     return nGT, nCorrect, mask, conf_mask, tx, ty, tw, th, tconf, tcls
