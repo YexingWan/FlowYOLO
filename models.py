@@ -885,7 +885,7 @@ class Darknet(nn.Module):
         self.module_list.load_state_dict(model_dict)
         return
 
-    def set_multiple_gpus(self,gpu_id_list):
+    def set_multi_gpus(self,gpu_id_list):
         # use multiple gpu except yoloLayer
         paralll_model_list = nn.ModuleList()
         for i, (module_def, module) in enumerate(zip(self.module_defs, self.module_list)):
@@ -1005,9 +1005,9 @@ class FlowYOLO(nn.Module):
         torch.save(self.flow_model.state_dict(),os.path.join(path,"flow.pth"))
         self.detect_model.save_weights(path)
 
-    def set_multiple_gpus(self,gpu_id_list):
+    def set_multi_gpus(self,gpu_id_list):
         self.flow_model = nn.parallel.DataParallel(self.flow_model,device_ids=gpu_id_list)
-        self.detect_model.set_multiple_gpus(gpu_id_list)
+        self.detect_model.set_multi_gpus(gpu_id_list)
 
 
 
