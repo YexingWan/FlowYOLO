@@ -813,7 +813,7 @@ class Darknet(nn.Module):
                         # resizing flow by bi-linear interpolation
                         _flow = F.interpolate(flow,size=(x.shape[-2],x.shape[-1]),mode="bilinear")/div[i]
                         _flow = _flow.contiguous()
-                        f = torch.stack([dq.popleft() for dq in forward_feats])
+                        f = torch.stack([dq.popleft().cuda() for dq in forward_feats])
                         print("last feature shape:{}".format(f.shape))
                         _re = self.flow_warp(f,_flow)
                         print("warped feature shape:{}".format(_re.shape))
@@ -959,6 +959,8 @@ class FlowYOLO(nn.Module):
 
         # on traning return is loss:dict and feature:list[deque]
         # on infer return is detection:torch.Tensor and feature:list[deque]
+
+
         result, features = self.detect_model(data,
                                             forward_feats=last_feature,
                                             flow=flows_output,
