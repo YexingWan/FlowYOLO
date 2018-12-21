@@ -243,7 +243,7 @@ def train(args):
             )
             cur_batch += 1
             torch.cuda.empty_cache()
-            
+
         flow_yolo.last_feature = deque([0,0])
         flow_yolo.last_frames = None
 
