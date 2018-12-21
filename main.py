@@ -202,13 +202,13 @@ def train(args):
 
             if args.use_cuda:
                 print("input into data")
-                flow_input.type(torch.cuda.FloatTensor)
+                flow_input = flow_input.type(torch.cuda.FloatTensor)
                 flow_input.cuda()
                 print("flow_input type:{}".format(flow_input.type()))
-                images.type(torch.cuda.FloatTensor)
+                images = images.type(torch.cuda.FloatTensor)
                 images.cuda()
                 print("images type:{}".format(images.type()))
-                target.type(torch.cuda.FloatTensor)
+                target = target.type(torch.cuda.FloatTensor)
                 target.cuda()
                 print("target type:{}".format(target.type()))
 
