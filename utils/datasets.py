@@ -253,6 +253,7 @@ class SequenceImage(Dataset):
                     center_y = float(((y1 + y2) / 2)) / float(padded_h)
                     scale_w = float(abs(x2 - x1)) / float(padded_w)
                     scale_h = float(abs(y2 - y1)) / float(padded_h)
+                    print(self.origin_map_new_ids[self.classes_map[box["name"]]])
                     filled_labels[idx] = np.array([center_x,center_y,scale_w,scale_h,self.origin_map_new_ids[self.classes_map[box["name"]]]])
         filled_labels = torch.from_numpy(filled_labels)
         return input_img, filled_labels

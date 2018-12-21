@@ -270,8 +270,11 @@ def build_targets(
 
 
             # One-hot encoding of label
+
             target_label = int(target[b, t, 0])
-            print(target_label)
+            print("target_label:{}".format(target_label))
+            print("sum:{}".format(target[b, t].sum()))
+
             tcls[b, best_n, gj, gi, target_label] = 1
             tconf[b, best_n, gj, gi] = 1
 
