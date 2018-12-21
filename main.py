@@ -110,29 +110,23 @@ def built_args():
     return args
 
 
+
 def train(args):
 
-    # TODO:
-    #   design special dataset for training
-    #   for each sequence, generate a dataset, so we can get a list of dataset
-    #   for each dataset, generate a dataloader, so we can get a list of dataloader
-    #   for one epoch, go through the list of dataloader one time
-    #   once loader change, initialize model.last_frames and model.last_feature
-    dataset_list = datasets.built_training_datasets(args.data_train_path)
-
-    dataloader_list = [DataLoader(dataset_list[i], args.train_batch_size) for i in range(len(dataset_list))]
 
     flow_yolo = models.FlowYOLO(args)
 
     flow_yolo.train()
 
     flow_yolo.load_weights(args.flow_resume, args.yolo_resume)
+
     if torch.cuda.is_available() and args.use_cuda:
         number_gpus = torch.cuda.device_count()
         if number_gpus > 0:
-            # print("GPU_NUMBER:{}".format(number_gpus))
-            # can only use one gpu
-            # flow_yolo = nn.parallel.DataParallel(flow_yolo, device_ids=list(range(number_gpus)))
+            print("GPU_NUMBER:{}".format(number_gpus))
+            # use muti-GPU
+            args.train_batch_size *= number_gpus
+            flow_yolo = nn.parallel.DataParallel(flow_yolo, device_ids=list(range(number_gpus)))
             flow_yolo.cuda()
 
     for p in flow_yolo.parameters():
@@ -141,55 +135,105 @@ def train(args):
     for p in flow_yolo.flow_model.parameters():
         p.requires_grad = False
 
-    optimizer = torch.optim.Adam(filter(lambda p: p.requires_grad, flow_yolo.parameters()),lr=1e-4)
+    optimizer = torch.optim.Adam(filter(lambda p: p.requires_grad, flow_yolo.parameters()),lr=1e-3)
 
+    ###########bulit dataset for traning##########
+
+    dataset_list = datasets.built_training_datasets(args.data_train_path)
+
+    final_dataset = datasets.dictDataset_coco_intersect_VID(dataset_list)
+
+    final_loader = DataLoader(final_dataset,args.train_batch_size,shuffle=True)
+
+    ########keep for flow##########
+
+    feature_dict = dict(zip([i+1 for i in range(len(dataset_list))],[None for _ in range(len(dataset_list))]))
+
+    last_frame_dict = dict(zip([i+1 for i in range(len(dataset_list))],[None for _ in range(len(dataset_list))]))
+
+    ###############################
     cur_batch = 0
-    total_batch = sum([len(d) for d in dataloader_list])
+    total_batch = len(final_loader)
     print("total_batch:{}".format(total_batch))
     print("total_epoch:{}".format(args.total_epochs))
+
+
     for epoch in range(args.total_epochs):
-        random.shuffle(dataloader_list)
-        for idx in range(len(dataloader_list)):
 
-            print("Running on {}/{} sequence...".format(idx+1,len(dataloader_list)))
+        for b, (class_index, images, target) in enumerate(final_loader):
+            print("class_index_shape:{}".format(class_index.shape))
+            print("images_shape:{}".format(images.shape))
+            print("target_shape:{}".format(target.shape))
+            flow_input = []
 
-            for batch_i, (imgs, targets) in enumerate(dataloader_list[idx]):
-                if args.use_cuda:
-                    # the imgs will be rerange and cuda() in model
-                    # imgs.cuda()
-                    targets.cuda()
+            # last_feature is the list of deque that store last feature used in this batch
+            last_feature =  []
+            for i,t_idx in enumerate(class_index):
+                idx = t_idx.item()
 
-                # return a loss dict
-                #print("target shape:{}".format(targets.shape))
-                losses = flow_yolo(imgs,targets)
+                # if is the first frame, initialize two dict
+                if idx > 999:
+                    idx -= 999
+                    last_frame_dict[idx] = None
+                    feature_dict[idx] = None
+                if last_frame_dict[idx] is None:
+                    last_frame_dict[idx] = images[i]
 
-                # get loss tensor and backward to get grad
-                losses["loss"].backward(retain_graph=True)
+                flow_input.append(torch.stack([images[i],last_frame_dict[idx]]).permute(1, 0, 2, 3))
+                last_feature.append(feature_dict[idx])
 
-                # update weights
-                optimizer.step()
-                print(
-                    "[Epoch %d/%d, Batch %d/%d] [Losses: x %f, y %f, w %f, h %f, conf %f, cls %f, total %f, recall: %.5f, precision: %.5f]"
-                    % (
-                        epoch,
-                        args.total_epochs,
-                        cur_batch,
-                        total_batch,
-                        losses["x"],
-                        losses["y"],
-                        losses["w"],
-                        losses["h"],
-                        losses["conf"],
-                        losses["cls"],
-                        losses["loss"].item(),
-                        losses["recall"],
-                        losses["precision"],
-                    )
+            for i, t_idx in enumerate(class_index):
+                idx = t_idx.item()
+                last_frame_dict[idx] = images[i]
+
+            if last_feature[0] is not None:
+                for q in last_feature:
+                    for f in q:
+                        f.cuda()
+
+            flow_input = torch.stack(flow_input)
+
+            if args.use_cuda:
+                flow_input.cuda()
+                images.cuda()
+                target.cuda()
+
+            # feature is a list of deque for each input
+            losses, feature = flow_yolo(flow_input,images,last_feature,target)
+
+            for i, t_idx in enumerate(class_index):
+                idx = t_idx.item()
+                feature_dict[idx] = feature[i]
+
+            # get loss tensor and backward to get grad
+            losses["loss"].backward()
+
+            # update weights
+            optimizer.step()
+
+
+            print(
+                "[Epoch %d/%d, Batch %d/%d] [Losses: x %f, y %f, w %f, h %f, conf %f, cls %f, total %f, recall: %.5f, precision: %.5f]"
+                % (
+                    epoch,
+                    args.total_epochs,
+                    cur_batch,
+                    total_batch,
+                    losses["x"],
+                    losses["y"],
+                    losses["w"],
+                    losses["h"],
+                    losses["conf"],
+                    losses["cls"],
+                    losses["loss"].item(),
+                    losses["recall"],
+                    losses["precision"],
                 )
-                cur_batch += 1
+            )
+            cur_batch += 1
 
-            flow_yolo.last_feature = deque([0,0])
-            flow_yolo.last_frames = None
+        flow_yolo.last_feature = deque([0,0])
+        flow_yolo.last_frames = None
 
         if epoch % args.saving_checkpoint_interval == 0:
             flow_yolo.save_weights("%s/%d.weights" % (os.path.join(args.save,"checkpoints"), epoch))

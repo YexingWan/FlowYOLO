@@ -4,10 +4,12 @@ import cv2
 from math import floor
 import torch
 
-from torch.utils.data import Dataset
+from torch.utils.data import Dataset, DataLoader
 from PIL import Image
 from skimage.transform import resize
 import xml.etree.ElementTree as ET
+
+from collections import defaultdict
 
 # for predict
 class VideoFile(Dataset):
@@ -243,10 +245,74 @@ class SequenceImage(Dataset):
         return boxes
 
 
+
+class dictDataset_coco_intersect_VID(Dataset):
+    def __init__(self, dataset_list):
+        dataloader_list = [DataLoader(dataset_list[i], 1) for i in range(len(dataset_list))]
+        max = 0
+        self.iter_dict = dict()
+        self.loader_dict = dict()
+
+        # save each iter of loader in a dict with class index as key
+        for idx,loader in enumerate(dataloader_list):
+            self.iter_dict[idx+1] = iter(loader)
+            self.loader_dict[idx+1] = loader
+            max  = len(loader) if len(loader) > max else max
+        self.max_index = len(dataloader_list) * max
+        self.num_loader = len(dataloader_list)
+
+
+    def __getitem__(self, index):
+        index = index % self.num_loader
+        cur_iter = self.iter_dict[index+1]
+        try:
+            image, target = cur_iter.next()
+            return index+1, torch.squezze(image),torch.squezze(target)
+        except StopIteration:
+            self.iter_dict[index] = iter(self.loader_dict[index])
+            cur_iter = self.iter_dict[index]
+            image, target = cur_iter.next()
+            # if new iter, add 999 as a magic number
+            return index+1+999, torch.squezze(image), torch.squezze(target)
+
+    def __len__(self):
+        return self.max_index
+
+
+
+
 # built list of datasets
 def built_training_datasets(path):
+    """
+    1   airplane
+    2   bear
+    3   bicycle
+    4   bird
+    5   bus
+    6   car
+    7   dog
+    8   cat
+    9   elephant
+    10  horse
+    11  sheep
+    12  train
+    13  zebra
+    """
+
+    intersect = [1,3,4,5,6,7,9,10,11,15,22,26,30]
+    class_folder_dict = defaultdict(list)
+
+    for idx, f in enumerate([os.path.join(path,"/ImageSets/VID/train_%d.txt" % d) for d in intersect]):
+        if os.path.isfile(f):
+            with open(f,"r") as file:
+                for line in file:
+                    data_path = " ".split(line)[0]
+                    class_folder_dict[idx+1].append(os.path.join(os.path.join(path,"Data/VID/train"),data_path))
+
     dataset_list = []
-    for p in glob.glob(os.path.join(path,"Data/VID/train/*")):
-        for s_path in glob.glob(os.path.join(p, "*")):
-            dataset_list.append(SequenceImage(s_path))
+    # for p in glob.glob(os.path.join(path,"Data/VID/train/*")):
+    #     for s_path in glob.glob(os.path.join(p, "*")):
+    for k in class_folder_dict.keys():
+        dataset_list.append(SequenceImage(class_folder_dict[k]))
+
     return dataset_list

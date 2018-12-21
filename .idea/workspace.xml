@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="9ff04544-841e-4ebf-8528-543c869fa01e" name="Default" comment="">
       <change type="NEW" beforePath="" afterPath="$USER_HOME$/Smart-Road/03 Execution/testcv.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/data/coco_intersect_VID.names" />
       <change type="DELETED" beforePath="$USER_HOME$/Smart-Road/.idea/inspectionProfiles/profiles_settings.xml" afterPath="" />
       <change type="MOVED" beforePath="$USER_HOME$/Smart-Road/03 Execution/predicthelper.py" afterPath="$USER_HOME$/Smart-Road/03 Execution/predictInterface.py" />
       <change type="MODIFICATION" beforePath="$USER_HOME$/PyTorch-YOLOv3/weights/download_weights.sh" afterPath="$USER_HOME$/PyTorch-YOLOv3/weights/download_weights.sh" />
@@ -14,7 +15,11 @@
       <change type="MODIFICATION" beforePath="$USER_HOME$/Smart-Road/03 Execution/frontend.py" afterPath="$USER_HOME$/Smart-Road/03 Execution/frontend.py" />
       <change type="MODIFICATION" beforePath="$USER_HOME$/Smart-Road/03 Execution/gen_anchors.py" afterPath="$USER_HOME$/Smart-Road/03 Execution/gen_anchors.py" />
       <change type="MODIFICATION" beforePath="$USER_HOME$/Smart-Road/03 Execution/predict.py" afterPath="$USER_HOME$/Smart-Road/03 Execution/predict.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/yolov3.cfg" afterPath="$PROJECT_DIR$/config/yolov3.cfg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.py" afterPath="$PROJECT_DIR$/main.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/models.py" afterPath="$PROJECT_DIR$/models.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/utils/datasets.py" afterPath="$PROJECT_DIR$/utils/datasets.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -25,11 +30,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="models.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="423">
-              <caret line="709" column="25" lean-forward="false" selection-start-line="709" selection-start-column="16" selection-end-line="709" selection-end-column="25" />
+            <state relative-caret-position="1117">
+              <caret line="837" column="38" lean-forward="false" selection-start-line="837" selection-start-column="23" selection-end-line="837" selection-end-column="38" />
               <folding>
                 <element signature="e#0#31#0" expanded="true" />
                 <element signature="e#861#7135#0" expanded="false" />
@@ -44,11 +49,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="utils.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/utils/utils.py">
+      <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/flownet/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-237">
-              <caret line="198" column="13" lean-forward="false" selection-start-line="198" selection-start-column="4" selection-end-line="198" selection-end-column="13" />
+            <state relative-caret-position="1498">
+              <caret line="394" column="38" lean-forward="false" selection-start-line="394" selection-start-column="30" selection-end-line="394" selection-end-column="38" />
               <folding />
             </state>
           </provider>
@@ -57,8 +62,38 @@
       <file leaf-file-name="yolov3.cfg" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/config/yolov3.cfg">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-8931">
-              <caret line="168" column="7" lean-forward="false" selection-start-line="168" selection-start-column="0" selection-end-line="168" selection-end-column="7" />
+            <state relative-caret-position="114">
+              <caret line="108" column="0" lean-forward="true" selection-start-line="108" selection-start-column="0" selection-end-line="108" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="FlowNetC.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/flownet/networks/FlowNetC.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="555">
+              <caret line="46" column="41" lean-forward="false" selection-start-line="46" selection-start-column="29" selection-end-line="46" selection-end-column="41" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="submodules.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/flownet/networks/submodules.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="435">
+              <caret line="31" column="32" lean-forward="false" selection-start-line="31" selection-start-column="31" selection-end-line="31" selection-end-column="32" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="coco_intersect_VID.names" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/data/coco_intersect_VID.names">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="12" selection-end-column="5" />
               <folding />
             </state>
           </provider>
@@ -67,52 +102,25 @@
       <file leaf-file-name="main.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-37">
-              <caret line="124" column="13" lean-forward="false" selection-start-line="124" selection-start-column="4" selection-end-line="124" selection-end-column="13" />
+            <state relative-caret-position="179">
+              <caret line="206" column="0" lean-forward="true" selection-start-line="206" selection-start-column="0" selection-end-line="206" selection-end-column="0" />
               <folding>
-                <element signature="e#9268#9272#0" expanded="false" />
-                <element signature="e#9300#12592#0" expanded="false" />
-                <element signature="e#12670#16300#0" expanded="false" />
-                <element signature="e#16328#16465#0" expanded="false" />
-                <element signature="e#16905#17142#0" expanded="false" />
+                <element signature="e#10336#10340#0" expanded="false" />
+                <element signature="e#10368#13660#0" expanded="false" />
+                <element signature="e#17396#17533#0" expanded="false" />
+                <element signature="e#17973#18210#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="channelnorm.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/flow_networks/channelnorm_package/channelnorm.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="30">
-              <caret line="2" column="23" lean-forward="false" selection-start-line="2" selection-start-column="7" selection-end-line="2" selection-end-column="23" />
-              <folding>
-                <element signature="e#0#45#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="resample2d.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/flow_networks/resample2d_package/resample2d.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="30">
-              <caret line="2" column="22" lean-forward="false" selection-start-line="2" selection-start-column="7" selection-end-line="2" selection-end-column="22" />
-              <folding>
-                <element signature="e#0#42#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="datasets.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="datasets.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/utils/datasets.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="511">
-              <caret line="214" column="39" lean-forward="false" selection-start-line="214" selection-start-column="26" selection-end-line="214" selection-end-column="39" />
+            <state relative-caret-position="117">
+              <caret line="270" column="18" lean-forward="false" selection-start-line="270" selection-start-column="18" selection-end-line="270" selection-end-column="18" />
               <folding>
-                <element signature="e#0#20#0" expanded="true" />
-                <element signature="e#264#4763#0" expanded="false" />
-                <element signature="e#9072#9286#0" expanded="false" />
+                <element signature="e#313#4812#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -130,36 +138,36 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>36</find>
-      <find>#36</find>
-      <find>Downsample</find>
-      <find>inference</find>
-      <find>Resample2d</find>
-      <find>pad</find>
-      <find>apply</find>
-      <find>load_weights</find>
-      <find>load_my_weight</find>
-      <find>self.losses</find>
-      <find>check</find>
-      <find>yolo</find>
-      <find>BatchGenerator</find>
-      <find>dir</find>
-      <find>path</find>
-      <find>data_names_path</find>
-      <find>data_config_path</find>
-      <find>train_batch</find>
-      <find>classes_name</find>
-      <find>classes</find>
-      <find>number</find>
-      <find>epo</find>
-      <find>loss</find>
-      <find>grad</find>
-      <find>batch</find>
-      <find>cuda</find>
-      <find>filters</find>
+      <find>plane</find>
+      <find>antelope</find>
+      <find>bear</find>
+      <find>bicycle</find>
+      <find>cattle</find>
+      <find>panda</find>
+      <find>bird</find>
+      <find>bus</find>
+      <find>car</find>
+      <find>dog</find>
+      <find>cat</find>
+      <find>elephant</find>
+      <find>fox</find>
+      <find>hamster</find>
+      <find>horse</find>
+      <find>lion</find>
+      <find>monkey</find>
+      <find>rabbit</find>
+      <find>motorcycle</find>
+      <find>sheep</find>
+      <find>snake</find>
       <find>train</find>
-      <find>print</find>
-      <find>pr</find>
+      <find>tiger</find>
+      <find>turtle</find>
+      <find>whale</find>
+      <find>zebra</find>
+      <find>yolo</find>
+      <find>resample4</find>
+      <find>Down</find>
+      <find>resample</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -191,12 +199,13 @@
         <option value="$PROJECT_DIR$/yolo/utils/datasets.py" />
         <option value="$PROJECT_DIR$/data/VID.names" />
         <option value="$PROJECT_DIR$/config/data.data" />
-        <option value="$PROJECT_DIR$/config/yolov3.cfg" />
         <option value="$PROJECT_DIR$/flow_networks/channelnorm_package/channelnorm.py" />
-        <option value="$PROJECT_DIR$/utils/datasets.py" />
-        <option value="$PROJECT_DIR$/main.py" />
         <option value="$PROJECT_DIR$/utils/utils.py" />
+        <option value="$PROJECT_DIR$/config/yolov3.cfg" />
+        <option value="$PROJECT_DIR$/data/coco_intersect_VID" />
+        <option value="$PROJECT_DIR$/utils/datasets.py" />
         <option value="$PROJECT_DIR$/models.py" />
+        <option value="$PROJECT_DIR$/main.py" />
       </list>
     </option>
   </component>
@@ -242,6 +251,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -252,46 +263,17 @@
             <path>
               <item name="YOLOv3_with_flow" type="b2602c69:ProjectViewProjectNode" />
               <item name="YOLOv3_with_flow" type="462c0819:PsiDirectoryNode" />
-              <item name="config" type="462c0819:PsiDirectoryNode" />
+              <item name="data" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="YOLOv3_with_flow" type="b2602c69:ProjectViewProjectNode" />
               <item name="YOLOv3_with_flow" type="462c0819:PsiDirectoryNode" />
-              <item name="flow_networks" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="YOLOv3_with_flow" type="b2602c69:ProjectViewProjectNode" />
-              <item name="YOLOv3_with_flow" type="462c0819:PsiDirectoryNode" />
-              <item name="flow_networks" type="462c0819:PsiDirectoryNode" />
-              <item name="channelnorm_package" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="YOLOv3_with_flow" type="b2602c69:ProjectViewProjectNode" />
-              <item name="YOLOv3_with_flow" type="462c0819:PsiDirectoryNode" />
-              <item name="flow_networks" type="462c0819:PsiDirectoryNode" />
-              <item name="correlation_package" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="YOLOv3_with_flow" type="b2602c69:ProjectViewProjectNode" />
-              <item name="YOLOv3_with_flow" type="462c0819:PsiDirectoryNode" />
-              <item name="flow_networks" type="462c0819:PsiDirectoryNode" />
-              <item name="resample2d_package" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="YOLOv3_with_flow" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Smart-Road" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="YOLOv3_with_flow" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Smart-Road" type="462c0819:PsiDirectoryNode" />
-              <item name="03 Execution" type="462c0819:PsiDirectoryNode" />
+              <item name="utils" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scratches" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -341,7 +323,7 @@
     <frame x="0" y="0" width="1680" height="1050" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2802198" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2899878" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32958034" sideWeight="0.502442" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -398,18 +380,11 @@
           <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="25" />
+      <option name="time" value="27" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/flownet/networks/channelnorm_package/setup.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="26" column="35" lean-forward="false" selection-start-line="26" selection-start-column="35" selection-end-line="26" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/flownet/networks/channelnorm_package/channelnorm_kernel.cuh">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -592,20 +567,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/flownet/networks/FlowNetC.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="12" column="14" lean-forward="false" selection-start-line="12" selection-start-column="6" selection-end-line="12" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/flownet/networks/submodules.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="1" lean-forward="false" selection-start-line="0" selection-start-column="1" selection-end-line="0" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/flownet/main.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="82">
@@ -621,13 +582,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="375">
           <caret line="25" column="22" lean-forward="false" selection-start-line="25" selection-start-column="14" selection-end-line="25" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/flownet/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="286">
-          <caret line="119" column="21" lean-forward="false" selection-start-line="119" selection-start-column="8" selection-end-line="119" selection-end-column="21" />
         </state>
       </provider>
     </entry>
@@ -652,24 +606,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/data/coco.names">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="24" column="1" lean-forward="false" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/yolo/train.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="587">
           <caret line="84" column="0" lean-forward="false" selection-start-line="84" selection-start-column="0" selection-end-line="84" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/yolo/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="343">
-          <caret line="168" column="78" lean-forward="false" selection-start-line="168" selection-start-column="78" selection-end-line="168" selection-end-column="78" />
         </state>
       </provider>
     </entry>
@@ -680,72 +620,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/data/VID.names">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="22" column="5" lean-forward="true" selection-start-line="22" selection-start-column="5" selection-end-line="22" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/flow_networks/correlation_package/correlation.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="30">
           <caret line="5" column="23" lean-forward="false" selection-start-line="5" selection-start-column="23" selection-end-line="5" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/flow_networks/resample2d_package/resample2d.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="22" lean-forward="false" selection-start-line="2" selection-start-column="7" selection-end-line="2" selection-end-column="22" />
-          <folding>
-            <element signature="e#0#42#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/flow_networks/channelnorm_package/channelnorm.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="23" lean-forward="false" selection-start-line="2" selection-start-column="7" selection-end-line="2" selection-end-column="23" />
-          <folding>
-            <element signature="e#0#45#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/utils/datasets.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="511">
-          <caret line="214" column="39" lean-forward="false" selection-start-line="214" selection-start-column="26" selection-end-line="214" selection-end-column="39" />
-          <folding>
-            <element signature="e#0#20#0" expanded="true" />
-            <element signature="e#264#4763#0" expanded="false" />
-            <element signature="e#9072#9286#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/config/yolov3.cfg">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-8931">
-          <caret line="168" column="7" lean-forward="false" selection-start-line="168" selection-start-column="0" selection-end-line="168" selection-end-column="7" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-37">
-          <caret line="124" column="13" lean-forward="false" selection-start-line="124" selection-start-column="4" selection-end-line="124" selection-end-column="13" />
-          <folding>
-            <element signature="e#9268#9272#0" expanded="false" />
-            <element signature="e#9300#12592#0" expanded="false" />
-            <element signature="e#12670#16300#0" expanded="false" />
-            <element signature="e#16328#16465#0" expanded="false" />
-            <element signature="e#16905#17142#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -753,10 +631,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-3077">
           <caret line="281" column="15" lean-forward="false" selection-start-line="281" selection-start-column="8" selection-end-line="281" selection-end-column="15" />
-          <folding>
-            <element signature="e#781#1660#1" expanded="false" />
-            <element signature="e#1693#1733#2" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -764,7 +638,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="315">
           <caret line="21" column="24" lean-forward="false" selection-start-line="21" selection-start-column="9" selection-end-line="21" selection-end-column="24" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -772,22 +645,89 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="506">
           <caret line="112" column="25" lean-forward="false" selection-start-line="112" selection-start-column="13" selection-end-line="112" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/flow_networks/resample2d_package/resample2d.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="2" column="22" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="2" selection-end-column="22" />
+          <folding>
+            <element signature="e#0#42#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/flow_networks/channelnorm_package/channelnorm.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="2" column="23" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="2" selection-end-column="23" />
+          <folding>
+            <element signature="e#0#45#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data/coco.names">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="22" column="5" lean-forward="false" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data/VID.names">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="8" lean-forward="false" selection-start-line="0" selection-start-column="8" selection-end-line="0" selection-end-column="8" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/utils/utils.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-237">
+        <state relative-caret-position="996">
           <caret line="198" column="13" lean-forward="false" selection-start-line="198" selection-start-column="4" selection-end-line="198" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/flownet/networks/FlowNetC.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="555">
+          <caret line="46" column="41" lean-forward="false" selection-start-line="46" selection-start-column="29" selection-end-line="46" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/flownet/networks/submodules.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="435">
+          <caret line="31" column="32" lean-forward="false" selection-start-line="31" selection-start-column="31" selection-end-line="31" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/yolo/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2106">
+          <caret line="156" column="21" lean-forward="false" selection-start-line="156" selection-start-column="21" selection-end-line="156" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config/yolov3.cfg">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="114">
+          <caret line="108" column="0" lean-forward="true" selection-start-line="108" selection-start-column="0" selection-end-line="108" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="423">
-          <caret line="709" column="25" lean-forward="false" selection-start-line="709" selection-start-column="16" selection-end-line="709" selection-end-column="25" />
+        <state relative-caret-position="1117">
+          <caret line="837" column="38" lean-forward="false" selection-start-line="837" selection-start-column="23" selection-end-line="837" selection-end-column="38" />
           <folding>
             <element signature="e#0#31#0" expanded="true" />
             <element signature="e#861#7135#0" expanded="false" />
@@ -797,6 +737,45 @@
             <element signature="e#11766#13862#0" expanded="false" />
             <element signature="e#16270#19603#0" expanded="false" />
             <element signature="e#23187#23306#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/flownet/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1498">
+          <caret line="394" column="38" lean-forward="false" selection-start-line="394" selection-start-column="30" selection-end-line="394" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data/coco_intersect_VID.names">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="12" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="179">
+          <caret line="206" column="0" lean-forward="true" selection-start-line="206" selection-start-column="0" selection-end-line="206" selection-end-column="0" />
+          <folding>
+            <element signature="e#10336#10340#0" expanded="false" />
+            <element signature="e#10368#13660#0" expanded="false" />
+            <element signature="e#17396#17533#0" expanded="false" />
+            <element signature="e#17973#18210#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/utils/datasets.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="117">
+          <caret line="270" column="18" lean-forward="false" selection-start-line="270" selection-start-column="18" selection-end-line="270" selection-end-column="18" />
+          <folding>
+            <element signature="e#313#4812#0" expanded="false" />
           </folding>
         </state>
       </provider>
