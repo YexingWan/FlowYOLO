@@ -219,10 +219,10 @@ def build_targets(
 
             # Convert to position relative to box
             # target is the relative 0-1 of size of img(448 as default)
-            gx = target[b, t, 1] * nG
-            gy = target[b, t, 2] * nG
-            gw = target[b, t, 3] * nG
-            gh = target[b, t, 4] * nG
+            gx = target[b, t, 0] * nG
+            gy = target[b, t, 1] * nG
+            gw = target[b, t, 2] * nG
+            gh = target[b, t, 3] * nG
 
             # Get grid box indices
             gi = int(gx)
@@ -271,9 +271,9 @@ def build_targets(
 
             # One-hot encoding of label
 
-            target_label = int(target[b, t, 0])
-            print("target_label:{}".format(target_label))
-            print("sum:{}".format(target[b, t].sum()))
+            target_label = int(target[b, t, 4])
+            print("target_label:{}".format(target[b, t, 4]))
+            print("box:{}".format(target[b, t]))
 
             tcls[b, best_n, gj, gi, target_label] = 1
             tconf[b, best_n, gj, gi] = 1
