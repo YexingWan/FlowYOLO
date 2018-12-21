@@ -15,7 +15,6 @@
       <change type="MODIFICATION" beforePath="$USER_HOME$/Smart-Road/03 Execution/gen_anchors.py" afterPath="$USER_HOME$/Smart-Road/03 Execution/gen_anchors.py" />
       <change type="MODIFICATION" beforePath="$USER_HOME$/Smart-Road/03 Execution/predict.py" afterPath="$USER_HOME$/Smart-Road/03 Execution/predict.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.py" afterPath="$PROJECT_DIR$/main.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/models.py" afterPath="$PROJECT_DIR$/models.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -29,8 +28,8 @@
       <file leaf-file-name="models.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1045">
-              <caret line="769" column="28" lean-forward="false" selection-start-line="769" selection-start-column="13" selection-end-line="769" selection-end-column="28" />
+            <state relative-caret-position="-173">
+              <caret line="778" column="50" lean-forward="false" selection-start-line="778" selection-start-column="37" selection-end-line="778" selection-end-column="50" />
               <folding>
                 <element signature="e#0#31#0" expanded="true" />
                 <element signature="e#7242#7355#0" expanded="false" />
@@ -62,11 +61,11 @@
       <file leaf-file-name="main.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="299">
-              <caret line="267" column="17" lean-forward="false" selection-start-line="267" selection-start-column="13" selection-end-line="267" selection-end-column="17" />
+            <state relative-caret-position="609">
+              <caret line="212" column="70" lean-forward="false" selection-start-line="212" selection-start-column="58" selection-end-line="212" selection-end-column="70" />
               <folding>
-                <element signature="e#10894#10898#0" expanded="false" />
-                <element signature="e#18530#18767#0" expanded="false" />
+                <element signature="e#10909#10913#0" expanded="false" />
+                <element signature="e#18545#18782#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -112,8 +111,8 @@
       <find>grad</find>
       <find>print</find>
       <find>target</find>
-      <find>cuda</find>
       <find>cpu</find>
+      <find>cuda</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -150,8 +149,8 @@
         <option value="$PROJECT_DIR$/data/coco_intersect_VID" />
         <option value="$PROJECT_DIR$/utils/datasets.py" />
         <option value="$PROJECT_DIR$/config/yolov3.cfg" />
-        <option value="$PROJECT_DIR$/main.py" />
         <option value="$PROJECT_DIR$/models.py" />
+        <option value="$PROJECT_DIR$/main.py" />
       </list>
     </option>
   </component>
@@ -701,6 +700,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="609">
+          <caret line="212" column="70" lean-forward="false" selection-start-line="212" selection-start-column="58" selection-end-line="212" selection-end-column="70" />
+          <folding>
+            <element signature="e#10909#10913#0" expanded="false" />
+            <element signature="e#18545#18782#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/utils/utils.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="299">
@@ -709,21 +719,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="299">
-          <caret line="267" column="17" lean-forward="false" selection-start-line="267" selection-start-column="13" selection-end-line="267" selection-end-column="17" />
-          <folding>
-            <element signature="e#10894#10898#0" expanded="false" />
-            <element signature="e#18530#18767#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1045">
-          <caret line="769" column="28" lean-forward="false" selection-start-line="769" selection-start-column="13" selection-end-line="769" selection-end-column="28" />
+        <state relative-caret-position="-173">
+          <caret line="778" column="50" lean-forward="false" selection-start-line="778" selection-start-column="37" selection-end-line="778" selection-end-column="50" />
           <folding>
             <element signature="e#0#31#0" expanded="true" />
             <element signature="e#7242#7355#0" expanded="false" />

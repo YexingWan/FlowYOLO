@@ -187,16 +187,16 @@ def train(args):
                     last_frame_dict[idx] = images[i]
 
                 flow_input.append(torch.stack([images[i],last_frame_dict[idx]]).permute(1, 0, 2, 3))
-                last_feature.append(feature_dict[idx])
+                last_feature.append(feature_dict[idx].cuda())
 
             for i, t_idx in enumerate(class_index):
                 idx = t_idx.item()
                 last_frame_dict[idx] = images[i]
 
-            if not None in last_feature:
-                for q in last_feature:
-                    for f in q:
-                        f.cuda()
+            # if not None in last_feature:
+            #     for q in last_feature:
+            #         for f in q:
+            #             f.cuda()
 
             flow_input = torch.stack(flow_input)
 
