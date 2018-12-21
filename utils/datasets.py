@@ -319,7 +319,8 @@ def built_training_datasets(path):
     dataset_list = []
     # for p in glob.glob(os.path.join(path,"Data/VID/train/*")):
     #     for s_path in glob.glob(os.path.join(p, "*")):
-    # for k in class_folder_dict.keys():
-    #     dataset_list.append(SequenceImage(class_folder_dict[k]))
+    for k in class_folder_dict.keys():
+        print(class_folder_dict[k])
+        # dataset_list.append(SequenceImage(class_folder_dict[k]))
 
     return dataset_list
