@@ -172,7 +172,7 @@ def train(args):
             #print("images_shape:{}".format(images.shape))
             #print("target_shape:{}".format(target.shape))
             flow_input = []
-            print("init:{}".format(seq_index))
+            #print("init:{}".format(seq_index))
 
             # last_feature is the list of deque that store last feature used in this batch
             last_feature =  []
