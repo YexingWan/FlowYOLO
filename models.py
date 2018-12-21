@@ -715,7 +715,7 @@ class YOLOLayer(nn.Module):
                 loss_y = self.mse_loss(y[mask], ty[mask])
                 loss_w = self.mse_loss(w[mask], tw[mask])
                 loss_h = self.mse_loss(h[mask], th[mask])
-                loss_conf = self.bce_loss(pred_conf[conf_mask_false], tconf[conf_mask_false]) + self.bce_loss(
+                loss_conf = self.bce_loss(pred_conf[conf_mask_false], tconf[conf_mask_false])*5 + self.bce_loss(
                     pred_conf[conf_mask_true], tconf[conf_mask_true]
                 )
                 #loss_conf = self.bce_loss(pred_conf[conf_mask], tconf[conf_mask])
@@ -765,9 +765,9 @@ class Darknet(nn.Module):
         # list of dictionary of model config
         self.module_defs = parse_model_config(config_path)
         self.hyperparams, self.module_list = create_modules(self.module_defs)
-        self.down_channel_62= torch.nn.Conv2d(1024, 512, 3)
-        self.down_channel_37 = torch.nn.Conv2d(512, 256, 3)
-        self.down_channel_12 = torch.nn.Conv2d(256, 128, 3)
+        self.down_channel_62= torch.nn.Conv2d(1024, 512, 1)
+        self.down_channel_37 = torch.nn.Conv2d(512, 256, 1)
+        self.down_channel_12 = torch.nn.Conv2d(256, 128, 1)
         self.img_size = img_size
         self.loss_names = ["loss","x", "y", "w", "h", "conf", "cls", "recall", "precision"]
 
