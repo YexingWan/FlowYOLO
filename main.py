@@ -167,15 +167,16 @@ def train(args):
 
     for epoch in range(args.total_epochs):
 
-        for b, (class_index, images, target) in enumerate(final_loader):
+        for b, (seq_index, images, target) in enumerate(final_loader):
             #print("class_index_shape:{}".format(class_index.shape))
             #print("images_shape:{}".format(images.shape))
             #print("target_shape:{}".format(target.shape))
             flow_input = []
+            print("init:{}".format(seq_index))
 
             # last_feature is the list of deque that store last feature used in this batch
             last_feature =  []
-            for i,t_idx in enumerate(class_index):
+            for i,t_idx in enumerate(seq_index):
                 idx = t_idx.item()
 
                 # if is the first frame, initialize two dict
@@ -189,7 +190,7 @@ def train(args):
                 flow_input.append(torch.stack([images[i],last_frame_dict[idx]]).permute(1, 0, 2, 3))
                 last_feature.append(feature_dict[idx])
 
-            for i, t_idx in enumerate(class_index):
+            for i, t_idx in enumerate(seq_index):
                 idx = t_idx.item()
                 last_frame_dict[idx] = images[i]
 
@@ -207,9 +208,9 @@ def train(args):
             # feature is a list of deque for each input
             losses, feature = flow_yolo(flow_input,images,last_feature,target)
 
-            for i, t_idx in enumerate(class_index):
+
+            for i, t_idx in enumerate(seq_index):
                 idx = t_idx.item()
-                #print("init:{}".format(idx))
                 feature_dict[idx] = feature[i]
 
             # get loss tensor and backward to get grad
