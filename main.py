@@ -132,8 +132,9 @@ def train(args):
             print("GPU_NUMBER:{}".format(number_gpus))
             # use muti-GPU
             args.train_batch_size *= number_gpus
-            flow_yolo = nn.parallel.DataParallel(flow_yolo, device_ids=list(range(number_gpus)))
-            flow_yolo.cuda()
+            #flow_yolo = nn.parallel.DataParallel(flow_yolo, device_ids=list(range(number_gpus)))
+            flow_yolo.set_multi_gpus(list(range(number_gpus)))
+
 
 
 

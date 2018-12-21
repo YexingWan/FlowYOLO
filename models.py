@@ -526,6 +526,7 @@ def create_modules(module_defs):
     output_filters = [int(hyperparams["channels"])]
     module_list = nn.ModuleList()
     for i, module_def in enumerate(module_defs):
+
         modules = nn.Sequential()
 
         # conv module
@@ -550,6 +551,8 @@ def create_modules(module_defs):
             if module_def["activation"] == "leaky":
                 modules.add_module("leaky_%d" % i, nn.LeakyReLU(0.1))
 
+            module_list.append(modules)
+
         # maxpool module
         elif module_def["type"] == "maxpool":
             kernel_size = int(module_def["size"])
@@ -563,22 +566,26 @@ def create_modules(module_defs):
                 padding=int((kernel_size - 1) // 2),
             )
             modules.add_module("maxpool_%d" % i, maxpool)
+            module_list.append(modules)
 
         # updample module for FPN
         elif module_def["type"] == "upsample":
             upsample = nn.Upsample(scale_factor=int(module_def["stride"]), mode="nearest")
             modules.add_module("upsample_%d" % i, upsample)
+            module_list.append(modules)
 
         # route feature map up-side down
         elif module_def["type"] == "route":
             layers = [int(x) for x in module_def["layers"].split(",")]
             filters = sum([output_filters[layer_i] for layer_i in layers])
             modules.add_module("route_%d" % i, EmptyLayer())
+            module_list.append(modules)
 
         # shortcut module for ResBlock
         elif module_def["type"] == "shortcut":
             filters = output_filters[int(module_def["from"])]
             modules.add_module("shortcut_%d" % i, EmptyLayer())
+            module_list.append(modules)
 
         # other parameter for yolo anchor
         elif module_def["type"] == "yolo":
@@ -592,8 +599,8 @@ def create_modules(module_defs):
             # Define detection layer
             yolo_layer = YOLOLayer(anchors, num_classes, img_height)
             modules.add_module("yolo_%d" % i, yolo_layer)
+            module_list.append(modules)
         # Register module list and number of output filters
-        module_list.append(modules)
         output_filters.append(filters)
 
     return hyperparams, module_list
@@ -624,6 +631,7 @@ class YOLOLayer(nn.Module):
         self.ce_loss = nn.CrossEntropyLoss()  # Class loss
 
     def forward(self, x, targets=None):
+        print("input shape of yolo_layer:{}".format(x.shape))
         nA = self.num_anchors
         nB = x.size(0)
         nG = x.size(2)
@@ -796,7 +804,7 @@ class Darknet(nn.Module):
                     # append feature in each deque pre sample
                     for idx in range(x.shape[0]):
 
-                        # each deque for one sample and
+                        #
                         output_features[idx].append(x[idx])
 
                     # flow aggregate in  L62/37
@@ -877,6 +885,20 @@ class Darknet(nn.Module):
         self.module_list.load_state_dict(model_dict)
         return
 
+    def set_multiple_gpus(self,gpu_id_list):
+        # use multiple gpu except yoloLayer
+        paralll_model_list = nn.ModuleList()
+        for i, (module_def, module) in enumerate(zip(self.module_defs, self.module_list)):
+            if module_def["type"] == "yolo":
+                pass
+            else:
+                module = nn.parallel.DataParallel(module,device_ids=gpu_id_list).cuda()
+            paralll_model_list.append(module)
+        self.module_list = paralll_model_list
+        self.down_channel_62 = nn.parallel.DataParallel(self.down_channel_62,gpu_id_list)
+        self.down_channel_37 = nn.parallel.DataParallel(self.down_channel_37,gpu_id_list)
+        self.down_channel_12 = nn.parallel.DataParallel(self.down_channel_12,gpu_id_list)
+        return
 
 #------------------------------------FLOW-YOLO---------------------------------
 
@@ -931,8 +953,8 @@ class FlowYOLO(nn.Module):
         #flows_list = [flows_output[i].permute(1, 2, 0) for i in range(flows_output.shape[0])]
         #flow = flows_output.permute(0, 2, 3, 1)
 
-        results = []
-        losses = defaultdict(float)
+        # on traning return is loss:dict and feature:list[deque]
+        # on infer return is detection:torch.Tensor and feature:list[deque]
         result, features = self.detect_model(data,
                                             forward_feats=last_feature,
                                             flow=flows_output,
@@ -943,16 +965,17 @@ class FlowYOLO(nn.Module):
         #                                          forward_feats=self.last_feature,
         #                                          flow=flows_list[i],
         #                                          targets =torch.unsqueeze(target[i],0))
-        if target is not None:
-            for name, loss in result.items():
-                losses[name] += loss
-        else:
-            results.append(result)
-
+        # if target is not None:
+        #
+        #
+        # else:
+        #     results.append(result)
         # for name in losses.keys():
         #     losses[name] /= data.shape[0]
         # concat all output by batch_dim
-        return losses, features if target is not None else torch.cat(results,0)
+
+
+        return result, features
 
 
     def load_weights(self, flow_weights_path=None, yolo_weights_path=None):
@@ -981,6 +1004,11 @@ class FlowYOLO(nn.Module):
         # no use format of weight of origin FlowNet, use torch format
         torch.save(self.flow_model.state_dict(),os.path.join(path,"flow.pth"))
         self.detect_model.save_weights(path)
+
+    def set_multiple_gpus(self,gpu_id_list):
+        self.flow_model = nn.parallel.DataParallel(self.flow_model,device_ids=gpu_id_list)
+        self.detect_model.set_multiple_gpus(gpu_id_list)
+
 
 
 
