@@ -301,7 +301,7 @@ def built_training_datasets(path):
     """
 
     intersect = [1,3,4,5,6,7,9,10,11,15,22,26,30]
-    class_folder_dict = defaultdict(list)
+    folder_path = set()
     print("traing_root_path:{}".format(path))
 
     p_list = ["ImageSets/VID/train_{}.txt".format(d) for d in intersect]
@@ -312,13 +312,15 @@ def built_training_datasets(path):
             with open(f,"r") as file:
                 for line in file:
                     data_path = line.split(" ")[0]
-                    print("data_path:{}".format(data_path))
-                    class_folder_dict[idx+1].append(os.path.join(os.path.join(path,"Data/VID/train"),data_path))
+                    #print("data_path:{}".format(data_path))
+                    #class_folder_dict[idx+1].append(os.path.join(os.path.join(path,"Data/VID/train"),data_path))
+                    folder_path.add(os.path.join(os.path.join(path,"Data/VID/train"),data_path))
 
     dataset_list = []
     # for p in glob.glob(os.path.join(path,"Data/VID/train/*")):
     #     for s_path in glob.glob(os.path.join(p, "*")):
-    # for k in class_folder_dict.keys():
-    #     dataset_list.append(SequenceImage(class_folder_dict[k]))
+    print(folder_path)
+    for p in folder_path:
+        dataset_list.append(SequenceImage(p))
 
     return dataset_list
