@@ -312,7 +312,8 @@ def built_training_datasets(path):
             with open(f,"r") as file:
                 for line in file:
                     print(line)
-                    data_path = " ".split(line)[1]
+                    data_path = " ".split(line)
+                    print("data_path:{}".format(data_path))
                     class_folder_dict[idx+1].append(os.path.join(os.path.join(path,"Data/VID/train"),data_path))
 
     dataset_list = []
