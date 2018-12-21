@@ -305,17 +305,14 @@ def built_training_datasets(path):
     print("traing_root_path:{}".format(path))
 
     p_list = ["ImageSets/VID/train_{}.txt".format(d) for d in intersect]
-    print(p_list)
 
 
     for idx, f in enumerate([os.path.join(path,p_f) for p_f in p_list]):
-        print(f)
         if os.path.isfile(f):
             with open(f,"r") as file:
                 for line in file:
-                    print(f)
+                    print(line)
                     data_path = " ".split(line)[1]
-                    print(data_path)
                     class_folder_dict[idx+1].append(os.path.join(os.path.join(path,"Data/VID/train"),data_path))
 
     dataset_list = []
