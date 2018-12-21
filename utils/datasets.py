@@ -274,7 +274,7 @@ class dictDataset_coco_intersect_VID(Dataset):
             cur_iter = self.iter_dict[index]
             image, target = cur_iter.next()
             # if new iter, add 999 as a magic number
-            return index+1+999, torch.squeeze(image), torch.squeeze(target)
+            return index+1+99999, torch.squeeze(image), torch.squeeze(target)
 
     def __len__(self):
         return self.max_index
