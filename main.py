@@ -189,8 +189,6 @@ def train(args):
                 flow_input.append(torch.stack([images[i],last_frame_dict[idx]]).permute(1, 0, 2, 3))
                 last_feature.append(feature_dict[idx])
 
-            print([type(a) for a in last_feature])
-            
             for i, t_idx in enumerate(class_index):
                 idx = t_idx.item()
                 last_frame_dict[idx] = images[i]
@@ -211,6 +209,7 @@ def train(args):
 
             for i, t_idx in enumerate(class_index):
                 idx = t_idx.item()
+                print("init:{}".format(idx))
                 feature_dict[idx] = feature[i]
 
             # get loss tensor and backward to get grad
