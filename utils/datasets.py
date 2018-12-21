@@ -255,7 +255,7 @@ class dictDataset_coco_intersect_VID(Dataset):
 
         # save each iter of loader in a dict with class index as key
         for idx,loader in enumerate(dataloader_list):
-            print("each_loader_len:{}".format(len(loader)))
+            # print("each_loader_len:{}".format(len(loader)))
             self.iter_dict[idx+1] = iter(loader)
             self.loader_dict[idx+1] = loader
             max  = len(loader) if len(loader) > max else max
@@ -268,13 +268,13 @@ class dictDataset_coco_intersect_VID(Dataset):
         cur_iter = self.iter_dict[index+1]
         try:
             image, target = cur_iter.next()
-            return index+1, torch.squezze(image),torch.squezze(target)
+            return index+1, torch.squeeze(image),torch.squeeze(target)
         except StopIteration:
             self.iter_dict[index] = iter(self.loader_dict[index])
             cur_iter = self.iter_dict[index]
             image, target = cur_iter.next()
             # if new iter, add 999 as a magic number
-            return index+1+999, torch.squezze(image), torch.squezze(target)
+            return index+1+999, torch.squeeze(image), torch.squeeze(target)
 
     def __len__(self):
         return self.max_index
@@ -302,7 +302,7 @@ def built_training_datasets(path):
 
     intersect = [1,3,4,5,6,7,9,10,11,15,22,26,30]
     folder_path = set()
-    print("traing_root_path:{}".format(path))
+    #print("traing_root_path:{}".format(path))
 
     p_list = ["ImageSets/VID/train_{}.txt".format(d) for d in intersect]
 
@@ -319,7 +319,7 @@ def built_training_datasets(path):
     dataset_list = []
     # for p in glob.glob(os.path.join(path,"Data/VID/train/*")):
     #     for s_path in glob.glob(os.path.join(p, "*")):
-    print(folder_path)
+    #print(folder_path)
     for p in folder_path:
         dataset_list.append(SequenceImage(p))
 
