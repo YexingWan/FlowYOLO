@@ -143,6 +143,8 @@ def train(args):
 
     dataset_list = datasets.built_training_datasets(args.data_train_path)
 
+    print("dataset_list_length:{}".format(len(dataset_list)))
+
     final_dataset = datasets.dictDataset_coco_intersect_VID(dataset_list)
 
     print("dataset_length:{}".format(len(final_dataset)))
