@@ -707,12 +707,12 @@ class YOLOLayer(nn.Module):
                 loss_y = self.mse_loss(y[mask], ty[mask])
                 loss_w = self.mse_loss(w[mask], tw[mask])
                 loss_h = self.mse_loss(h[mask], th[mask])
-                loss_conf = self.bce_loss(pred_conf[conf_mask_false], tconf[conf_mask_false]) + 10*self.bce_loss(
+                loss_conf = self.bce_loss(pred_conf[conf_mask_false], tconf[conf_mask_false]) + self.bce_loss(
                     pred_conf[conf_mask_true], tconf[conf_mask_true]
                 )
                 #loss_conf = self.bce_loss(pred_conf[conf_mask], tconf[conf_mask])
 
-                loss_cls = (1 / nB) * self.ce_loss(pred_cls[mask], torch.argmax(tcls[mask],1)) * 5
+                loss_cls = (1 / nB) * self.ce_loss(pred_cls[mask], torch.argmax(tcls[mask],1))
 
             else:
                 loss_x = torch.tensor(0).cuda()
@@ -757,6 +757,9 @@ class Darknet(nn.Module):
         # list of dictionary of model config
         self.module_defs = parse_model_config(config_path)
         self.hyperparams, self.module_list = create_modules(self.module_defs)
+        self.down_channel_62= torch.nn.Conv2d(1024, 512, 3)
+        self.down_channel_37 = torch.nn.Conv2d(512, 256, 3)
+        self.down_channel_12 = torch.nn.Conv2d(256, 128, 3)
         self.img_size = img_size
         self.loss_names = ["loss","x", "y", "w", "h", "conf", "cls", "recall", "precision"]
 
@@ -765,13 +768,15 @@ class Darknet(nn.Module):
         self.flow_warp = Resample2d()
 
 
-    def forward(self,x,forward_feats:deque,flow,targets=None):
+    def forward(self,x:torch.Tensor, forward_feats:list ,flow:torch.Tensor ,targets:torch.Tensor=None):
         # flow dim is [h,w,channel]
         is_training = targets is not None
         output = []
         losses = defaultdict(float)
         layer_outputs = []
-        output_features = deque()
+        # list of deques for each sample
+        output_features = [deque() for _ in range(x.shape[0])]
+        div = {36: 8, 61: 16}
         x = x/255.
         for i, (module_def, module) in enumerate(zip(self.module_defs, self.module_list)):
             if module_def["type"] in ["convolutional", "upsample", "maxpool"]:
@@ -784,21 +789,34 @@ class Darknet(nn.Module):
             elif module_def["type"] == "shortcut":
                 layer_i = int(module_def["from"])
                 x = layer_outputs[-1] + layer_outputs[layer_i]
-                #warp and aggregate at layer 37 62, which are the layers before down-sampling
-                if i in [36,61]:
-                    output_features.append(x)
-                    #print("flow aggregate in  L62/37")
-                    f = forward_feats.popleft()
-                    div = {36:8,61:16}
-                    if isinstance(f,torch.Tensor):
-                        # print("last feature shape:{}".format(f.shape))
-                        # print("current feature shape:{}".format(x.shape))
+
+                #warp and aggregate(cat) at layer 12 37 62, which are the layers before down-sampling
+                if i in [11,36,61]:
+
+                    # append feature in each deque pre sample
+                    for idx in range(x.shape[0]):
+
+                        # each deque for one sample and
+                        output_features[idx].append(x[idx])
+
+                    # flow aggregate in  L62/37
+                    if forward_feats[0] is not None:
+                        print("current feature shape:{}".format(x.shape))
                         # resizing flow by bi-linear interpolation
-                        _flow = F.interpolate(torch.unsqueeze(flow.permute(2,0,1),0),size=(x.shape[-2],x.shape[-1]),mode="bilinear")/div[i]
+                        _flow = F.interpolate(flow,size=(x.shape[-2],x.shape[-1]),mode="bilinear")/div[i]
                         _flow = _flow.contiguous()
+                        f = torch.stack([dq.popleft() for dq in forward_feats])
+                        print("last feature shape:{}".format(f.shape))
                         _re = self.flow_warp(f,_flow)
-                        # print("warped feature shape:{}".format(_re.shape))
-                        x =  0.7*x + 0.3 *_re
+                        print("warped feature shape:{}".format(_re.shape))
+                        x = torch.cat([x,_re],1)
+                        if i == 36:
+                            x = self.down_channel_37(x)
+                        elif i == 11:
+                            x = self.down_channel_12(x)
+                        else:
+                            x = self.down_channel_62(x)
+                        #x =  0.7*x + 0.3 *_re
 
 
             elif module_def["type"] == "yolo":
@@ -867,13 +885,14 @@ class FlowYOLO(nn.Module):
         super(FlowYOLO, self).__init__()
         self.flow_model = args.flow_model_class(args)
         self.detect_model = args.yolo_model_class(args.yolo_config_path)
-        self.last_frames = None
-        self.last_feature = deque([0,0])
+        #self.last_frames = None
+        #self.last_feature = deque([0,0])
         self.args = args
 
 
 
-    def forward(self, data, target=None):
+    #def forward(self, data, target=None):
+    def forward(self, flow_input:torch.Tensor, data:torch.Tensor , last_feature:list, target=None):
         # data is a torch Tensor [b,3,h,w]
         if self.args.task == "train" and target is None:
             print(sys.stderr,"Error: No target in training mode.")
@@ -887,49 +906,53 @@ class FlowYOLO(nn.Module):
 
 
 
-        if self.last_frames is None:
-            self.last_frames = data[0]
+        # if self.last_frames is None:
+        #     self.last_frames = data[0]
 
-        flow_input = []
-        images_list = []
+        # flow_input = []
+        # images_list = []
 
         # flow_input:[batch_size,3(channel),2,row_idx,col_idx]
-        for idx in range(data.shape[0]):
-            images_list.append(data[idx])
-            flow_input.append(torch.stack([data[idx],self.last_frames]).permute(1, 0, 2, 3))
-            # flow_input.append(torch.stack([self.last_frames,data[idx]]).permute(1, 0, 2, 3))
-            self.last_frames = data[idx]
+        # for idx in range(data.shape[0]):
+        #     images_list.append(data[idx])
+        #     flow_input.append(torch.stack([data[idx],self.last_frames]).permute(1, 0, 2, 3))
+        #     # flow_input.append(torch.stack([self.last_frames,data[idx]]).permute(1, 0, 2, 3))
+        #     self.last_frames = data[idx]
 
 
-        flow_input = torch.stack(flow_input)
+        # flow_input = torch.stack(flow_input)
 
-        flow_input = flow_input.cuda()
+        #flow_input = flow_input.cuda()
 
         # predict flows, output[batchsize,]
         flows_output = self.flow_model(flow_input)
 
-        # get the flows
-        flows_list = [flows_output[i].permute(1, 2, 0) for i in range(flows_output.shape[0])]
+        # get the flows put channel back
+        #flows_list = [flows_output[i].permute(1, 2, 0) for i in range(flows_output.shape[0])]
+        #flow = flows_output.permute(0, 2, 3, 1)
 
         results = []
         losses = defaultdict(float)
-        for i in range(data.shape[0]):
-            # flow dim is [h,w,channel]
-            result, features = self.detect_model(torch.unsqueeze(images_list[i],0).cuda(),
-                                                 forward_feats=self.last_feature,
-                                                 flow=flows_list[i],
-                                                 targets =torch.unsqueeze(target[i],0))
-            if target is not None:
-                for name, loss in result.items():
-                    losses[name] += loss
-            else:
-                results.append(result)
-            self.last_feature = features
+        result, features = self.detect_model(data,
+                                            forward_feats=last_feature,
+                                            flow=flows_output,
+                                            targets =target)
+        # for i in range(data.shape[0]):
+        #     # flow dim is [h,w,channel]
+        #     result, features = self.detect_model(torch.unsqueeze(images_list[i],0).cuda(),
+        #                                          forward_feats=self.last_feature,
+        #                                          flow=flows_list[i],
+        #                                          targets =torch.unsqueeze(target[i],0))
+        if target is not None:
+            for name, loss in result.items():
+                losses[name] += loss
+        else:
+            results.append(result)
 
-        for name in losses.keys():
-            losses[name] /= data.shape[0]
+        # for name in losses.keys():
+        #     losses[name] /= data.shape[0]
         # concat all output by batch_dim
-        return losses if target is not None else torch.cat(results,0)
+        return losses, features if target is not None else torch.cat(results,0)
 
 
     def load_weights(self, flow_weights_path=None, yolo_weights_path=None):
