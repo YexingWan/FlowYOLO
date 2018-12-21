@@ -120,6 +120,12 @@ def train(args):
 
     flow_yolo.load_weights(args.flow_resume, args.yolo_resume)
 
+    for p in flow_yolo.parameters():
+        p.requires_grad = True
+    # freeze flownet
+    for p in flow_yolo.flow_model.parameters():
+        p.requires_grad = False
+
     if torch.cuda.is_available() and args.use_cuda:
         number_gpus = torch.cuda.device_count()
         if number_gpus > 0:
@@ -129,11 +135,7 @@ def train(args):
             flow_yolo = nn.parallel.DataParallel(flow_yolo, device_ids=list(range(number_gpus)))
             flow_yolo.cuda()
 
-    for p in flow_yolo.parameters():
-        p.requires_grad = True
-    # freeze flownet
-    for p in flow_yolo.flow_model.parameters():
-        p.requires_grad = False
+
 
     optimizer = torch.optim.Adam(filter(lambda p: p.requires_grad, flow_yolo.parameters()),lr=1e-3)
 
@@ -430,7 +432,7 @@ def main(args,task):
 """
 python3 main.py --task inference --yolo_config_path "./config/yolov3.cfg" --yolo_resume "../yolo_weight/yolov3.pth" --flow_model "FlowNet2CS" --flow_resume "../flow_weight/FlowNet2-CS_checkpoint.pth"
 
-python3 main.py --task train --yolo_config_path "./config/yolov3.cfg" --yolo_resume "../yolo_weight/yolov3.pth" --flow_model "FlowNet2CS" --flow_resume "../flow_weight/FlowNet2-CS_checkpoint.pth"
+python3 main.py --task train --yolo_config_path "./config/yolov3.cfg" --yolo_resume "../yolo_weight/yolov3.pth" --flow_model "FlowNet2CS" --flow_resume "../flow_weight/FlowNet2-CS_checkpoint.pth --train_batch_size 2"
 """
 
 if __name__ == "__main__":
