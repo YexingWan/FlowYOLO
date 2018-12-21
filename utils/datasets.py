@@ -126,10 +126,11 @@ class VideoFile(Dataset):
 
 # one sequence one dataset, for train
 class SequenceImage(Dataset):
-    def __init__(self, img_folder_path, img_size=448):
+    def __init__(self, img_folder_path,class_ids, img_size=448):
         self.files = sorted(glob.glob('%s/*.*' % img_folder_path))
         self.annotation = [p.replace("Data","Annotations").replace("JPEG","xml") for p in self.files]
         self.img_shape = (img_size, img_size)
+        self.ids = set(class_ids)
         self.max_objects = 50
         self.classes_map = {
             '__background__' : 0,  # always index 0
@@ -165,6 +166,43 @@ class SequenceImage(Dataset):
             'n02391049':30
         }
 
+        self.reverse_classes_map = {
+            0:'__background__',  # always index 0
+            1:'n02691156',
+            2:'n02419796',
+            3:'n02131653',
+            4:'n02834778',
+            5:'n01503061',
+            6:'n02924116',
+            7:'n02958343',
+            8:'n02402425',
+            9:'n02084071',
+            10:'n02121808',
+            11:'n02503517',
+            12:'n02118333',
+            13:'n02510455',
+            14:'n02342885',
+            15:'n02374451',
+            16:'n02129165',
+            17:'n01674464',
+            18:'n02484322',
+            19:'n03790512',
+            20:'n02324045',
+            21:'n02509815',
+            22:'n02411705',
+            23:'n01726692',
+            24:'n02355227',
+            25:'n02129604',
+            26:'n04468005',
+            27:'n01662784',
+            28:'n04530566',
+            29:'n02062744',
+            30:'n02391049'
+        }
+
+        self.origin_map_new_ids = dict(zip(class_ids,[i+1 for i in range(len(class_ids))]))
+
+
     def __getitem__(self, index):
 
         #---------
@@ -198,21 +236,24 @@ class SequenceImage(Dataset):
         label_path = self.annotation[index % len(self.annotation)].rstrip()
         boxes = self.ProcessXMLAnnotation(label_path)
         filled_labels = np.zeros((self.max_objects, 5))
+
+
         if boxes is not None:
             for idx,box in enumerate(boxes):
-                x1 = box["xmin"]
-                x2 = box['xmax']
-                y1 = box["ymin"]
-                y2 = box["ymax"]
-                x1 += pad[1][0]
-                y1 += pad[0][0]
-                x2 += pad[1][0]
-                y2 += pad[0][0]
-                center_x= float(((x1 + x2) / 2)) / float(padded_w)
-                center_y = float(((y1 + y2) / 2)) / float(padded_h)
-                scale_w = float(abs(x2 - x1)) / float(padded_w)
-                scale_h = float(abs(y2 - y1)) / float(padded_h)
-                filled_labels[idx] = np.array([center_x,center_y,scale_w,scale_h,self.classes_map[box["name"]]])
+                if self.classes_map[box["name"]] in self.ids:
+                    x1 = box["xmin"]
+                    x2 = box['xmax']
+                    y1 = box["ymin"]
+                    y2 = box["ymax"]
+                    x1 += pad[1][0]
+                    y1 += pad[0][0]
+                    x2 += pad[1][0]
+                    y2 += pad[0][0]
+                    center_x= float(((x1 + x2) / 2)) / float(padded_w)
+                    center_y = float(((y1 + y2) / 2)) / float(padded_h)
+                    scale_w = float(abs(x2 - x1)) / float(padded_w)
+                    scale_h = float(abs(y2 - y1)) / float(padded_h)
+                    filled_labels[idx] = np.array([center_x,center_y,scale_w,scale_h,self.origin_map_new_ids[self.classes_map[box["name"]]]])
         filled_labels = torch.from_numpy(filled_labels)
         return input_img, filled_labels
 
@@ -249,19 +290,17 @@ class SequenceImage(Dataset):
 class dictDataset_coco_intersect_VID(Dataset):
     def __init__(self, dataset_list):
         print("sequence_num:{}".format(len(dataset_list)))
-        dataloader_list = [DataLoader(dataset_list[i], 1) for i in range(len(dataset_list))]
+        self.dataloader_list = [DataLoader(dataset_list[i], 1) for i in range(len(dataset_list))]
         max = 0
         self.iter_dict = dict()
-        self.loader_dict = dict()
 
         # save each iter of loader in a dict with class index as key
-        for idx,loader in enumerate(dataloader_list):
+        for idx,loader in enumerate(self.dataloader_list):
             # print("each_loader_len:{}".format(len(loader)))
             self.iter_dict[idx+1] = iter(loader)
-            self.loader_dict[idx+1] = loader
             max  = len(loader) if len(loader) > max else max
-        self.max_index = len(dataloader_list) * max
-        self.num_loader = len(dataloader_list)
+        self.max_index = len(self.dataloader_list) * max
+        self.num_loader = len(self.dataloader_list)
 
 
     def __getitem__(self, index):
@@ -271,7 +310,7 @@ class dictDataset_coco_intersect_VID(Dataset):
             image, target = cur_iter.next()
             return index+1, torch.squeeze(image),torch.squeeze(target)
         except StopIteration:
-            self.iter_dict[index] = iter(self.loader_dict[index])
+            self.iter_dict[index] = iter(self.dataloader_list[index])
             cur_iter = self.iter_dict[index]
             image, target = cur_iter.next()
             # if new iter, add 999 as a magic number
@@ -322,6 +361,6 @@ def built_training_datasets(path):
     #     for s_path in glob.glob(os.path.join(p, "*")):
     #print(folder_path)
     for p in folder_path:
-        dataset_list.append(SequenceImage(p))
+        dataset_list.append(SequenceImage(p,intersect))
 
     return dataset_list
