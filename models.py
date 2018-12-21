@@ -631,7 +631,7 @@ class YOLOLayer(nn.Module):
         self.ce_loss = nn.CrossEntropyLoss()  # Class loss
 
     def forward(self, x, targets=None):
-        print("input shape of yolo_layer:{}".format(x.shape))
+        # print("input shape of yolo_layer:{}".format(x.shape))
         nA = self.num_anchors
         nB = x.size(0)
         nG = x.size(2)

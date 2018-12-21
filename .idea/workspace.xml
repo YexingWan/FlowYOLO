@@ -28,8 +28,8 @@
       <file leaf-file-name="models.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="718">
-              <caret line="1010" column="96" lean-forward="false" selection-start-line="1010" selection-start-column="96" selection-end-line="1010" selection-end-column="96" />
+            <state relative-caret-position="314">
+              <caret line="810" column="52" lean-forward="true" selection-start-line="810" selection-start-column="52" selection-end-line="810" selection-end-column="52" />
               <folding>
                 <element signature="e#0#31#0" expanded="true" />
                 <element signature="e#7242#7355#0" expanded="false" />
@@ -39,10 +39,10 @@
                 <element signature="e#15239#16233#0" expanded="false" />
                 <element signature="e#16270#19603#0" expanded="false" />
                 <element signature="e#23393#23512#0" expanded="false" />
-                <element signature="e#33219#33595#0" expanded="false" />
-                <element signature="e#33640#33751#0" expanded="false" />
-                <element signature="e#33806#34637#0" expanded="false" />
-                <element signature="e#38528#39163#0" expanded="false" />
+                <element signature="e#33221#33597#0" expanded="false" />
+                <element signature="e#33642#33753#0" expanded="false" />
+                <element signature="e#33808#34639#0" expanded="false" />
+                <element signature="e#38530#39165#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -165,7 +165,6 @@
       <find>resample</find>
       <find>glob</find>
       <find>dataloader_list</find>
-      <find>print</find>
       <find>yolo</find>
       <find>tconf</find>
       <find>dataset_length</find>
@@ -174,6 +173,7 @@
       <find>extra the yolo later out</find>
       <find>type</find>
       <find>cuda</find>
+      <find>print</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -783,8 +783,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="718">
-          <caret line="1010" column="96" lean-forward="false" selection-start-line="1010" selection-start-column="96" selection-end-line="1010" selection-end-column="96" />
+        <state relative-caret-position="314">
+          <caret line="810" column="52" lean-forward="true" selection-start-line="810" selection-start-column="52" selection-end-line="810" selection-end-column="52" />
           <folding>
             <element signature="e#0#31#0" expanded="true" />
             <element signature="e#7242#7355#0" expanded="false" />
@@ -794,10 +794,10 @@
             <element signature="e#15239#16233#0" expanded="false" />
             <element signature="e#16270#19603#0" expanded="false" />
             <element signature="e#23393#23512#0" expanded="false" />
-            <element signature="e#33219#33595#0" expanded="false" />
-            <element signature="e#33640#33751#0" expanded="false" />
-            <element signature="e#33806#34637#0" expanded="false" />
-            <element signature="e#38528#39163#0" expanded="false" />
+            <element signature="e#33221#33597#0" expanded="false" />
+            <element signature="e#33642#33753#0" expanded="false" />
+            <element signature="e#33808#34639#0" expanded="false" />
+            <element signature="e#38530#39165#0" expanded="false" />
           </folding>
         </state>
       </provider>
