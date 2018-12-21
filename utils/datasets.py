@@ -304,6 +304,7 @@ def built_training_datasets(path):
     class_folder_dict = defaultdict(list)
 
     for idx, f in enumerate([os.path.join(path,"/ImageSets/VID/train_%d.txt" % d) for d in intersect]):
+        print(f)
         if os.path.isfile(f):
             with open(f,"r") as file:
                 for line in file:
