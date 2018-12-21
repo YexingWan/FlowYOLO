@@ -193,8 +193,8 @@ def train(args):
                 idx = t_idx.item()
                 last_frame_dict[idx] = images[i]
 
-            if last_feature[0] is not None:
-                for q in last_feature:
+            for q in last_feature:
+                if q is not None:
                     for f in q:
                         f.cuda()
 
