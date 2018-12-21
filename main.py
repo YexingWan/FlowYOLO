@@ -179,8 +179,8 @@ def train(args):
                 idx = t_idx.item()
 
                 # if is the first frame, initialize two dict
-                if idx > 999:
-                    idx -= 999
+                if idx > 99999:
+                    idx -= 99999
                     last_frame_dict[idx] = None
                     feature_dict[idx] = None
                 if last_frame_dict[idx] is None:
@@ -209,7 +209,7 @@ def train(args):
 
             for i, t_idx in enumerate(class_index):
                 idx = t_idx.item()
-                print("init:{}".format(idx))
+                #print("init:{}".format(idx))
                 feature_dict[idx] = feature[i]
 
             # get loss tensor and backward to get grad
