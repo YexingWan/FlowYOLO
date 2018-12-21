@@ -895,9 +895,9 @@ class Darknet(nn.Module):
                 module = nn.parallel.DataParallel(module,device_ids=gpu_id_list).cuda()
             paralll_model_list.append(module)
         self.module_list = paralll_model_list
-        self.down_channel_62 = nn.parallel.DataParallel(self.down_channel_62,gpu_id_list)
-        self.down_channel_37 = nn.parallel.DataParallel(self.down_channel_37,gpu_id_list)
-        self.down_channel_12 = nn.parallel.DataParallel(self.down_channel_12,gpu_id_list)
+        self.down_channel_62 = nn.parallel.DataParallel(self.down_channel_62,gpu_id_list).cuda()
+        self.down_channel_37 = nn.parallel.DataParallel(self.down_channel_37,gpu_id_list).cuda()
+        self.down_channel_12 = nn.parallel.DataParallel(self.down_channel_12,gpu_id_list).cuda()
         return
 
 #------------------------------------FLOW-YOLO---------------------------------
@@ -914,7 +914,7 @@ class FlowYOLO(nn.Module):
 
 
     #def forward(self, data, target=None):
-    def forward(self, flow_input:torch.Tensor, data:torch.Tensor , last_feature:list, target=None):
+    def forward(self, flow_input, data , last_feature, target=None):
         # data is a torch Tensor [b,3,h,w]
         if self.args.task == "train" and target is None:
             print(sys.stderr,"Error: No target in training mode.")
@@ -947,6 +947,8 @@ class FlowYOLO(nn.Module):
         #flow_input = flow_input.cuda()
 
         # predict flows, output[batchsize,]
+
+        print("inner_check_tpye:{}".format(flow_input.type()))
         flows_output = self.flow_model(flow_input)
 
         # get the flows put channel back
@@ -1006,7 +1008,7 @@ class FlowYOLO(nn.Module):
         self.detect_model.save_weights(path)
 
     def set_multi_gpus(self,gpu_id_list):
-        self.flow_model = nn.parallel.DataParallel(self.flow_model,device_ids=gpu_id_list)
+        self.flow_model = nn.parallel.DataParallel(self.flow_model,device_ids=gpu_id_list).cuda()
         self.detect_model.set_multi_gpus(gpu_id_list)
 
 
