@@ -948,7 +948,7 @@ class FlowYOLO(nn.Module):
 
         # predict flows, output[batchsize,]
 
-        print("inner_check_tpye:{}".format(flow_input.type()))
+        #print("inner_check_tpye:{}".format(flow_input.type()))
         flows_output = self.flow_model(flow_input)
 
         # get the flows put channel back
