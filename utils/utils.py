@@ -206,9 +206,10 @@ def build_targets(
 
     nGT = 0
     nCorrect = 0
-    # for each batch
+    # for each sample
     for b in range(nB):
 
+        # for each box
         for t in range(target.shape[1]):
             if target[b, t].sum() == 0:
                 continue
@@ -272,7 +273,9 @@ def build_targets(
             # One-hot encoding of label
 
             target_label = int(target[b, t, 4])
-            print("target_label:{}".format(target[b, t, 4]))
+
+            #print("target_label:{}".format(target[b, t, 4]))
+
             #print("box:{}".format(target[b, t]))
             tcls[b, best_n, gj, gi, target_label-1] = 1
             tconf[b, best_n, gj, gi] = 1
