@@ -143,11 +143,11 @@ def train(args):
 
     dataset_list = datasets.built_training_datasets(args.data_train_path)
 
-    print("dataset_list_length:{}".format(len(dataset_list)))
+    #print("dataset_list_length:{}".format(len(dataset_list)))
 
     final_dataset = datasets.dictDataset_coco_intersect_VID(dataset_list)
 
-    print("dataset_length:{}".format(len(final_dataset)))
+    #print("dataset_length:{}".format(len(final_dataset)))
 
     final_loader = DataLoader(final_dataset,args.train_batch_size,shuffle=True)
 
