@@ -302,7 +302,7 @@ def build_targets(
             score = pred_conf[b, best_n, gj, gi]
             if iou > 0.5 and pred_label == target_label-1 and score > 0.5:
                 nCorrect += 1
-    print("target_class:{}".format(np.unique(torch.argmax(tcls,3).cpu().numpy())))
+    print("target_class:{}".format(np.unique(torch.argmax(tcls,4).cpu().numpy())))
     return nGT, nCorrect, mask, conf_mask, tx, ty, tw, th, tconf, tcls
 
 
