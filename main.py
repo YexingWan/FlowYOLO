@@ -182,6 +182,7 @@ def train(args):
 
 
             # last_feature is the list of queue
+            optimizer.zero_grad()
             last_feature =  []
             flow_input = []
 
