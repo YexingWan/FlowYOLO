@@ -661,8 +661,11 @@ class YOLOLayer(nn.Module):
 
         # Add offset and scale with anchors
         pred_boxes = FloatTensor(prediction[..., :4].shape)
+
+        # 把每个box的predict加上grid_offset,也就是说原始的predict是对于自己的grid的左上角的offset
         pred_boxes[..., 0] = x.data + grid_x
         pred_boxes[..., 1] = y.data + grid_y
+        # w和h是基于原始anchor做stride以后在当前map上的感受野大小的pixel数量单位
         pred_boxes[..., 2] = torch.exp(w.data) * anchor_w
         pred_boxes[..., 3] = torch.exp(h.data) * anchor_h
 
@@ -693,7 +696,9 @@ class YOLOLayer(nn.Module):
             precision = float(nCorrect / nProposals) if nProposals != 0 else 0
 
             # Handle masks
+            # mask是对应有object的prediction box（对于每个gt object的iou最大的prediction），
             mask = Variable(mask.type(ByteTensor))
+            # conf_mask是所有考虑confidence loss的prediction的mask
             conf_mask = Variable(conf_mask.type(ByteTensor))
 
             # Handle target variables
@@ -710,18 +715,31 @@ class YOLOLayer(nn.Module):
 
             vaild_mask = torch.max(mask).item()
 
+            """
+            YOLOv3 predicts an objectness score for each bounding box using logistic regression. 
+            YOLOv3 changes the way in calculating the cost function. 
+            If the bounding box prior (anchor) overlaps a ground truth object more than others, 
+            the corresponding objectness score should be 1. 
+            For other priors with overlap greater than a predefined threshold (default 0.5), 
+            they incur no cost. 
+            Each ground truth object is associated with one boundary box prior only. 
+            If a bounding box prior is not assigned, it incurs no classification and localization lost, 
+            just confidence loss on objectness.
+            """
+
             if vaild_mask==1:
                 loss_x = self.mse_loss(x[mask], tx[mask])
                 loss_y = self.mse_loss(y[mask], ty[mask])
                 loss_w = self.mse_loss(w[mask], tw[mask])
                 loss_h = self.mse_loss(h[mask], th[mask])
-                loss_conf = self.bce_loss(pred_conf[conf_mask_false], tconf[conf_mask_false])*5 + self.bce_loss(
+                loss_conf = self.bce_loss(pred_conf[conf_mask_false], tconf[conf_mask_false]) + self.bce_loss(
                     pred_conf[conf_mask_true], tconf[conf_mask_true]
                 )
                 #loss_conf = self.bce_loss(pred_conf[conf_mask], tconf[conf_mask])
 
                 loss_cls = (1 / nB) * self.ce_loss(pred_cls[mask], torch.argmax(tcls[mask],1))
 
+            # if one frame has no object.
             else:
                 loss_x = torch.tensor(0)
                 loss_y = torch.tensor(0)
@@ -730,7 +748,7 @@ class YOLOLayer(nn.Module):
                 loss_conf = self.bce_loss(pred_conf[conf_mask], tconf[conf_mask])
                 loss_cls = torch.tensor(0)
 
-            loss = loss_x + loss_y + loss_w + loss_h + loss_conf + loss_cls
+            loss = loss_x + loss_y + loss_w + loss_h + loss_conf * 5 + loss_cls
 
             return (
                 loss,
@@ -778,6 +796,7 @@ class Darknet(nn.Module):
 
     def forward(self,x:torch.Tensor, forward_feats:list ,flow:torch.Tensor ,targets:torch.Tensor=None):
         # flow dim is [h,w,channel]
+        # target [50,5()]
         is_training = targets is not None
         output = []
         losses = defaultdict(float)
@@ -798,6 +817,10 @@ class Darknet(nn.Module):
                 layer_i = int(module_def["from"])
                 x = layer_outputs[-1] + layer_outputs[layer_i]
 
+
+                print("gather or not???:{}".format(x>3))
+
+
                 #warp and aggregate(cat) at layer 12 37 62, which are the layers before down-sampling
                 if i in [11,36,61]:
 
@@ -807,7 +830,9 @@ class Darknet(nn.Module):
                         output_features[idx].append(x[idx].cpu())
 
                     # flow aggregate in  L62/37/12
-                    if None not in forward_feats:
+                    if forward_feats is not None:
+                        assert(flow is not None)
+
                         print("start learning sequence info!!!!")
                         print("current feature shape:{}".format(x.shape))
                         # resizing flow by bi-linear interpolation
@@ -824,7 +849,6 @@ class Darknet(nn.Module):
                             x = self.down_channel_12(x)
                         else:
                             x = self.down_channel_62(x)
-
                         #x =  0.7*x + 0.3 *_re
 
 
@@ -833,7 +857,7 @@ class Darknet(nn.Module):
                 x = x.cpu()
                 if is_training:
                     # x, *losses = module[0](x, targets)
-                    x = module[0](x, targets)
+                    x = module[0](x,targets)
                     for name, loss in zip(self.loss_names, x):
                         losses[name] += loss
                 # Test phase: Get detections
@@ -951,7 +975,7 @@ class FlowYOLO(nn.Module):
         # predict flows, output[batchsize,]
 
         #print("inner_check_tpye:{}".format(flow_input.type()))
-        flows_output = self.flow_model(flow_input)
+        flows_output = self.flow_model(flow_input) if flow_input is not None else None
 
         # get the flows put channel back
         #flows_list = [flows_output[i].permute(1, 2, 0) for i in range(flows_output.shape[0])]

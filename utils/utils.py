@@ -187,6 +187,11 @@ def non_max_suppression(prediction, num_classes, conf_thres=0.5, nms_thres=0.4):
 def build_targets(
     pred_boxes, pred_conf, pred_cls, target, anchors, num_anchors, num_classes, grid_size, ignore_thres, img_dim
 ):
+    # target: x y w h is 0-1 scaled
+    # center_x = float(((x1 + x2) / 2)) / float(padded_w)
+    # center_y = float(((y1 + y2) / 2)) / float(padded_h)
+    # scale_w = float(abs(x2 - x1)) / float(padded_w)
+    # scale_h = float(abs(y2 - y1)) / float(padded_h)
     nB = target.size(0)
     nA = num_anchors
     nC = num_classes
@@ -238,9 +243,20 @@ def build_targets(
             # Calculate iou between gt and anchor shapes
             anch_ious = bbox_iou(gt_box, anchor_shapes)
 
-            # Where the overlap is larger than threshold set mask to zero (ignore) ???
-            #conf_mask[b, anch_ious > ignore_thres, gj, gi] = 0
-            #conf_mask[b, anch_ious < ignore_thres, gj, gi] = 0
+            # Where the overlap is larger than threshold set conf_mask to zero
+            conf_mask[b, anch_ious > ignore_thres, gj, gi] = 0
+            """
+            YOLOv3 predicts an objectness score for each bounding box using logistic regression. 
+            YOLOv3 changes the way in calculating the cost function. 
+            If the bounding box prior (anchor) overlaps a ground truth object more than others, 
+            the corresponding objectness score should be 1. 
+            For other priors with overlap greater than a predefined threshold (default 0.5), 
+            they incur no cost. 
+            Each ground truth object is associated with one boundary box prior only. 
+            If a bounding box prior is not assigned, it incurs no classification and localization lost, 
+            just confidence loss on objectness.
+            """
+
 
 
             # Find the best matching anchor box
@@ -259,11 +275,11 @@ def build_targets(
             mask[b, best_n, gj, gi] = 1
             #conf_mask[b, best_n, gj, gi] = 1
 
-
+            # 将target变换为到对应原始prediction的单位
             # Coordinates
             tx[b, best_n, gj, gi] = gx - gi
             ty[b, best_n, gj, gi] = gy - gj
-            # Width and height
+            # 得到Width and height 的转换系数
             tw[b, best_n, gj, gi] = math.log(gw / anchors[best_n][0] + 1e-16)
             th[b, best_n, gj, gi] = math.log(gh / anchors[best_n][1] + 1e-16)
 
