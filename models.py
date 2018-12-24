@@ -650,8 +650,6 @@ class YOLOLayer(nn.Module):
         y = torch.sigmoid(prediction[..., 1])  # Center y
         w = prediction[..., 2]  # Width
         h = prediction[..., 3]  # Height
-        print("predict_w:{}".format(w))
-        print("predict_h:{}".format(h))
         pred_conf = torch.sigmoid(prediction[..., 4])  # Conf
         pred_cls = self.cls_predictor(prediction[..., 5:])  # Cls pred.
 
@@ -736,6 +734,10 @@ class YOLOLayer(nn.Module):
                 loss_y = self.mse_loss(y[mask], ty[mask])
                 loss_w = self.mse_loss(w[mask], tw[mask])
                 loss_h = self.mse_loss(h[mask], th[mask])
+                print("predict_w:{}".format(w[mask]))
+                print("true_w:{}".format(tw[mask]))
+                print("predict_h:{}".format(h[mask]))
+                print("true_h:{}".format(th[mask]))
                 loss_conf = self.bce_loss(pred_conf[conf_mask_false], tconf[conf_mask_false]) + self.bce_loss(
                     pred_conf[conf_mask_true], tconf[conf_mask_true]
                 )
