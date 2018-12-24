@@ -625,7 +625,7 @@ class YOLOLayer(nn.Module):
         self.image_dim = img_dim
         self.ignore_thres = 0.5
         self.lambda_coord = 1
-        self.cls_predictor = torch.nn.Softmax()
+        self.cls_predictor = torch.nn.Softmax(dim = 4)
 
         self.mse_loss = nn.MSELoss(size_average=True)  # Coordinate loss
         self.bce_loss = nn.BCELoss(size_average=True)  # Confidence loss
