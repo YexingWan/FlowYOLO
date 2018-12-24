@@ -235,7 +235,8 @@ def train(args):
                 if idx > 99999:
                     idx -= 99999
                 _fe = feature[i]
-                _fe.requires_grad=False
+                for f in _fe:
+                    f.requires_grad=False
                 feature_dict[idx] = _fe
 
             # get loss tensor and backward to get grad
