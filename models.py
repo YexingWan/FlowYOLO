@@ -808,7 +808,7 @@ class Darknet(nn.Module):
         layer_outputs = []
         # list of deques for each sample
         output_features = [deque() for _ in range(x.shape[0])]
-        div = {36: 8, 61: 16}
+        div = {11:4, 36: 8, 61: 16}
         x = x/255.
         for i, (module_def, module) in enumerate(zip(self.module_defs, self.module_list)):
             if module_def["type"] in ["convolutional", "upsample", "maxpool"]:
