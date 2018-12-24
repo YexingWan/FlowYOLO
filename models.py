@@ -627,8 +627,8 @@ class YOLOLayer(nn.Module):
         self.lambda_coord = 1
         self.cls_predictor = torch.nn.Softmax(dim = 4)
 
-        self.mse_loss = nn.MSELoss(size_average=True)  # Coordinate loss
-        self.bce_loss = nn.BCELoss(size_average=True)  # Confidence loss
+        self.mse_loss = nn.MSELoss(reduction='elementwise_mean')  # Coordinate loss
+        self.bce_loss = nn.BCELoss(reduction='elementwise_mean')  # Confidence loss
         self.ce_loss = nn.CrossEntropyLoss()  # Class loss
 
     def forward(self, x, targets=None):
@@ -699,14 +699,14 @@ class YOLOLayer(nn.Module):
                 ignore_thres=self.ignore_thres,
                 img_dim=self.image_dim,
             )
-            nProposals = int((pred_conf > 0.5).sum().item())
+            nProposals = int((pred_conf > 0.7).sum().item())
             recall = float(nCorrect / nGT) if nGT else 1
             precision = float(nCorrect / nProposals) if nProposals != 0 else 0
-
-            print("number of GT:{}".format(nGT))
-            print("number of Correct:{}".format(nCorrect))
-            print("number of predict:{}".format(pred_conf.shape))
-            print("number of Proposal:{}".format(nProposals))
+            #
+            # print("number of GT:{}".format(nGT))
+            # print("number of Correct:{}".format(nCorrect))
+            # print("number of predict:{}".format(pred_conf.shape))
+            # print("number of Proposal:{}".format(nProposals))
 
 
             # Handle masks
