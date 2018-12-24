@@ -754,7 +754,7 @@ class YOLOLayer(nn.Module):
                 loss_conf = self.bce_loss(pred_conf[conf_mask], tconf[conf_mask])
                 loss_cls = torch.tensor(0)
 
-            loss = loss_x + loss_y + loss_w + loss_h + loss_conf * 5 + loss_cls
+            loss = loss_x + loss_y + loss_w + loss_h + loss_conf + loss_cls
             return (
                 loss,
                 loss_x.item(),
