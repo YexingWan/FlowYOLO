@@ -202,6 +202,7 @@ def train(args):
                     #flow_input.append(torch.stack([images[i], images[i]]).permute(1, 0, 2, 3))
                     flow_input = None
                     last_feature = None
+                    break
                 else:
                     flow_input.append(torch.stack([images[i],last_frame_dict[idx]]).permute(1, 0, 2, 3))
                     last_feature.append(feature_dict[idx])
