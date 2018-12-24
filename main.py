@@ -179,10 +179,11 @@ def train(args):
             #print("targets:{}".format(targets))
             print("targets_cls_unique:{}".format(np.unique(targets[:,:,4].cpu().numpy())))
 
-            flow_input = []
+
 
             # last_feature is the list of queue
             last_feature =  []
+            flow_input = []
 
             for i,t_idx in enumerate(seq_index):
                 idx = t_idx.item()
@@ -195,6 +196,8 @@ def train(args):
 
             for i, t_idx in enumerate(seq_index):
                 idx = t_idx.item()
+                if idx > 99999:
+                    idx -= 99999
                 if last_frame_dict[idx] is None or feature_dict[idx] is None:
                     #flow_input.append(torch.stack([images[i], images[i]]).permute(1, 0, 2, 3))
                     flow_input = None
@@ -206,6 +209,8 @@ def train(args):
             # update last_frame_dict
             for i, t_idx in enumerate(seq_index):
                 idx = t_idx.item()
+                if idx > 99999:
+                    idx -= 99999
                 last_frame_dict[idx] = images[i]
 
 
@@ -225,6 +230,8 @@ def train(args):
 
             for i, t_idx in enumerate(seq_index):
                 idx = t_idx.item()
+                if idx > 99999:
+                    idx -= 99999
                 feature_dict[idx] = feature[i]
 
             # get loss tensor and backward to get grad
