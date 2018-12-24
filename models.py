@@ -697,7 +697,7 @@ class YOLOLayer(nn.Module):
             precision = float(nCorrect / nProposals) if nProposals != 0 else 0
             print("number of GT:{}".format(nGT))
             print("number of Correct:{}".format(nCorrect))
-            print("number of Proposal:{}").format(nProposals)
+            print("number of Proposal:{}".format(nProposals))
 
 
             # Handle masks
