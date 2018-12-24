@@ -742,8 +742,8 @@ class YOLOLayer(nn.Module):
                     pred_conf[conf_mask_true], tconf[conf_mask_true]
                 ))*5
 
-                print("true_pred_true:{}".format(tconf[conf_mask_true]))
-                print("false_pred_false:{}".format(tconf[conf_mask_false]))
+                print("true_pred_true:{}".format(pred_conf[conf_mask_true]))
+                print("false_pred_false:{}".format(pred_conf[conf_mask_false]))
                 #loss_conf = self.bce_loss(pred_conf[conf_mask], tconf[conf_mask])
 
                 loss_cls = (1 / nB) * self.ce_loss(pred_cls[mask], torch.argmax(tcls[mask],1))
