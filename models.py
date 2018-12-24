@@ -818,9 +818,6 @@ class Darknet(nn.Module):
                 x = layer_outputs[-1] + layer_outputs[layer_i]
 
 
-                print("gather or not???:{}".format(x>3))
-
-
                 #warp and aggregate(cat) at layer 12 37 62, which are the layers before down-sampling
                 if i in [11,36,61]:
 
