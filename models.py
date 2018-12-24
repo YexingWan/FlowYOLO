@@ -750,9 +750,9 @@ class YOLOLayer(nn.Module):
                 # print("true_w:{}".format(tw[mask]))
                 # print("predict_h:{}".format(h[mask]))
                 # print("true_h:{}".format(th[mask]))
-                loss_conf = (self.bce_loss(pred_conf[conf_mask_false], tconf[conf_mask_false]) + self.bce_loss(
+                loss_conf = self.bce_loss(pred_conf[conf_mask_false], tconf[conf_mask_false])*5 + self.bce_loss(
                     pred_conf[conf_mask_true], tconf[conf_mask_true]
-                ))*5
+                )
                 #print("loss_conf_have:{}".format(self.bce_loss(pred_conf[conf_mask_true], tconf[conf_mask_true])))
                 #print("loss_conf_not_have:{}".format(self.bce_loss(pred_conf[conf_mask_false], tconf[conf_mask_false])))
                 #print("true_pred_true:{}".format(pred_conf[conf_mask_true]))
