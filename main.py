@@ -138,7 +138,9 @@ def train(args):
 
 
 
-    optimizer = torch.optim.Adam(filter(lambda p: p.requires_grad, flow_yolo.parameters()),lr=1e-4)
+    #optimizer = torch.optim.Adam(filter(lambda p: p.requires_grad, flow_yolo.parameters()),lr=1e-4)
+
+    optimizer = torch.optim.RMSprop(filter(lambda p: p.requires_grad, flow_yolo.parameters()))
 
     ###########bulit dataset for traning##########
 
