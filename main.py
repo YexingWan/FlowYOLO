@@ -174,10 +174,10 @@ def train(args):
             target:[50,5(x,t,w,h,class)]
             """
 
-            print("sequence_index:{}".format(seq_index))
-            print("images_shape:{}".format(images.shape))
+            # print("sequence_index:{}".format(seq_index))
+            # print("images_shape:{}".format(images.shape))
             #print("targets:{}".format(targets))
-            print("targets_cls_unique:{}".format(np.unique(targets[:,:,4].cpu().numpy())))
+            # print("targets_cls_unique:{}".format(np.unique(targets[:,:,4].cpu().numpy())))
 
 
 
