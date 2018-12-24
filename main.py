@@ -237,7 +237,7 @@ def train(args):
 
                 _fe = deque()
                 for f in feature[i]:
-                    _fe.append(f.detch())
+                    _fe.append(f.detach())
                 feature_dict[idx] = _fe
 
             # get loss tensor and backward to get grad
