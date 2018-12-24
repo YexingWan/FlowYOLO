@@ -226,7 +226,7 @@ def train(args):
                 #print("target type:{}".format(target.type()))
 
 
-            # feature is a list of deque for each input
+            # feature is a list of list for each input
             losses, feature = flow_yolo(flow_input,images,last_feature,targets)
 
 
@@ -235,7 +235,7 @@ def train(args):
                 if idx > 99999:
                     idx -= 99999
 
-                _fe = deque()
+                _fe = []
                 for f in feature[i]:
                     _fe.append(f.detach())
                 feature_dict[idx] = _fe
@@ -268,8 +268,8 @@ def train(args):
             cur_batch += 1
             torch.cuda.empty_cache()
 
-        flow_yolo.last_feature = deque([0,0])
-        flow_yolo.last_frames = None
+        # flow_yolo.last_feature = list([0,0])
+        # flow_yolo.last_frames = None
 
         if epoch % args.saving_checkpoint_interval == 0:
             flow_yolo.save_weights("%s/%d.weights" % (os.path.join(args.save,"checkpoints"), epoch))

@@ -651,6 +651,7 @@ class YOLOLayer(nn.Module):
         w = prediction[..., 2]  # Width
         h = prediction[..., 3]  # Height
         pred_conf = torch.sigmoid(prediction[..., 4])  # Conf
+        print("pred_con:{}".format(pred_conf))
         pred_cls = self.cls_predictor(prediction[..., 5:])  # Cls pred.
 
 
@@ -747,7 +748,6 @@ class YOLOLayer(nn.Module):
                 ))*5
                 #print("loss_conf_have:{}".format(self.bce_loss(pred_conf[conf_mask_true], tconf[conf_mask_true])))
                 #print("loss_conf_not_have:{}".format(self.bce_loss(pred_conf[conf_mask_false], tconf[conf_mask_false])))
-
                 #print("true_pred_true:{}".format(pred_conf[conf_mask_true]))
                 #print("false_pred_false:{}".format(pred_conf[conf_mask_false]))
                 #loss_conf = self.bce_loss(pred_conf[conf_mask], tconf[conf_mask])
@@ -818,8 +818,9 @@ class Darknet(nn.Module):
         losses = defaultdict(float)
         layer_outputs = []
         # list of deques for each sample
-        output_features = [deque() for _ in range(x.shape[0])]
+        output_features = [[] for _ in range(x.shape[0])]
         div = {11:4, 36: 8, 61: 16}
+        div_idx = {11:0, 36: 1, 61: 2}
         x = x/255.
         for i, (module_def, module) in enumerate(zip(self.module_defs, self.module_list)):
             if module_def["type"] in ["convolutional", "upsample", "maxpool"]:
@@ -851,7 +852,7 @@ class Darknet(nn.Module):
                         # resizing flow by bi-linear interpolation
                         _flow = F.interpolate(flow,size=(x.shape[-2],x.shape[-1]),mode="bilinear")/div[i]
                         _flow = _flow.contiguous()
-                        f = torch.stack([dq.popleft().cuda() for dq in forward_feats])
+                        f = torch.stack([dq[div_idx[i]].cuda() for dq in forward_feats])
                         print("last feature shape:{}".format(f.shape))
                         _re = self.flow_warp(f,_flow)
                         print("warped feature shape:{}".format(_re.shape))
