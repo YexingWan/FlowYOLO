@@ -743,8 +743,8 @@ class YOLOLayer(nn.Module):
                 )
                 #loss_conf = self.bce_loss(pred_conf[conf_mask], tconf[conf_mask])
 
-                loss_cls = (1 / nB) * self.ce_loss(pred_cls[mask], torch.argmax(tcls[mask],1)) * 5
-                print("class_pred:{}".format(pred_cls[mask].max(dim = 1)))
+                loss_cls = (1 / nB) * self.ce_loss(pred_cls[mask], torch.argmax(tcls[mask],1))
+                #print("class_pred:{}".format(pred_cls[mask].max(dim = 1)))
 
             # if one frame has no object.
             else:
