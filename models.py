@@ -654,7 +654,7 @@ class YOLOLayer(nn.Module):
 
 
 
-        print("pred_con:{}".format(pred_conf))
+        #print("pred_con:{}".format(pred_conf))
 
 
 
