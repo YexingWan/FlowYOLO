@@ -705,7 +705,7 @@ class YOLOLayer(nn.Module):
 
             print("number of GT:{}".format(nGT))
             print("number of Correct:{}".format(nCorrect))
-            print("number of predict:{}".format(pred_conf.shape()))
+            print("number of predict:{}".format(pred_conf.shape))
             print("number of Proposal:{}".format(nProposals))
 
 
