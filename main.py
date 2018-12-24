@@ -234,9 +234,10 @@ def train(args):
                 idx = t_idx.item()
                 if idx > 99999:
                     idx -= 99999
-                _fe = feature[i]
-                for f in _fe:
-                    f.requires_grad=False
+
+                _fe = deque()
+                for f in feature[i]:
+                    _fe.append(f.detch())
                 feature_dict[idx] = _fe
 
             # get loss tensor and backward to get grad
