@@ -239,7 +239,7 @@ def train(args):
                 feature_dict[idx] = _fe
 
             # get loss tensor and backward to get grad
-            losses["loss"].backward(retain_graph=True)
+            losses["loss"].backward()
 
             # update weights
             optimizer.step()
