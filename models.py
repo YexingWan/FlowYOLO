@@ -749,7 +749,6 @@ class YOLOLayer(nn.Module):
                 loss_cls = torch.tensor(0)
 
             loss = loss_x + loss_y + loss_w + loss_h + loss_conf * 5 + loss_cls
-
             return (
                 loss,
                 loss_x.item(),
