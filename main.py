@@ -234,7 +234,9 @@ def train(args):
                 idx = t_idx.item()
                 if idx > 99999:
                     idx -= 99999
-                feature_dict[idx] = feature[i]
+                _fe = feature[i]
+                _fe.requires_grad=False
+                feature_dict[idx] = _fe
 
             # get loss tensor and backward to get grad
             losses["loss"].backward(retain_graph=True)
