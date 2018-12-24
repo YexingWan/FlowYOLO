@@ -138,7 +138,7 @@ def train(args):
 
 
 
-    optimizer = torch.optim.Adam(filter(lambda p: p.requires_grad, flow_yolo.parameters()),lr=1e-3)
+    optimizer = torch.optim.Adam(filter(lambda p: p.requires_grad, flow_yolo.parameters()),lr=1e-4)
 
     ###########bulit dataset for traning##########
 
@@ -167,46 +167,58 @@ def train(args):
 
     for epoch in range(args.total_epochs):
 
-        for b, (seq_index, images, target) in enumerate(final_loader):
-            #print("class_index_shape:{}".format(class_index.shape))
-            #print("images_shape:{}".format(images.shape))
-            #print("target_shape:{}".format(target.shape))
-            flow_input = []
-            #print("init:{}".format(seq_index))
+        for b, (seq_index, images, targets) in enumerate(final_loader):
+            """
+            target:[50,5(x,t,w,h,class)]
+            """
 
-            # last_feature is the list of deque that store last feature used in this batch
+            print("sequence_index:{}".format(seq_index))
+            print("images_shape:{}".format(images.shape))
+            print("targets:{}".format(targets))
+            print("targets_cls_unique:{}").format(np.unique(targets[:,4].cpu().numpy()))
+
+            flow_input = []
+
+            # last_feature is the list of queue
             last_feature =  []
+
             for i,t_idx in enumerate(seq_index):
                 idx = t_idx.item()
-
                 # if is the first frame, initialize two dict
                 if idx > 99999:
                     idx -= 99999
                     last_frame_dict[idx] = None
                     feature_dict[idx] = None
-                if last_frame_dict[idx] is None:
-                    last_frame_dict[idx] = images[i]
 
-                flow_input.append(torch.stack([images[i],last_frame_dict[idx]]).permute(1, 0, 2, 3))
-                last_feature.append(feature_dict[idx])
 
+            for i, t_idx in enumerate(seq_index):
+                idx = t_idx.item()
+                if last_frame_dict[idx] is None or feature_dict[idx] is None:
+                    #flow_input.append(torch.stack([images[i], images[i]]).permute(1, 0, 2, 3))
+                    flow_input = None
+                    last_feature = None
+                else:
+                    flow_input.append(torch.stack([images[i],last_frame_dict[idx]]).permute(1, 0, 2, 3))
+                    last_feature.append(feature_dict[idx])
+
+            # update last_frame_dict
             for i, t_idx in enumerate(seq_index):
                 idx = t_idx.item()
                 last_frame_dict[idx] = images[i]
 
-            flow_input = torch.stack(flow_input)
 
             if args.use_cuda:
                 #print("input into data")
-                flow_input = flow_input.type(torch.cuda.FloatTensor).cuda()
+                flow_input = torch.stack(flow_input).cuda() if flow_input is not None else None
                 #print("flow_input type:{}".format(flow_input.type()))
-                images = images.type(torch.cuda.FloatTensor).cuda()
+                images = images.cuda()
                 #print("images type:{}".format(images.type()))
                 # target = target.type(torch.cuda.FloatTensor).cuda()
                 #print("target type:{}".format(target.type()))
 
+
             # feature is a list of deque for each input
-            losses, feature = flow_yolo(flow_input,images,last_feature,target)
+            losses, feature = flow_yolo(flow_input,images,last_feature,targets)
 
 
             for i, t_idx in enumerate(seq_index):

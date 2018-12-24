@@ -249,11 +249,14 @@ class SequenceImage(Dataset):
                     y1 += pad[0][0]
                     x2 += pad[1][0]
                     y2 += pad[0][0]
+
+                    # x y w h is 0-1 scaled
                     center_x= float(((x1 + x2) / 2)) / float(padded_w)
                     center_y = float(((y1 + y2) / 2)) / float(padded_h)
                     scale_w = float(abs(x2 - x1)) / float(padded_w)
                     scale_h = float(abs(y2 - y1)) / float(padded_h)
                     filled_labels[idx] = np.array([center_x,center_y,scale_w,scale_h,self.origin_map_new_ids[self.classes_map[box["name"]]]])
+
         filled_labels = torch.from_numpy(filled_labels)
         return input_img, filled_labels
 
@@ -294,10 +297,10 @@ class dictDataset_coco_intersect_VID(Dataset):
         max = 0
         self.iter_dict = dict()
 
-        # save each iter of loader in a dict with class index as key
+        # save each iter of loader in a dict with index as key
         for idx,loader in enumerate(self.dataloader_list):
             # print("each_loader_len:{}".format(len(loader)))
-            self.iter_dict[idx+1] = iter(loader)
+            self.iter_dict[idx] = iter(loader)
             max  = len(loader) if len(loader) > max else max
         self.max_index = len(self.dataloader_list) * max
         self.num_loader = len(self.dataloader_list)
@@ -305,16 +308,16 @@ class dictDataset_coco_intersect_VID(Dataset):
 
     def __getitem__(self, index):
         index = index % self.num_loader
-        cur_iter = self.iter_dict[index+1]
+        cur_iter = self.iter_dict[index]
         try:
             image, target = cur_iter.next()
-            return index+1, torch.squeeze(image),torch.squeeze(target)
+            return index, torch.squeeze(image),torch.squeeze(target)
         except StopIteration:
             self.iter_dict[index] = iter(self.dataloader_list[index])
             cur_iter = self.iter_dict[index]
             image, target = cur_iter.next()
             # if new iter, add 999 as a magic number
-            return index+1+99999, torch.squeeze(image), torch.squeeze(target)
+            return index+99999, torch.squeeze(image), torch.squeeze(target)
 
     def __len__(self):
         return self.max_index
@@ -325,19 +328,22 @@ class dictDataset_coco_intersect_VID(Dataset):
 # built list of datasets
 def built_training_datasets(path):
     """
-    1   airplane
-    2   bear
-    3   bicycle
-    4   bird
-    5   bus
-    6   car
-    7   dog
-    8   cat
-    9   elephant
-    10  horse
-    11  sheep
-    12  train
-    13  zebra
+    origin_idx  idx class
+
+    1   1   airplane
+    3   2   bear
+    4   3   bicycle
+    5   4   bird
+    6   5   bus
+    7   6   car
+    9   7   dog
+    10  8   cat
+    11  9   elephant
+    15  10  horse
+    22  11  sheep
+    26  12  train
+    30  13  zebra
+
     """
 
     intersect = [1,3,4,5,6,7,9,10,11,15,22,26,30]
