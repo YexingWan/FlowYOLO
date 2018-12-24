@@ -651,7 +651,15 @@ class YOLOLayer(nn.Module):
         w = prediction[..., 2]  # Width
         h = prediction[..., 3]  # Height
         pred_conf = torch.sigmoid(prediction[..., 4])  # Conf
+
+
+
         print("pred_con:{}".format(pred_conf))
+        print("pred_con_size:{}".format(pred_conf.size()))
+        print("pred_con_true:{}".format((pred_conf>0.5).size()))
+
+
+
         pred_cls = self.cls_predictor(prediction[..., 5:])  # Cls pred.
 
 
