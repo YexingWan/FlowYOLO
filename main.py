@@ -175,7 +175,7 @@ def train(args):
             print("sequence_index:{}".format(seq_index))
             print("images_shape:{}".format(images.shape))
             print("targets:{}".format(targets))
-            print("targets_cls_unique:{}").format(np.unique(targets[:,4].cpu().numpy()))
+            print("targets_cls_unique:{}").format(np.unique(targets[:,:,4].cpu().numpy()))
 
             flow_input = []
 
@@ -450,7 +450,7 @@ def main(args,task):
 """
 python3 main.py --task inference --yolo_config_path "./config/yolov3.cfg" --yolo_resume "../yolo_weight/yolov3.pth" --flow_model "FlowNet2CS" --flow_resume "../flow_weight/FlowNet2-CS_checkpoint.pth"
 
-python3 main.py --task train --yolo_config_path "./config/yolov3.cfg" --yolo_resume "../yolo_weight/yolov3.pth" --flow_model "FlowNet2CS" --flow_resume "../flow_weight/FlowNet2-CS_checkpoint.pth --train_batch_size 2"
+python3 main.py --task train --yolo_config_path "./config/yolov3.cfg" --yolo_resume "../yolo_weight/yolov3.pth" --flow_model "FlowNet2CS" --flow_resume "../flow_weight/FlowNet2-CS_checkpoint.pth" --train_batch_size 2
 """
 
 if __name__ == "__main__":
