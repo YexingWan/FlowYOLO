@@ -692,10 +692,13 @@ class YOLOLayer(nn.Module):
                 ignore_thres=self.ignore_thres,
                 img_dim=self.image_dim,
             )
-
             nProposals = int((pred_conf > 0.5).sum().item())
             recall = float(nCorrect / nGT) if nGT else 1
             precision = float(nCorrect / nProposals) if nProposals != 0 else 0
+            print("number of GT:{}".format(nGT))
+            print("number of Correct:{}".format(nCorrect))
+            print("number of Proposal:{}").format(nProposals)
+
 
             # Handle masks
             # mask是对应有object的prediction box（对于每个gt object的iou最大的prediction），
