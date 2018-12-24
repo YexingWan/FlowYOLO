@@ -655,8 +655,6 @@ class YOLOLayer(nn.Module):
 
 
         print("pred_con:{}".format(pred_conf))
-        print("pred_con_size:{}".format(pred_conf.size()))
-        print("pred_con_true:{}".format((pred_conf>0.5).size()))
 
 
 
@@ -704,10 +702,11 @@ class YOLOLayer(nn.Module):
             nProposals = int((pred_conf > 0.5).sum().item())
             recall = float(nCorrect / nGT) if nGT else 1
             precision = float(nCorrect / nProposals) if nProposals != 0 else 0
-            #print("pred_sise:{}".format(pred_conf.shape))
-            #print("number of GT:{}".format(nGT))
-            #print("number of Correct:{}".format(nCorrect))
-            #print("number of Proposal:{}".format(nProposals))
+
+            print("number of GT:{}".format(nGT))
+            print("number of Correct:{}".format(nCorrect))
+            print("number of predict:{}".format(pred_conf.shape()))
+            print("number of Proposal:{}".format(nProposals))
 
 
             # Handle masks
