@@ -206,10 +206,10 @@ def train(args):
                 images = images.cuda()
 
             # forward operation returns losses(dictionary) and list of list of feature for next frame warping.
-            s = time.time()
+            # s = time.time()
             losses, feature = flow_yolo(flow_input,images,last_feature,targets)
-            e = time.time()
-            print("train forward time:{}".format(e-s))
+            # e = time.time()
+            # print("train forward time:{}".format(e-s))
 
 
             for i, t_idx in enumerate(seq_index):
