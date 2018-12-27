@@ -200,24 +200,23 @@ class SequenceImage(Dataset):
 
         if boxes is not None:
             for idx,box in enumerate(boxes):
-                if self.classes_map[box["name"]] in self.ids:
-                    x1 = box["xmin"]
-                    x2 = box['xmax']
-                    y1 = box["ymin"]
-                    y2 = box["ymax"]
-                    x1 += pad[1][0]
-                    y1 += pad[0][0]
-                    x2 += pad[1][0]
-                    y2 += pad[0][0]
+                x1 = box["xmin"]
+                x2 = box['xmax']
+                y1 = box["ymin"]
+                y2 = box["ymax"]
+                x1 += pad[1][0]
+                y1 += pad[0][0]
+                x2 += pad[1][0]
+                y2 += pad[0][0]
 
-                    # x y w h is 0-1 scaled
-                    center_x= float(((x1 + x2) / 2)) / float(padded_w)
-                    center_y = float(((y1 + y2) / 2)) / float(padded_h)
-                    scale_w = float(abs(x2 - x1)) / float(padded_w)
-                    scale_h = float(abs(y2 - y1)) / float(padded_h)
+                # x y w h is 0-1 scaled
+                center_x= float(((x1 + x2) / 2)) / float(padded_w)
+                center_y = float(((y1 + y2) / 2)) / float(padded_h)
+                scale_w = float(abs(x2 - x1)) / float(padded_w)
+                scale_h = float(abs(y2 - y1)) / float(padded_h)
 
-                    # label is index in tensor, not the key in dict, index = key-1
-                    filled_labels[idx] = np.array([center_x,center_y,scale_w,scale_h,self.classes_map[box["name"]]-1])
+                # label is index in tensor, not the key in dict, index = key-1
+                filled_labels[idx] = np.array([center_x,center_y,scale_w,scale_h,self.classes_map[box["name"]]-1])
 
         filled_labels = torch.from_numpy(filled_labels)
         return input_img, filled_labels
