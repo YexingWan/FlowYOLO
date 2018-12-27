@@ -5,13 +5,7 @@ import torch.nn as nn
 from torch.nn import init
 import torch.nn.functional as F
 from torch.autograd import Variable
-
-from PIL import Image
-import math
-import numpy as np
-import matplotlib.pyplot as plt
-import matplotlib.patches as patches
-from collections import defaultdict, deque
+from collections import defaultdict
 import os, sys
 
 from flow_networks.resample2d_package.resample2d import Resample2d
@@ -646,20 +640,12 @@ class YOLOLayer(nn.Module):
         prediction = x.view(nB, nA, self.bbox_attrs, nG, nG).permute(0, 1, 3, 4, 2).contiguous()
 
         # Get outputs
-        x = torch.sigmoid(prediction[..., 0])  # Center x
-        y = torch.sigmoid(prediction[..., 1])  # Center y
+        x = torch.sigmoid(prediction[..., 0])  # Center x 0-1, according grid
+        y = torch.sigmoid(prediction[..., 1])  # Center y 0-1,according grid
         w = prediction[..., 2]  # Width
         h = prediction[..., 3]  # Height
-        pred_conf = torch.sigmoid(prediction[..., 4])  # Conf
-
-
-
-        #print("pred_con:{}".format(pred_conf))
-
-
-
+        pred_conf = torch.sigmoid(prediction[..., 4])  # Conf 0-1
         pred_cls = self.cls_predictor(prediction[..., 5:])  # Cls pred.
-
 
         # Calculate offsets for each grid
         grid_x = torch.arange(nG).repeat(nG, 1).view([1, 1, nG, nG]).type(FloatTensor)
@@ -675,6 +661,7 @@ class YOLOLayer(nn.Module):
         pred_boxes[..., 0] = x.data + grid_x
         pred_boxes[..., 1] = y.data + grid_y
         # w和h是基于原始anchor做stride以后在当前map上的感受野大小的pixel数量单位
+        # pred_boxes中的w和h是对于resized以后的图的boax的w和h的大小，没有scaled
         pred_boxes[..., 2] = torch.exp(w.data) * anchor_w
         pred_boxes[..., 3] = torch.exp(h.data) * anchor_h
 
@@ -702,17 +689,11 @@ class YOLOLayer(nn.Module):
             nProposals = int((pred_conf > 0.7).sum().item())
             recall = float(nCorrect / nGT) if nGT else 1
             precision = float(nCorrect / nProposals) if nProposals != 0 else 0
-            #
-            # print("number of GT:{}".format(nGT))
-            # print("number of Correct:{}".format(nCorrect))
-            # print("number of predict:{}".format(pred_conf.shape))
-            # print("number of Proposal:{}".format(nProposals))
-
 
             # Handle masks
             # mask是对应有object的prediction box（对于每个gt object的iou最大的prediction），
             mask = Variable(mask.type(ByteTensor))
-            # conf_mask是所有考虑confidence loss的prediction的mask
+            # conf_mask 是计算confidence loss的anchor mask
             conf_mask = Variable(conf_mask.type(ByteTensor))
 
             # Handle target variables
@@ -723,11 +704,10 @@ class YOLOLayer(nn.Module):
             tconf = Variable(tconf.type(FloatTensor), requires_grad=False)
             tcls = Variable(tcls.type(LongTensor), requires_grad=False)
 
-            # Get conf mask where gt and where there is no gt
+            # conf_mask_true 是 confidence gt 为1 的mask
             conf_mask_true = mask
+            # conf_mask_false 是 confidence gt 为0 的mask
             conf_mask_false = conf_mask - mask
-
-            vaild_mask = torch.max(mask).item()
 
             """
             YOLOv3 predicts an objectness score for each bounding box using logistic regression. 
@@ -740,36 +720,24 @@ class YOLOLayer(nn.Module):
             If a bounding box prior is not assigned, it incurs no classification and localization lost, 
             just confidence loss on objectness.
             """
-
+            vaild_mask = torch.max(mask).item() # check image has at least one object
             if vaild_mask==1:
                 loss_x = self.mse_loss(x[mask], tx[mask])
                 loss_y = self.mse_loss(y[mask], ty[mask])
                 loss_w = self.mse_loss(w[mask], tw[mask])
                 loss_h = self.mse_loss(h[mask], th[mask])
-                # print("predict_w:{}".format(w[mask]))
-                # print("true_w:{}".format(tw[mask]))
-                # print("predict_h:{}".format(h[mask]))
-                # print("true_h:{}".format(th[mask]))
                 loss_conf = self.bce_loss(pred_conf[conf_mask_false], tconf[conf_mask_false])*5 + self.bce_loss(
                     pred_conf[conf_mask_true], tconf[conf_mask_true]
                 )
-                #print("loss_conf_have:{}".format(self.bce_loss(pred_conf[conf_mask_true], tconf[conf_mask_true])))
-                #print("loss_conf_not_have:{}".format(self.bce_loss(pred_conf[conf_mask_false], tconf[conf_mask_false])))
-                #print("true_pred_true:{}".format(pred_conf[conf_mask_true]))
-                #print("false_pred_false:{}".format(pred_conf[conf_mask_false]))
-                #loss_conf = self.bce_loss(pred_conf[conf_mask], tconf[conf_mask])
 
                 loss_cls = (1 / nB) * self.ce_loss(pred_cls[mask], torch.argmax(tcls[mask],1))
-
-                #print("class_pred:{}".format(pred_cls[mask].max(dim = 1)))
-
-            # if one frame has no object.
+            # for frame has no object.
             else:
                 loss_x = torch.tensor(0)
                 loss_y = torch.tensor(0)
                 loss_w = torch.tensor(0)
                 loss_h = torch.tensor(0)
-                loss_conf = self.bce_loss(pred_conf[conf_mask], tconf[conf_mask])*5
+                loss_conf = self.bce_loss(pred_conf[conf_mask], tconf[conf_mask])*6
                 loss_cls = torch.tensor(0)
 
             loss = loss_x + loss_y + loss_w + loss_h + loss_conf + loss_cls
@@ -785,10 +753,12 @@ class YOLOLayer(nn.Module):
                 precision,
             )
 
+        # predict / val
         else:
             # If not in training phase return predictions
             output = torch.cat(
                 (
+                    # boxes (x y w h) is unscaled coordinate of resized image
                     pred_boxes.view(nB, -1, 4) * stride,
                     pred_conf.view(nB, -1, 1),
                     pred_cls.view(nB, -1, self.num_classes),
@@ -811,9 +781,6 @@ class Darknet(nn.Module):
         self.down_channel_12 = torch.nn.Conv2d(256, 128, 1)
         self.img_size = img_size
         self.loss_names = ["loss","x", "y", "w", "h", "conf", "cls", "recall", "precision"]
-
-        # TODO:
-        #   wrong way to do warp!!!
         self.flow_warp = Resample2d()
 
 
@@ -894,26 +861,20 @@ class Darknet(nn.Module):
 
 
     def load_weights(self, weights_path = None):
-        # TODO:
-        #   load weights from yolov3.pth if exists
-        #   else, initialize all weights
         if weights_path and os.path.isfile(weights_path):
-            self.module_list.load_state_dict(torch.load(weights_path))
+            self.load_state_dict(torch.load(weights_path))
         else:
             print('Weight file is not given or not exits, random initialize')
             self.apply(utils.utils.weights_init_normal)
 
 
     def save_weights(self, path):
-        # TODO:
-        #   save weight
-        torch.save(self.module_list.state_dict(),os.path.join(path,"yolo.pth"))
+        torch.save(self.state_dict(),os.path.join(path,"yolo_f.pth"))
 
-
+    # demo load weight for transforming learning
     def load_my_weight(self, weights_path):
         # random init all weights
         self.apply(utils.utils.weights_init_normal)
-
         model_dict = self.module_list.state_dict()
 
         # get pre-trained weight
@@ -954,78 +915,27 @@ class FlowYOLO(nn.Module):
         super(FlowYOLO, self).__init__()
         self.flow_model = args.flow_model_class(args)
         self.detect_model = args.yolo_model_class(args.yolo_config_path)
-        #self.last_frames = None
-        #self.last_feature = deque([0,0])
         self.args = args
 
 
 
-    #def forward(self, data, target=None):
-    def forward(self, flow_input, data , last_feature, target=None):
+    def forward(self, flow_input, data, last_feature, target=None):
+
         # data is a torch Tensor [b,3,h,w]
+        # flow_input is a torch Tensor [b,6,h,w]
+        # last_feature is list of list
         if self.args.task == "train" and target is None:
             print(sys.stderr,"Error: No target in training mode.")
             exit(1)
 
-        # data [batch_size,3,h,w] nparray RGB
-        # TODO:
-        #   1. pre-processing data: built pairs for flow, first image pairs by last image of last batch
-        #   2. batch input to flowNet -> get flow
-        #   3. sequence input to yolo and get result
-
-
-
-        # if self.last_frames is None:
-        #     self.last_frames = data[0]
-
-        # flow_input = []
-        # images_list = []
-
-        # flow_input:[batch_size,3(channel),2,row_idx,col_idx]
-        # for idx in range(data.shape[0]):
-        #     images_list.append(data[idx])
-        #     flow_input.append(torch.stack([data[idx],self.last_frames]).permute(1, 0, 2, 3))
-        #     # flow_input.append(torch.stack([self.last_frames,data[idx]]).permute(1, 0, 2, 3))
-        #     self.last_frames = data[idx]
-
-
-        # flow_input = torch.stack(flow_input)
-
-        #flow_input = flow_input.cuda()
-
-        # predict flows, output[batchsize,]
-
-        #print("inner_check_tpye:{}".format(flow_input.type()))
         flows_output = self.flow_model(flow_input) if flow_input is not None else None
-
-        # get the flows put channel back
-        #flows_list = [flows_output[i].permute(1, 2, 0) for i in range(flows_output.shape[0])]
-        #flow = flows_output.permute(0, 2, 3, 1)
-
-        # on traning return is loss:dict and feature:list[deque]
-        # on infer return is detection:torch.Tensor and feature:list[deque]
-
 
         result, features = self.detect_model(data,
                                             forward_feats=last_feature,
                                             flow=flows_output,
                                             targets =target)
-        # for i in range(data.shape[0]):
-        #     # flow dim is [h,w,channel]
-        #     result, features = self.detect_model(torch.unsqueeze(images_list[i],0).cuda(),
-        #                                          forward_feats=self.last_feature,
-        #                                          flow=flows_list[i],
-        #                                          targets =torch.unsqueeze(target[i],0))
-        # if target is not None:
-        #
-        #
-        # else:
-        #     results.append(result)
-        # for name in losses.keys():
-        #     losses[name] /= data.shape[0]
-        # concat all output by batch_dim
-
-
+        if self.args.use_cuda and torch.torch.cuda.is_available() and isinstance(result,torch.Tensor):
+            result = result.cuda()
         return result, features
 
 
@@ -1037,14 +947,13 @@ class FlowYOLO(nn.Module):
         # load flownet weight
         if flow_weights_path and os.path.isfile(flow_weights_path):
             self.flow_model.load_state_dict(torch.load(flow_weights_path))
-
         elif flow_weights_path:
             print(sys.stderr,"Error: flowNet no checkpoint finded")
             exit(1)
         else:
             print("Random initialization")
+
         # load yolo weight
-        # self.detect_model.load_weights(weights_path=yolo_weights_path)
         self.detect_model.load_my_weight(weights_path=yolo_weights_path)
 
 

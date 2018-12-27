@@ -1,14 +1,9 @@
 from __future__ import division
 import math
-import time
 import torch
-import torch.nn as nn
-import torch.nn.functional as F
-from torch.autograd import Variable
 import numpy as np
+from inspect import isclass
 
-import matplotlib.pyplot as plt
-import matplotlib.patches as patches
 
 
 def load_classes(path):
@@ -23,7 +18,8 @@ def load_classes(path):
 def weights_init_normal(m):
     classname = m.__class__.__name__
     if classname.find("Conv") != -1:
-        torch.nn.init.normal_(m.weight.data, 0.0, 0.02)
+        #torch.nn.init.normal_(m.weight.data, 0.0, 0.02)
+        torch.nn.init.kaiming_normal_(m.weight.data)
     elif classname.find("BatchNorm2d") != -1:
         torch.nn.init.normal_(m.weight.data, 1.0, 0.02)
         torch.nn.init.constant_(m.bias.data, 0.0)
@@ -124,15 +120,20 @@ def bbox_iou_numpy(box1, box2):
     return intersection / ua
 
 
-def non_max_suppression(prediction, num_classes, conf_thres=0.5, nms_thres=0.4):
+def non_max_suppression(prediction, num_classes, conf_thres=0.5, nms_thres=0.5):
     """
+    这里的output是经过预处理的output（在yoloLayer中预处理），[nB,number of anchory, bbox_attrs(5+num_classes)]
+    其中bbox_attrs为 x y w h conf cls_conf的predict
+    其中xywh为每个box对应resized image的unscaled x，y坐标（center）和w，h大小
+    注意这里是 w，h 不是 h，w
+
     Removes detections with lower object confidence score than 'conf_thres' and performs
     Non-Maximum Suppression to further filter detections.
     Returns detections with shape:
         (x1, y1, x2, y2, object_conf, class_score, class_pred)
     """
 
-    # From (center x, center y, width, height) to (x1, y1, x2, y2)
+    # From (center x, center y, width, height) to (x1, y1, x2, y2), unscaled.
     box_corner = prediction.new(prediction.shape)
     box_corner[:, :, 0] = prediction[:, :, 0] - prediction[:, :, 2] / 2
     box_corner[:, :, 1] = prediction[:, :, 1] - prediction[:, :, 3] / 2
@@ -140,6 +141,7 @@ def non_max_suppression(prediction, num_classes, conf_thres=0.5, nms_thres=0.4):
     box_corner[:, :, 3] = prediction[:, :, 1] + prediction[:, :, 3] / 2
     prediction[:, :, :4] = box_corner[:, :, :4]
 
+    # for each image
     output = [None for _ in range(len(prediction))]
     for image_i, image_pred in enumerate(prediction):
         # Filter out confidence scores below threshold
@@ -148,14 +150,16 @@ def non_max_suppression(prediction, num_classes, conf_thres=0.5, nms_thres=0.4):
         # If none are remaining => process next image
         if not image_pred.size(0):
             continue
-        # Get score and class with highest confidence
+        # Get score and class with highest confidence (注意这里是在list中的index，对应到classes_dict的时候要+1)
         class_conf, class_pred = torch.max(image_pred[:, 5 : 5 + num_classes], 1, keepdim=True)
         # Detections ordered as (x1, y1, x2, y2, obj_conf, class_conf, class_pred)
         detections = torch.cat((image_pred[:, :5], class_conf.float(), class_pred.float()), 1)
+
+        # 这里的detection的shape[num_selected_box,7(x1, y1, x2, y2, obj_conf, class_conf, class_pred)]
         # Iterate through all predicted classes
         unique_labels = detections[:, -1].cpu().unique()
         if prediction.is_cuda:
-            unique_labels = unique_labels.cuda(2)
+            unique_labels = unique_labels.cuda()
         for c in unique_labels:
             # Get the detections with the particular class
             detections_class = detections[detections[:, -1] == c]
@@ -163,6 +167,7 @@ def non_max_suppression(prediction, num_classes, conf_thres=0.5, nms_thres=0.4):
             _, conf_sort_index = torch.sort(detections_class[:, 4], descending=True)
             detections_class = detections_class[conf_sort_index]
             # Perform non-maximum suppression
+            # max_detections is list of tensor with shape(1,7)
             max_detections = []
             while detections_class.size(0):
                 # Get detection with highest confidence and save as max detection
@@ -175,11 +180,11 @@ def non_max_suppression(prediction, num_classes, conf_thres=0.5, nms_thres=0.4):
                 # Remove detections with IoU >= NMS threshold
                 detections_class = detections_class[1:][ious < nms_thres]
 
-            max_detections = torch.cat(max_detections).data
+            # max_detections is a tensor with shape(selected_boxes,7)
+            max_detections = torch.cat(max_detections)
             # Add max detections to outputs
-            output[image_i] = (
-                max_detections if output[image_i] is None else torch.cat((output[image_i], max_detections))
-            )
+            output[image_i] = max_detections if output[image_i] is None else torch.cat((output[image_i], max_detections))
+
 
     return output
 
@@ -219,7 +224,6 @@ def build_targets(
             if target[b, t].sum() == 0:
                 continue
 
-
             # for each gt bbox
             nGT += 1
 
@@ -257,15 +261,11 @@ def build_targets(
             just confidence loss on objectness.
             """
 
-
-
             # Find the best matching anchor box
             best_n = np.argmax(anch_ious)
 
-
             # Get ground truth box
             gt_box = torch.FloatTensor(np.array([gx, gy, gw, gh])).unsqueeze(0)
-
 
             # Get the best prediction from best match anchor
             pred_box = pred_boxes[b, best_n, gj, gi].unsqueeze(0)
@@ -279,32 +279,23 @@ def build_targets(
             # Coordinates
             tx[b, best_n, gj, gi] = gx - gi
             ty[b, best_n, gj, gi] = gy - gj
-            # 得到Width and height 的转换系数
+
+            # 得到Width and height 的gt转换系数
             tw[b, best_n, gj, gi] = math.log(gw / anchors[best_n][0] + 1e-16)
             th[b, best_n, gj, gi] = math.log(gh / anchors[best_n][1] + 1e-16)
 
-
-
-
             # One-hot encoding of label
-
             target_label = int(target[b, t, 4])
-            assert(1<=target_label<=13)
-
-            #print("target_label:{}".format(target[b, t, 4]))
-
-            #print("box:{}".format(target[b, t]))
-            tcls[b, best_n, gj, gi, target_label-1] = 1
+            assert(0<=target_label<=12)
+            tcls[b, best_n, gj, gi, target_label] = 1
             tconf[b, best_n, gj, gi] = 1
 
             # Calculate iou between ground truth() and best matching prediction
             iou = bbox_iou(gt_box, pred_box, x1y1x2y2=False)
             pred_label = torch.argmax(pred_cls[b, best_n, gj, gi])
             score = pred_conf[b, best_n, gj, gi]
-            if iou > 0.7 and pred_label == target_label-1 and score > 0.5:
+            if iou > 0.5 and pred_label == target_label and score > 0.3:
                 nCorrect += 1
-
-    #print("target_class:{}".format(np.unique(torch.argmax(tcls,4).cpu().numpy())))
 
     return nGT, nCorrect, mask, conf_mask, tx, ty, tw, th, tconf, tcls
 
@@ -312,3 +303,11 @@ def build_targets(
 def to_categorical(y, num_classes):
     """ 1-hot encodes a tensor """
     return torch.from_numpy(np.eye(num_classes, dtype="uint8")[y])
+
+
+
+def module_to_dict(module, exclude=[]):
+        return dict([(x, getattr(module, x)) for x in dir(module)
+                     if isclass(getattr(module, x))
+                     and x not in exclude
+                     and getattr(module, x) not in exclude])

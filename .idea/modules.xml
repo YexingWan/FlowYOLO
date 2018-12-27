@@ -3,9 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$USER_HOME$/PyTorch-YOLOv3/.idea/PyTorch-YOLOv3.iml" filepath="$USER_HOME$/PyTorch-YOLOv3/.idea/PyTorch-YOLOv3.iml" />
-      <module fileurl="file://$USER_HOME$/Smart-Road/.idea/Smart-Road.iml" filepath="$USER_HOME$/Smart-Road/.idea/Smart-Road.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/YOLOv3_with_flow.iml" filepath="$PROJECT_DIR$/.idea/YOLOv3_with_flow.iml" />
-      <module fileurl="file://$USER_HOME$/flownet2-pytorch/.idea/flownet2-pytorch.iml" filepath="$USER_HOME$/flownet2-pytorch/.idea/flownet2-pytorch.iml" />
     </modules>
   </component>
 </project>

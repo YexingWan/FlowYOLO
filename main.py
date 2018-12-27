@@ -5,26 +5,18 @@ import torch
 import torch.nn as nn
 import cv2
 from torch.utils.data import DataLoader
-from torch.autograd import Variable
-from tensorboardX import SummaryWriter
+import tqdm
 
-import argparse, os, sys, subprocess
-import setproctitle, colorama
+import argparse, os, sys
 import numpy as np
-from collections import deque
-from tqdm import tqdm
-from glob import glob
-from os.path import *
 import random
-import time
 
-from matplotlib.ticker import NullLocator
 from matplotlib import pyplot as plt
 from matplotlib import patches as patches
 from PIL import Image
 
-from utils import flow_utils, tools, utils, datasets
-from utils.parse_config import parse_data_config, parse_model_config
+from utils import utils, datasets
+from utils.parse_config import parse_data_config
 
 
 
@@ -35,54 +27,49 @@ def built_args():
     parser.add_argument('--task', choices=['train','test','inference'], default='inference')
     parser.add_argument("--use_cuda", type=bool, default=True, help="whether to use cuda if available")
     parser.add_argument('--number_gpus', '-ng', type=int, default=-1, help='number of GPUs to use')
-    parser.add_argument('--number_workers', '-nw', '--num_workers', type=int, default=8)
-    parser.add_argument("--batched_n_cpu", type=int, default=0, help="number of cpu threads to use during batch generation")
     parser.add_argument("--save_video", action='store_true', default=False)
     parser.add_argument("--camera", action='store_true',default=False,help='inference from camera')
     parser.add_argument("--data_config_path", type=str, default="config/data.data", help="path to data config file")
 
+
+    parser.add_argument('--validation_frequency', type=int, default=10000, help='validate every n batches')
+    parser.add_argument('--validation_n_sequence', type=int, default=-1)
+    parser.add_argument('--validation_batch_size', type=int, default=1, help="Do not support mini-batch validation currently")
+
+
+
     parser.add_argument('--start_epoch', type=int, default=1)
-    parser.add_argument('--total_epochs', type=int, default=10000)
-    parser.add_argument('--gradient_clip', type=float, default=None)
-    parser.add_argument('--validation_frequency', type=int, default=5, help='validate every n epochs')
-    parser.add_argument('--validation_n_batches', type=int, default=-1)
-    parser.add_argument("--validation_checkpoint", type=int, default=5, help="interval between saving model weights, default saved at each validation ")
+    parser.add_argument('--total_epochs', type=int, default=10)
     parser.add_argument('--train_n_batches', type=int, default=-1,
                         help='Number of min-batches per epoch. If < 0, it will be determined by training_dataloader')
     parser.add_argument('--train_batch_size', type=int, default=8)
+
+
     parser.add_argument('--schedule_lr_frequency', type=int, default=0,
                         help='in number of iterations (0 for no schedule)')
     parser.add_argument('--schedule_lr_fraction', type=float, default=10)
-    parser.add_argument('--crop_size', type=int, nargs='+', default=[448, 448],
-                        help="Spatial dimension to crop training samples for training")
     parser.add_argument('--learning_rate', type=float, default=0.001,help="Learning rate for edn-to-end traning")
     parser.add_argument('--momentum', type=float, default=0.9,help="Momentum for edn-to-end traning")
     parser.add_argument('--decay', type=float, default=0.005, help="Weight decay for edn-to-end traning")
-    parser.add_argument('--saving_checkpoint_interval', type=int, default=10, help="Number of epoch for saving weight")
+    parser.add_argument('--saving_checkpoint_interval', type=int, default=10000, help="Number of batches for saving weight")
 
 
-    parser.add_argument('--inference_batch_size', type=int, default=8)
+    parser.add_argument('--inference_batch_size', type=int, default=1, help="Do not support mini-batch inference currently")
     parser.add_argument('--inference_n_batches', type=int, default=-1,
                         help='Number of min-batches for inference. If < 0, it will be determined by training_dataloader')
-    parser.add_argument('--inference_size', type=int, nargs='+', default=[448, 448],
-                        help='image size for inference by flownet, image will resize to such size')
-    parser.add_argument('--aggregate_range', type=int, default=2)
+    parser.add_argument('--inference_size', type=int, default=448,
+                        help='image size for inference, image will resize to such size, should be divided by 64')
+    #parser.add_argument('--aggregate_range', type=int, default=2)
 
 
     parser.add_argument('--save', '-s', default='./work', type=str, help='directory for saving all result')
-    parser.add_argument('--name', default='run', type=str, help='a name to append to the save directory')
-
-
-    parser.add_argument('--log_frequency', '--summ_iter', type=int, default=1, help="Log every n batches")
-    parser.add_argument('--skip_training', action='store_true')
-    parser.add_argument('--skip_validation', action='store_true')
+    # parser.add_argument('--skip_training', action='store_true')
+    # parser.add_argument('--skip_validation', action='store_true')
 
     #--------------------------------------flownet--------------------------------------------
     parser.add_argument('--flow_model', default='FlowNet2CS')
     parser.add_argument('--flow_resume', default='', type=str, metavar='PATH',
                         help='path to latest checkpoint (default: none)')
-    parser.add_argument('--save_flow', action='store_true', help='save predicted flows from flownet to file', default=False)
-
     #--------------------------------YOLO-----------------------------------------------------
 
     parser.add_argument("--yolo_config_path", type=str, default="config/yolov3.cfg", help="path to model config file")
@@ -93,8 +80,8 @@ def built_args():
     args = parser.parse_args()
 
     # model class
-    args.flow_model_class = tools.module_to_dict(models)[args.flow_model]
-    args.yolo_model_class = tools.module_to_dict(models)["Darknet"]
+    args.flow_model_class = utils.module_to_dict(models)[args.flow_model]
+    args.yolo_model_class = utils.module_to_dict(models)["Darknet"]
 
     # data config
     data_config = parse_data_config(args.data_config_path)
@@ -105,14 +92,14 @@ def built_args():
     args.data_names_path = data_config["names"]
     args.rgb_max=int(data_config["rgb_max"])
 
+    # history things
     args.fp16=None
 
     return args
 
-
-
+# TODO:
+# change dataloader to general one
 def train(args):
-
 
     flow_yolo = models.FlowYOLO(args)
 
@@ -122,10 +109,12 @@ def train(args):
 
     for p in flow_yolo.parameters():
         p.requires_grad = True
+
     # freeze flownet
     for p in flow_yolo.flow_model.parameters():
         p.requires_grad = False
 
+    # set model cuda
     if torch.cuda.is_available() and args.use_cuda:
         number_gpus = torch.cuda.device_count()
         if number_gpus > 0:
@@ -136,61 +125,54 @@ def train(args):
             flow_yolo.set_multi_gpus(list(range(number_gpus)))
 
 
-
-
     optimizer = torch.optim.Adam(filter(lambda p: p.requires_grad, flow_yolo.parameters()),lr=1e-3)
-
-
     # optimizer = torch.optim.RMSprop(filter(lambda p: p.requires_grad, flow_yolo.parameters()))
 
     ###########bulit dataset for traning##########
 
-    dataset_list = datasets.built_training_datasets(args.data_train_path)
+    dataset_list = datasets.built_coco_intersect_VID_datasets(args.data_train_path,img_size=args.inference_size)
 
-    #print("dataset_list_length:{}".format(len(dataset_list)))
-
-    final_dataset = datasets.dictDataset_coco_intersect_VID(dataset_list)
-
-    #print("dataset_length:{}".format(len(final_dataset)))
+    final_dataset = datasets.dictDataset(dataset_list)
 
     final_loader = DataLoader(final_dataset,args.train_batch_size,shuffle=True)
 
-    ########keep for flow##########
+    ########2 dictionaries keep for flow##########
 
-    feature_dict = dict(zip([i+1 for i in range(len(dataset_list))],[None for _ in range(len(dataset_list))]))
+    feature_dict = dict(zip([i for i in range(len(dataset_list))],[None for _ in range(len(dataset_list))]))
 
-    last_frame_dict = dict(zip([i+1 for i in range(len(dataset_list))],[None for _ in range(len(dataset_list))]))
+    last_frame_dict = dict(zip([i for i in range(len(dataset_list))],[None for _ in range(len(dataset_list))]))
 
-    ###############################
     cur_batch = 0
     total_batch = len(final_loader)
     print("total_batch:{}".format(total_batch))
     print("total_epoch:{}".format(args.total_epochs))
 
-
+    # training loops
     for epoch in range(args.total_epochs):
 
         for b, (seq_index, images, targets) in enumerate(final_loader):
             """
-            target:[50,5(x,t,w,h,class)]
+            targets.shape:[batch,50,5(x,t,w,h,class)]
+                x: 0-1 scaled, centered, padded
+                y: 0-1 scaled, centered, padded
+                w: 0-1 scaled, padded
+                h: 0-1 scaled, padded
+                class: int, index of class
+            
+            seq_index: sequence indexes
+            
+            images: input batched images, 255 base, inferenced size(448)
             """
 
-            # print("sequence_index:{}".format(seq_index))
-            # print("images_shape:{}".format(images.shape))
-            #print("targets:{}".format(targets))
-            # print("targets_cls_unique:{}".format(np.unique(targets[:,:,4].cpu().numpy())))
-
-
-
-            # last_feature is the list of queue
+            # initialize optimizer and list for storing
             optimizer.zero_grad()
             last_feature =  []
             flow_input = []
 
             for i,t_idx in enumerate(seq_index):
                 idx = t_idx.item()
-                # if is the first frame, initialize two dict
-                if idx > 99999:
+                # if current frame is the first frame (flag by +99999), initialize element two dict
+                if idx >= 99999:
                     idx -= 99999
                     last_frame_dict[idx] = None
                     feature_dict[idx] = None
@@ -198,55 +180,52 @@ def train(args):
 
             for i, t_idx in enumerate(seq_index):
                 idx = t_idx.item()
-                if idx > 99999:
+                if idx >= 99999:
                     idx -= 99999
+                # if current frame is the first frame, set two list for flow-warp to None
+                # for simplify, once one of frame is the first frame in batch, all frame train as first frame (without flow)
                 if last_frame_dict[idx] is None or feature_dict[idx] is None:
-                    #flow_input.append(torch.stack([images[i], images[i]]).permute(1, 0, 2, 3))
                     flow_input = None
                     last_feature = None
                     break
+                # else, built input of flownet and prepare the feature for warping
                 else:
+                    # notice: flow input is current frame to last_frame
                     flow_input.append(torch.stack([images[i],last_frame_dict[idx]]).permute(1, 0, 2, 3))
                     last_feature.append(feature_dict[idx])
 
-            # update last_frame_dict
+            # update the dictionary stored "last_frame"
             for i, t_idx in enumerate(seq_index):
                 idx = t_idx.item()
-                if idx > 99999:
+                if idx >= 99999:
                     idx -= 99999
                 last_frame_dict[idx] = images[i]
 
-
+            # set cuda
             if args.use_cuda:
-                #print("input into data")
                 flow_input = torch.stack(flow_input).cuda() if flow_input is not None else None
-                #print("flow_input type:{}".format(flow_input.type()))
                 images = images.cuda()
-                #print("images type:{}".format(images.type()))
-                # target = target.type(torch.cuda.FloatTensor).cuda()
-                #print("target type:{}".format(target.type()))
 
-
-            # feature is a list of list for each input
+            # forward operation returns losses(dictionary) and list of list of feature for next frame warping.
             losses, feature = flow_yolo(flow_input,images,last_feature,targets)
 
 
             for i, t_idx in enumerate(seq_index):
                 idx = t_idx.item()
-                if idx > 99999:
+                if idx >= 99999:
                     idx -= 99999
-
                 _fe = []
+                # unite the output feature from model to save memory
                 for f in feature[i]:
                     _fe.append(f.detach())
+                # save features in dictionary by sequence index
                 feature_dict[idx] = _fe
 
-            # get loss tensor and backward to get grad
+            # get "loss" tensor and backward to get grad
             losses["loss"].backward()
 
             # update weights
             optimizer.step()
-
 
             print(
                 "[Epoch %d/%d, Batch %d/%d] [Losses: x %f, y %f, w %f, h %f, conf %f, cls %f, total %f, recall: %.5f, precision: %.5f]"
@@ -267,17 +246,189 @@ def train(args):
                 )
             )
             cur_batch += 1
+            # clear unused memory
             torch.cuda.empty_cache()
+            # save checkpoint for 10000 batches
 
-        # flow_yolo.last_feature = list([0,0])
-        # flow_yolo.last_frames = None
 
-        if epoch % args.saving_checkpoint_interval == 0:
-            flow_yolo.save_weights("%s/%d.weights" % (os.path.join(args.save,"checkpoints"), epoch))
+            # test saving
+            args.saving_checkpoint_interval = 1
+            if cur_batch % args.validation_frequency == 0:
+                print("validation in {} batch".format(cur_batch))
+                test(flow_yolo, args)
+
+            if cur_batch % args.saving_checkpoint_interval == 0:
+                flow_yolo.save_weights("%s/%d_weights" % (os.path.join(args.save,"checkpoints"), cur_batch))
+                print("save success")
+
+
     print("Done!")
 
+# TODO:
+# debug
+def test(model,args):
 
-def test(args):
+    # initialize
+    model.eval()
+    args.validation_batch_size = 1
+    test_path = args.data_test_path
+    num_classes = args.data_num_classes
+    args.inference_batch_size = 1
+    # set data
+    # dataset = datasets.SequenceImage(test_path)
+    # dataloader = torch.utils.data.DataLoader(dataset, batch_size=args.batch_size, shuffle=False, num_workers=args.n_cpu)
+
+    ###########bulit datasets and loader for traning##########
+
+    dataset_list = datasets.built_datasets(test_path,args.validation_n_sequence)
+
+    dataloader_list = datasets.built_dataloaders(dataset_list)
+
+    ##############################################
+
+    print("Compute mAP...")
+
+    all_detections = []
+    all_annotations = []
+    last_frame = None
+    last_feature = None
+
+    for loader_idx, dataloader in enumerate(tqdm.tqdm(dataloader_list,desc="Sequence list")):
+
+        for batch_i, (images, targets) in enumerate(tqdm.tqdm(dataloader, desc="Detecting objects")):
+            """
+            targets.shape:[batch,50,5(x,y,w,h,class)]
+                x: 0-1 scaled, centered, padded
+                y: 0-1 scaled, centered, padded
+                w: 0-1 scaled, padded
+                h: 0-1 scaled, padded
+                class: int, index of class
+
+            seq_index: sequence indexes
+
+            images: input batched images, 255 base [batch_size, c, h, w], inferenced size(448)           
+            """
+
+            assert(images.shape[0] == 1)
+            flow_input = torch.unsqueeze(torch.stack([images[0], last_frame]).permute(1, 0, 2, 3)) if last_frame is not None else None
+            last_frame = images[0]
+
+            # set cuda
+            if args.use_cuda:
+                flow_input = torch.stack(flow_input).cuda() if flow_input is not None else None
+                images = images.cuda()
+
+
+            with torch.no_grad():
+                # 这里的output是经过预处理的output（在yoloLayer中预处理），[nB,number of anchory, bbox_attrs(5+num_classes)]
+                # 其中bbox_attrs为 x y w h conf cls_conf的predict
+                # 其中xywh为每个box对应resized image的 "unscaled" x，y坐标（center）和w，h大小
+                # 注意这里是 w，h 不是 h，w
+                outputs, features = model(flow_input = flow_input, data = images, last_feature = last_feature)
+                last_feature = features
+
+                # 经过nms以后的outputs是一个list of Tensor，每个Tensor代表一张图的prediction
+                # tensor的shape为[num_selected_boxed, 7(x1, y1, x2, y2, obj_conf, class_conf, class_pred)]
+                outputs = utils.non_max_suppression(outputs, 80, conf_thres=args.conf_thres, nms_thres=args.nms_thres)
+
+            # for each image
+            for output, annotations in zip(outputs, targets):
+                # output是一个Tensor[num_selected_boxed,7(x1, y1, x2, y2, obj_conf, class_conf, class_pred)] unscaled
+                # annotations也是一个Tensor[50,5(x,y,w,h,class)] scaled
+
+                # 每张图一个list，list里每个class对应一个nparray，array的shape为[num_box,5(x1, y1, x2, y2, obj_conf)]
+                all_detections.append([np.array([]) for _ in range(num_classes)])
+                if output is not None:
+                    # Get predicted boxes, confidence scores and labels
+                    pred_boxes = output[:, :5].cpu().numpy()
+                    scores = output[:, 4].cpu().numpy()
+                    pred_labels = output[:, -1].cpu().numpy()
+
+                    # Order by confidence
+                    sort_i = np.argsort(scores)
+                    pred_labels = pred_labels[sort_i]
+                    pred_boxes = pred_boxes[sort_i]
+
+                    for label in range(num_classes):
+                        #每个predict box的shape为[5(x1, y1, x2, y2, obj_conf)]
+                        all_detections[-1][label] = pred_boxes[pred_labels == label]
+
+                all_annotations.append([np.array([]) for _ in range(num_classes)])
+                if any(annotations[:, -1] > 0):
+                    annotation_labels = annotations[annotations[:, -1] > 0, -1].numpy()
+                    _annotation_boxes = annotations[annotations[:, -1] > 0, :4].numpy()
+
+                    # Reformat to x1, y1, x2, y2 and rescale to image dimensions
+                    annotation_boxes = np.empty_like(_annotation_boxes)
+                    annotation_boxes[:, 0] = _annotation_boxes[:, 0] - _annotation_boxes[:, 2] / 2
+                    annotation_boxes[:, 1] = _annotation_boxes[:, 1] - _annotation_boxes[:, 3] / 2
+                    annotation_boxes[:, 2] = _annotation_boxes[:, 0] + _annotation_boxes[:, 2] / 2
+                    annotation_boxes[:, 3] = _annotation_boxes[:, 1] + _annotation_boxes[:, 3] / 2
+                    annotation_boxes *= args.inference_size
+
+                    for label in range(num_classes):
+                        all_annotations[-1][label] = annotation_boxes[annotation_labels == label, :]
+
+    average_precisions = {}
+    for label in range(num_classes):
+        true_positives = []
+        scores = []
+        num_annotations = 0
+
+        for i in tqdm.tqdm(range(len(all_annotations)), desc=f"Computing AP for class '{label}'"):
+            detections = all_detections[i][label]
+            annotations = all_annotations[i][label]
+
+            num_annotations += annotations.shape[0]
+            detected_annotations = []
+
+            for *bbox, score in detections:
+                scores.append(score)
+
+                if annotations.shape[0] == 0:
+                    true_positives.append(0)
+                    continue
+
+                overlaps = utils.bbox_iou_numpy(np.expand_dims(bbox, axis=0), annotations)
+                assigned_annotation = np.argmax(overlaps, axis=1)
+                max_overlap = overlaps[0, assigned_annotation]
+
+                if max_overlap >= args.iou_thres and assigned_annotation not in detected_annotations:
+                    true_positives.append(1)
+                    detected_annotations.append(assigned_annotation)
+                else:
+                    true_positives.append(0)
+
+        # no annotations -> AP for this class is 0
+        if num_annotations == 0:
+            average_precisions[label] = 0
+            continue
+
+        true_positives = np.array(true_positives)
+        false_positives = np.ones_like(true_positives) - true_positives
+        # sort by score
+        indices = np.argsort(-np.array(scores))
+        false_positives = false_positives[indices]
+        true_positives = true_positives[indices]
+
+        # compute false positives and true positives
+        false_positives = np.cumsum(false_positives)
+        true_positives = np.cumsum(true_positives)
+
+        # compute recall and precision
+        recall = true_positives / num_annotations
+        precision = true_positives / np.maximum(true_positives + false_positives, np.finfo(np.float64).eps)
+
+        # compute average precision
+        average_precision = utils.compute_ap(recall, precision)
+        average_precisions[label] = average_precision
+
+    print("Average Precisions:")
+    for c, ap in average_precisions.items():
+        print(f"+ Class '{c}' - AP: {ap}")
+
+    mAP = np.mean(list(average_precisions.values()))
+    print(f"mAP: {mAP}")
 
     pass
 
@@ -310,46 +461,39 @@ def inference(args):
             cap = cv2.VideoCapture(0)
         else:
             cap = cv2.VideoCapture(args.data_infer_path)
-
         v_writer = cv2.VideoWriter()
+        args.inference_batch_size = 1
     else:
-        dataset = datasets.SequenceImage(folder_path=args.data_infer_path)
+        # TODO:
+        #  SequenceImage dataset have not implemented
+
+        dataset = datasets.SequenceImage(args, image_size=448, src='')
+        args.inference_batch_size = 1
         cap = None
         v_writer= None
 
     # init data loader
     dataloader = DataLoader(dataset,batch_size=args.inference_batch_size)
+    last_feature = None
+    last_frame = None
 
-    loader_writer = cv2.VideoWriter("output/loader.avi",
-                               apiPreference=cv2.CAP_ANY,
-                               fourcc=cv2.VideoWriter_fourcc(*'MJPG'),
-                               fps=int(args.fps),
-                               frameSize=(args.inference_size[1], args.inference_size[0]))
-
-
-    # for each batch
+    # for each batch, input_imgs is 0-255 [b,c,h,w]
     for batch_i, (paths, input_imgs) in enumerate(dataloader):
 
-        # imput_imgs:[batch,channel,h,w]
-
-        _tem = input_imgs.numpy()
-        for idx in range(_tem.shape[0]):
-            loader_writer.write(cv2.cvtColor(_tem[idx].transpose(1,2,0),cv2.COLOR_RGB2BGR))
+        flow_input = torch.stack([input_imgs, last_frame]).permute(1, 0, 2, 3) if last_frame is not None else None
+        last_frame = input_imgs
 
         if args.use_cuda:
             input_imgs = input_imgs.cuda()
 
         # Get detections
-        print("outer check data max:{}".format(input_imgs.max()))
-        s = time.time()
-        print("input_tensor_shape:{}".format(input_imgs.shape))
         with torch.no_grad():
-            detections = flow_yolo(input_imgs)
-            print("thred:{}".format(args.conf_thres))
+            detections, features = flow_yolo(flow_input = flow_input,
+                                   data = input_imgs,
+                                   last_feature = last_feature)
             detections = utils.non_max_suppression(detections, len(classes), args.conf_thres, args.nms_thres)
-
-        e = time.time()
-        print("forward_time:{}s".format(e-s))
+            # features is a list of list
+            last_feature = features
 
         # Save image and detections depends on type of source
         if cap is not None and v_writer is not None:
@@ -367,38 +511,37 @@ def inference(args):
             else:
                 print(sys.stderr,"Error: something wrong with dataloader, loss image path.")
     v_writer.release()
-    loader_writer.release()
 
 
 def draw_and_save(args,source,img_detections,classes,v_writer = None):
+
+    # get the colormap instance then get 20 colors
     cmap = plt.get_cmap('hot')
     colors = [cmap(i) for i in np.linspace(0, 1, 20)]
-
 
     print('\nSaving result:')
     # Iterate through images and save plot of detections
     for img_i, (source, detections) in enumerate(zip(source, img_detections)):
 
-        #print("(%d) Image: '%s'" % (img_i, path))
-
-        # Create plot
+        # Create plot by path
         if isinstance(source,str):
             img = np.array(Image.open(source))
+        # or source is image itself
         else:
             img = source
-        #print("h:%d w:%d " % (img.shape[0], img.shape[1]))
+
         plt.figure()
         fig, ax = plt.subplots(1)
         ax.imshow(img)
 
         # The amount of padding that was added
-        pad_x = max(img.shape[0] - img.shape[1], 0) * (args.inference_size[1] / max(img.shape))
-        pad_y = max(img.shape[1] - img.shape[0], 0) * (args.inference_size[0] / max(img.shape))
+        pad_x = max(img.shape[0] - img.shape[1], 0) * (args.inference_size / max(img.shape))
+        pad_y = max(img.shape[1] - img.shape[0], 0) * (args.inference_size / max(img.shape))
         #print("pad_x:%d pad_y:%d " % (pad_x, pad_y))
 
         # Image height and width after padding is removed
-        unpad_h = args.inference_size[0] - pad_y
-        unpad_w = args.inference_size[1] - pad_x
+        unpad_h = args.inference_size - pad_y
+        unpad_w = args.inference_size - pad_x
 
         # Draw bounding boxes and labels of detections
         if detections is not None:
@@ -457,8 +600,6 @@ def draw_and_save(args,source,img_detections,classes,v_writer = None):
 def main(args,task):
     if task == "train":
         train(args)
-    elif task == "test":
-        test(args)
     elif task == "inference":
         inference(args)
 
@@ -475,4 +616,5 @@ if __name__ == "__main__":
         os.mkdir(args.save)
     if not os.path.isdir(os.path.join(args.save,"checkpoints")):
         os.mkdir(os.path.join(args.save,"checkpoints"))
+    assert(args.inference_size % 64 == 0)
     main(args,task = args.task)
