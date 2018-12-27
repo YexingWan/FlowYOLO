@@ -311,7 +311,7 @@ def test(model,args):
             """
 
             assert(images.shape[0] == 1)
-            flow_input = torch.unsqueeze(torch.stack([images[0], last_frame]).permute(1, 0, 2, 3)) if last_frame is not None else None
+            flow_input = torch.unsqueeze(torch.stack([images[0], last_frame]).permute(1, 0, 2, 3),dim=0) if last_frame is not None else None
             last_frame = images[0]
 
             # set cuda
