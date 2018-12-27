@@ -206,7 +206,10 @@ def train(args):
                 images = images.cuda()
 
             # forward operation returns losses(dictionary) and list of list of feature for next frame warping.
+            s = time.time()
             losses, feature = flow_yolo(flow_input,images,last_feature,targets)
+            e = time.time()
+            print("train forward time:{}".format(e-s))
 
 
             for i, t_idx in enumerate(seq_index):
@@ -325,11 +328,11 @@ def test(model,args):
                 # 其中bbox_attrs为 x y w h conf cls_conf的predict
                 # 其中xywh为每个box对应resized image的 "unscaled" x，y坐标（center）和w，h大小
                 # 注意这里是 w，h 不是 h，w
-                s = time.time()
+                #s = time.time()
                 outputs, features = model(flow_input = flow_input, data = images, last_feature = last_feature)
                 last_feature = features
-                e = time.time()
-                print("forward time:{}".format(e-s))
+                #e = time.time()
+                #print("forward time:{}".format(e-s))
 
                 # 经过nms以后的outputs是一个list of Tensor，每个Tensor代表一张图的prediction
                 # tensor的shape为[num_selected_boxed, 7(x1, y1, x2, y2, obj_conf, class_conf, class_pred)]
