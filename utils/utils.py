@@ -190,7 +190,7 @@ def non_max_suppression(prediction, num_classes, conf_thres=0.5, nms_thres=0.5):
 
 
 def build_targets(
-    pred_boxes, pred_conf, pred_cls, target, anchors, num_anchors, num_classes, grid_size, ignore_thres, img_dim
+    pred_boxes, pred_conf, pred_cls, target, anchors, num_anchors, num_classes, grid_size, ignore_thres
 ):
     # target: x y w h is 0-1 scaled
     # center_x = float(((x1 + x2) / 2)) / float(padded_w)
