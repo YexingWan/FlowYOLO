@@ -621,8 +621,8 @@ class YOLOLayer(nn.Module):
         #self.lambda_coord = 1
         #self.cls_predictor = torch.nn.Softmax(dim = 4)
 
-        self.mse_loss = nn.MSELoss(reduction='elementwise_mean')  # Coordinate loss
-        self.bce_loss = nn.BCELoss(reduction='elementwise_mean')  # Confidence loss
+        self.mse_loss = nn.MSELoss(reduction='mean')  # Coordinate loss
+        self.bce_loss = nn.BCELoss(reduction='mean')  # Confidence loss
         self.ce_loss = nn.CrossEntropyLoss()  # Class loss
 
     def forward(self, x, targets=None):
@@ -646,7 +646,8 @@ class YOLOLayer(nn.Module):
         h = prediction[..., 3]  # Height
         pred_conf = torch.sigmoid(prediction[..., 4])  # Conf 0-1
         #pred_cls = self.cls_predictor(prediction[..., 5:])  # Cls pred.
-        pred_cls = torch.sigmoid(prediction[..., 5:])  # Cls pred.
+        #pred_cls = torch.sigmoid(prediction[..., 5:])  # Cls pred.
+        pred_cls = prediction[..., 5:]  # Cls pred.
 
 
         # Calculate offsets for each grid
@@ -734,11 +735,11 @@ class YOLOLayer(nn.Module):
 
                 loss_cls = self.ce_loss(pred_cls[mask], torch.argmax(tcls[mask],1))
 
-                print(loss_cls)
-                tep_mask = torch.ByteTensor(pred_cls[mask].shape).fill_(0)
-                for i,idx_max in enumerate(torch.argmax(tcls[mask],1)):
-                    tep_mask[i][idx_max] = 1
-                print(torch.masked_select(pred_cls[mask],tep_mask))
+                # print(loss_cls)
+                # tep_mask = torch.ByteTensor(pred_cls[mask].shape).fill_(0)
+                # for i,idx_max in enumerate(torch.argmax(tcls[mask],1)):
+                #     tep_mask[i][idx_max] = 1
+                # print(torch.masked_select(pred_cls[mask],tep_mask))
 
             # for frame has no object.
             else:
