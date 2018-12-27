@@ -257,9 +257,9 @@ def train(args):
 
 
             # test saving and validation
-            if cur_batch % args.validation_frequency == 0:
-                print("validation in {} batch".format(cur_batch))
-                test(flow_yolo, args)
+            # if cur_batch % args.validation_frequency == 0:
+            #     print("validation in {} batch".format(cur_batch))
+            #     test(flow_yolo, args)
 
             if cur_batch % args.saving_checkpoint_interval == 0:
                 flow_yolo.save_weights("%s/%d_weights" % (os.path.join(args.save,"checkpoints"), cur_batch))
