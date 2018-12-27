@@ -254,9 +254,6 @@ def train(args):
 
 
             # test saving and validation
-            args.saving_checkpoint_interval = 1
-            args.validation_frequency = 1
-
             if cur_batch % args.validation_frequency == 0:
                 print("validation in {} batch".format(cur_batch))
                 test(flow_yolo, args)
@@ -382,7 +379,7 @@ def test(model,args):
         scores = []
         num_annotations = 0
 
-        for i in tqdm.tqdm(range(len(all_annotations)), desc="Computing AP for class {}".format(label)):
+        for i in range(len(all_annotations)):
             detections = all_detections[i][label]
             annotations = all_annotations[i][label]
 
