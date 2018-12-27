@@ -729,11 +729,8 @@ class YOLOLayer(nn.Module):
                     pred_conf[conf_mask_true], tconf[conf_mask_true]
                 )
 
-                tep = self.ce_loss(pred_cls[mask], torch.argmax(tcls[mask],1))
-                loss_cls = (1 / nB) * tep
-                print(mask.sum())
-                print(tep)
-                print(nB)
+                loss_cls = self.ce_loss(pred_cls[mask], torch.argmax(tcls[mask],1))
+
             # for frame has no object.
             else:
                 loss_x = torch.tensor(0)
