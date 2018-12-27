@@ -3,8 +3,123 @@
   <component name="ChangeListManager">
     <list default="true" id="9ff04544-841e-4ebf-8528-543c869fa01e" name="Default" comment="">
       <change type="NEW" beforePath="" afterPath="$USER_HOME$/Smart-Road/03 Execution/testcv.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/kmeans_anchor.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/utils/kmeans.py" />
       <change type="DELETED" beforePath="$USER_HOME$/Smart-Road/.idea/inspectionProfiles/profiles_settings.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/.gitignore" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/.idea/flownet2-pytorch.iml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/.idea/misc.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/.idea/modules.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/.idea/vcs.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/.idea/workspace.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/Dockerfile" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/LICENSE" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/README.md" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/convert.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/datasets.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/download_caffe_models.sh" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/flowlib.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/image.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/infer_video.sh" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/install.sh" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/launch_docker.sh" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/losses.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/main.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/models.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/networks/FlowNetC.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/networks/FlowNetFusion.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/networks/FlowNetS.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/networks/FlowNetSD.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/networks/__init__.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/networks/channelnorm_package/__init__.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/networks/channelnorm_package/build/lib.linux-x86_64-3.5/channelnorm_cuda.cpython-35m-x86_64-linux-gnu.so" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/networks/channelnorm_package/channelnorm.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/networks/channelnorm_package/channelnorm_cuda.cc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/networks/channelnorm_package/channelnorm_cuda.egg-info/PKG-INFO" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/networks/channelnorm_package/channelnorm_cuda.egg-info/SOURCES.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/networks/channelnorm_package/channelnorm_cuda.egg-info/dependency_links.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/networks/channelnorm_package/channelnorm_cuda.egg-info/top_level.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/networks/channelnorm_package/channelnorm_kernel.cu" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/networks/channelnorm_package/channelnorm_kernel.cuh" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/networks/channelnorm_package/dist/channelnorm_cuda-0.0.0-py3.5-linux-x86_64.egg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/networks/channelnorm_package/setup.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/networks/correlation_package/__init__.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/networks/correlation_package/build/lib.linux-x86_64-3.5/correlation_cuda.cpython-35m-x86_64-linux-gnu.so" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/networks/correlation_package/correlation.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/networks/correlation_package/correlation_cuda.cc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/networks/correlation_package/correlation_cuda.egg-info/PKG-INFO" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/networks/correlation_package/correlation_cuda.egg-info/SOURCES.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/networks/correlation_package/correlation_cuda.egg-info/dependency_links.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/networks/correlation_package/correlation_cuda.egg-info/top_level.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/networks/correlation_package/correlation_cuda_kernel.cu" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/networks/correlation_package/correlation_cuda_kernel.cuh" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/networks/correlation_package/dist/correlation_cuda-0.0.0-py3.5-linux-x86_64.egg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/networks/correlation_package/setup.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/networks/resample2d_package/__init__.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/networks/resample2d_package/build/lib.linux-x86_64-3.5/resample2d_cuda.cpython-35m-x86_64-linux-gnu.so" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/networks/resample2d_package/dist/resample2d_cuda-0.0.0-py3.5-linux-x86_64.egg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/networks/resample2d_package/resample2d.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/networks/resample2d_package/resample2d_cuda.cc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/networks/resample2d_package/resample2d_cuda.egg-info/PKG-INFO" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/networks/resample2d_package/resample2d_cuda.egg-info/SOURCES.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/networks/resample2d_package/resample2d_cuda.egg-info/dependency_links.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/networks/resample2d_package/resample2d_cuda.egg-info/top_level.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/networks/resample2d_package/resample2d_kernel.cu" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/networks/resample2d_package/resample2d_kernel.cuh" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/networks/resample2d_package/setup.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/networks/submodules.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/run-caffe2pytorch.sh" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/utils/__init__.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/utils/flow_utils.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/utils/frame_utils.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/utils/param_utils.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/utils/tools.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/utils/convert.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/utils/flow_utils.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/utils/frame_utils.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/utils/param_utils.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/utils/tools.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/yolo/.gitignore" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/yolo/.idea/PyTorch-YOLOv3.iml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/yolo/.idea/misc.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/yolo/.idea/modules.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/yolo/.idea/vcs.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/yolo/.idea/workspace.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/yolo/README.md" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/yolo/__init__.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/yolo/assets/dog.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/yolo/assets/giraffe.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/yolo/assets/messi.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/yolo/assets/traffic.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/yolo/config/coco.data" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/yolo/config/yolov3-tiny.cfg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/yolo/config/yolov3.cfg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/yolo/data/coco.names" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/yolo/data/get_coco_dataset.sh" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/yolo/data/samples/dog.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/yolo/data/samples/eagle.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/yolo/data/samples/giraffe.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/yolo/data/samples/herd_of_horses.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/yolo/data/samples/img1.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/yolo/data/samples/img2.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/yolo/data/samples/img3.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/yolo/data/samples/img4.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/yolo/data/samples/messi.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/yolo/data/samples/person.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/yolo/detect.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/yolo/models.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/yolo/requirements.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/yolo/test.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/yolo/train.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/yolo/utils/__init__.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/yolo/utils/datasets.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/yolo/utils/parse_config.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/yolo/utils/utils.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/yolo/weights/download_weights.sh" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/yolo/weights/download_weights_tiny.sh" afterPath="" />
       <change type="MOVED" beforePath="$USER_HOME$/Smart-Road/03 Execution/predicthelper.py" afterPath="$USER_HOME$/Smart-Road/03 Execution/predictInterface.py" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/flownet/__init__.py" afterPath="$PROJECT_DIR$/config/yolov3_sim.cfg" />
+      <change type="MODIFICATION" beforePath="$USER_HOME$/PyTorch-YOLOv3/test.py" afterPath="$USER_HOME$/PyTorch-YOLOv3/test.py" />
       <change type="MODIFICATION" beforePath="$USER_HOME$/PyTorch-YOLOv3/weights/download_weights.sh" afterPath="$USER_HOME$/PyTorch-YOLOv3/weights/download_weights.sh" />
       <change type="MODIFICATION" beforePath="$USER_HOME$/Smart-Road/.idea/Smart-Road.iml" afterPath="$USER_HOME$/Smart-Road/.idea/Smart-Road.iml" />
       <change type="MODIFICATION" beforePath="$USER_HOME$/Smart-Road/.idea/misc.xml" afterPath="$USER_HOME$/Smart-Road/.idea/misc.xml" />
@@ -14,8 +129,24 @@
       <change type="MODIFICATION" beforePath="$USER_HOME$/Smart-Road/03 Execution/frontend.py" afterPath="$USER_HOME$/Smart-Road/03 Execution/frontend.py" />
       <change type="MODIFICATION" beforePath="$USER_HOME$/Smart-Road/03 Execution/gen_anchors.py" afterPath="$USER_HOME$/Smart-Road/03 Execution/gen_anchors.py" />
       <change type="MODIFICATION" beforePath="$USER_HOME$/Smart-Road/03 Execution/predict.py" afterPath="$USER_HOME$/Smart-Road/03 Execution/predict.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/YOLOv3_with_flow.iml" afterPath="$PROJECT_DIR$/.idea/YOLOv3_with_flow.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/data.data" afterPath="$PROJECT_DIR$/config/data.data" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/yolov3-tiny.cfg" afterPath="$PROJECT_DIR$/config/yolov3-tiny.cfg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/yolov3.cfg" afterPath="$PROJECT_DIR$/config/yolov3.cfg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/flow_networks/FlowNetC.py" afterPath="$PROJECT_DIR$/flow_networks/FlowNetC.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/flow_networks/FlowNetFusion.py" afterPath="$PROJECT_DIR$/flow_networks/FlowNetFusion.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/flow_networks/FlowNetS.py" afterPath="$PROJECT_DIR$/flow_networks/FlowNetS.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/flow_networks/FlowNetSD.py" afterPath="$PROJECT_DIR$/flow_networks/FlowNetSD.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/flow_networks/submodules.py" afterPath="$PROJECT_DIR$/flow_networks/submodules.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.py" afterPath="$PROJECT_DIR$/main.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/models.py" afterPath="$PROJECT_DIR$/models.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/utils/datasets.py" afterPath="$PROJECT_DIR$/utils/datasets.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/utils/parse_config.py" afterPath="$PROJECT_DIR$/utils/parse_config.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/utils/utils.py" afterPath="$PROJECT_DIR$/utils/utils.py" />
+      <change type="MODIFICATION" beforePath="$USER_HOME$/kmeans-anchor-boxes/kmeans.py" afterPath="$USER_HOME$/kmeans-anchor-boxes/kmeans.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -29,20 +160,18 @@
       <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="284">
-              <caret line="703" column="47" lean-forward="false" selection-start-line="703" selection-start-column="46" selection-end-line="703" selection-end-column="47" />
+            <state relative-caret-position="-2565">
+              <caret line="732" column="84" lean-forward="false" selection-start-line="732" selection-start-column="80" selection-end-line="732" selection-end-column="84" />
               <folding>
                 <element signature="e#0#31#0" expanded="true" />
-                <element signature="e#7242#7355#0" expanded="false" />
-                <element signature="e#9910#11720#0" expanded="false" />
-                <element signature="e#11766#13862#0" expanded="false" />
-                <element signature="e#13898#16233#0" expanded="false" />
-                <element signature="e#15239#16233#0" expanded="false" />
-                <element signature="e#16270#19603#0" expanded="false" />
-                <element signature="e#23393#23512#0" expanded="false" />
-                <element signature="e#35513#35889#0" expanded="false" />
-                <element signature="e#35934#36045#0" expanded="false" />
-                <element signature="e#36100#36931#0" expanded="false" />
+                <element signature="e#731#7005#0" expanded="false" />
+                <element signature="e#7048#9737#0" expanded="false" />
+                <element signature="e#7112#7225#0" expanded="false" />
+                <element signature="e#9780#11590#0" expanded="false" />
+                <element signature="e#11636#13732#0" expanded="false" />
+                <element signature="e#16140#19473#0" expanded="false" />
+                <element signature="e#19591#23227#0" expanded="false" />
+                <element signature="e#23263#23382#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -51,21 +180,28 @@
       <file leaf-file-name="utils.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/utils/utils.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4545">
-              <caret line="303" column="24" lean-forward="false" selection-start-line="303" selection-start-column="24" selection-end-line="303" selection-end-column="24" />
+            <state relative-caret-position="533">
+              <caret line="119" column="28" lean-forward="false" selection-start-line="119" selection-start-column="26" selection-end-line="119" selection-end-column="28" />
               <folding>
                 <element signature="e#0#31#0" expanded="true" />
+                <element signature="e#135#260#0" expanded="false" />
+                <element signature="e#668#1565#0" expanded="false" />
+                <element signature="e#1613#2904#0" expanded="false" />
+                <element signature="e#11613#11710#0" expanded="false" />
+                <element signature="e#11762#11974#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="yolov3.cfg" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/config/yolov3.cfg">
+      <file leaf-file-name="parse_config.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/utils/parse_config.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1845">
-              <caret line="123" column="14" lean-forward="false" selection-start-line="123" selection-start-column="13" selection-end-line="123" selection-end-column="14" />
-              <folding />
+            <state relative-caret-position="240">
+              <caret line="16" column="19" lean-forward="true" selection-start-line="16" selection-start-column="19" selection-end-line="16" selection-end-column="19" />
+              <folding>
+                <element signature="e#848#1258#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -73,41 +209,22 @@
       <file leaf-file-name="main.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="284">
-              <caret line="140" column="98" lean-forward="false" selection-start-line="140" selection-start-column="98" selection-end-line="140" selection-end-column="98" />
+            <state relative-caret-position="2789">
+              <caret line="598" column="0" lean-forward="true" selection-start-line="598" selection-start-column="0" selection-end-line="598" selection-end-column="0" />
               <folding>
-                <element signature="e#11555#11559#0" expanded="false" />
-                <element signature="e#19191#19428#0" expanded="false" />
+                <element signature="e#11141#18250#0" expanded="false" />
+                <element signature="e#18278#21287#0" expanded="false" />
+                <element signature="e#21366#24967#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="resample2d.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/flow_networks/resample2d_package/resample2d.py">
+      <file leaf-file-name="submodules.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/flow_networks/submodules.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="375">
-              <caret line="27" column="0" lean-forward="false" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="correlation.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/flow_networks/correlation_package/correlation.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="30">
-              <caret line="5" column="23" lean-forward="false" selection-start-line="5" selection-start-column="23" selection-end-line="5" selection-end-column="23" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="channelnorm.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/flow_networks/channelnorm_package/channelnorm.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="2" column="23" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="2" selection-end-column="23" />
+            <state relative-caret-position="-29">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -116,9 +233,19 @@
       <file leaf-file-name="datasets.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/utils/datasets.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3690">
-              <caret line="257" column="108" lean-forward="false" selection-start-line="257" selection-start-column="90" selection-end-line="257" selection-end-column="108" />
-              <folding />
+            <state relative-caret-position="525">
+              <caret line="432" column="53" lean-forward="false" selection-start-line="432" selection-start-column="53" selection-end-line="432" selection-end-column="53" />
+              <folding>
+                <element signature="e#0#28#0" expanded="true" />
+                <element signature="e#214#1107#0" expanded="false" />
+                <element signature="e#5366#8009#0" expanded="false" />
+                <element signature="e#8086#9341#0" expanded="false" />
+                <element signature="e#14047#14809#0" expanded="false" />
+                <element signature="e#14871#15806#0" expanded="false" />
+                <element signature="e#14871#15142#1" expanded="false" />
+                <marker date="1545818863687" expanded="false" signature="1163:5259" ph="..." />
+                <marker date="1545818863687" expanded="false" signature="9393:14003" ph="..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -128,6 +255,26 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="0">
               <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="12" selection-end-column="5" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="coco.names" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/data/coco.names">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="435">
+              <caret line="29" column="7" lean-forward="false" selection-start-line="29" selection-start-column="7" selection-end-line="29" selection-end-column="7" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="VID.names" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/data/VID.names">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="15">
+              <caret line="1" column="8" lean-forward="true" selection-start-line="1" selection-start-column="8" selection-end-line="1" selection-end-column="8" />
               <folding />
             </state>
           </provider>
@@ -145,26 +292,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>resample</find>
-      <find>glob</find>
-      <find>dataloader_list</find>
-      <find>yolo</find>
-      <find>dataset_length</find>
-      <find>rout</find>
-      <find>route</find>
-      <find>extra the yolo later out</find>
-      <find>type</find>
-      <find>pr</find>
-      <find>flow_input</find>
-      <find>images type</find>
-      <find>class_index_shape</find>
-      <find>warp</find>
-      <find>grad</find>
-      <find>class</find>
-      <find>class_index</find>
-      <find>cuda</find>
-      <find>target_label</find>
-      <find>cpu</find>
       <find>gather</find>
       <find>sequence_index</find>
       <find>target</find>
@@ -175,6 +302,26 @@
       <find>tconf</find>
       <find>print</find>
       <find>opti</find>
+      <find>recall</find>
+      <find>convolution</find>
+      <find>tools</find>
+      <find>ListDataset</find>
+      <find>mkdir</find>
+      <find>crop_size</find>
+      <find>n_cpu</find>
+      <find>squ</find>
+      <find>use_cuda</find>
+      <find>img_size</find>
+      <find>args.img_size</find>
+      <find>args.inference_size</find>
+      <find>number_workers</find>
+      <find>SequenceImage_coco_intersect_VID</find>
+      <find>aggregate_range</find>
+      <find>ProcessXMLAnnotation</find>
+      <find>img_shape</find>
+      <find>64</find>
+      <find>inference_size</find>
+      <find>glob</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -204,14 +351,27 @@
         <option value="$PROJECT_DIR$/flownet/models.py" />
         <option value="$PROJECT_DIR$/yolo/utils/datasets.py" />
         <option value="$PROJECT_DIR$/data/VID.names" />
-        <option value="$PROJECT_DIR$/config/data.data" />
         <option value="$PROJECT_DIR$/flow_networks/channelnorm_package/channelnorm.py" />
         <option value="$PROJECT_DIR$/data/coco_intersect_VID" />
-        <option value="$PROJECT_DIR$/config/yolov3.cfg" />
-        <option value="$PROJECT_DIR$/utils/datasets.py" />
         <option value="$PROJECT_DIR$/flow_networks/resample2d_package/resample2d.py" />
+        <option value="$USER_HOME$/kmeans-anchor-boxes/example.py" />
+        <option value="$USER_HOME$/kmeans-anchor-boxes/kmeans.py" />
+        <option value="$PROJECT_DIR$/config/yolov3-tiny.cfg" />
+        <option value="$PROJECT_DIR$/config/yolov3_sim.cfg" />
+        <option value="$PROJECT_DIR$/utils/parse_config.py" />
+        <option value="$PROJECT_DIR$/flow_networks/FlowNetFusion.py" />
+        <option value="$PROJECT_DIR$/flow_networks/FlowNetS.py" />
+        <option value="$PROJECT_DIR$/flow_networks/FlowNetSD.py" />
+        <option value="$PROJECT_DIR$/kmeans_anchor.py" />
+        <option value="$PROJECT_DIR$/flow_networks/FlowNetC.py" />
+        <option value="$PROJECT_DIR$/utils/tools.py" />
+        <option value="$USER_HOME$/PyTorch-YOLOv3/test.py" />
+        <option value="$PROJECT_DIR$/flow_networks/submodules.py" />
+        <option value="$PROJECT_DIR$/config/yolov3.cfg" />
+        <option value="$PROJECT_DIR$/config/data.data" />
         <option value="$PROJECT_DIR$/models.py" />
         <option value="$PROJECT_DIR$/utils/utils.py" />
+        <option value="$PROJECT_DIR$/utils/datasets.py" />
         <option value="$PROJECT_DIR$/main.py" />
       </list>
     </option>
@@ -222,10 +382,9 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="y" value="23" />
+  <component name="ProjectFrameBounds" fullScreen="true">
     <option name="width" value="1680" />
-    <option name="height" value="1027" />
+    <option name="height" value="1050" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -259,6 +418,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -284,44 +444,35 @@
             <path>
               <item name="YOLOv3_with_flow" type="b2602c69:ProjectViewProjectNode" />
               <item name="YOLOv3_with_flow" type="462c0819:PsiDirectoryNode" />
-              <item name="flow_networks" type="462c0819:PsiDirectoryNode" />
-              <item name="channelnorm_package" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="YOLOv3_with_flow" type="b2602c69:ProjectViewProjectNode" />
-              <item name="YOLOv3_with_flow" type="462c0819:PsiDirectoryNode" />
-              <item name="flow_networks" type="462c0819:PsiDirectoryNode" />
-              <item name="correlation_package" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="YOLOv3_with_flow" type="b2602c69:ProjectViewProjectNode" />
-              <item name="YOLOv3_with_flow" type="462c0819:PsiDirectoryNode" />
               <item name="utils" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="YOLOv3_with_flow" type="b2602c69:ProjectViewProjectNode" />
+              <item name="PyTorch-YOLOv3" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
       <pane id="Scratches" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="settings.editor.selected.configurable" value="configurable.group.project" />
+    <property name="settings.editor.selected.configurable" value="preferences.sourceCode.Python" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/utils" />
-      <recent name="$PROJECT_DIR$/config" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/utils" />
+      <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/data" />
       <recent name="$PROJECT_DIR$/config" />
       <recent name="$PROJECT_DIR$/flownet" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/utils" />
-      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/config" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -349,19 +500,29 @@
     </task>
     <servers />
   </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+  </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1680" height="1027" extended-state="0" />
+    <frame x="0" y="0" width="1680" height="1050" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.31196582" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32958034" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32958034" sideWeight="0.502442" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32958034" sideWeight="0.497558" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17911975" sideWeight="0.497558" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32958034" sideWeight="0.497558" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.13369964" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32958034" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -370,7 +531,6 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32958034" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
@@ -410,329 +570,17 @@
           <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="30" />
+      <option name="time" value="36" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/flownet/networks/channelnorm_package/channelnorm.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/yolo/config/yolov3.cfg">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="7590">
-          <caret line="506" column="3" lean-forward="false" selection-start-line="506" selection-start-column="0" selection-end-line="506" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/flownet/convert.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="19" column="12" lean-forward="false" selection-start-line="19" selection-start-column="5" selection-end-line="19" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/flownet/losses.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-29">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/flownet/datasets.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="527">
-          <caret line="515" column="22" lean-forward="false" selection-start-line="515" selection-start-column="22" selection-end-line="515" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/PyTorch-YOLOv3/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="595">
-          <caret line="244" column="29" lean-forward="false" selection-start-line="244" selection-start-column="27" selection-end-line="244" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/PyTorch-YOLOv3/config/yolov3.cfg">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-9326">
-          <caret line="9" column="10" lean-forward="false" selection-start-line="9" selection-start-column="10" selection-end-line="9" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/yolo/utils/parse_config.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="22" column="21" lean-forward="false" selection-start-line="22" selection-start-column="4" selection-end-line="22" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/yolo/config/coco.data">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="1" column="32" lean-forward="true" selection-start-line="1" selection-start-column="32" selection-end-line="1" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/flow_networks/correlation_package/correlation_cuda_kernel.cu">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="41" column="35" lean-forward="false" selection-start-line="41" selection-start-column="28" selection-end-line="41" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/flownet2-pytorch/networks/FlowNetFusion.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="29" column="26" lean-forward="false" selection-start-line="29" selection-start-column="13" selection-end-line="29" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/flownet2-pytorch/networks/submodules.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="262">
-          <caret line="31" column="20" lean-forward="false" selection-start-line="31" selection-start-column="14" selection-end-line="31" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/flownet2-pytorch/flowlib.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/flownet2-pytorch/install.sh">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/flownet2-pytorch/infer_video.sh">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="7" column="17" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/flownet2-pytorch/losses.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="584">
-          <caret line="56" column="22" lean-forward="false" selection-start-line="56" selection-start-column="13" selection-end-line="56" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/flownet2-pytorch/datasets.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2272">
-          <caret line="520" column="33" lean-forward="false" selection-start-line="520" selection-start-column="33" selection-end-line="520" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/config/yolov3-tiny.cfg">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/flownet2-pytorch/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="503">
-          <caret line="382" column="45" lean-forward="true" selection-start-line="382" selection-start-column="45" selection-end-line="382" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/flownet2-pytorch/main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1538">
-          <caret line="177" column="37" lean-forward="false" selection-start-line="177" selection-start-column="32" selection-end-line="177" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/flownet/networks/resample2d_package/resample2d_kernel.cu">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="339">
-          <caret line="209" column="56" lean-forward="false" selection-start-line="209" selection-start-column="56" selection-end-line="209" selection-end-column="56" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/flownet/networks/resample2d_package/resample2d_cuda.cc">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="10" column="31" lean-forward="false" selection-start-line="10" selection-start-column="6" selection-end-line="10" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/flownet/networks/resample2d_package/resample2d.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="7" column="35" lean-forward="false" selection-start-line="7" selection-start-column="29" selection-end-line="7" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/flownet/main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="82">
-          <caret line="403" column="17" lean-forward="false" selection-start-line="403" selection-start-column="8" selection-end-line="403" selection-end-column="17" />
-          <folding>
-            <element signature="e#23#35#0" expanded="true" />
-            <element signature="e#14851#15285#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/flownet/utils/flow_utils.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="375">
-          <caret line="25" column="22" lean-forward="false" selection-start-line="25" selection-start-column="14" selection-end-line="25" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/Smart-Road/03 Execution/preprocessing.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="59" column="29" lean-forward="false" selection-start-line="59" selection-start-column="21" selection-end-line="59" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/yolo/detect.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1050">
-          <caret line="71" column="18" lean-forward="false" selection-start-line="71" selection-start-column="8" selection-end-line="71" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/yolo/utils/datasets.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="49" column="17" lean-forward="false" selection-start-line="49" selection-start-column="6" selection-end-line="49" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/Smart-Road/03 Execution/frontend.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-3077">
-          <caret line="281" column="15" lean-forward="false" selection-start-line="281" selection-start-column="8" selection-end-line="281" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/Smart-Road/03 Execution/config.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="21" column="24" lean-forward="false" selection-start-line="21" selection-start-column="9" selection-end-line="21" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/Smart-Road/03 Execution/train.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="506">
-          <caret line="112" column="25" lean-forward="false" selection-start-line="112" selection-start-column="13" selection-end-line="112" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/flownet/networks/FlowNetC.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="555">
-          <caret line="46" column="41" lean-forward="false" selection-start-line="46" selection-start-column="29" selection-end-line="46" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/flownet/networks/submodules.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="435">
-          <caret line="31" column="32" lean-forward="false" selection-start-line="31" selection-start-column="31" selection-end-line="31" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/flownet/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1106">
-          <caret line="394" column="38" lean-forward="false" selection-start-line="394" selection-start-column="30" selection-end-line="394" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/yolo/README.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="0">
-            <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/utils/parse_config.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="20" column="22" lean-forward="false" selection-start-line="20" selection-start-column="11" selection-end-line="20" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/yolo/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="852">
-          <caret line="131" column="26" lean-forward="false" selection-start-line="131" selection-start-column="22" selection-end-line="131" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/yolo/train.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="810">
-          <caret line="72" column="10" lean-forward="false" selection-start-line="72" selection-start-column="0" selection-end-line="72" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/config/data.data">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" column="7" lean-forward="false" selection-start-line="6" selection-start-column="7" selection-end-line="6" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/yolo/utils/utils.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="373">
-          <caret line="229" column="29" lean-forward="false" selection-start-line="229" selection-start-column="27" selection-end-line="229" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/data/coco_intersect_VID.names">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="12" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/data/VID.names">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="8" lean-forward="false" selection-start-line="0" selection-start-column="8" selection-end-line="0" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/data/coco.names">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="435">
-          <caret line="29" column="7" lean-forward="false" selection-start-line="29" selection-start-column="7" selection-end-line="29" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/utils/datasets.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3690">
-          <caret line="257" column="108" lean-forward="false" selection-start-line="257" selection-start-column="90" selection-end-line="257" selection-end-column="108" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/flownet/networks/submodules.py" />
+    <entry file="file://$PROJECT_DIR$/flownet/models.py" />
+    <entry file="file://$PROJECT_DIR$/yolo/README.md" />
+    <entry file="file://$PROJECT_DIR$/yolo/models.py" />
+    <entry file="file://$PROJECT_DIR$/yolo/train.py" />
+    <entry file="file://$PROJECT_DIR$/yolo/utils/utils.py" />
     <entry file="file://$PROJECT_DIR$/flow_networks/resample2d_package/resample2d.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="375">
@@ -745,7 +593,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="30">
           <caret line="5" column="23" lean-forward="false" selection-start-line="5" selection-start-column="23" selection-end-line="5" selection-end-column="23" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -753,55 +600,317 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="2" column="23" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="2" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/flownet/datasets.py" />
+    <entry file="file://$USER_HOME$/Smart-Road/03 Execution/gen_anchors.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="720">
+          <caret line="48" column="0" lean-forward="true" selection-start-line="48" selection-start-column="0" selection-end-line="48" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/utils/gen_anchors.py" />
+    <entry file="file://$USER_HOME$/kmeans-anchor-boxes/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="FIRST">
+          <first_editor relative-caret-position="0">
+            <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/kmeans-anchor-boxes/tests/test_basic.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="1" column="0" lean-forward="true" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/kmeans-anchor-boxes/tests/test_rectangles.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/kmeans-anchor-boxes/tests/test_voc2007.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="525">
+          <caret line="35" column="0" lean-forward="true" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Smart-Road/03 Execution/config.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="8" column="0" lean-forward="false" selection-start-line="7" selection-start-column="6" selection-end-line="8" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/kmeans-anchor-boxes/kmeans.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1020">
+          <caret line="68" column="17" lean-forward="false" selection-start-line="68" selection-start-column="17" selection-end-line="68" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config/yolov3-tiny.cfg">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="11" column="6" lean-forward="false" selection-start-line="11" selection-start-column="6" selection-end-line="11" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/kmeans-anchor-boxes/example.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" column="0" lean-forward="false" selection-start-line="6" selection-start-column="0" selection-end-line="32" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config/yolov3_sim.cfg">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="13275">
+          <caret line="885" column="0" lean-forward="false" selection-start-line="885" selection-start-column="0" selection-end-line="885" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/utils/convert.py" />
+    <entry file="file://$PROJECT_DIR$/flownet/utils/tools.py" />
+    <entry file="file://$PROJECT_DIR$/utils/flow_utils.py" />
+    <entry file="file://$PROJECT_DIR$/utils/frame_utils.py" />
+    <entry file="file://$PROJECT_DIR$/install.sh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/flow_networks/FlowNetFusion.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="25" lean-forward="false" selection-start-line="0" selection-start-column="25" selection-end-line="0" selection-end-column="25" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/flow_networks/FlowNetS.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="3" column="25" lean-forward="false" selection-start-line="3" selection-start-column="25" selection-end-line="3" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/utils/param_utils.py" />
+    <entry file="file://$PROJECT_DIR$/flow_networks/FlowNetSD.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="25" lean-forward="false" selection-start-line="0" selection-start-column="25" selection-end-line="0" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/utils/tools.py" />
+    <entry file="file://$PROJECT_DIR$/kmeans_anchor.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="18" column="60" lean-forward="true" selection-start-line="18" selection-start-column="60" selection-end-line="18" selection-end-column="60" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/utils/kmeans.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="28" column="20" lean-forward="true" selection-start-line="28" selection-start-column="20" selection-end-line="28" selection-end-column="20" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/config/yolov3.cfg">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1845">
-          <caret line="123" column="14" lean-forward="false" selection-start-line="123" selection-start-column="13" selection-end-line="123" selection-end-column="14" />
+        <state relative-caret-position="60">
+          <caret line="4" column="10" lean-forward="true" selection-start-line="4" selection-start-column="10" selection-end-line="4" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/PyTorch-YOLOv3/train.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/PyTorch-YOLOv3/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="0">
+            <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <folding />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/PyTorch-YOLOv3/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#31#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/PyTorch-YOLOv3/detect.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#31#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/PyTorch-YOLOv3/requirements.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/flow_networks/FlowNetC.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="2" column="23" lean-forward="false" selection-start-line="2" selection-start-column="23" selection-end-line="2" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config/data.data">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="5" column="76" lean-forward="true" selection-start-line="5" selection-start-column="76" selection-end-line="5" selection-end-column="76" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/PyTorch-YOLOv3/test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="496">
+          <caret line="35" column="0" lean-forward="false" selection-start-line="35" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#31#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/utils/parse_config.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="16" column="19" lean-forward="true" selection-start-line="16" selection-start-column="19" selection-end-line="16" selection-end-column="19" />
+          <folding>
+            <element signature="e#848#1258#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data/coco_intersect_VID.names">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="12" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2565">
+          <caret line="732" column="84" lean-forward="false" selection-start-line="732" selection-start-column="80" selection-end-line="732" selection-end-column="84" />
+          <folding>
+            <element signature="e#0#31#0" expanded="true" />
+            <element signature="e#731#7005#0" expanded="false" />
+            <element signature="e#7048#9737#0" expanded="false" />
+            <element signature="e#7112#7225#0" expanded="false" />
+            <element signature="e#9780#11590#0" expanded="false" />
+            <element signature="e#11636#13732#0" expanded="false" />
+            <element signature="e#16140#19473#0" expanded="false" />
+            <element signature="e#19591#23227#0" expanded="false" />
+            <element signature="e#23263#23382#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data/coco.names">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="435">
+          <caret line="29" column="7" lean-forward="false" selection-start-line="29" selection-start-column="7" selection-end-line="29" selection-end-column="7" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/utils/utils.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4545">
-          <caret line="303" column="24" lean-forward="false" selection-start-line="303" selection-start-column="24" selection-end-line="303" selection-end-column="24" />
+        <state relative-caret-position="533">
+          <caret line="119" column="28" lean-forward="false" selection-start-line="119" selection-start-column="26" selection-end-line="119" selection-end-column="28" />
           <folding>
             <element signature="e#0#31#0" expanded="true" />
+            <element signature="e#135#260#0" expanded="false" />
+            <element signature="e#668#1565#0" expanded="false" />
+            <element signature="e#1613#2904#0" expanded="false" />
+            <element signature="e#11613#11710#0" expanded="false" />
+            <element signature="e#11762#11974#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/models.py">
+    <entry file="file://$PROJECT_DIR$/data/VID.names">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="284">
-          <caret line="703" column="47" lean-forward="false" selection-start-line="703" selection-start-column="46" selection-end-line="703" selection-end-column="47" />
+        <state relative-caret-position="15">
+          <caret line="1" column="8" lean-forward="true" selection-start-line="1" selection-start-column="8" selection-end-line="1" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/flow_networks/submodules.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-29">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/utils/datasets.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="525">
+          <caret line="432" column="53" lean-forward="false" selection-start-line="432" selection-start-column="53" selection-end-line="432" selection-end-column="53" />
           <folding>
-            <element signature="e#0#31#0" expanded="true" />
-            <element signature="e#7242#7355#0" expanded="false" />
-            <element signature="e#9910#11720#0" expanded="false" />
-            <element signature="e#11766#13862#0" expanded="false" />
-            <element signature="e#13898#16233#0" expanded="false" />
-            <element signature="e#15239#16233#0" expanded="false" />
-            <element signature="e#16270#19603#0" expanded="false" />
-            <element signature="e#23393#23512#0" expanded="false" />
-            <element signature="e#35513#35889#0" expanded="false" />
-            <element signature="e#35934#36045#0" expanded="false" />
-            <element signature="e#36100#36931#0" expanded="false" />
+            <element signature="e#0#28#0" expanded="true" />
+            <element signature="e#214#1107#0" expanded="false" />
+            <element signature="e#5366#8009#0" expanded="false" />
+            <element signature="e#8086#9341#0" expanded="false" />
+            <element signature="e#14047#14809#0" expanded="false" />
+            <element signature="e#14871#15806#0" expanded="false" />
+            <element signature="e#14871#15142#1" expanded="false" />
+            <marker date="1545818863687" expanded="false" signature="1163:5259" ph="..." />
+            <marker date="1545818863687" expanded="false" signature="9393:14003" ph="..." />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="284">
-          <caret line="140" column="98" lean-forward="false" selection-start-line="140" selection-start-column="98" selection-end-line="140" selection-end-column="98" />
+        <state relative-caret-position="2789">
+          <caret line="598" column="0" lean-forward="true" selection-start-line="598" selection-start-column="0" selection-end-line="598" selection-end-column="0" />
           <folding>
-            <element signature="e#11555#11559#0" expanded="false" />
-            <element signature="e#19191#19428#0" expanded="false" />
+            <element signature="e#11141#18250#0" expanded="false" />
+            <element signature="e#18278#21287#0" expanded="false" />
+            <element signature="e#21366#24967#0" expanded="false" />
           </folding>
         </state>
       </provider>
