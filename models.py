@@ -889,14 +889,14 @@ class Darknet(nn.Module):
 
     def set_multi_gpus(self,gpu_id_list):
         # use multiple gpu except yoloLayer
-        paralll_model_list = nn.ModuleList()
+        parall_model_list = nn.ModuleList()
         for i, (module_def, module) in enumerate(zip(self.module_defs, self.module_list)):
             if module_def["type"] == "yolo":
                 pass
             else:
                 module = nn.parallel.DataParallel(module,device_ids=gpu_id_list).cuda()
-            paralll_model_list.append(module)
-        self.module_list = paralll_model_list
+            parall_model_list.append(module)
+        self.module_list = parall_model_list
         self.down_channel_62 = nn.parallel.DataParallel(self.down_channel_62,gpu_id_list).cuda()
         self.down_channel_37 = nn.parallel.DataParallel(self.down_channel_37,gpu_id_list).cuda()
         self.down_channel_12 = nn.parallel.DataParallel(self.down_channel_12,gpu_id_list).cuda()

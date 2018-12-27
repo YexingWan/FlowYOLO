@@ -33,7 +33,7 @@ def built_args():
 
 
     parser.add_argument('--validation_frequency', type=int, default=10000, help='validate every n batches')
-    parser.add_argument('--validation_n_sequence', type=int, default=5)
+    parser.add_argument('----', type=int, default=5)
     parser.add_argument('--validation_batch_size', type=int, default=1, help="Do not support mini-batch validation currently")
 
 
@@ -325,11 +325,11 @@ def test(model,args):
                 # 其中bbox_attrs为 x y w h conf cls_conf的predict
                 # 其中xywh为每个box对应resized image的 "unscaled" x，y坐标（center）和w，h大小
                 # 注意这里是 w，h 不是 h，w
-                #s = time.time()
+                s = time.time()
                 outputs, features = model(flow_input = flow_input, data = images, last_feature = last_feature)
                 last_feature = features
-                #e = time.time()
-                #print("forward time:{}".format(e-s))
+                e = time.time()
+                print("forward time:{}".format(e-s))
 
                 # 经过nms以后的outputs是一个list of Tensor，每个Tensor代表一张图的prediction
                 # tensor的shape为[num_selected_boxed, 7(x1, y1, x2, y2, obj_conf, class_conf, class_pred)]
