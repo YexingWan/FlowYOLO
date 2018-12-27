@@ -809,13 +809,11 @@ class Darknet(nn.Module):
                 layer_i = int(module_def["from"])
                 x = layer_outputs[-1] + layer_outputs[layer_i]
 
-
                 #warp and aggregate(cat) at layer 12 37 62, which are the layers before down-sampling
                 if i in [11,36,61]:
 
-                    # append feature in each deque pre sample
+                    # append feature in each list pre sample
                     for idx in range(x.shape[0]):
-
                         output_features[idx].append(x[idx].cpu())
 
                     # flow aggregate in  L62/37/12
@@ -863,7 +861,7 @@ class Darknet(nn.Module):
             print('Weight file is not given or not exits, random initialize')
             self.apply(utils.utils.weights_init_normal)
 
-
+    # notice: save weight as DataParallel, so the new weight should load by "load_weight()" after "set_multi_gpus()"
     def save_weights(self, path):
         torch.save(self.state_dict(),os.path.join(path,"yolo_f.pth"))
 
@@ -902,6 +900,7 @@ class Darknet(nn.Module):
         self.down_channel_62 = nn.parallel.DataParallel(self.down_channel_62,gpu_id_list).cuda()
         self.down_channel_37 = nn.parallel.DataParallel(self.down_channel_37,gpu_id_list).cuda()
         self.down_channel_12 = nn.parallel.DataParallel(self.down_channel_12,gpu_id_list).cuda()
+        self.flow_warp = nn.parallel.DataParallel(self.flow_warp,gpu_id_list).cuda()
         return
 
 #------------------------------------FLOW-YOLO---------------------------------
