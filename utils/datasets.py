@@ -472,11 +472,11 @@ def built_coco_intersect_VID_datasets(path,img_size):
 
 # built list of num_sequence datasets
 def built_VID_datasets(path = "/disk2/wanyx/ILSVRC2015",num_sequence:int = -1):
-
-    _tep = glob.glob(os.path.join(path,"/Data/VID/train"))
+    _tep = glob.glob(os.path.join(path,"/Data/VID/train/*"))
+    print("tep:{}".format(_tep))
     folder_path = []
     for p in _tep:
-        folder_path.extend(glob.glob(p))
+        folder_path.extend(glob.glob(os.path.join(p,"*")))
     print("sequence found:{}".format(len(folder_path)))
     num_sequence = len(folder_path) if num_sequence != -1 else num_sequence
     folder_path = random.sample(folder_path,num_sequence)
