@@ -1,5 +1,5 @@
 rgb_max=255
-classes=30
+classes=13
 names=data/VID.names
 train=/disk2/wanyx/ILSVRC2015/
 valid=/disk2/wanyx/ILSVRC2015/
