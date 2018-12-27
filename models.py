@@ -381,13 +381,13 @@ class FlowNet2CS(nn.Module):
         for m in self.modules():
             if isinstance(m, nn.Conv2d):
                 if m.bias is not None:
-                    init.uniform(m.bias)
-                init.xavier_uniform(m.weight)
+                    init.uniform_(m.bias)
+                init.xavier_uniform_(m.weight)
 
             if isinstance(m, nn.ConvTranspose2d):
                 if m.bias is not None:
-                    init.uniform(m.bias)
-                init.xavier_uniform(m.weight)
+                    init.uniform_(m.bias)
+                init.xavier_uniform_(m.weight)
                 # init_deconv_bilinear(m.weight)
 
     def forward(self, inputs):
@@ -686,7 +686,6 @@ class YOLOLayer(nn.Module):
                 num_classes=self.num_classes,
                 grid_size=nG,
                 ignore_thres=self.ignore_thres,
-                img_dim=self.image_dim,
             )
             nProposals = int((pred_conf > 0.7).sum().item())
             recall = float(nCorrect / nGT) if nGT else 1
