@@ -375,7 +375,7 @@ def test(model,args):
         scores = []
         num_annotations = 0
 
-        for i in tqdm.tqdm(range(len(all_annotations)), desc=f"Computing AP for class '{label}'"):
+        for i in tqdm.tqdm(range(len(all_annotations)), desc="Computing AP for class {}".format(label)):
             detections = all_detections[i][label]
             annotations = all_annotations[i][label]
 
