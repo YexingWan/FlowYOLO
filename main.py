@@ -425,12 +425,10 @@ def test(model,args):
 
     print("Average Precisions:")
     for c, ap in average_precisions.items():
-        print(f"+ Class '{c}' - AP: {ap}")
+        print("+ Class '{}' - AP: {}".format(c,ap))
 
     mAP = np.mean(list(average_precisions.values()))
-    print(f"mAP: {mAP}")
-
-    pass
+    print("mAP: {}".format(mAP))
 
 
 def inference(args):
