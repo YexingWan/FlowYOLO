@@ -86,7 +86,6 @@ def built_args():
     data_config = parse_data_config(args.data_config_path)
     args.data_test_path = data_config["valid"]
     args.data_train_path = data_config["train"]
-    print(args.data_train_path)
     args.data_infer_path = data_config["infer"]
     args.data_num_classes = int(data_config["classes"])
     args.data_names_path = data_config["names"]
