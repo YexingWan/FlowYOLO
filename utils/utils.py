@@ -286,7 +286,7 @@ def build_targets(
 
             # One-hot encoding of label
             target_label = int(target[b, t, 4])
-            assert(0<=target_label<=12)
+            assert(0<=target_label<=29)
             tcls[b, best_n, gj, gi, target_label] = 1
             tconf[b, best_n, gj, gi] = 1
 
