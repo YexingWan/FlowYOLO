@@ -925,9 +925,6 @@ class FlowYOLO(nn.Module):
         # data is a torch Tensor [b,3,h,w]
         # flow_input is a torch Tensor [b,6,h,w]
         # last_feature is list of list
-        if self.args.task == "train" and target is None:
-            print(sys.stderr,"Error: No target in training mode.")
-            exit(1)
 
         flows_output = self.flow_model(flow_input) if flow_input is not None else None
 

@@ -470,9 +470,13 @@ def built_coco_intersect_VID_datasets(path,img_size):
 
 
 # built list of num_sequence datasets
-def built_VID_datasets(path = "/disk2/wanyx/ILSVRC2015",num_sequence:int = -1):
+def built_VID_datasets(path = "/disk2/wanyx/ILSVRC2015",num_sequence:int = -1,mode = "train"):
     print("VID_path:{}".format(path))
-    _tep = glob.glob(os.path.join(path,"Data/VID/train/")+"*")
+    if mode == "train":
+        _tep = glob.glob(os.path.join(path,"Data/VID/train/")+"*")
+    else:
+        _tep = [os.path.join(path, "Data/VID/val/")]
+
     folder_path = []
     for p in _tep:
         folder_path.extend(glob.glob(os.path.join(p,"*")))
