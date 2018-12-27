@@ -646,6 +646,8 @@ class YOLOLayer(nn.Module):
         h = prediction[..., 3]  # Height
         pred_conf = torch.sigmoid(prediction[..., 4])  # Conf 0-1
         pred_cls = self.cls_predictor(prediction[..., 5:])  # Cls pred.
+        print(pred_cls.shape)
+
 
         # Calculate offsets for each grid
         grid_x = torch.arange(nG).repeat(nG, 1).view([1, 1, nG, nG]).type(FloatTensor)
@@ -729,7 +731,9 @@ class YOLOLayer(nn.Module):
                     pred_conf[conf_mask_true], tconf[conf_mask_true]
                 )
 
-                loss_cls = self.ce_loss(pred_cls[mask], torch.argmax(tcls[mask],1))
+                loss_cls = self.ce_loss(pred_cls[mask], torch.argmax(tcls[mask],1)) * 5
+                print(pred_cls[mask].shape)
+                print(tcls[mask].shape)
 
             # for frame has no object.
             else:
