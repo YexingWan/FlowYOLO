@@ -1,7 +1,5 @@
 from __future__ import division
 
-import torch
-import torch.nn as nn
 from torch.nn import init
 import torch.nn.functional as F
 from torch.autograd import Variable
@@ -730,8 +728,10 @@ class YOLOLayer(nn.Module):
                 loss_conf = self.bce_loss(pred_conf[conf_mask_false], tconf[conf_mask_false])*5 + self.bce_loss(
                     pred_conf[conf_mask_true], tconf[conf_mask_true]
                 )
-
-                loss_cls = (1 / nB) * self.ce_loss(pred_cls[mask], torch.argmax(tcls[mask],1))
+                tep = self.ce_loss(pred_cls[mask], torch.argmax(tcls[mask],1))
+                loss_cls = (1 / nB) * tep
+                print(tep)
+                print(nB)
             # for frame has no object.
             else:
                 loss_x = torch.tensor(0)
