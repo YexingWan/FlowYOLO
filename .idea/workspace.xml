@@ -30,8 +30,8 @@
       <file leaf-file-name="models.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="288">
-              <caret line="732" column="0" lean-forward="true" selection-start-line="732" selection-start-column="0" selection-end-line="732" selection-end-column="0" />
+            <state relative-caret-position="186">
+              <caret line="734" column="36" lean-forward="false" selection-start-line="734" selection-start-column="36" selection-end-line="734" selection-end-column="36" />
               <folding>
                 <element signature="e#0#31#0" expanded="true" />
                 <element signature="e#696#7010#0" expanded="false" />
@@ -43,8 +43,8 @@
                 <element signature="e#16189#19522#0" expanded="false" />
                 <element signature="e#19658#23371#0" expanded="false" />
                 <element signature="e#23407#23526#0" expanded="false" />
-                <element signature="e#30780#36775#0" expanded="false" />
-                <element signature="e#36887#38936#0" expanded="false" />
+                <element signature="e#30792#36787#0" expanded="false" />
+                <element signature="e#36899#38948#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -368,7 +368,7 @@
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.16990788" sideWeight="0.497558" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17195496" sideWeight="0.497558" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.395087" sideWeight="0.497558" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -727,8 +727,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="288">
-          <caret line="732" column="0" lean-forward="true" selection-start-line="732" selection-start-column="0" selection-end-line="732" selection-end-column="0" />
+        <state relative-caret-position="186">
+          <caret line="734" column="36" lean-forward="false" selection-start-line="734" selection-start-column="36" selection-end-line="734" selection-end-column="36" />
           <folding>
             <element signature="e#0#31#0" expanded="true" />
             <element signature="e#696#7010#0" expanded="false" />
@@ -740,8 +740,8 @@
             <element signature="e#16189#19522#0" expanded="false" />
             <element signature="e#19658#23371#0" expanded="false" />
             <element signature="e#23407#23526#0" expanded="false" />
-            <element signature="e#30780#36775#0" expanded="false" />
-            <element signature="e#36887#38936#0" expanded="false" />
+            <element signature="e#30792#36787#0" expanded="false" />
+            <element signature="e#36899#38948#0" expanded="false" />
           </folding>
         </state>
       </provider>
