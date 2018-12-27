@@ -281,7 +281,7 @@ def test(model,args):
 
     ###########bulit datasets and loader for traning##########
 
-    dataset_list = datasets.built_VID_datasets(test_path,args.validation_n_sequence)
+    dataset_list = datasets.built_VID_datasets(test_path,args.validation_n_sequence,mode="test")
 
     dataloader_list = datasets.built_dataloaders(dataset_list)
 
@@ -316,7 +316,7 @@ def test(model,args):
 
             # set cuda
             if args.use_cuda:
-                flow_input = torch.stack(flow_input).cuda() if flow_input is not None else None
+                flow_input = flow_input.cuda() if flow_input is not None else None
                 images = images.cuda()
 
 
