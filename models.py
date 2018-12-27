@@ -510,9 +510,10 @@ class FlowNet2CSS(nn.Module):
 
 #------------------------------------YOLO--------------------------------------
 
-def create_modules(module_defs):
+def create_modules(module_defs, data_num_classes):
     """
     Constructs module list of layer blocks from module configuration in module_defs
+    data_num_classes for check
     """
 
     # first dict save hyperparams
@@ -589,9 +590,10 @@ def create_modules(module_defs):
             anchors = [(anchors[i], anchors[i + 1]) for i in range(0, len(anchors), 2)]
             anchors = [anchors[i] for i in anchor_idxs]
             num_classes = int(module_def["classes"])
-            img_height = int(hyperparams["height"])
+            assert(data_num_classes == num_classes)
+            img_size = int(hyperparams["size"])
             # Define detection layer
-            yolo_layer = YOLOLayer(anchors, num_classes, img_height)
+            yolo_layer = YOLOLayer(anchors, num_classes, img_size)
             modules.add_module("yolo_%d" % i, yolo_layer)
             module_list.append(modules)
         # Register module list and number of output filters
@@ -610,15 +612,15 @@ class EmptyLayer(nn.Module):
 class YOLOLayer(nn.Module):
     """Detection layer"""
 
-    def __init__(self, anchors, num_classes, img_dim):
+    def __init__(self, anchors, num_classes, img_size):
         super(YOLOLayer, self).__init__()
         self.anchors = anchors
         self.num_anchors = len(anchors)
         self.num_classes = num_classes
         self.bbox_attrs = 5 + num_classes
-        self.image_dim = img_dim
+        self.image_size = img_size
         self.ignore_thres = 0.5
-        self.lambda_coord = 1
+        #self.lambda_coord = 1
         self.cls_predictor = torch.nn.Softmax(dim = 4)
 
         self.mse_loss = nn.MSELoss(reduction='elementwise_mean')  # Coordinate loss
@@ -630,7 +632,7 @@ class YOLOLayer(nn.Module):
         nA = self.num_anchors
         nB = x.size(0)
         nG = x.size(2)
-        stride = self.image_dim / nG
+        stride = self.image_size / nG
 
         # Tensors for cuda support
         FloatTensor = torch.cuda.FloatTensor if x.is_cuda else torch.FloatTensor
@@ -771,15 +773,15 @@ class YOLOLayer(nn.Module):
 class Darknet(nn.Module):
     """YOLOv3 object detection model"""
 
-    def __init__(self, config_path, img_size=448):
+    def __init__(self, args):
         super(Darknet, self).__init__()
         # list of dictionary of model config
-        self.module_defs = parse_model_config(config_path)
-        self.hyperparams, self.module_list = create_modules(self.module_defs)
+        self.module_defs = parse_model_config(args.yolo_config_path)
+        self.hyperparams, self.module_list = create_modules(self.module_defs,args.data_num_classes)
         self.down_channel_62= torch.nn.Conv2d(1024, 512, 1)
         self.down_channel_37 = torch.nn.Conv2d(512, 256, 1)
         self.down_channel_12 = torch.nn.Conv2d(256, 128, 1)
-        self.img_size = img_size
+        self.img_size = int(self.hyperparams["size"])
         self.loss_names = ["loss","x", "y", "w", "h", "conf", "cls", "recall", "precision"]
         self.flow_warp = Resample2d()
 
@@ -914,7 +916,7 @@ class FlowYOLO(nn.Module):
     def __init__(self, args):
         super(FlowYOLO, self).__init__()
         self.flow_model = args.flow_model_class(args)
-        self.detect_model = args.yolo_model_class(args.yolo_config_path)
+        self.detect_model = args.yolo_model_class(args)
         self.args = args
 
 

@@ -44,7 +44,6 @@ def built_args():
                         help='Number of min-batches per epoch. If < 0, it will be determined by training_dataloader')
     parser.add_argument('--train_batch_size', type=int, default=8)
 
-
     parser.add_argument('--schedule_lr_frequency', type=int, default=0,
                         help='in number of iterations (0 for no schedule)')
     parser.add_argument('--schedule_lr_fraction', type=float, default=10)
@@ -92,7 +91,7 @@ def built_args():
     args.data_names_path = data_config["names"]
     args.rgb_max=int(data_config["rgb_max"])
 
-    # history things
+    # history things, ignore
     args.fp16=None
 
     return args
@@ -130,7 +129,7 @@ def train(args):
 
     ###########bulit dataset for traning##########
 
-    dataset_list = datasets.built_coco_intersect_VID_datasets(args.data_train_path,img_size=args.inference_size)
+    dataset_list = datasets.built_VID_datasets(path = args.data_train_path)
 
     final_dataset = datasets.dictDataset(dataset_list)
 
@@ -251,8 +250,10 @@ def train(args):
             # save checkpoint for 10000 batches
 
 
-            # test saving
+            # test saving and validation
             args.saving_checkpoint_interval = 1
+            args.validation_frequency = 1
+
             if cur_batch % args.validation_frequency == 0:
                 print("validation in {} batch".format(cur_batch))
                 test(flow_yolo, args)
