@@ -732,10 +732,11 @@ class YOLOLayer(nn.Module):
                                             tconf[conf_mask_true]) * 5
 
                 loss_cls = self.ce_loss(pred_cls[mask], torch.argmax(tcls[mask],1))
-                tem_mask =  torch.argmax(tcls[mask],1)
-                print(tem_mask.shape)
-                print(pred_cls[mask].shape)
-                print(pred_cls[mask][:,tem_mask])
+                _index =  torch.argmax(tcls[mask],1)
+                tep_mask = torch.zeros(pred_cls[mask].shape)
+                for i,idx in enumerate(_index):
+                    tep_mask[i][idx] = 1
+                print(torch.masked_select(pred_cls[mask],tep_mask))
 
             # for frame has no object.
             else:
