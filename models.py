@@ -687,7 +687,7 @@ class YOLOLayer(nn.Module):
                 grid_size=nG,
                 ignore_thres=self.ignore_thres,
             )
-            nProposals = int((pred_conf > 0.7).sum().item())
+            nProposals = int((pred_conf > 0.5).sum().item())
             recall = float(nCorrect / nGT) if nGT else 1
             precision = float(nCorrect / nProposals) if nProposals != 0 else 0
 
