@@ -3,122 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="9ff04544-841e-4ebf-8528-543c869fa01e" name="Default" comment="">
       <change type="NEW" beforePath="" afterPath="$USER_HOME$/Smart-Road/03 Execution/testcv.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/kmeans_anchor.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/utils/kmeans.py" />
       <change type="DELETED" beforePath="$USER_HOME$/Smart-Road/.idea/inspectionProfiles/profiles_settings.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/.gitignore" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/.idea/flownet2-pytorch.iml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/.idea/misc.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/.idea/modules.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/.idea/vcs.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/.idea/workspace.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/Dockerfile" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/LICENSE" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/README.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/convert.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/datasets.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/download_caffe_models.sh" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/flowlib.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/image.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/infer_video.sh" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/install.sh" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/launch_docker.sh" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/losses.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/main.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/models.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/networks/FlowNetC.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/networks/FlowNetFusion.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/networks/FlowNetS.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/networks/FlowNetSD.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/networks/__init__.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/networks/channelnorm_package/__init__.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/networks/channelnorm_package/build/lib.linux-x86_64-3.5/channelnorm_cuda.cpython-35m-x86_64-linux-gnu.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/networks/channelnorm_package/channelnorm.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/networks/channelnorm_package/channelnorm_cuda.cc" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/networks/channelnorm_package/channelnorm_cuda.egg-info/PKG-INFO" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/networks/channelnorm_package/channelnorm_cuda.egg-info/SOURCES.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/networks/channelnorm_package/channelnorm_cuda.egg-info/dependency_links.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/networks/channelnorm_package/channelnorm_cuda.egg-info/top_level.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/networks/channelnorm_package/channelnorm_kernel.cu" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/networks/channelnorm_package/channelnorm_kernel.cuh" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/networks/channelnorm_package/dist/channelnorm_cuda-0.0.0-py3.5-linux-x86_64.egg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/networks/channelnorm_package/setup.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/networks/correlation_package/__init__.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/networks/correlation_package/build/lib.linux-x86_64-3.5/correlation_cuda.cpython-35m-x86_64-linux-gnu.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/networks/correlation_package/correlation.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/networks/correlation_package/correlation_cuda.cc" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/networks/correlation_package/correlation_cuda.egg-info/PKG-INFO" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/networks/correlation_package/correlation_cuda.egg-info/SOURCES.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/networks/correlation_package/correlation_cuda.egg-info/dependency_links.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/networks/correlation_package/correlation_cuda.egg-info/top_level.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/networks/correlation_package/correlation_cuda_kernel.cu" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/networks/correlation_package/correlation_cuda_kernel.cuh" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/networks/correlation_package/dist/correlation_cuda-0.0.0-py3.5-linux-x86_64.egg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/networks/correlation_package/setup.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/networks/resample2d_package/__init__.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/networks/resample2d_package/build/lib.linux-x86_64-3.5/resample2d_cuda.cpython-35m-x86_64-linux-gnu.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/networks/resample2d_package/dist/resample2d_cuda-0.0.0-py3.5-linux-x86_64.egg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/networks/resample2d_package/resample2d.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/networks/resample2d_package/resample2d_cuda.cc" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/networks/resample2d_package/resample2d_cuda.egg-info/PKG-INFO" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/networks/resample2d_package/resample2d_cuda.egg-info/SOURCES.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/networks/resample2d_package/resample2d_cuda.egg-info/dependency_links.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/networks/resample2d_package/resample2d_cuda.egg-info/top_level.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/networks/resample2d_package/resample2d_kernel.cu" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/networks/resample2d_package/resample2d_kernel.cuh" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/networks/resample2d_package/setup.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/networks/submodules.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/run-caffe2pytorch.sh" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/utils/__init__.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/utils/flow_utils.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/utils/frame_utils.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/utils/param_utils.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/flownet/utils/tools.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/utils/convert.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/utils/flow_utils.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/utils/frame_utils.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/utils/param_utils.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/utils/tools.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/yolo/.gitignore" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/yolo/.idea/PyTorch-YOLOv3.iml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/yolo/.idea/misc.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/yolo/.idea/modules.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/yolo/.idea/vcs.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/yolo/.idea/workspace.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/yolo/README.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/yolo/__init__.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/yolo/assets/dog.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/yolo/assets/giraffe.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/yolo/assets/messi.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/yolo/assets/traffic.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/yolo/config/coco.data" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/yolo/config/yolov3-tiny.cfg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/yolo/config/yolov3.cfg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/yolo/data/coco.names" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/yolo/data/get_coco_dataset.sh" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/yolo/data/samples/dog.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/yolo/data/samples/eagle.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/yolo/data/samples/giraffe.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/yolo/data/samples/herd_of_horses.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/yolo/data/samples/img1.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/yolo/data/samples/img2.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/yolo/data/samples/img3.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/yolo/data/samples/img4.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/yolo/data/samples/messi.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/yolo/data/samples/person.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/yolo/detect.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/yolo/models.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/yolo/requirements.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/yolo/test.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/yolo/train.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/yolo/utils/__init__.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/yolo/utils/datasets.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/yolo/utils/parse_config.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/yolo/utils/utils.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/yolo/weights/download_weights.sh" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/yolo/weights/download_weights_tiny.sh" afterPath="" />
       <change type="MOVED" beforePath="$USER_HOME$/Smart-Road/03 Execution/predicthelper.py" afterPath="$USER_HOME$/Smart-Road/03 Execution/predictInterface.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/flownet/__init__.py" afterPath="$PROJECT_DIR$/config/yolov3_sim.cfg" />
       <change type="MODIFICATION" beforePath="$USER_HOME$/PyTorch-YOLOv3/test.py" afterPath="$USER_HOME$/PyTorch-YOLOv3/test.py" />
       <change type="MODIFICATION" beforePath="$USER_HOME$/PyTorch-YOLOv3/weights/download_weights.sh" afterPath="$USER_HOME$/PyTorch-YOLOv3/weights/download_weights.sh" />
       <change type="MODIFICATION" beforePath="$USER_HOME$/Smart-Road/.idea/Smart-Road.iml" afterPath="$USER_HOME$/Smart-Road/.idea/Smart-Road.iml" />
@@ -129,23 +15,7 @@
       <change type="MODIFICATION" beforePath="$USER_HOME$/Smart-Road/03 Execution/frontend.py" afterPath="$USER_HOME$/Smart-Road/03 Execution/frontend.py" />
       <change type="MODIFICATION" beforePath="$USER_HOME$/Smart-Road/03 Execution/gen_anchors.py" afterPath="$USER_HOME$/Smart-Road/03 Execution/gen_anchors.py" />
       <change type="MODIFICATION" beforePath="$USER_HOME$/Smart-Road/03 Execution/predict.py" afterPath="$USER_HOME$/Smart-Road/03 Execution/predict.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/YOLOv3_with_flow.iml" afterPath="$PROJECT_DIR$/.idea/YOLOv3_with_flow.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/data.data" afterPath="$PROJECT_DIR$/config/data.data" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/yolov3-tiny.cfg" afterPath="$PROJECT_DIR$/config/yolov3-tiny.cfg" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/yolov3.cfg" afterPath="$PROJECT_DIR$/config/yolov3.cfg" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/flow_networks/FlowNetC.py" afterPath="$PROJECT_DIR$/flow_networks/FlowNetC.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/flow_networks/FlowNetFusion.py" afterPath="$PROJECT_DIR$/flow_networks/FlowNetFusion.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/flow_networks/FlowNetS.py" afterPath="$PROJECT_DIR$/flow_networks/FlowNetS.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/flow_networks/FlowNetSD.py" afterPath="$PROJECT_DIR$/flow_networks/FlowNetSD.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/flow_networks/submodules.py" afterPath="$PROJECT_DIR$/flow_networks/submodules.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.py" afterPath="$PROJECT_DIR$/main.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/models.py" afterPath="$PROJECT_DIR$/models.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/utils/datasets.py" afterPath="$PROJECT_DIR$/utils/datasets.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/utils/parse_config.py" afterPath="$PROJECT_DIR$/utils/parse_config.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/utils/utils.py" afterPath="$PROJECT_DIR$/utils/utils.py" />
       <change type="MODIFICATION" beforePath="$USER_HOME$/kmeans-anchor-boxes/kmeans.py" afterPath="$USER_HOME$/kmeans-anchor-boxes/kmeans.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -209,12 +79,11 @@
       <file leaf-file-name="main.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2789">
-              <caret line="598" column="0" lean-forward="true" selection-start-line="598" selection-start-column="0" selection-end-line="598" selection-end-column="0" />
+            <state relative-caret-position="581">
+              <caret line="377" column="101" lean-forward="false" selection-start-line="377" selection-start-column="101" selection-end-line="377" selection-end-column="101" />
               <folding>
-                <element signature="e#11141#18250#0" expanded="false" />
-                <element signature="e#18278#21287#0" expanded="false" />
-                <element signature="e#21366#24967#0" expanded="false" />
+                <element signature="e#18284#21293#0" expanded="false" />
+                <element signature="e#21372#24973#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -905,12 +774,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2789">
-          <caret line="598" column="0" lean-forward="true" selection-start-line="598" selection-start-column="0" selection-end-line="598" selection-end-column="0" />
+        <state relative-caret-position="581">
+          <caret line="377" column="101" lean-forward="false" selection-start-line="377" selection-start-column="101" selection-end-line="377" selection-end-column="101" />
           <folding>
-            <element signature="e#11141#18250#0" expanded="false" />
-            <element signature="e#18278#21287#0" expanded="false" />
-            <element signature="e#21366#24967#0" expanded="false" />
+            <element signature="e#18284#21293#0" expanded="false" />
+            <element signature="e#21372#24973#0" expanded="false" />
           </folding>
         </state>
       </provider>
