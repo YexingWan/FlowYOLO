@@ -33,7 +33,7 @@ def built_args():
 
 
     parser.add_argument('--validation_frequency', type=int, default=10000, help='validate every n batches')
-    parser.add_argument('----', type=int, default=5)
+    parser.add_argument('--validation_n_sequence', type=int, default=5)
     parser.add_argument('--validation_batch_size', type=int, default=1, help="Do not support mini-batch validation currently")
 
 
