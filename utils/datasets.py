@@ -474,8 +474,14 @@ def built_VID_datasets(path = "/disk2/wanyx/ILSVRC2015",num_sequence:int = -1,mo
     print("VID_path:{}".format(path))
     if mode == "train":
         _tep = glob.glob(os.path.join(path,"Data/VID/train/")+"*")
-    else:
+    elif mode == "test":
         _tep = [os.path.join(path, "Data/VID/val/")]
+    else:
+        try:
+            print("Wrong mode to built datasets. input mode is {}, should by train or test".format(mode))
+            raise  RuntimeError
+        except RuntimeError:
+            exit(1)
 
     folder_path = []
     for p in _tep:
