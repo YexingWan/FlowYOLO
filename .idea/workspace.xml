@@ -15,6 +15,7 @@
       <change type="MODIFICATION" beforePath="$USER_HOME$/Smart-Road/03 Execution/frontend.py" afterPath="$USER_HOME$/Smart-Road/03 Execution/frontend.py" />
       <change type="MODIFICATION" beforePath="$USER_HOME$/Smart-Road/03 Execution/gen_anchors.py" afterPath="$USER_HOME$/Smart-Road/03 Execution/gen_anchors.py" />
       <change type="MODIFICATION" beforePath="$USER_HOME$/Smart-Road/03 Execution/predict.py" afterPath="$USER_HOME$/Smart-Road/03 Execution/predict.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/models.py" afterPath="$PROJECT_DIR$/models.py" />
       <change type="MODIFICATION" beforePath="$USER_HOME$/kmeans-anchor-boxes/kmeans.py" afterPath="$USER_HOME$/kmeans-anchor-boxes/kmeans.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -29,8 +30,8 @@
       <file leaf-file-name="models.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="165">
-              <caret line="648" column="16" lean-forward="false" selection-start-line="648" selection-start-column="8" selection-end-line="648" selection-end-column="16" />
+            <state relative-caret-position="164">
+              <caret line="734" column="24" lean-forward="false" selection-start-line="734" selection-start-column="16" selection-end-line="734" selection-end-column="24" />
               <folding>
                 <element signature="e#0#31#0" expanded="true" />
                 <element signature="e#696#7010#0" expanded="false" />
@@ -42,8 +43,8 @@
                 <element signature="e#16189#19522#0" expanded="false" />
                 <element signature="e#19658#23371#0" expanded="false" />
                 <element signature="e#23407#23526#0" expanded="false" />
-                <element signature="e#30823#36818#0" expanded="false" />
-                <element signature="e#36930#38979#0" expanded="false" />
+                <element signature="e#31112#37107#0" expanded="false" />
+                <element signature="e#37219#39268#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -52,8 +53,8 @@
       <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
         <entry file="file://$USER_HOME$/PyTorch-YOLOv3/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="501">
-              <caret line="209" column="46" lean-forward="false" selection-start-line="209" selection-start-column="39" selection-end-line="209" selection-end-column="46" />
+            <state relative-caret-position="239">
+              <caret line="122" column="47" lean-forward="false" selection-start-line="122" selection-start-column="35" selection-end-line="122" selection-end-column="47" />
               <folding />
             </state>
           </provider>
@@ -62,8 +63,8 @@
       <file leaf-file-name="utils.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/utils/utils.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1037">
-              <caret line="270" column="43" lean-forward="false" selection-start-line="270" selection-start-column="37" selection-end-line="270" selection-end-column="43" />
+            <state relative-caret-position="157">
+              <caret line="213" column="53" lean-forward="true" selection-start-line="213" selection-start-column="4" selection-end-line="213" selection-end-column="53" />
               <folding>
                 <element signature="e#0#31#0" expanded="true" />
                 <element signature="e#135#260#0" expanded="false" />
@@ -723,18 +724,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/PyTorch-YOLOv3/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="501">
-          <caret line="209" column="46" lean-forward="false" selection-start-line="209" selection-start-column="39" selection-end-line="209" selection-end-column="46" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/utils/utils.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1037">
-          <caret line="270" column="43" lean-forward="false" selection-start-line="270" selection-start-column="37" selection-end-line="270" selection-end-column="43" />
+        <state relative-caret-position="157">
+          <caret line="213" column="53" lean-forward="true" selection-start-line="213" selection-start-column="4" selection-end-line="213" selection-end-column="53" />
           <folding>
             <element signature="e#0#31#0" expanded="true" />
             <element signature="e#135#260#0" expanded="false" />
@@ -746,10 +739,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$USER_HOME$/PyTorch-YOLOv3/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="239">
+          <caret line="122" column="47" lean-forward="false" selection-start-line="122" selection-start-column="35" selection-end-line="122" selection-end-column="47" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="648" column="16" lean-forward="false" selection-start-line="648" selection-start-column="8" selection-end-line="648" selection-end-column="16" />
+        <state relative-caret-position="164">
+          <caret line="734" column="24" lean-forward="false" selection-start-line="734" selection-start-column="16" selection-end-line="734" selection-end-column="24" />
           <folding>
             <element signature="e#0#31#0" expanded="true" />
             <element signature="e#696#7010#0" expanded="false" />
@@ -761,8 +762,8 @@
             <element signature="e#16189#19522#0" expanded="false" />
             <element signature="e#19658#23371#0" expanded="false" />
             <element signature="e#23407#23526#0" expanded="false" />
-            <element signature="e#30823#36818#0" expanded="false" />
-            <element signature="e#36930#38979#0" expanded="false" />
+            <element signature="e#31112#37107#0" expanded="false" />
+            <element signature="e#37219#39268#0" expanded="false" />
           </folding>
         </state>
       </provider>
