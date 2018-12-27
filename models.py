@@ -619,7 +619,7 @@ class YOLOLayer(nn.Module):
         self.image_size = img_size
         self.ignore_thres = 0.5
         #self.lambda_coord = 1
-        self.cls_predictor = torch.nn.Softmax(dim = 4)
+        #self.cls_predictor = torch.nn.Softmax(dim = 4)
 
         self.mse_loss = nn.MSELoss(reduction='elementwise_mean')  # Coordinate loss
         self.bce_loss = nn.BCELoss(reduction='elementwise_mean')  # Confidence loss
@@ -645,7 +645,8 @@ class YOLOLayer(nn.Module):
         w = prediction[..., 2]  # Width
         h = prediction[..., 3]  # Height
         pred_conf = torch.sigmoid(prediction[..., 4])  # Conf 0-1
-        pred_cls = self.cls_predictor(prediction[..., 5:])  # Cls pred.
+        #pred_cls = self.cls_predictor(prediction[..., 5:])  # Cls pred.
+        pred_cls = torch.sigmoid(prediction[..., 5:])  # Cls pred.
 
 
         # Calculate offsets for each grid
