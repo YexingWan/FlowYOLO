@@ -825,7 +825,7 @@ class Darknet(nn.Module):
                         print("start learning sequence info!!!!")
                         print("current feature shape:{}".format(x.shape))
                         # resizing flow by bi-linear interpolation
-                        _flow = F.interpolate(flow,size=(x.shape[-2],x.shape[-1]),mode="bilinear")/div[i]
+                        _flow = F.interpolate(flow,size=(x.shape[-2],x.shape[-1]),mode="bilinear",align_corners=True)/div[i]
                         _flow = _flow.contiguous()
                         f = torch.stack([dq[div_idx[i]].cuda() for dq in forward_feats])
                         print("last feature shape:{}".format(f.shape))
