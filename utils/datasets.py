@@ -429,7 +429,7 @@ def ProcessXMLAnnotation(xml_file):
 
 
 
-def built_coco_intersect_VID_datasets(path,img_size):
+def built_coco_intersect_VID_datasets(path):
     """
     origin_idx  idx class
 
@@ -464,7 +464,7 @@ def built_coco_intersect_VID_datasets(path,img_size):
     dataset_list = []
     #print(folder_path)
     for p in folder_path:
-        dataset_list.append(SequenceImage_coco_intersect_VID(p,intersect,img_size=img_size))
+        dataset_list.append(SequenceImage_coco_intersect_VID(p,intersect))
 
     return dataset_list
 
