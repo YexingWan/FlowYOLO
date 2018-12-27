@@ -480,8 +480,9 @@ def built_VID_datasets(path = "/disk2/wanyx/ILSVRC2015",num_sequence:int = -1):
         folder_path.extend(glob.glob(os.path.join(p,"*")))
     print("sequence found:{}".format(len(folder_path)))
     num_sequence = len(folder_path) if num_sequence != -1 else num_sequence
-    folder_path = random.sample(folder_path,num_sequence)
     print("sample {} sequence".format(num_sequence))
+    folder_path = random.sample(folder_path,num_sequence)
+
 
     dataset_list = []
     for p in folder_path:
