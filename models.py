@@ -34,7 +34,7 @@ class FlowNet2(nn.Module):
 
         # First Block (FlowNetC)
         self.flownetc = FlowNetC.FlowNetC(args, batchNorm=self.batchNorm)
-        self.upsample1 = nn.Upsample(scale_factor=4, mode='bilinear')
+        self.upsample1 = nn.Upsample(scale_factor=4, mode='bilinear',align_corners=False)
 
         if args.fp16:
             self.resample1 = nn.Sequential(
@@ -46,7 +46,7 @@ class FlowNet2(nn.Module):
 
         # Block (FlowNetS1)
         self.flownets_1 = FlowNetS.FlowNetS(args, batchNorm=self.batchNorm)
-        self.upsample2 = nn.Upsample(scale_factor=4, mode='bilinear')
+        self.upsample2 = nn.Upsample(scale_factor=4, mode='bilinear',align_corners=False)
         if args.fp16:
             self.resample2 = nn.Sequential(
                 tofp32(),
@@ -364,7 +364,7 @@ class FlowNet2CS(nn.Module):
 
         # First Block (FlowNetC)
         self.flownetc = FlowNetC.FlowNetC(args, batchNorm=self.batchNorm)
-        self.upsample1 = nn.Upsample(scale_factor=4, mode='bilinear')
+        self.upsample1 = nn.Upsample(scale_factor=4, mode='bilinear',align_corners=False)
 
         # if args.fp16:
         #     self.resample1 = nn.Sequential(
@@ -376,7 +376,7 @@ class FlowNet2CS(nn.Module):
 
         # Block (FlowNetS1)
         self.flownets_1 = FlowNetS.FlowNetS(args, batchNorm=self.batchNorm)
-        self.upsample2 = nn.Upsample(scale_factor=4, mode='bilinear')
+        self.upsample2 = nn.Upsample(scale_factor=4, mode='bilinear',align_corners=False)
 
         for m in self.modules():
             if isinstance(m, nn.Conv2d):
@@ -821,16 +821,11 @@ class Darknet(nn.Module):
                     # flow aggregate in  L62/37/12
                     if forward_feats is not None:
                         assert(flow is not None)
-
-                        print("start learning sequence info!!!!")
-                        print("current feature shape:{}".format(x.shape))
                         # resizing flow by bi-linear interpolation
-                        _flow = F.interpolate(flow,size=(x.shape[-2],x.shape[-1]),mode="bilinear",align_corners=True)/div[i]
+                        _flow = F.interpolate(flow,size=(x.shape[-2],x.shape[-1]),mode="bilinear",align_corners=False)/div[i]
                         _flow = _flow.contiguous()
                         f = torch.stack([dq[div_idx[i]].cuda() for dq in forward_feats])
-                        print("last feature shape:{}".format(f.shape))
                         _re = self.flow_warp(f,_flow)
-                        print("warped feature shape:{}".format(_re.shape))
                         x = torch.cat([x,_re],1)
                         if i == 36:
                             x = self.down_channel_37(x)
