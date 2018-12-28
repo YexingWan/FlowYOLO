@@ -2,12 +2,11 @@ import matplotlib as mpl
 mpl.use('Agg')
 import models
 import torch
-import torch.nn as nn
 import cv2
 from torch.utils.data import DataLoader
-import tqdm, time
+import tqdm
 
-import argparse, os, sys
+import argparse, os
 import numpy as np
 import random
 
@@ -96,14 +95,16 @@ def built_args():
 
     return args
 
-# TODO:
-# change dataloader to general one
+
 def train(args):
 
     flow_yolo = models.FlowYOLO(args)
 
     flow_yolo.train()
 
+    # TODO：
+    # deprecated
+    # use new weigth
     flow_yolo.load_weights(args.flow_resume, args.yolo_resume)
 
     for p in flow_yolo.parameters():
@@ -129,30 +130,30 @@ def train(args):
 
     ###########bulit dataset for traning##########
 
-    #dataset_list = datasets.built_VID_datasets(path = args.data_train_path)
-    dataset_list = datasets.built_coco_intersect_VID_datasets(path = args.data_train_path)
+    train_dataset_list, val_dataset_list = datasets.built_VID_datasets(args.data_train_path,1/4)
+    #dataset_list = datasets.built_coco_intersect_VID_datasets(path = args.data_train_path)
 
+    train_final_dataset = datasets.dictDataset(train_dataset_list)
 
-    final_dataset = datasets.dictDataset(dataset_list)
+    train_final_loader = DataLoader(train_final_dataset,args.train_batch_size,shuffle=True)
 
-
-    final_loader = DataLoader(final_dataset,args.train_batch_size,shuffle=True)
+    val_final_loader_list = datasets.built_dataloaders(val_dataset_list,1,False)
 
     ########2 dictionaries keep for flow##########
 
-    feature_dict = dict(zip([i for i in range(len(dataset_list))],[None for _ in range(len(dataset_list))]))
+    feature_dict = dict(zip([i for i in range(len(train_dataset_list))],[None for _ in range(len(train_dataset_list))]))
 
-    last_frame_dict = dict(zip([i for i in range(len(dataset_list))],[None for _ in range(len(dataset_list))]))
+    last_frame_dict = dict(zip([i for i in range(len(train_dataset_list))],[None for _ in range(len(train_dataset_list))]))
 
     cur_batch = 0
-    total_batch = len(final_loader)
+    total_batch = len(train_final_loader)
     print("total_batch:{}".format(total_batch))
     print("total_epoch:{}".format(args.total_epochs))
 
     # training loops
     for epoch in range(args.total_epochs):
 
-        for b, (seq_index, images, targets) in enumerate(final_loader):
+        for b, (seq_index, images, targets) in enumerate(train_final_loader):
             """
             targets.shape:[batch,50,5(x,t,w,h,class)]
                 x: 0-1 scaled, centered, padded
@@ -196,20 +197,26 @@ def train(args):
                     flow_input.append(torch.stack([images[i],last_frame_dict[idx]]).permute(1, 0, 2, 3))
                     last_feature.append(feature_dict[idx])
 
-            # update the dictionary stored "last_frame"
+            # built final flow_input
+            if flow_input is not None:
+                flow_input = torch.stack(flow_input)
+
+            # update the last_frame_dict
             for i, t_idx in enumerate(seq_index):
                 idx = t_idx.item()
                 if idx >= 99999:
                     idx -= 99999
                 last_frame_dict[idx] = images[i]
 
-            # set cuda
+            # set input data cuda
             if args.use_cuda:
-                flow_input = torch.stack(flow_input).cuda() if flow_input is not None else None
+                flow_input = flow_input.cuda() if flow_input is not None else None
+                last_feature = [[f.cuda() for f in l] for l in last_feature] if last_feature is not None else None
                 images = images.cuda()
 
             # forward operation returns losses(dictionary) and list of list of feature for next frame warping.
             # s = time.time()
+            # feature is list of list of cup.tensor
             losses, feature = flow_yolo(flow_input,images,last_feature,targets)
             # e = time.time()
             # print("train forward time:{}".format(e-s))
@@ -222,7 +229,7 @@ def train(args):
                 _fe = []
                 # unite the output feature from model to save memory
                 for f in feature[i]:
-                    _fe.append(f.detach())
+                    _fe.append(f.detach().cpu())
                 # save features in dictionary by sequence index
                 feature_dict[idx] = _fe
 
@@ -256,48 +263,36 @@ def train(args):
             # save checkpoint for 10000 batches
 
 
-            # test saving and validation
-            # if cur_batch % args.validation_frequency == 0:
-            #     print("validation in {} batch".format(cur_batch))
-            #     test(flow_yolo, args)
+            #save checkpoint and validation
+            if cur_batch % args.validation_frequency == 0:
+                print("validation in {} batch".format(cur_batch))
+                test(flow_yolo,val_final_loader_list,args)
+                flow_yolo.train()
 
             if cur_batch % args.saving_checkpoint_interval == 0:
-                flow_yolo.save_weights("%s/%d_weights" % (os.path.join(args.save,"checkpoints"), cur_batch))
-                print("save success")
-
-
+                final_save_path = "%s/%d_weights" % (os.path.join(args.save,"checkpoints"), cur_batch)
+                flow_yolo.save_weights(final_save_path)
+                print("Save success. Weight save in {}.".format(final_save_path))
     print("Done!")
 
-# TODO:
-# debug
-def test(model,args):
+
+def test(model,dataloader_list:list,args):
 
     # initialize
     model.eval()
     args.validation_batch_size = 1
-    test_path = args.data_test_path
     num_classes = args.data_num_classes
     args.inference_batch_size = 1
-    # set data
-    # dataset = datasets.SequenceImage(test_path)
-    # dataloader = torch.utils.data.DataLoader(dataset, batch_size=args.batch_size, shuffle=False, num_workers=args.n_cpu)
-
-    ###########bulit datasets and loader for traning##########
-
-    dataset_list = datasets.built_VID_datasets(test_path,args.validation_n_sequence,mode="test")
-
-    dataloader_list = datasets.built_dataloaders(dataset_list)
-
-    ##############################################
 
     print("Compute mAP...")
 
     all_detections = []
     all_annotations = []
-    last_frame = None
-    last_feature = None
+
 
     for loader_idx, dataloader in enumerate(tqdm.tqdm(dataloader_list,desc="Sequence list")):
+        last_frame = None
+        last_feature = None
 
         for batch_i, (images, targets) in enumerate(tqdm.tqdm(dataloader, desc="Detecting objects")):
             """
@@ -313,7 +308,7 @@ def test(model,args):
             images: input batched images, 255 base [batch_size, c, h, w], inferenced size(448)           
             """
 
-            assert(images.shape[0] == 1)
+            #assert(images.shape[0] == 1)
             flow_input = torch.unsqueeze(torch.stack([images[0], last_frame]).permute(1, 0, 2, 3),dim=0) if last_frame is not None else None
             last_frame = images[0]
 
@@ -328,22 +323,19 @@ def test(model,args):
                 # 其中bbox_attrs为 x y w h conf cls_conf的predict
                 # 其中xywh为每个box对应resized image的 "unscaled" x，y坐标（center）和w，h大小
                 # 注意这里是 w，h 不是 h，w
-                #s = time.time()
                 outputs, features = model(flow_input = flow_input, data = images, last_feature = last_feature)
                 last_feature = features
-                #e = time.time()
-                #print("forward time:{}".format(e-s))
 
                 # 经过nms以后的outputs是一个list of Tensor，每个Tensor代表一张图的prediction
-                # tensor的shape为[num_selected_boxed, 7(x1, y1, x2, y2, obj_conf, class_conf, class_pred)]
+                # tensor的shape为[num_selected_boxed, 7(x1, y1, x2, y2, obj_conf, class_conf, class_pred)] unscaled
                 outputs = utils.non_max_suppression(outputs, 80, conf_thres=args.conf_thres, nms_thres=args.nms_thres)
 
-            # for each image
             for output, annotations in zip(outputs, targets):
-                # output是一个Tensor[num_selected_boxed,7(x1, y1, x2, y2, obj_conf, class_conf, class_pred)] unscaled
                 # annotations也是一个Tensor[50,5(x,y,w,h,class)] scaled
 
-                # 每张图一个list，list里每个class对应一个nparray，array的shape为[num_box,5(x1, y1, x2, y2, obj_conf)]
+
+                # 结果保存，每张图一个list，list里每个class对应一个nparray，array的shape为[num_box,5(x1, y1, x2, y2, obj_conf)]
+                # all_detections 是 list of list (each image) of array(each class)
                 all_detections.append([np.array([]) for _ in range(num_classes)])
                 if output is not None:
                     # Get predicted boxes, confidence scores and labels
@@ -377,11 +369,13 @@ def test(model,args):
                         all_annotations[-1][label] = annotation_boxes[annotation_labels == label, :]
 
     average_precisions = {}
+    # for each class
     for label in range(num_classes):
         true_positives = []
         scores = []
         num_annotations = 0
 
+        # for each image
         for i in range(len(all_annotations)):
             detections = all_detections[i][label]
             annotations = all_annotations[i][label]
@@ -389,6 +383,8 @@ def test(model,args):
             num_annotations += annotations.shape[0]
             detected_annotations = []
 
+
+            # for each detected box
             for *bbox, score in detections:
                 scores.append(score)
 
@@ -442,7 +438,9 @@ def inference(args):
     # built module
     flow_yolo = models.FlowYOLO(args)
 
-    #load weight
+    # TODO：
+    # deprecated
+    # use new weigth
     flow_yolo.load_weights(args.flow_resume, args.yolo_resume)
 
     # set cuda
@@ -450,7 +448,7 @@ def inference(args):
         number_gpus=torch.cuda.device_count()
         if number_gpus > 0:
             print("GPU_NUMBER:{}".format(number_gpus))
-            flow_yolo = nn.parallel.DataParallel(flow_yolo, device_ids=list(range(number_gpus))).cuda()
+            flow_yolo.set_multi_gpus(gpu_id_list=list(range(number_gpus)))
 
     # set to eval mode
     flow_yolo.eval()
@@ -469,33 +467,32 @@ def inference(args):
         v_writer = cv2.VideoWriter()
         args.inference_batch_size = 1
     else:
-        # TODO:
-        #  SequenceImage dataset have not implemented
-
-        dataset = datasets.SequenceImage(args, image_size=448, src='')
+        dataset,_ = datasets.SequenceImage(args.data_infer_path,None)
         args.inference_batch_size = 1
         cap = None
         v_writer= None
 
     # init data loader
-    dataloader = DataLoader(dataset,batch_size=args.inference_batch_size)
+    dataloader = DataLoader(dataset,batch_size=args.inference_batch_size,shuffle=False)
+
     last_feature = None
     last_frame = None
 
     # for each batch, input_imgs is 0-255 [b,c,h,w]
-    for batch_i, (paths, input_imgs) in enumerate(dataloader):
+    for batch_i, input_imgs in enumerate(dataloader):
 
-        flow_input = torch.stack([input_imgs, last_frame]).permute(1, 0, 2, 3) if last_frame is not None else None
-        last_frame = input_imgs
+        flow_input = torch.unsqueeze(torch.stack([input_imgs[0], last_frame]).permute(1, 0, 2, 3),0) if last_frame is not None else None
+        last_frame = input_imgs[0]
 
         if args.use_cuda:
+            flow_input = flow_input.cuda() if flow_input is not None else None
             input_imgs = input_imgs.cuda()
 
         # Get detections
         with torch.no_grad():
             detections, features = flow_yolo(flow_input = flow_input,
-                                   data = input_imgs,
-                                   last_feature = last_feature)
+                                             data = input_imgs,
+                                             last_feature = last_feature)
             detections = utils.non_max_suppression(detections, len(classes), args.conf_thres, args.nms_thres)
             # features is a list of list
             last_feature = features
@@ -508,13 +505,10 @@ def inference(args):
                           classes,
                           v_writer=v_writer)
         else:
-            if paths:
-                draw_and_save(args,
-                              paths,
-                              detections,
-                              classes)
-            else:
-                print(sys.stderr,"Error: something wrong with dataloader, loss image path.")
+            draw_and_save(args,
+                          np.transpose(last_frame.numpy(), (1, 2, 0)),
+                          detections,
+                          classes)
     v_writer.release()
 
 

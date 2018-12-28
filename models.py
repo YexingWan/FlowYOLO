@@ -777,7 +777,8 @@ class YOLOLayer(nn.Module):
             )
             return output
 
-# modify Darknet for flow guided aggregate
+# TODO:
+# support minibatch of test and inference(eval mode)
 class Darknet(nn.Module):
     """YOLOv3 object detection model"""
 
@@ -823,7 +824,7 @@ class Darknet(nn.Module):
 
                     # append feature in each list pre sample
                     for idx in range(x.shape[0]):
-                        output_features[idx].append(x[idx].cpu())
+                        output_features[idx].append(x[idx])
 
                     # flow aggregate in  L62/37/12
                     if forward_feats is not None:
@@ -831,7 +832,7 @@ class Darknet(nn.Module):
                         # resizing flow by bi-linear interpolation
                         _flow = F.interpolate(flow,size=(x.shape[-2],x.shape[-1]),mode="bilinear",align_corners=False)/div[i]
                         _flow = _flow.contiguous()
-                        f = torch.stack([dq[div_idx[i]].cuda() for dq in forward_feats])
+                        f = torch.stack([l[div_idx[i]] for l in forward_feats])
                         _re = self.flow_warp(f,_flow)
                         x = torch.cat([x,_re],1)
                         if i == 36:
@@ -863,6 +864,11 @@ class Darknet(nn.Module):
         return (losses,output_features) if is_training else (torch.cat(output, 1), output_features)
 
 
+    # notice: save weight as DataParallel, so the new weight should load by "load_weight()" after "set_multi_gpus()"
+    def save_weights(self, path):
+        torch.save(self.state_dict(),os.path.join(path,"yolo_f.pth"))
+
+
     def load_weights(self, weights_path = None):
         if weights_path and os.path.isfile(weights_path):
             self.load_state_dict(torch.load(weights_path))
@@ -870,12 +876,8 @@ class Darknet(nn.Module):
             print('Weight file is not given or not exits, random initialize')
             self.apply(utils.utils.weights_init_normal)
 
-    # notice: save weight as DataParallel, so the new weight should load by "load_weight()" after "set_multi_gpus()"
-    def save_weights(self, path):
-        torch.save(self.state_dict(),os.path.join(path,"yolo_f.pth"))
 
-    # demo load weight for transforming learning
-    def load_my_weight(self, weights_path):
+    def load_fit_weight(self, weights_path):
         # random init all weights
         self.apply(utils.utils.weights_init_normal)
         model_dict = self.module_list.state_dict()
@@ -894,7 +896,12 @@ class Darknet(nn.Module):
         model_dict.update(pretrained_dict)
         # 3. load the new state dict
         self.module_list.load_state_dict(model_dict)
-        return
+
+        print("initialized Yolo model layers:")
+        for k in set(model_dict.keys())-set(pretrained_dict.keys()):
+            print(k)
+        print()
+
 
     def set_multi_gpus(self,gpu_id_list):
         # use multiple gpu except yoloLayer
@@ -923,7 +930,7 @@ class FlowYOLO(nn.Module):
 
 
 
-    def forward(self, flow_input, data, last_feature, target=None):
+    def forward(self, flow_input, data, last_feature:list, target=None):
 
         # data is a torch Tensor [b,3,h,w]
         # flow_input is a torch Tensor [b,6,h,w]
@@ -955,7 +962,7 @@ class FlowYOLO(nn.Module):
             print("Random initialization")
 
         # load yolo weight
-        self.detect_model.load_my_weight(weights_path=yolo_weights_path)
+        self.detect_model.load_fit_weight(weights_path=yolo_weights_path)
 
 
     def save_weights(self, path):
@@ -965,6 +972,7 @@ class FlowYOLO(nn.Module):
         # no use format of weight of origin FlowNet, use torch format
         torch.save(self.flow_model.state_dict(),os.path.join(path,"flow.pth"))
         self.detect_model.save_weights(path)
+
 
     def set_multi_gpus(self,gpu_id_list):
         self.flow_model = nn.parallel.DataParallel(self.flow_model,device_ids=gpu_id_list).cuda()

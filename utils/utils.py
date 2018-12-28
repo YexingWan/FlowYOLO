@@ -300,10 +300,6 @@ def build_targets(
     return nGT, nCorrect, mask, conf_mask, tx, ty, tw, th, tconf, tcls
 
 
-def to_categorical(y, num_classes):
-    """ 1-hot encodes a tensor """
-    return torch.from_numpy(np.eye(num_classes, dtype="uint8")[y])
-
 
 
 def module_to_dict(module, exclude=[]):
