@@ -241,7 +241,7 @@ class SequenceImage(Dataset):
             filled_labels = torch.from_numpy(filled_labels)
             return input_img, filled_labels
         else:
-            return input_img, [None]
+            return input_img
 
 
     def __len__(self):
