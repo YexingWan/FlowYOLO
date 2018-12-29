@@ -869,7 +869,8 @@ class Darknet(nn.Module):
 
 
     def load_weights(self, weights_path = None):
-        if weights_path and os.path.isfile(weights_path):
+        print(weights_path)
+        if weights_path is not None and os.path.isfile(weights_path):
             self.load_state_dict(torch.load(weights_path))
         else:
             print('Weight file is not given or not exits, random initialize')
