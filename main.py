@@ -585,6 +585,7 @@ def draw_and_save(args,source,img_detections,classes,v_writer = None):
             continue
         else:
             os.mkdir("./output")
+            
         if v_writer is not None:
             data = np.fromstring(fig.canvas.tostring_rgb(), dtype=np.uint8, sep='')
             data = data.reshape(fig.canvas.get_width_height()[::-1] + (3,))
@@ -603,7 +604,7 @@ def draw_and_save(args,source,img_detections,classes,v_writer = None):
         else:
             plt.savefig('./output/%06d.png' % (img_i), bbox_inches='tight', pad_inches=0.0)
             print("result save as ./output/%06d.png" % (img_i))
-    plt.close()
+    plt.close("all")
     return v_writer
 
 
