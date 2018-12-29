@@ -30,8 +30,8 @@
       <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1380">
-              <caret line="897" column="32" lean-forward="true" selection-start-line="897" selection-start-column="32" selection-end-line="897" selection-end-column="32" />
+            <state relative-caret-position="477">
+              <caret line="762" column="26" lean-forward="true" selection-start-line="762" selection-start-column="26" selection-end-line="762" selection-end-column="26" />
               <folding>
                 <element signature="e#0#31#0" expanded="true" />
                 <element signature="e#696#7010#0" expanded="false" />
@@ -43,10 +43,7 @@
                 <element signature="e#16189#19522#0" expanded="false" />
                 <element signature="e#19658#23371#0" expanded="false" />
                 <element signature="e#23407#23526#0" expanded="false" />
-                <element signature="e#23561#31076#0" expanded="false" />
-                <element signature="e#24241#31076#0" expanded="false" />
                 <element signature="e#31184#31793#0" expanded="false" />
-                <element signature="e#31908#34741#0" expanded="false" />
                 <element signature="e#36797#37620#0" expanded="false" />
                 <element signature="e#39648#39791#0" expanded="false" />
               </folding>
@@ -57,12 +54,12 @@
       <file leaf-file-name="main.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="437">
-              <caret line="490" column="9" lean-forward="false" selection-start-line="490" selection-start-column="9" selection-end-line="490" selection-end-column="9" />
+            <state relative-caret-position="353">
+              <caret line="527" column="29" lean-forward="false" selection-start-line="527" selection-start-column="23" selection-end-line="527" selection-end-column="29" />
               <folding>
                 <element signature="e#4995#12012#0" expanded="false" />
                 <element signature="e#12063#18679#0" expanded="false" />
-                <element signature="e#25888#25981#0" expanded="false" />
+                <element signature="e#25890#25983#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -71,7 +68,7 @@
       <file leaf-file-name="datasets.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/utils/datasets.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="570">
+            <state relative-caret-position="855">
               <caret line="240" column="28" lean-forward="false" selection-start-line="240" selection-start-column="19" selection-end-line="240" selection-end-column="28" />
               <folding>
                 <element signature="e#8318#8340#0" expanded="false" />
@@ -162,8 +159,8 @@
       <find>hot</find>
       <find>print</find>
       <find>read</find>
-      <find>Weight file is not given or not exits, random initialize</find>
       <find>Saving result:</find>
+      <find>Weight file is not given or not exits, random initialize</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -697,39 +694,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/config/yolov3.cfg">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="10155">
-          <caret line="677" column="39" lean-forward="false" selection-start-line="677" selection-start-column="39" selection-end-line="677" selection-end-column="39" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1380">
-          <caret line="897" column="32" lean-forward="true" selection-start-line="897" selection-start-column="32" selection-end-line="897" selection-end-column="32" />
-          <folding>
-            <element signature="e#0#31#0" expanded="true" />
-            <element signature="e#696#7010#0" expanded="false" />
-            <element signature="e#7053#9742#0" expanded="false" />
-            <element signature="e#7117#7230#0" expanded="false" />
-            <element signature="e#9785#11595#0" expanded="false" />
-            <element signature="e#11641#13737#0" expanded="false" />
-            <element signature="e#13773#16152#0" expanded="false" />
-            <element signature="e#16189#19522#0" expanded="false" />
-            <element signature="e#19658#23371#0" expanded="false" />
-            <element signature="e#23407#23526#0" expanded="false" />
-            <element signature="e#23561#31076#0" expanded="false" />
-            <element signature="e#24241#31076#0" expanded="false" />
-            <element signature="e#31184#31793#0" expanded="false" />
-            <element signature="e#31908#34741#0" expanded="false" />
-            <element signature="e#36797#37620#0" expanded="false" />
-            <element signature="e#39648#39791#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/config/data.data">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
@@ -738,9 +702,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/config/yolov3.cfg">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="10155">
+          <caret line="677" column="39" lean-forward="false" selection-start-line="677" selection-start-column="39" selection-end-line="677" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/utils/datasets.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="570">
+        <state relative-caret-position="855">
           <caret line="240" column="28" lean-forward="false" selection-start-line="240" selection-start-column="19" selection-end-line="240" selection-end-column="28" />
           <folding>
             <element signature="e#8318#8340#0" expanded="false" />
@@ -757,14 +729,36 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="477">
+          <caret line="762" column="26" lean-forward="true" selection-start-line="762" selection-start-column="26" selection-end-line="762" selection-end-column="26" />
+          <folding>
+            <element signature="e#0#31#0" expanded="true" />
+            <element signature="e#696#7010#0" expanded="false" />
+            <element signature="e#7053#9742#0" expanded="false" />
+            <element signature="e#7117#7230#0" expanded="false" />
+            <element signature="e#9785#11595#0" expanded="false" />
+            <element signature="e#11641#13737#0" expanded="false" />
+            <element signature="e#13773#16152#0" expanded="false" />
+            <element signature="e#16189#19522#0" expanded="false" />
+            <element signature="e#19658#23371#0" expanded="false" />
+            <element signature="e#23407#23526#0" expanded="false" />
+            <element signature="e#31184#31793#0" expanded="false" />
+            <element signature="e#36797#37620#0" expanded="false" />
+            <element signature="e#39648#39791#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="437">
-          <caret line="490" column="9" lean-forward="false" selection-start-line="490" selection-start-column="9" selection-end-line="490" selection-end-column="9" />
+        <state relative-caret-position="353">
+          <caret line="527" column="29" lean-forward="false" selection-start-line="527" selection-start-column="23" selection-end-line="527" selection-end-column="29" />
           <folding>
             <element signature="e#4995#12012#0" expanded="false" />
             <element signature="e#12063#18679#0" expanded="false" />
-            <element signature="e#25888#25981#0" expanded="false" />
+            <element signature="e#25890#25983#0" expanded="false" />
           </folding>
         </state>
       </provider>
