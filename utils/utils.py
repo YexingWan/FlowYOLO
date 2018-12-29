@@ -301,7 +301,6 @@ def build_targets(
 
 
 
-
 def module_to_dict(module, exclude=[]):
         return dict([(x, getattr(module, x)) for x in dir(module)
                      if isclass(getattr(module, x))

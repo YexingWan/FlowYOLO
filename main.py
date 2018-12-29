@@ -263,7 +263,13 @@ def train(args):
             # save checkpoint for 10000 batches
 
 
-            #save checkpoint and validation
+            #save checkpoint and validatio
+
+            args.validation_frequency = 1
+            args.saving_checkpoint_interval = 1
+
+
+
             if cur_batch % args.validation_frequency == 0:
                 print("validation in {} batch".format(cur_batch))
                 test(flow_yolo,val_final_loader_list,args)

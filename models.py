@@ -777,8 +777,7 @@ class YOLOLayer(nn.Module):
             )
             return output
 
-# TODO:
-# support minibatch of test and inference(eval mode)
+
 class Darknet(nn.Module):
     """YOLOv3 object detection model"""
 
