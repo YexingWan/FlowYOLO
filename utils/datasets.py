@@ -236,7 +236,10 @@ class SequenceImage(Dataset):
                     # label is index in tensor, not the key in dict, index = key-1
                     filled_labels[idx] = np.array([center_x,center_y,scale_w,scale_h,self.classes_map[box["name"]]-1])
             filled_labels = torch.from_numpy(filled_labels)
-        return input_img, filled_labels
+            return input_img, filled_labels
+        else:
+            return input_img, [None]
+
 
     def __len__(self):
         return len(self.files)
