@@ -73,8 +73,8 @@ def built_args():
 
     parser.add_argument("--yolo_config_path", type=str, default="config/yolov3.cfg", help="path to model config file")
     parser.add_argument("--yolo_resume", type=str, default="weights/yolov3.weights", help="path to weights file")
-    parser.add_argument("--conf_thres", type=float, default=0.5, help="object confidence threshold")
-    parser.add_argument("--nms_thres", type=float, default=0.5, help="iou thresshold for non-maximum suppression")
+    parser.add_argument("--conf_thres", type=float, default=0.7, help="object confidence threshold")
+    parser.add_argument("--nms_thres", type=float, default=0.2, help="iou thresshold for non-maximum suppression")
     parser.add_argument("--iou_thres", type=float, default=0.5, help="iou threshold required to qualify as detected")
     args = parser.parse_args()
 
@@ -541,8 +541,8 @@ def draw_and_save(args,source,img_detections,classes,current_batch,v_writer = No
         # or source is image itself
         else:
             img = source
-            print("image_shape:{}".format(img.shape))
-            print("image_type:{}".format(img.dtype))
+            # print("image_shape:{}".format(img.shape))
+            # print("image_type:{}".format(img.dtype))
 
         plt.figure()
         fig, ax = plt.subplots(1)
