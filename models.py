@@ -908,8 +908,9 @@ class Darknet(nn.Module):
         # 3. load the new state dict
         self.module_list.load_state_dict(model_dict)
 
-        #print("initialized Yolo model layers:")
-        #for k in set(model_dict.keys())-set(pretrained_dict.keys()):
+        print("initialized Yolo model layers:")
+        for k in set(model_dict.keys())-set(pretrained_dict.keys()):
+            print(k)
 
 
 
