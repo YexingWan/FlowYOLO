@@ -211,7 +211,7 @@ class SequenceImage(Dataset):
         #---------
         #  Label
         #---------
-        filled_labels = None
+
         if self.classes_map is not None:
             label_path = self.annotation[index % len(self.annotation)].rstrip()
             boxes = ProcessXMLAnnotation(label_path)
