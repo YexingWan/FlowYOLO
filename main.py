@@ -57,6 +57,7 @@ def built_args():
                         help='Number of min-batches for inference. If < 0, it will be determined by training_dataloader')
     parser.add_argument('--inference_size', type=int, default=448,
                         help='image size for inference, image will resize to such size, should be divided by 64')
+    parser.add_argument('--fps', type=int, default=30,help='fps of saving vedio(inference)')
     #parser.add_argument('--aggregate_range', type=int, default=2)
 
 
