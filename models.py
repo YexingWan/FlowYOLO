@@ -891,6 +891,16 @@ class Darknet(nn.Module):
             self.apply(utils.utils.weights_init_normal)
             return
 
+        print("pretrained layers:")
+        for k,v in pretrained_dict.items():
+            print("{}:{}".format(k,v.shape))
+        print()
+        print("model layers:")
+        for k, v in model_dict.items():
+            print("{}:{}".format(k, v.shape))
+        print()
+
+
         # 1. filter out unnecessary keys
         pretrained_dict = {k: v for k, v in pretrained_dict.items() if k in model_dict and model_dict[k].shape == pretrained_dict[k].shape}
         # 2. overwrite entries in the existing state dict
@@ -900,10 +910,7 @@ class Darknet(nn.Module):
 
         #print("initialized Yolo model layers:")
         #for k in set(model_dict.keys())-set(pretrained_dict.keys()):
-        print("reuse layers:")
-        for k in pretrained_dict.keys():
-            print(k)
-        print()
+
 
 
     def set_multi_gpus(self,gpu_id_list):
