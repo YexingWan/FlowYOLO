@@ -486,7 +486,7 @@ def inference(args):
     last_frame = None
 
     # for each batch, input_imgs is 0-255 [b,c,h,w]
-    for batch_i, (input_imgs,_) in enumerate(dataloader):
+    for batch_i, input_imgs in enumerate(dataloader):
 
         flow_input = torch.unsqueeze(torch.stack([input_imgs[0], last_frame]).permute(1, 0, 2, 3),0) if last_frame is not None else None
         last_frame = input_imgs[0]
