@@ -878,6 +878,7 @@ class Darknet(nn.Module):
 
 
     def load_fit_weight(self, weights_path):
+        print(weights_path)
         # random init all weights
         self.apply(utils.utils.weights_init_normal)
         model_dict = self.module_list.state_dict()
