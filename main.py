@@ -516,7 +516,8 @@ def inference(args):
                           np.transpose(last_frame.numpy(), (1, 2, 0)),
                           detections,
                           classes)
-    v_writer.release()
+    if v_writer is not None:
+        v_writer.release()
 
 
 def draw_and_save(args,source,img_detections,classes,v_writer = None):
@@ -525,7 +526,6 @@ def draw_and_save(args,source,img_detections,classes,v_writer = None):
     cmap = plt.get_cmap('hot')
     colors = [cmap(i) for i in np.linspace(0, 1, 20)]
 
-    print('\nSaving result:')
     # Iterate through images and save plot of detections
     for img_i, (source, detections) in enumerate(zip(source, img_detections)):
 
@@ -602,6 +602,7 @@ def draw_and_save(args,source,img_detections,classes,v_writer = None):
 
         else:
             plt.savefig('./output/%06d.png' % (img_i), bbox_inches='tight', pad_inches=0.0)
+            print("result save as ./output/%06d.png" % (img_i))
             plt.close()
     return v_writer
 
