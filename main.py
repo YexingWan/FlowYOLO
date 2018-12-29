@@ -603,7 +603,7 @@ def draw_and_save(args,source,img_detections,classes,v_writer = None):
         else:
             plt.savefig('./output/%06d.png' % (img_i), bbox_inches='tight', pad_inches=0.0)
             print("result save as ./output/%06d.png" % (img_i))
-            plt.close()
+    plt.close()
     return v_writer
 
 
