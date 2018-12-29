@@ -891,14 +891,14 @@ class Darknet(nn.Module):
             self.apply(utils.utils.weights_init_normal)
             return
 
-        print("pretrained layers:")
-        for k,v in pretrained_dict.items():
-            print("{}:{}".format(k,v.shape))
-        print()
-        print("model layers:")
-        for k, v in model_dict.items():
-            print("{}:{}".format(k, v.shape))
-        print()
+        # print("pretrained layers:")
+        # for k,v in pretrained_dict.items():
+        #     print("{}:{}".format(k,v.shape))
+        # print()
+        # print("model layers:")
+        # for k, v in model_dict.items():
+        #     print("{}:{}".format(k, v.shape))
+        # print()
 
 
         # 1. filter out unnecessary keys
@@ -908,9 +908,11 @@ class Darknet(nn.Module):
         # 3. load the new state dict
         self.load_state_dict(model_dict)
 
-        print("initialized Yolo model layers:")
-        for k in set(model_dict.keys())-set(pretrained_dict.keys()):
-            print(k)
+        init_layer = set(model_dict.keys())-set(pretrained_dict.keys())
+        if len(init_layer)!= 0:
+            print("initialized Yolo model layers:")
+            for k in set(model_dict.keys())-set(pretrained_dict.keys()):
+                print(k)
 
 
 
