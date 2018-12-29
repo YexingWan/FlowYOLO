@@ -191,9 +191,6 @@ class SequenceImage(Dataset):
         img_path = self.files[index % len(self.files)]
         # Extract image
         img = np.array(Image.open(img_path))
-
-        print("read image success" if img is not None else "fail!!!!")
-
         #print("Image.open max:{}".format(img.max()))
         h, w, _ = img.shape
         dim_diff = np.abs(h - w)

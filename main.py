@@ -4,7 +4,7 @@ import models
 import torch
 import cv2
 from torch.utils.data import DataLoader
-import tqdm
+import tqdm, sys
 
 import argparse, os
 import numpy as np
@@ -581,7 +581,10 @@ def draw_and_save(args,source,img_detections,classes,v_writer = None):
         # If we haven't already shown or saved the plot, then we need to
         # draw the figure first...
         fig.canvas.draw()
-
+        if os.path.exists("./output") and os.path.isdir("./output"):
+            continue
+        else:
+            os.mkdir("./output")
         if v_writer is not None:
             data = np.fromstring(fig.canvas.tostring_rgb(), dtype=np.uint8, sep='')
             data = data.reshape(fig.canvas.get_width_height()[::-1] + (3,))
@@ -598,7 +601,7 @@ def draw_and_save(args,source,img_detections,classes,v_writer = None):
                 v_writer.write(data)
 
         else:
-            plt.savefig('output/%06d.png' % (img_i), bbox_inches='tight', pad_inches=0.0)
+            plt.savefig('./output/%06d.png' % (img_i), bbox_inches='tight', pad_inches=0.0)
             plt.close()
     return v_writer
 
