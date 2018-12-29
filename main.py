@@ -528,7 +528,7 @@ def draw_and_save(args,source,img_detections,classes,v_writer = None):
 
     # Iterate through images and save plot of detections
     for img_i, (source, detections) in enumerate(zip(source, img_detections)):
-
+        print("in drawing")
         # Create plot by path
         if isinstance(source,str):
             img = np.array(Image.open(source))
@@ -581,11 +581,9 @@ def draw_and_save(args,source,img_detections,classes,v_writer = None):
         # If we haven't already shown or saved the plot, then we need to
         # draw the figure first...
         fig.canvas.draw()
-        if os.path.exists("./output") and os.path.isdir("./output"):
-            continue
-        else:
+        if not (os.path.exists("./output") and os.path.isdir("./output")):
             os.mkdir("./output")
-            
+
         if v_writer is not None:
             data = np.fromstring(fig.canvas.tostring_rgb(), dtype=np.uint8, sep='')
             data = data.reshape(fig.canvas.get_width_height()[::-1] + (3,))
