@@ -177,6 +177,7 @@ class VideoFile(Dataset):
 class SequenceImage(Dataset):
     def __init__(self, img_folder_path:str, idx_class_map:map, img_size=448):
         self.files = sorted(glob.glob('%s/*.*' % img_folder_path))
+        print(len(self.files))
         self.annotation = [p.replace("Data","Annotations").replace("JPEG","xml") for p in self.files]
         self.img_shape = (img_size, img_size)
         self.max_objects = 50
