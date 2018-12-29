@@ -517,7 +517,7 @@ def inference(args):
                                      v_writer=v_writer)
         else:
             draw_and_save(args,
-                          np.transpose(last_frame.numpy(), (1, 2, 0)),
+                          [np.transpose(last_frame.numpy(), (1, 2, 0))],
                           detections,
                           classes,
                           batch_i)
