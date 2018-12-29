@@ -177,7 +177,6 @@ class VideoFile(Dataset):
 class SequenceImage(Dataset):
     def __init__(self, img_folder_path:str, idx_class_map:map, img_size=448):
         self.files = sorted(glob.glob('%s/*.*' % img_folder_path))
-        print(len(self.files))
         self.annotation = [p.replace("Data","Annotations").replace("JPEG","xml") for p in self.files]
         self.img_shape = (img_size, img_size)
         self.max_objects = 50
@@ -192,6 +191,9 @@ class SequenceImage(Dataset):
         img_path = self.files[index % len(self.files)]
         # Extract image
         img = np.array(Image.open(img_path))
+
+        print("read image success" if img is not None else "fail!!!!")
+
         #print("Image.open max:{}".format(img.max()))
         h, w, _ = img.shape
         dim_diff = np.abs(h - w)
