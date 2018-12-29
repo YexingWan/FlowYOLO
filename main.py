@@ -103,11 +103,6 @@ def train(args):
 
     flow_yolo.train()
 
-    # TODO：
-    # deprecated
-    # use new weigth
-    flow_yolo.load_weights(args.flow_resume, args.yolo_resume)
-
     for p in flow_yolo.parameters():
         p.requires_grad = True
 
@@ -124,6 +119,11 @@ def train(args):
             args.train_batch_size *= number_gpus
             #flow_yolo = nn.parallel.DataParallel(flow_yolo, device_ids=list(range(number_gpus)))
             flow_yolo.set_multi_gpus(list(range(number_gpus)))
+
+    # TODO：
+    # deprecated
+    # use new weigth
+    flow_yolo.load_weights(args.flow_resume, args.yolo_resume)
 
 
     optimizer = torch.optim.Adam(filter(lambda p: p.requires_grad, flow_yolo.parameters()),lr=1e-3)
@@ -445,17 +445,17 @@ def inference(args):
     # built module
     flow_yolo = models.FlowYOLO(args)
 
-    # TODO：
-    # deprecated
-    # use new weigth
-    flow_yolo.load_weights(args.flow_resume, args.yolo_resume)
-
     # set cuda
     if torch.cuda.is_available() and args.use_cuda:
         number_gpus=torch.cuda.device_count()
         if number_gpus > 0:
             print("GPU_NUMBER:{}".format(number_gpus))
             flow_yolo.set_multi_gpus(gpu_id_list=list(range(number_gpus)))
+
+    # TODO：
+    # deprecated
+    # use new weigth
+    flow_yolo.load_weights(args.flow_resume, args.yolo_resume)
 
     # set to eval mode
     flow_yolo.eval()
@@ -611,7 +611,7 @@ def main(args,task):
 
 
 """
-python3 main.py --task inference --yolo_config_path "./config/yolov3.cfg" --yolo_resume "../yolo_weight/yolov3.pth" --flow_model "FlowNet2CS" --flow_resume "../flow_weight/FlowNet2-CS_checkpoint.pth"
+python3 main.py --task inference --yolo_config_path "./config/yolov3.cfg" --yolo_resume "./work/checkpoints/30000_weights/yolo_f.th" --flow_model "FlowNet2CS" --flow_resume "./work/checkpoints/30000_weights/flow.pth"
 
 python3 main.py --task train --yolo_config_path "./config/yolov3.cfg" --yolo_resume "../yolo_weight/yolov3.pth" --flow_model "FlowNet2CS" --flow_resume "../flow_weight/FlowNet2-CS_checkpoint.pth" --train_batch_size 2
 """
