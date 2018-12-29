@@ -517,7 +517,7 @@ def inference(args):
                                      v_writer=v_writer)
         else:
             draw_and_save(args,
-                          [np.transpose(last_frame.numpy(), (1, 2, 0))],
+                          [np.transpose(last_frame.numpy(), (1, 2, 0)).astype(int)],
                           detections,
                           classes,
                           batch_i)
@@ -542,6 +542,7 @@ def draw_and_save(args,source,img_detections,classes,current_batch,v_writer = No
         else:
             img = source
             print("image_shape:{}".format(img.shape))
+            print("image_type:{}".format(img.dtype))
 
         plt.figure()
         fig, ax = plt.subplots(1)
