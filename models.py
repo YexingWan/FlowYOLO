@@ -881,7 +881,7 @@ class Darknet(nn.Module):
         print(weights_path)
         # random init all weights
         self.apply(utils.utils.weights_init_normal)
-        model_dict = self.module_list.state_dict()
+        model_dict = self.state_dict()
 
         # get pre-trained weight
         if weights_path and os.path.isfile(weights_path):
