@@ -507,10 +507,11 @@ def inference(args):
         # Save image and detections depends on type of source
         if cap is not None and v_writer is not None:
             v_writer = draw_and_save(args,
-                          [cap.read()[1] for _ in range(args.inference_batch_size)],
-                          detections,
-                          classes,
-                          v_writer=v_writer)
+                                     [cap.read()[1] for _ in range(args.inference_batch_size)],
+                                     detections,
+                                     classes,
+                                     batch_i,
+                                     v_writer=v_writer)
         else:
             draw_and_save(args,
                           np.transpose(last_frame.numpy(), (1, 2, 0)),
