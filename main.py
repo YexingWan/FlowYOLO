@@ -515,19 +515,22 @@ def inference(args):
             draw_and_save(args,
                           np.transpose(last_frame.numpy(), (1, 2, 0)),
                           detections,
-                          classes)
+                          classes,
+                          batch_i)
     if v_writer is not None:
         v_writer.release()
 
 
-def draw_and_save(args,source,img_detections,classes,v_writer = None):
+def draw_and_save(args,source,img_detections,classes,current_batch,v_writer = None):
 
+    start_idx = current_batch*args.inference_batch_size
     # get the colormap instance then get 20 colors
     cmap = plt.get_cmap('hot')
     colors = [cmap(i) for i in np.linspace(0, 1, 20)]
 
     # Iterate through images and save plot of detections
     for img_i, (source, detections) in enumerate(zip(source, img_detections)):
+        img_i += start_idx
         print("in drawing")
         # Create plot by path
         if isinstance(source,str):
