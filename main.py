@@ -73,9 +73,12 @@ def built_args():
 
     parser.add_argument("--yolo_config_path", type=str, default="config/yolov3.cfg", help="path to model config file")
     parser.add_argument("--yolo_resume", type=str, default="weights/yolov3.weights", help="path to weights file")
-    parser.add_argument("--conf_thres", type=float, default=0.9, help="object confidence threshold")
-    parser.add_argument("--nms_thres", type=float, default=0.1, help="iou thresshold for non-maximum suppression")
-    parser.add_argument("--iou_thres", type=float, default=0.5, help="iou threshold required to qualify as detected")
+
+    parser.add_argument("--conf_thres", type=float, default=0.5,help="object confidence threshold required to qualify as detected")
+    parser.add_argument("--cls_thres", type=float, default=0.2,help="class score threshold required to qualify as detected")
+    parser.add_argument("--iou_thres", type=float, default=0.7, help="iou threshold required to qualify as detected")
+
+    parser.add_argument("--nms_thres", type=float, default=0.3, help="iou thresshold for non-maximum suppression")
     args = parser.parse_args()
 
     # model class
@@ -335,7 +338,11 @@ def test(model,dataloader_list:list,args):
 
                 # 经过nms以后的outputs是一个list of Tensor，每个Tensor代表一张图的prediction
                 # tensor的shape为[num_selected_boxed, 7(x1, y1, x2, y2, obj_conf, class_conf, class_pred)] unscaled
-                outputs = utils.non_max_suppression(outputs, 80, conf_thres=args.conf_thres, nms_thres=args.nms_thres)
+                outputs = utils.non_max_suppression(outputs,
+                                                    num_classes=args.data_num_classes,
+                                                    cls_thres=args.cls_thres,
+                                                    conf_thres=args.conf_thres,
+                                                    nms_thres=args.nms_thres)
 
             for output, annotations in zip(outputs, targets):
                 # annotations也是一个Tensor[50,5(x,y,w,h,class)] scaled
@@ -503,7 +510,11 @@ def inference(args):
             detections, features = flow_yolo(flow_input = flow_input,
                                              data = input_imgs,
                                              last_feature = last_feature)
-            detections = utils.non_max_suppression(detections, len(classes), args.conf_thres, args.nms_thres)
+            detections = utils.non_max_suppression(detections,
+                                                   num_classes=args.data_num_classes,
+                                                   cls_thres=args.cls_thres,
+                                                   conf_thres=args.conf_thres,
+                                                   nms_thres=args.nms_thres)
             # features is a list of list
             last_feature = features
 

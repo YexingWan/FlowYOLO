@@ -119,8 +119,8 @@ def bbox_iou_numpy(box1, box2):
 
     return intersection / ua
 
-
-def non_max_suppression(prediction, num_classes, conf_thres=0.5, nms_thres=0.5):
+# TODO: modify nms consider class_conf
+def non_max_suppression(prediction, num_classes, conf_thres=0.9, cls_thres = 0.2, nms_thres=0.3):
     """
     这里的output是经过预处理的output（在yoloLayer中预处理），[nB,number of anchory, bbox_attrs(5+num_classes)]
     其中bbox_attrs为 x y w h conf cls_conf的predict
@@ -144,9 +144,13 @@ def non_max_suppression(prediction, num_classes, conf_thres=0.5, nms_thres=0.5):
     # for each image
     output = [None for _ in range(len(prediction))]
     for image_i, image_pred in enumerate(prediction):
+
+
+
+
         # Filter out confidence scores below threshold
-        conf_mask = (image_pred[:, 4] >= conf_thres).squeeze()
-        image_pred = image_pred[conf_mask]
+        result_mask = (image_pred[:, 4] >= conf_thres and image_pred[:, 5]>=cls_thres).squeeze()
+        image_pred = image_pred[result_mask]
         # If none are remaining => process next image
         if not image_pred.size(0):
             continue
@@ -155,12 +159,21 @@ def non_max_suppression(prediction, num_classes, conf_thres=0.5, nms_thres=0.5):
         # Detections ordered as (x1, y1, x2, y2, obj_conf, class_conf, class_pred)
         detections = torch.cat((image_pred[:, :5], class_conf.float(), class_pred.float()), 1)
 
+
+
+
+
+
+
         # 这里的detection的shape[num_selected_box,7(x1, y1, x2, y2, obj_conf, class_conf, class_pred)]
         # Iterate through all predicted classes
         unique_labels = detections[:, -1].cpu().unique()
         if prediction.is_cuda:
             unique_labels = unique_labels.cuda()
         for c in unique_labels:
+
+
+
             # Get the detections with the particular class
             detections_class = detections[detections[:, -1] == c]
             # Sort the detections by maximum objectness confidence
@@ -169,6 +182,10 @@ def non_max_suppression(prediction, num_classes, conf_thres=0.5, nms_thres=0.5):
             # Perform non-maximum suppression
             # max_detections is list of tensor with shape(1,7)
             max_detections = []
+
+
+
+
             while detections_class.size(0):
                 # Get detection with highest confidence and save as max detection
                 max_detections.append(detections_class[0].unsqueeze(0))
@@ -293,8 +310,13 @@ def build_targets(
             # Calculate iou between ground truth() and best matching prediction
             iou = bbox_iou(gt_box, pred_box, x1y1x2y2=False)
             pred_label = torch.argmax(pred_cls[b, best_n, gj, gi])
+            pred_cls_score = pred_cls[b, best_n, gj, gi][pred_label]
             score = pred_conf[b, best_n, gj, gi]
-            if iou > 0.5 and pred_label == target_label and score > 0.5:
+
+
+
+            # TODO: change to num set in args
+            if iou > 0.7 and pred_label == target_label and pred_cls_score > 0.2 and score > 0.5:
                 nCorrect += 1
 
     return nGT, nCorrect, mask, conf_mask, tx, ty, tw, th, tconf, tcls
