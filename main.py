@@ -488,8 +488,11 @@ def inference(args):
     # for each batch, input_imgs is 0-255 [b,c,h,w]
     for batch_i, input_imgs in enumerate(dataloader):
 
+        print("input_imaggs_shape:{}".format(input_imgs.shape))
         flow_input = torch.unsqueeze(torch.stack([input_imgs[0], last_frame]).permute(1, 0, 2, 3),0) if last_frame is not None else None
         last_frame = input_imgs[0]
+
+
 
         if args.use_cuda:
             flow_input = flow_input.cuda() if flow_input is not None else None
@@ -505,19 +508,19 @@ def inference(args):
             last_feature = features
 
         # Save image and detections depends on type of source
-        if cap is not None and v_writer is not None:
-            v_writer = draw_and_save(args,
-                                     [cap.read()[1] for _ in range(args.inference_batch_size)],
-                                     detections,
-                                     classes,
-                                     batch_i,
-                                     v_writer=v_writer)
-        else:
-            draw_and_save(args,
-                          np.transpose(last_frame.numpy(), (1, 2, 0)),
-                          detections,
-                          classes,
-                          batch_i)
+        # if cap is not None and v_writer is not None:
+        #     v_writer = draw_and_save(args,
+        #                              [cap.read()[1] for _ in range(args.inference_batch_size)],
+        #                              detections,
+        #                              classes,
+        #                              batch_i,
+        #                              v_writer=v_writer)
+        # else:
+        #     draw_and_save(args,
+        #                   np.transpose(last_frame.numpy(), (1, 2, 0)),
+        #                   detections,
+        #                   classes,
+        #                   batch_i)
     if v_writer is not None:
         v_writer.release()
 
@@ -532,7 +535,6 @@ def draw_and_save(args,source,img_detections,classes,current_batch,v_writer = No
     # Iterate through images and save plot of detections
     for img_i, (source, detections) in enumerate(zip(source, img_detections)):
         img_i += start_idx
-        print("in drawing")
         # Create plot by path
         if isinstance(source,str):
             img = np.array(Image.open(source))
