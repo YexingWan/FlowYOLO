@@ -965,7 +965,7 @@ class FlowYOLO(nn.Module):
             print("Random initialization")
 
         # load yolo weight
-        self.detect_model.load_weights(weights_path=yolo_weights_path)
+        self.detect_model.load_fit_weights(weights_path=yolo_weights_path)
 
 
     def save_weights(self, path):
