@@ -147,9 +147,9 @@ def non_max_suppression(prediction, num_classes, conf_thres=0.9, cls_thres = 0.2
         # Filter out confidence scores below threshold
 
         result_mask = (image_pred[:, 4] >= conf_thres)&\
-        (image_pred[:, 5:].max(dim=1)[0]>=cls_thres)&\
-                      (image_pred[:,2]-image_pred[:,0]>1)&\
-                      (image_pred[:,3]-image_pred[:,1]>1)
+                      (image_pred[:, 5:].max(dim=1)[0]>=cls_thres)&\
+                      (image_pred[:,2]-image_pred[:,0]>3)&\
+                      (image_pred[:,3]-image_pred[:,1]>3)
 
         image_pred = image_pred[result_mask]
         # If none are remaining => process next image
@@ -167,8 +167,6 @@ def non_max_suppression(prediction, num_classes, conf_thres=0.9, cls_thres = 0.2
             unique_labels = unique_labels.cuda()
         for c in unique_labels:
 
-
-
             # Get the detections with the particular class
             detections_class = detections[detections[:, -1] == c]
             # Sort the detections by maximum objectness confidence
@@ -177,10 +175,6 @@ def non_max_suppression(prediction, num_classes, conf_thres=0.9, cls_thres = 0.2
             # Perform non-maximum suppression
             # max_detections is list of tensor with shape(1,7)
             max_detections = []
-
-
-
-
             while detections_class.size(0):
                 # Get detection with highest confidence and save as max detection
                 max_detections.append(detections_class[0].unsqueeze(0))
