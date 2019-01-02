@@ -272,8 +272,6 @@ def train(args):
             args.validation_frequency = 1
             args.saving_checkpoint_interval = 1
 
-
-
             if cur_batch % args.validation_frequency == 0:
                 print("validation in {} batch".format(cur_batch))
                 test(flow_yolo,val_final_loader_list,args)
@@ -639,7 +637,7 @@ def main(args,task):
 """
 python3 main.py --task inference --yolo_config_path "./config/yolov3.cfg" --yolo_resume "./work/checkpoints/30000_weights/yolo_f.pth" --flow_model "FlowNet2CS" --flow_resume "./work/checkpoints/30000_weights/flow.pth"
 
-python3 main.py --task train --yolo_config_path "./config/yolov3.cfg" --yolo_resume "../yolo_weight/yolov3.pth" --flow_model "FlowNet2CS" --flow_resume "../flow_weight/FlowNet2-CS_checkpoint.pth" --train_batch_size 2
+python3 main.py --task train --yolo_config_path "./config/yolov3.cfg" --yolo_resume "./work/checkpoints/30000_weights/yolo_f.pth" --flow_model "FlowNet2CS" --flow_resume "./work/checkpoints/30000_weights/flow.pth" --train_batch_size 3
 """
 
 if __name__ == "__main__":
