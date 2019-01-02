@@ -78,7 +78,7 @@ def built_args():
     parser.add_argument("--cls_thres", type=float, default=0.9,help="class score threshold required to qualify as detected")
     parser.add_argument("--iou_thres", type=float, default=0.1, help="iou threshold required to qualify as detected")
 
-    parser.add_argument("--nms_thres", type=float, default=0.3, help="iou thresshold for non-maximum suppression")
+    parser.add_argument("--nms_thres", type=float, default=0.1, help="iou thresshold for non-maximum suppression")
     args = parser.parse_args()
 
     # model class
@@ -539,7 +539,7 @@ def inference(args):
     if v_writer is not None:
         v_writer.release()
 
-
+# TODO: modify using opencv
 def draw_and_save(args,source,img_detections,classes,current_batch,v_writer = None):
 
     start_idx = current_batch*args.inference_batch_size
@@ -556,7 +556,7 @@ def draw_and_save(args,source,img_detections,classes,current_batch,v_writer = No
         # or source is image itself
         else:
             img = source
-            # print("image_shape:{}".format(img.shape))
+            print("image_shape:{}".format(img.shape))
             # print("image_type:{}".format(img.dtype))
 
         plt.figure()
@@ -588,7 +588,7 @@ def draw_and_save(args,source,img_detections,classes,current_batch,v_writer = No
 
                 color = bbox_colors[int(np.where(unique_labels == int(cls_pred))[0])]
                 # Create a Rectangle patch
-                bbox = patches.Rectangle((x1, y1), box_w, box_h, linewidth=2,
+                bbox = patches.Rectangle((x1, y1), box_w, box_h, linewidth=1,
                                          edgecolor=color,
                                          facecolor='none')
                 # Add the bbox to the plot
