@@ -74,8 +74,8 @@ def built_args():
     parser.add_argument("--yolo_config_path", type=str, default="config/yolov3.cfg", help="path to model config file")
     parser.add_argument("--yolo_resume", type=str, default="weights/yolov3.weights", help="path to weights file")
 
-    parser.add_argument("--conf_thres", type=float, default=0.9,help="object confidence threshold required to qualify as detected")
-    parser.add_argument("--cls_thres", type=float, default=0.5,help="class score threshold required to qualify as detected")
+    parser.add_argument("--conf_thres", type=float, default=0.95,help="object confidence threshold required to qualify as detected")
+    parser.add_argument("--cls_thres", type=float, default=0.9,help="class score threshold required to qualify as detected")
     parser.add_argument("--iou_thres", type=float, default=0.1, help="iou threshold required to qualify as detected")
 
     parser.add_argument("--nms_thres", type=float, default=0.3, help="iou thresshold for non-maximum suppression")
@@ -491,6 +491,10 @@ def inference(args):
 
     last_feature = None
     last_frame = None
+
+    print("confidence threshold:{}".format(args.conf_thres))
+    print("class threshold:{}".format(args.cls_thres))
+    print("nms iou threshold:{}".format(args.nms_thres))
 
     # for each batch, input_imgs is 0-255 [b,c,h,w]
     for batch_i, input_imgs in enumerate(dataloader):
