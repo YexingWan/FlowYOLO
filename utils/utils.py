@@ -150,6 +150,7 @@ def non_max_suppression(prediction, num_classes, conf_thres=0.9, cls_thres = 0.2
 
         # Filter out confidence scores below threshold
         print(image_pred[:, 5:].max(dim=1)[0])
+        print(image_pred[:, 4])
 
         result_mask = (image_pred[:, 4] >= conf_thres and image_pred[:, 5:].max(dim=1)[0]>=cls_thres).squeeze()
 
