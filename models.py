@@ -625,6 +625,8 @@ class YOLOLayer(nn.Module):
         self.bce_loss = nn.BCELoss(reduction='mean')  # Confidence loss
         self.ce_loss = nn.CrossEntropyLoss()  # Class loss
 
+        self.sm = nn.Softmax(dim=4)
+
     def forward(self, x, targets=None):
         # print("input shape of yolo_layer:{}".format(x.shape))
         nA = self.num_anchors
@@ -766,8 +768,8 @@ class YOLOLayer(nn.Module):
         # predict / val
         else:
             # If not in training phase return predictions
-            sm = nn.Softmax(dim=4)
-            pred_cls = sm(pred_cls)
+
+            pred_cls = self.sm(pred_cls)
             output = torch.cat(
                 (
                     # boxes (x y w h) is unscaled coordinate of resized image
@@ -847,7 +849,7 @@ class Darknet(nn.Module):
 
             elif module_def["type"] == "yolo":
                 # Train phase: get loss
-                x = x.cpu()
+                # x = x.cpu()
                 if is_training:
                     # x, *losses = module[0](x, targets)
                     x = module[0](x,targets)
@@ -923,7 +925,7 @@ class Darknet(nn.Module):
         parall_model_list = nn.ModuleList()
         for i, (module_def, module) in enumerate(zip(self.module_defs, self.module_list)):
             if module_def["type"] == "yolo":
-                pass
+                module = module.cuda()
             else:
                 module = nn.parallel.DataParallel(module,device_ids=gpu_id_list).cuda()
             parall_model_list.append(module)

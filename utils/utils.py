@@ -144,18 +144,10 @@ def non_max_suppression(prediction, num_classes, conf_thres=0.9, cls_thres = 0.2
     # for each image
     output = [None for _ in range(len(prediction))]
     for image_i, image_pred in enumerate(prediction):
-
-
-
-
         # Filter out confidence scores below threshold
-        print(image_pred[:, 5:].max(dim=1)[0]>= conf_thres)
-        print((image_pred[:, 5:].max(dim=1)[0]>= conf_thres).shape)
-        print(image_pred[:, 4]>=cls_thres)
-        print((image_pred[:, 4]>=cls_thres).shape)
 
-
-        result_mask = (image_pred[:, 4] >= conf_thres and image_pred[:, 5:].max(dim=1)[0]>=cls_thres)
+        result_mask = (image_pred[:, 4] >= conf_thres)&(image_pred[:, 5:].max(dim=1)[0]>=cls_thres)
+        print(result_mask)
 
         image_pred = image_pred[result_mask]
         # If none are remaining => process next image
@@ -311,13 +303,12 @@ def build_targets(
             # Calculate iou between ground truth() and best matching prediction
             iou = bbox_iou(gt_box, pred_box, x1y1x2y2=False)
             pred_label = torch.argmax(pred_cls[b, best_n, gj, gi])
-            pred_cls_score = pred_cls[b, best_n, gj, gi][pred_label]
             score = pred_conf[b, best_n, gj, gi]
 
 
 
             # TODO: change to num set in args
-            if iou > 0.7 and pred_label == target_label and pred_cls_score > 0.2 and score > 0.5:
+            if iou > 0.7 and pred_label == target_label and score > 0.5:
                 nCorrect += 1
 
     return nGT, nCorrect, mask, conf_mask, tx, ty, tw, th, tconf, tcls
