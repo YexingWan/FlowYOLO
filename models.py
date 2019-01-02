@@ -770,6 +770,7 @@ class YOLOLayer(nn.Module):
             # If not in training phase return predictions
 
             pred_cls = self.sm(pred_cls)
+            print("test predict max:{}".format(pred_cls.max()))
             output = torch.cat(
                 (
                     # boxes (x y w h) is unscaled coordinate of resized image
