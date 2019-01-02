@@ -15,8 +15,6 @@
       <change type="MODIFICATION" beforePath="$USER_HOME$/Smart-Road/03 Execution/frontend.py" afterPath="$USER_HOME$/Smart-Road/03 Execution/frontend.py" />
       <change type="MODIFICATION" beforePath="$USER_HOME$/Smart-Road/03 Execution/gen_anchors.py" afterPath="$USER_HOME$/Smart-Road/03 Execution/gen_anchors.py" />
       <change type="MODIFICATION" beforePath="$USER_HOME$/Smart-Road/03 Execution/predict.py" afterPath="$USER_HOME$/Smart-Road/03 Execution/predict.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.py" afterPath="$PROJECT_DIR$/main.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/models.py" afterPath="$PROJECT_DIR$/models.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/utils/utils.py" afterPath="$PROJECT_DIR$/utils/utils.py" />
       <change type="MODIFICATION" beforePath="$USER_HOME$/kmeans-anchor-boxes/kmeans.py" afterPath="$USER_HOME$/kmeans-anchor-boxes/kmeans.py" />
     </list>
@@ -66,15 +64,15 @@
       <file leaf-file-name="utils.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/utils/utils.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="338">
-              <caret line="148" column="56" lean-forward="true" selection-start-line="148" selection-start-column="56" selection-end-line="148" selection-end-column="56" />
+            <state relative-caret-position="336">
+              <caret line="151" column="51" lean-forward="false" selection-start-line="151" selection-start-column="51" selection-end-line="151" selection-end-column="51" />
               <folding>
                 <element signature="e#135#260#0" expanded="false" />
                 <element signature="e#295#626#0" expanded="false" />
                 <element signature="e#668#1565#0" expanded="false" />
                 <element signature="e#1613#2904#0" expanded="false" />
                 <element signature="e#2943#3820#0" expanded="false" />
-                <element signature="e#11891#12103#0" expanded="false" />
+                <element signature="e#11893#12105#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -758,15 +756,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/utils/utils.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="338">
-          <caret line="148" column="56" lean-forward="true" selection-start-line="148" selection-start-column="56" selection-end-line="148" selection-end-column="56" />
+        <state relative-caret-position="336">
+          <caret line="151" column="51" lean-forward="false" selection-start-line="151" selection-start-column="51" selection-end-line="151" selection-end-column="51" />
           <folding>
             <element signature="e#135#260#0" expanded="false" />
             <element signature="e#295#626#0" expanded="false" />
             <element signature="e#668#1565#0" expanded="false" />
             <element signature="e#1613#2904#0" expanded="false" />
             <element signature="e#2943#3820#0" expanded="false" />
-            <element signature="e#11891#12103#0" expanded="false" />
+            <element signature="e#11893#12105#0" expanded="false" />
           </folding>
         </state>
       </provider>
