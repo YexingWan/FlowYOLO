@@ -1,5 +1,5 @@
 rgb_max=255
-classes=13
+classes=30
 names=data/coco_intersect_VID.names
 train=/disk2/wanyx/ILSVRC2015/
 valid=/disk2/wanyx/ILSVRC2015/
