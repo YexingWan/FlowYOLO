@@ -766,6 +766,8 @@ class YOLOLayer(nn.Module):
         # predict / val
         else:
             # If not in training phase return predictions
+            sm = nn.Softmax(dim=4)
+            pred_cls = sm(pred_cls)
             output = torch.cat(
                 (
                     # boxes (x y w h) is unscaled coordinate of resized image
