@@ -521,21 +521,21 @@ def inference(args):
                                                    nms_thres=args.nms_thres)
             # features is a list of list
             last_feature = features
-
-        #Save image and detections depends on type of source
-        if cap is not None and v_writer is not None:
-            v_writer = draw_and_save(args,
-                                     [cap.read()[1] for _ in range(args.inference_batch_size)],
-                                     detections,
-                                     classes,
-                                     batch_i,
-                                     v_writer=v_writer)
-        else:
-            draw_and_save(args,
-                          [np.transpose(last_frame.numpy(), (1, 2, 0)).astype(int)],
-                          detections,
-                          classes,
-                          batch_i)
+        if flow_input is not None:
+            #Save image and detections depends on type of source
+            if cap is not None and v_writer is not None:
+                v_writer = draw_and_save(args,
+                                         [cap.read()[1] for _ in range(args.inference_batch_size)],
+                                         detections,
+                                         classes,
+                                         batch_i,
+                                         v_writer=v_writer)
+            else:
+                draw_and_save(args,
+                              [np.transpose(last_frame.numpy(), (1, 2, 0)).astype(int)],
+                              detections,
+                              classes,
+                              batch_i)
     if v_writer is not None:
         v_writer.release()
 
