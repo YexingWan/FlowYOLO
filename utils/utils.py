@@ -302,7 +302,7 @@ def build_targets(
 
 
             # TODO: change to num set in args
-            if iou > 0.7 and pred_label == target_label and score > 0.5:
+            if iou > 0.5 and pred_label == target_label and score > 0.5:
                 nCorrect += 1
 
     return nGT, nCorrect, mask, conf_mask, tx, ty, tw, th, tconf, tcls
