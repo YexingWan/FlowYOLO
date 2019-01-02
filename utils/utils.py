@@ -148,8 +148,8 @@ def non_max_suppression(prediction, num_classes, conf_thres=0.9, cls_thres = 0.2
 
         result_mask = (image_pred[:, 4] >= conf_thres)&\
                       (image_pred[:, 5:].max(dim=1)[0]>=cls_thres)&\
-                      (image_pred[:,2]-image_pred[:,0]>3)&\
-                      (image_pred[:,3]-image_pred[:,1]>3)
+                      (image_pred[:,2]-image_pred[:,0]>5)&\
+                      (image_pred[:,3]-image_pred[:,1]>5)
 
         image_pred = image_pred[result_mask]
         # If none are remaining => process next image
@@ -190,7 +190,7 @@ def non_max_suppression(prediction, num_classes, conf_thres=0.9, cls_thres = 0.2
             max_detections = torch.cat(max_detections)
             # Add max detections to outputs
             output[image_i] = max_detections if output[image_i] is None else torch.cat((output[image_i], max_detections))
-
+        print(output[image_i])
 
     return output
 
