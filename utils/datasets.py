@@ -454,9 +454,9 @@ def built_VID_datasets(path, val_ratio:float=1/4, approx_val_num_sequence:int=-1
         # 否则根据ratio取所有非training seq
         sample_num = int(approx_val_num_sequence/len(class_idx))+1 if approx_val_num_sequence != -1 else -1
         if sample_num != -1:
-            final_val_path.update(random.sample(folder_path-selected_sequence,sample_num))
+            final_val_path.update(random.sample(folder_path-set(selected_sequence),sample_num))
         else:
-            final_val_path.update(folder_path-selected_sequence)
+            final_val_path.update(folder_path-set(selected_sequence))
 
 
     print("number of training sequence:{}".format(len(final_training_path)))
