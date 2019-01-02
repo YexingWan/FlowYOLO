@@ -74,9 +74,9 @@ def built_args():
     parser.add_argument("--yolo_config_path", type=str, default="config/yolov3.cfg", help="path to model config file")
     parser.add_argument("--yolo_resume", type=str, default="weights/yolov3.weights", help="path to weights file")
 
-    parser.add_argument("--conf_thres", type=float, default=0.95,help="object confidence threshold required to qualify as detected")
-    parser.add_argument("--cls_thres", type=float, default=0.9,help="class score threshold required to qualify as detected")
-    parser.add_argument("--iou_thres", type=float, default=0.1, help="iou threshold required to qualify as detected")
+    parser.add_argument("--conf_thres", type=float, default=0.5,help="object confidence threshold required to qualify as detected")
+    parser.add_argument("--cls_thres", type=float, default=0.5,help="class score threshold required to qualify as detected")
+    parser.add_argument("--iou_thres", type=float, default=0.5, help="iou threshold required to qualify as detected")
 
     parser.add_argument("--nms_thres", type=float, default=0.1, help="iou thresshold for non-maximum suppression")
     args = parser.parse_args()
@@ -264,14 +264,8 @@ def train(args):
             cur_batch += 1
             # clear unused memory
             torch.cuda.empty_cache()
-            # save checkpoint for 10000 batches
-
 
             #save checkpoint and validatio
-
-            args.validation_frequency = 1
-            args.saving_checkpoint_interval = 1
-
             if cur_batch % args.validation_frequency == 0:
                 print("validation in {} batch".format(cur_batch))
                 test(flow_yolo,val_final_loader_list,args)
