@@ -322,7 +322,7 @@ class SequenceImage_intersect(Dataset):
 # special designed Dataset for general train
 class dictDataset(Dataset):
     def __init__(self, dataset_list):
-        print("sequence_num:{}".format(len(dataset_list)))
+        #print("sequence_num:{}".format(len(dataset_list)))
         self.dataloader_list = [DataLoader(dataset_list[i], 1) for i in range(len(dataset_list))]
         max = 0
         self.iter_dict = dict()

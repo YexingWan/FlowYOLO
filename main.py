@@ -134,7 +134,7 @@ def train(args):
 
     ###########bulit dataset for traning##########
 
-    train_dataset_list, val_dataset_list = datasets.built_VID_datasets(args.data_train_path,1/4)
+    train_dataset_list, val_dataset_list = datasets.built_VID_datasets(args.data_train_path,1/3)
     #dataset_list = datasets.built_coco_intersect_VID_datasets(path = args.data_train_path)
 
     train_final_dataset = datasets.dictDataset(train_dataset_list)
@@ -466,16 +466,11 @@ def inference(args):
     if args.camera or (os.path.splitext(args.data_infer_path)[-1] in ('.mkv', '.avi', '.mp4', '.rmvb', '.AVI', '.MKV', '.MP4') and os.path.isfile(args.data_infer_path)):
         dataset = datasets.VideoFile(args,src = args.data_infer_path, camera =args.camera, start=0, duration=10)
         print("video dataset!")
-        if args.camera:
-            cap = cv2.VideoCapture(0)
-        else:
-            cap = cv2.VideoCapture(args.data_infer_path)
         v_writer = cv2.VideoWriter()
         args.inference_batch_size = 1
     else:
         dataset = datasets.SequenceImage(args.data_infer_path,None)
         args.inference_batch_size = 1
-        cap = None
         v_writer= None
 
     # init data loader
@@ -515,9 +510,9 @@ def inference(args):
             last_feature = features
         if flow_input is not None:
             #Save image and detections depends on type of source
-            if cap is not None and v_writer is not None:
+            if v_writer is not None:
                 v_writer = draw_and_save(args,
-                                         [cap.read()[1] for _ in range(args.inference_batch_size)],
+                                         [np.transpose(last_frame.numpy(), (1, 2, 0)).astype(int)],
                                          detections,
                                          classes,
                                          batch_i,
@@ -531,8 +526,52 @@ def inference(args):
     if v_writer is not None:
         v_writer.release()
 
-# TODO: modify using opencv
-def draw_and_save(args,source,img_detections,classes,current_batch,v_writer = None):
+
+
+def draw_and_save(args,imgs,img_detections,classes,current_batch,v_writer = None):
+    start_idx = current_batch * args.inference_batch_size
+
+    for img_i, (img, detections) in enumerate(zip(imgs, img_detections)):
+        img_i += start_idx
+        image_h, image_w, _ = img.shape
+        if detections is not None:
+            unique_labels = detections[:, -1].cpu().unique()
+            #n_cls_preds = len(unique_labels)
+            for x1, y1, x2, y2, conf, cls_conf, cls_pred in detections:
+                cv2.rectangle(img, (x2,y2), (x1,y1), (255,0,0), 3)
+                cv2.putText(img,
+                            classes[cls_pred] + ' ' + str(cls_conf),
+                            (x1, y1),
+                            cv2.FONT_HERSHEY_SIMPLEX,
+                            1e-3 * image_h,
+                            (255,0,0), 2)
+
+        if not (os.path.exists("./output") and os.path.isdir("./output")):
+            os.mkdir("./output")
+
+        if v_writer is not None:
+            if v_writer.isOpened():
+                # Now we can save it to a numpy array.
+                v_writer.write(img)
+            else:
+                v_writer = cv2.VideoWriter("output/result.avi",
+                                           apiPreference=cv2.CAP_ANY,
+                                           fourcc=cv2.VideoWriter_fourcc(*'MJPG'),
+                                           fps=int(args.fps),
+                                           frameSize=(img.shape[1], img.shape[0]))
+                print("data_shape:{}".format(img.shape))
+                v_writer.write(img)
+
+        else:
+            cv2.imwrite('./output/%06d.png' % (img_i),img)
+            print("result save as ./output/%06d.png" % (img_i))
+
+
+
+
+
+# TODO: modify using opencv, and do not dell with pad at all
+def _draw_and_save(args,source,img_detections,classes,current_batch,v_writer = None):
 
     start_idx = current_batch*args.inference_batch_size
     # get the colormap instance then get 20 colors
@@ -543,26 +582,20 @@ def draw_and_save(args,source,img_detections,classes,current_batch,v_writer = No
     for img_i, (source, detections) in enumerate(zip(source, img_detections)):
         img_i += start_idx
         # Create plot by path
-        if isinstance(source,str):
-            img = np.array(Image.open(source))
-        # or source is image itself
-        else:
-            img = source
-            #print("image_shape:{}".format(img.shape))
-            # print("image_type:{}".format(img.dtype))
-
+        img = source
+        #print("image_shape:{}".format(img.shape))
+        # print("image_type:{}".format(img.dtype))
         plt.figure()
         fig, ax = plt.subplots(1)
         ax.imshow(img)
-
         # The amount of padding that was added
-        pad_x = max(img.shape[0] - img.shape[1], 0) * (args.inference_size / max(img.shape))
-        pad_y = max(img.shape[1] - img.shape[0], 0) * (args.inference_size / max(img.shape))
+        #pad_x = max(img.shape[0] - img.shape[1], 0) * (args.inference_size / max(img.shape))
+        #pad_y = max(img.shape[1] - img.shape[0], 0) * (args.inference_size / max(img.shape))
         #print("pad_x:%d pad_y:%d " % (pad_x, pad_y))
 
         # Image height and width after padding is removed
-        unpad_h = args.inference_size - pad_y
-        unpad_w = args.inference_size - pad_x
+        #unpad_h = args.inference_size - pad_y
+        #unpad_w = args.inference_size - pad_x
 
         # Draw bounding boxes and labels of detections
         if detections is not None:
@@ -573,10 +606,15 @@ def draw_and_save(args,source,img_detections,classes,current_batch,v_writer = No
                 #print('\t+ Label: %s, Conf: %.5f' % (classes[int(cls_pred)], cls_conf.item()))
 
                 # Rescale coordinates to original dimensions
-                box_h = ((y2 - y1) / unpad_h) * img.shape[0]
-                box_w = ((x2 - x1) / unpad_w) * img.shape[1]
-                y1 = ((y1 - pad_y // 2) / unpad_h) * img.shape[0]
-                x1 = ((x1 - pad_x // 2) / unpad_w) * img.shape[1]
+                # box_h = ((y2 - y1) / unpad_h) * img.shape[0]
+                # box_w = ((x2 - x1) / unpad_w) * img.shape[1]
+                # y1 = ((y1 - pad_y // 2) / unpad_h) * img.shape[0]
+                # x1 = ((x1 - pad_x // 2) / unpad_w) * img.shape[1]
+
+                box_h = ((y2 - y1) / args.inference_size) * img.shape[0]
+                box_w = ((x2 - x1) / args.inference_size) * img.shape[1]
+                y1 = ((y1 // 2) / args.inference_size) * img.shape[0]
+                x1 = ((x1 // 2) / args.inference_size) * img.shape[1]
 
                 color = bbox_colors[int(np.where(unique_labels == int(cls_pred))[0])]
                 # Create a Rectangle patch
