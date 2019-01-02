@@ -432,7 +432,7 @@ def built_VID_datasets(path, val_ratio:float=1/4, approx_val_num_sequence:int=-1
     List of completed VID val datasets constructor will implemented identically
     """
 
-    class_idx_list = VID_map.keys()
+    class_idx_list = VID_map.values()
     print("building train datasets.")
     p_dict = dict(zip(class_idx_list, ["ImageSets/VID/train_{}.txt".format(d) for d in class_idx_list]))
     final_training_path = set()
