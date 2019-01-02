@@ -556,7 +556,7 @@ def draw_and_save(args,source,img_detections,classes,current_batch,v_writer = No
         # or source is image itself
         else:
             img = source
-            print("image_shape:{}".format(img.shape))
+            #print("image_shape:{}".format(img.shape))
             # print("image_type:{}".format(img.dtype))
 
         plt.figure()
