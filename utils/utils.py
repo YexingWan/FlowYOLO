@@ -149,7 +149,9 @@ def non_max_suppression(prediction, num_classes, conf_thres=0.9, cls_thres = 0.2
 
 
         # Filter out confidence scores below threshold
-        result_mask = (image_pred[:, 4] >= conf_thres and image_pred[:, 5]>=cls_thres).squeeze()
+
+        result_mask = (image_pred[:, 4] >= conf_thres and image_pred[:, 4:].max().item()>=cls_thres).squeeze()
+
         image_pred = image_pred[result_mask]
         # If none are remaining => process next image
         if not image_pred.size(0):
@@ -158,12 +160,6 @@ def non_max_suppression(prediction, num_classes, conf_thres=0.9, cls_thres = 0.2
         class_conf, class_pred = torch.max(image_pred[:, 5 : 5 + num_classes], 1, keepdim=True)
         # Detections ordered as (x1, y1, x2, y2, obj_conf, class_conf, class_pred)
         detections = torch.cat((image_pred[:, :5], class_conf.float(), class_pred.float()), 1)
-
-
-
-
-
-
 
         # 这里的detection的shape[num_selected_box,7(x1, y1, x2, y2, obj_conf, class_conf, class_pred)]
         # Iterate through all predicted classes
