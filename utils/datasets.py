@@ -440,7 +440,7 @@ def built_VID_datasets(path, val_ratio:float=1/4, approx_val_num_sequence:int=-1
     for (class_idx,p_f) in p_dict.items():
         folder_path = set()
         f = os.path.join(path,p_f)
-        print(f)
+        #print(f)
         assert (os.path.isfile(f))
         with open(f,"r") as file:
             for line in file:
