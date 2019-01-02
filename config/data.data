@@ -4,4 +4,4 @@ names=data/VID.names
 train=/disk2/wanyx/ILSVRC2015/
 valid=/disk2/wanyx/ILSVRC2015/
 #infer=/home/user/wanyx/vedio/HCVR_ch1_main_20181007170000_20181007180000.avi
-infer=/disk2/wanyx/ILSVRC2015/Data/VID/train/ILSVRC2015_VID_train_0000/ILSVRC2015_train_00064000
+infer=/disk2/wanyx/ILSVRC2015/Data/VID/train/ILSVRC2015_VID_train_0002/ILSVRC2015_train_00405001
