@@ -437,7 +437,7 @@ def built_VID_datasets(path, val_ratio:float=1/4, approx_val_num_sequence:int=-1
     p_dict = dict(zip(class_idx_list, ["ImageSets/VID/train_{}.txt".format(d) for d in class_idx_list]))
     final_training_path = set()
     final_val_path = set()
-    for (class_idx,p_f) in p_dict:
+    for (class_idx,p_f) in p_dict.items():
         folder_path = set()
         f = os.path.join(path,p_f)
         assert (os.path.isfile(f))
