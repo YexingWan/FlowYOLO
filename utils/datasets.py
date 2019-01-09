@@ -172,7 +172,6 @@ class VideoFile(Dataset):
             else:
                 return 9223372036854775807
 
-
 # for general train predict and test (sequence input) of one sequence
 class SequenceImage(Dataset):
     def __init__(self, img_folder_path:str, idx_class_map:map, img_size=448):
@@ -318,7 +317,6 @@ class SequenceImage_intersect(Dataset):
     def __len__(self):
         return len(self.files)
 
-
 # special designed Dataset for general train
 class dictDataset(Dataset):
     def __init__(self, dataset_list):
@@ -352,7 +350,6 @@ class dictDataset(Dataset):
         return self.max_index
 
 
-
 def ProcessXMLAnnotation(xml_file):
     """Process a single XML file containing a bounding box."""
     # pylint: disable=broad-except
@@ -375,8 +372,6 @@ def ProcessXMLAnnotation(xml_file):
         box["name"] = object.find("name").text
         boxes.append(box)
     return boxes
-
-
 
 
 def built_VID_intersect_datasets(path,class_ids,val_ratio:float=1/4, approx_val_num_sequence:int=-1 ):

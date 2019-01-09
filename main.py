@@ -290,7 +290,7 @@ def test(model,dataloader_list:list,args):
 
     all_detections = []
     all_annotations = []
-
+    print("test num sequence:{}".format(dataloader_list))
 
     for loader_idx, dataloader in enumerate(tqdm.tqdm(dataloader_list,desc="Sequence list")):
         last_frame = None
@@ -309,6 +309,9 @@ def test(model,dataloader_list:list,args):
 
             images: input batched images, 255 base [batch_size, c, h, w], inferenced size(448)           
             """
+
+            print("image shape:{}".format(images.shape))
+            print("target shape:{}".format(targets.shape))
 
             #assert(images.shape[0] == 1)
             flow_input = torch.unsqueeze(torch.stack([images[0], last_frame]).permute(1, 0, 2, 3),dim=0) if last_frame is not None else None
@@ -336,10 +339,13 @@ def test(model,dataloader_list:list,args):
                                                     conf_thres=args.conf_thres,
                                                     nms_thres=args.nms_thres)
 
+                print("detected box:{}".format(outputs[0]))
+
+
+
             for output, annotations in zip(outputs, targets):
-                # annotations也是一个Tensor[50,5(x,y,w,h,class)] scaled
 
-
+                # annotations也是一个Tensor[50,5(x,y,w,h,class-index(0 start))] scaled
                 # 结果保存，每张图一个list，list里每个class对应一个nparray，array的shape为[num_box,5(x1, y1, x2, y2, obj_conf)]
                 # all_detections 是 list of list (each image) of array(each class)
                 all_detections.append([np.array([]) for _ in range(num_classes)])
@@ -348,7 +354,6 @@ def test(model,dataloader_list:list,args):
                     pred_boxes = output[:, :5].cpu().numpy()
                     scores = output[:, 4].cpu().numpy()
                     pred_labels = output[:, -1].cpu().numpy()
-
                     # Order by confidence
                     sort_i = np.argsort(scores)
                     pred_labels = pred_labels[sort_i]
@@ -358,10 +363,15 @@ def test(model,dataloader_list:list,args):
                         #每个predict box的shape为[5(x1, y1, x2, y2, obj_conf)]
                         all_detections[-1][label] = pred_boxes[pred_labels == label]
 
+
+
+
                 all_annotations.append([np.array([]) for _ in range(num_classes)])
-                if any(annotations[:, -1] > 0):
-                    annotation_labels = annotations[annotations[:, -1] > 0, -1].numpy()
-                    _annotation_boxes = annotations[annotations[:, -1] > 0, :4].numpy()
+                if any(torch.flatten(annotations) != 0):
+                    #annotation_labels = annotations[annotations[:, -1] > 0, -1].numpy()
+                    annotations_f = annotations[torch.Tensor([any(annotations[i] != 0) for i in range(annotations.shape[0])])]
+                    annotation_labels = annotations_f[:, -1].numpy()
+                    _annotation_boxes = annotations_f[:, :4].numpy()
 
                     # Reformat to x1, y1, x2, y2 and rescale to image dimensions
                     annotation_boxes = np.empty_like(_annotation_boxes)
@@ -374,15 +384,23 @@ def test(model,dataloader_list:list,args):
                     for label in range(num_classes):
                         all_annotations[-1][label] = annotation_boxes[annotation_labels == label, :]
 
+
+
+    print("number of  detected box:{}")
+    print("number of target box:{}")
+    print("total number of image:{}")
+
     average_precisions = {}
     # for each class
     for label in range(num_classes):
+        print("cal class {}".format(label))
         true_positives = []
         scores = []
         num_annotations = 0
 
         # for each image
         for i in range(len(all_annotations)):
+            print("cal image {}".format(i))
             detections = all_detections[i][label]
             annotations = all_annotations[i][label]
 
@@ -401,6 +419,7 @@ def test(model,dataloader_list:list,args):
                 overlaps = utils.bbox_iou_numpy(np.expand_dims(bbox, axis=0), annotations)
                 assigned_annotation = np.argmax(overlaps, axis=1)
                 max_overlap = overlaps[0, assigned_annotation]
+                annotations = np.delete(annotations,max_overlap,0)
 
                 if max_overlap >= args.iou_thres and assigned_annotation not in detected_annotations:
                     true_positives.append(1)
@@ -410,8 +429,11 @@ def test(model,dataloader_list:list,args):
 
         # no annotations -> AP for this class is 0
         if num_annotations == 0:
+            print("no annotation in class {} in this test".format(label))
             average_precisions[label] = 0
             continue
+
+        print("{} annotation in class {}".format(num_annotations,label))
 
         true_positives = np.array(true_positives)
         false_positives = np.ones_like(true_positives) - true_positives
@@ -423,6 +445,9 @@ def test(model,dataloader_list:list,args):
         # compute false positives and true positives
         false_positives = np.cumsum(false_positives)
         true_positives = np.cumsum(true_positives)
+
+        print("true positives of class {}:{}".format(label, true_positives))
+        print("false positive of class {}:{}".format(label, false_positives))
 
         # compute recall and precision
         recall = true_positives / num_annotations
