@@ -2,27 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9ff04544-841e-4ebf-8528-543c869fa01e" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$USER_HOME$/Smart-Road/03 Execution/testcv.py" />
-      <change type="DELETED" beforePath="$USER_HOME$/Smart-Road/.idea/inspectionProfiles/profiles_settings.xml" afterPath="" />
-      <change type="MOVED" beforePath="$USER_HOME$/Smart-Road/03 Execution/predicthelper.py" afterPath="$USER_HOME$/Smart-Road/03 Execution/predictInterface.py" />
-      <change type="MODIFICATION" beforePath="$USER_HOME$/PyTorch-YOLOv3/test.py" afterPath="$USER_HOME$/PyTorch-YOLOv3/test.py" />
-      <change type="MODIFICATION" beforePath="$USER_HOME$/PyTorch-YOLOv3/weights/download_weights.sh" afterPath="$USER_HOME$/PyTorch-YOLOv3/weights/download_weights.sh" />
-      <change type="MODIFICATION" beforePath="$USER_HOME$/Smart-Road/.idea/Smart-Road.iml" afterPath="$USER_HOME$/Smart-Road/.idea/Smart-Road.iml" />
-      <change type="MODIFICATION" beforePath="$USER_HOME$/Smart-Road/.idea/misc.xml" afterPath="$USER_HOME$/Smart-Road/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$USER_HOME$/Smart-Road/.idea/modules.xml" afterPath="$USER_HOME$/Smart-Road/.idea/modules.xml" />
-      <change type="MODIFICATION" beforePath="$USER_HOME$/Smart-Road/.idea/workspace.xml" afterPath="$USER_HOME$/Smart-Road/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$USER_HOME$/Smart-Road/03 Execution/config.json" afterPath="$USER_HOME$/Smart-Road/03 Execution/config.json" />
-      <change type="MODIFICATION" beforePath="$USER_HOME$/Smart-Road/03 Execution/frontend.py" afterPath="$USER_HOME$/Smart-Road/03 Execution/frontend.py" />
-      <change type="MODIFICATION" beforePath="$USER_HOME$/Smart-Road/03 Execution/gen_anchors.py" afterPath="$USER_HOME$/Smart-Road/03 Execution/gen_anchors.py" />
-      <change type="MODIFICATION" beforePath="$USER_HOME$/Smart-Road/03 Execution/predict.py" afterPath="$USER_HOME$/Smart-Road/03 Execution/predict.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/YOLOv3_with_flow.iml" afterPath="$PROJECT_DIR$/.idea/YOLOv3_with_flow.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.py" afterPath="$PROJECT_DIR$/main.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/models.py" afterPath="$PROJECT_DIR$/models.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/utils/datasets.py" afterPath="$PROJECT_DIR$/utils/datasets.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/utils/utils.py" afterPath="$PROJECT_DIR$/utils/utils.py" />
-      <change type="MODIFICATION" beforePath="$USER_HOME$/kmeans-anchor-boxes/kmeans.py" afterPath="$USER_HOME$/kmeans-anchor-boxes/kmeans.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -33,13 +17,29 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="main.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="main.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-926">
-              <caret line="143" column="25" lean-forward="false" selection-start-line="143" selection-start-column="4" selection-end-line="143" selection-end-column="25" />
+            <state relative-caret-position="1560">
+              <caret line="104" column="31" lean-forward="false" selection-start-line="104" selection-start-column="23" selection-end-line="104" selection-end-column="31" />
               <folding>
-                <element signature="e#28548#28641#0" expanded="false" />
+                <element signature="e#29565#29658#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="utils.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/utils/utils.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1395">
+              <caret line="190" column="28" lean-forward="false" selection-start-line="190" selection-start-column="21" selection-end-line="190" selection-end-column="28" />
+              <folding>
+                <element signature="e#295#626#0" expanded="false" />
+                <element signature="e#668#1565#0" expanded="false" />
+                <element signature="e#1613#2904#0" expanded="false" />
+                <element signature="e#2943#3820#0" expanded="false" />
+                <element signature="e#11813#12025#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -48,28 +48,41 @@
       <file leaf-file-name="datasets.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/utils/datasets.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1442">
-              <caret line="324" column="9" lean-forward="false" selection-start-line="324" selection-start-column="9" selection-end-line="324" selection-end-column="9" />
+            <state relative-caret-position="1875">
+              <caret line="237" column="43" lean-forward="false" selection-start-line="237" selection-start-column="30" selection-end-line="237" selection-end-column="43" />
               <folding>
-                <element signature="e#8318#8340#0" expanded="false" />
-                <element signature="e#8532#9019#0" expanded="false" />
-                <element signature="e#9064#11286#0" expanded="false" />
-                <element signature="e#11319#11341#0" expanded="false" />
-                <element signature="e#12106#12622#0" expanded="false" />
-                <element signature="e#12720#13482#0" expanded="false" />
-                <element signature="e#13594#15297#0" expanded="false" />
-                <element signature="e#18217#18339#0" expanded="false" />
+                <element signature="e#1438#5531#0" expanded="false" />
+                <element signature="e#8317#8339#0" expanded="false" />
+                <element signature="e#8433#11342#0" expanded="false" />
+                <element signature="e#8531#9018#0" expanded="false" />
+                <element signature="e#9063#11285#0" expanded="false" />
+                <element signature="e#11318#11340#0" expanded="false" />
+                <element signature="e#11419#12674#0" expanded="false" />
+                <element signature="e#12717#13479#0" expanded="false" />
+                <element signature="e#13589#15292#0" expanded="false" />
+                <element signature="e#17567#18094#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="coco_intersect_VID.names" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/data/coco_intersect_VID.names">
+      <file leaf-file-name="models.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="45">
-              <caret line="3" column="4" lean-forward="false" selection-start-line="3" selection-start-column="4" selection-end-line="3" selection-end-column="4" />
-              <folding />
+            <state relative-caret-position="123">
+              <caret line="623" column="34" lean-forward="false" selection-start-line="623" selection-start-column="27" selection-end-line="623" selection-end-column="34" />
+              <folding>
+                <element signature="e#696#7010#0" expanded="false" />
+                <element signature="e#7053#9742#0" expanded="false" />
+                <element signature="e#7117#7230#0" expanded="false" />
+                <element signature="e#9785#11595#0" expanded="false" />
+                <element signature="e#11641#13737#0" expanded="false" />
+                <element signature="e#13773#16152#0" expanded="false" />
+                <element signature="e#16189#19522#0" expanded="false" />
+                <element signature="e#19658#23371#0" expanded="false" />
+                <element signature="e#23407#23526#0" expanded="false" />
+                <element signature="e#31330#31939#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -86,7 +99,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>start</find>
       <find>optimize</find>
       <find>data_train_path</find>
       <find>cuda</find>
@@ -116,6 +128,7 @@
       <find>conf</find>
       <find>number</find>
       <find>sequence</find>
+      <find>num_annotations</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -180,9 +193,10 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6" fullScreen="true">
+  <component name="ProjectFrameBounds">
+    <option name="y" value="23" />
     <option name="width" value="1680" />
-    <option name="height" value="1050" />
+    <option name="height" value="1027" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -228,12 +242,12 @@
             <path>
               <item name="YOLOv3_with_flow" type="b2602c69:ProjectViewProjectNode" />
               <item name="YOLOv3_with_flow" type="462c0819:PsiDirectoryNode" />
-              <item name="config" type="462c0819:PsiDirectoryNode" />
+              <item name="data" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="YOLOv3_with_flow" type="b2602c69:ProjectViewProjectNode" />
               <item name="YOLOv3_with_flow" type="462c0819:PsiDirectoryNode" />
-              <item name="data" type="462c0819:PsiDirectoryNode" />
+              <item name="flow_networks" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="YOLOv3_with_flow" type="b2602c69:ProjectViewProjectNode" />
@@ -245,15 +259,6 @@
               <item name="YOLOv3_with_flow" type="462c0819:PsiDirectoryNode" />
               <item name="utils" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="YOLOv3_with_flow" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Smart-Road" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="YOLOv3_with_flow" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Smart-Road" type="462c0819:PsiDirectoryNode" />
-              <item name="03 Execution" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
@@ -261,7 +266,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="settings.editor.selected.configurable" value="preferences.sourceCode.Python" />
+    <property name="settings.editor.selected.configurable" value="project.scopes" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
@@ -290,6 +295,149 @@
       </list>
     </option>
   </component>
+  <component name="RunManager">
+    <configuration default="true" type="PyBehaveRunConfigurationType" factoryName="Behave">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="MobileNetSSD" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="ADDITIONAL_ARGS" value="" />
+    </configuration>
+    <configuration default="true" type="DjangoTestsConfigurationType" factoryName="Django tests">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="MobileNetSSD" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="TARGET" value="" />
+      <option name="SETTINGS_FILE" value="" />
+      <option name="CUSTOM_SETTINGS" value="false" />
+      <option name="USE_OPTIONS" value="false" />
+      <option name="OPTIONS" value="" />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="Doctests">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="MobileNetSSD" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_SCRIPT" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+    </configuration>
+    <configuration default="true" type="PyLettuceRunConfigurationType" factoryName="Lettuce">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="MobileNetSSD" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="ADDITIONAL_ARGS" value="" />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="Nosetests">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="MobileNetSSD" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="_new_regexPattern" value="&quot;&quot;" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
+    </configuration>
+    <configuration default="true" type="PythonConfigurationType" factoryName="Python">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="MobileNetSSD" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+    </configuration>
+    <configuration default="true" type="Tox" factoryName="Tox">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <module name="MobileNetSSD" />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="Unittests">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="MobileNetSSD" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="py.test">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="MobileNetSSD" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="_new_keywords" value="&quot;&quot;" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
+    </configuration>
+  </component>
   <component name="ShelveChangesManager" show_recycled="false">
     <option name="remove_strategy" value="false" />
   </component>
@@ -313,10 +461,9 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="1680" height="1050" extended-state="0" />
-    <editor active="true" />
+    <frame x="0" y="23" width="1680" height="1027" extended-state="0" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18315019" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.34493285" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32958034" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32958034" sideWeight="0.502442" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -373,86 +520,18 @@
           <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="51" />
+      <option name="time" value="54" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/flow_networks/resample2d_package/resample2d.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="375">
-          <caret line="27" column="0" lean-forward="false" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/flow_networks/correlation_package/correlation.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="5" column="23" lean-forward="false" selection-start-line="5" selection-start-column="23" selection-end-line="5" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/flow_networks/channelnorm_package/channelnorm.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="2" column="23" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="2" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/flownet/datasets.py" />
-    <entry file="file://$USER_HOME$/Smart-Road/03 Execution/gen_anchors.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="720">
-          <caret line="48" column="0" lean-forward="true" selection-start-line="48" selection-start-column="0" selection-end-line="48" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/utils/gen_anchors.py" />
-    <entry file="file://$USER_HOME$/kmeans-anchor-boxes/README.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="FIRST">
-          <first_editor relative-caret-position="0">
-            <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/kmeans-anchor-boxes/tests/test_basic.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="1" column="0" lean-forward="true" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/kmeans-anchor-boxes/tests/test_rectangles.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/kmeans-anchor-boxes/tests/test_voc2007.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="525">
-          <caret line="35" column="0" lean-forward="true" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/Smart-Road/03 Execution/config.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="8" column="0" lean-forward="false" selection-start-line="7" selection-start-column="6" selection-end-line="8" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/kmeans-anchor-boxes/kmeans.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1020">
-          <caret line="68" column="17" lean-forward="false" selection-start-line="68" selection-start-column="17" selection-end-line="68" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$USER_HOME$/kmeans-anchor-boxes/README.md" />
+    <entry file="file://$USER_HOME$/kmeans-anchor-boxes/tests/test_basic.py" />
+    <entry file="file://$USER_HOME$/kmeans-anchor-boxes/tests/test_rectangles.py" />
+    <entry file="file://$USER_HOME$/kmeans-anchor-boxes/tests/test_voc2007.py" />
+    <entry file="file://$USER_HOME$/Smart-Road/03 Execution/config.json" />
+    <entry file="file://$USER_HOME$/kmeans-anchor-boxes/kmeans.py" />
     <entry file="file://$PROJECT_DIR$/config/yolov3-tiny.cfg">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="165">
@@ -460,13 +539,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/kmeans-anchor-boxes/example.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" column="0" lean-forward="false" selection-start-line="6" selection-start-column="0" selection-end-line="32" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$USER_HOME$/kmeans-anchor-boxes/example.py" />
     <entry file="file://$PROJECT_DIR$/utils/convert.py" />
     <entry file="file://$PROJECT_DIR$/flownet/utils/tools.py" />
     <entry file="file://$PROJECT_DIR$/utils/flow_utils.py" />
@@ -515,30 +588,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/PyTorch-YOLOv3/README.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="0">
-            <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/PyTorch-YOLOv3/detect.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/PyTorch-YOLOv3/requirements.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$USER_HOME$/PyTorch-YOLOv3/README.md" />
+    <entry file="file://$USER_HOME$/PyTorch-YOLOv3/detect.py" />
+    <entry file="file://$USER_HOME$/PyTorch-YOLOv3/requirements.txt" />
     <entry file="file://$PROJECT_DIR$/flow_networks/FlowNetC.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="30">
@@ -546,27 +598,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/PyTorch-YOLOv3/test.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="496">
-          <caret line="35" column="0" lean-forward="false" selection-start-line="35" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/PyTorch-YOLOv3/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="189">
-          <caret line="121" column="52" lean-forward="true" selection-start-line="121" selection-start-column="35" selection-end-line="121" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/PyTorch-YOLOv3/train.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-875">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$USER_HOME$/PyTorch-YOLOv3/test.py" />
+    <entry file="file://$USER_HOME$/PyTorch-YOLOv3/models.py" />
+    <entry file="file://$USER_HOME$/PyTorch-YOLOv3/train.py" />
     <entry file="file://$PROJECT_DIR$/flow_networks/submodules.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -616,7 +650,6 @@
         <state split_layout="SPLIT">
           <first_editor relative-caret-position="0">
             <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-            <folding />
           </first_editor>
           <second_editor />
         </state>
@@ -626,15 +659,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="6" lean-forward="true" selection-start-line="0" selection-start-column="6" selection-end-line="0" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/data/coco_intersect_VID.names">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="3" column="4" lean-forward="false" selection-start-line="3" selection-start-column="4" selection-end-line="3" selection-end-column="4" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -642,7 +666,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="30">
           <caret line="2" column="4" lean-forward="false" selection-start-line="2" selection-start-column="4" selection-end-line="2" selection-end-column="4" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -650,7 +673,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="306">
           <caret line="784" column="5" lean-forward="false" selection-start-line="784" selection-start-column="1" selection-end-line="784" selection-end-column="5" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -658,24 +680,22 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="15">
           <caret line="1" column="10" lean-forward="false" selection-start-line="1" selection-start-column="10" selection-end-line="1" selection-end-column="10" />
-          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/Smart-Road/03 Execution/utils.py">
+    <entry file="file://$USER_HOME$/Smart-Road/03 Execution/utils.py" />
+    <entry file="file://$USER_HOME$/Smart-Road/03 Execution/predict.py" />
+    <entry file="file://$PROJECT_DIR$/data/coco_intersect_VID.names">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="279">
-          <caret line="58" column="0" lean-forward="false" selection-start-line="58" selection-start-column="0" selection-end-line="72" selection-end-column="33" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="45">
+          <caret line="3" column="4" lean-forward="false" selection-start-line="3" selection-start-column="4" selection-end-line="3" selection-end-column="4" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/utils/utils.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="717">
-          <caret line="304" column="65" lean-forward="false" selection-start-line="304" selection-start-column="60" selection-end-line="304" selection-end-column="65" />
+        <state relative-caret-position="1395">
+          <caret line="190" column="28" lean-forward="false" selection-start-line="190" selection-start-column="21" selection-end-line="190" selection-end-column="28" />
           <folding>
             <element signature="e#295#626#0" expanded="false" />
             <element signature="e#668#1565#0" expanded="false" />
@@ -686,20 +706,75 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/Smart-Road/03 Execution/predict.py">
+    <entry file="file://$PROJECT_DIR$/utils/datasets.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="597">
-          <caret line="75" column="0" lean-forward="true" selection-start-line="75" selection-start-column="0" selection-end-line="75" selection-end-column="0" />
-          <folding />
+        <state relative-caret-position="1875">
+          <caret line="237" column="43" lean-forward="false" selection-start-line="237" selection-start-column="30" selection-end-line="237" selection-end-column="43" />
+          <folding>
+            <element signature="e#1438#5531#0" expanded="false" />
+            <element signature="e#8317#8339#0" expanded="false" />
+            <element signature="e#8433#11342#0" expanded="false" />
+            <element signature="e#8531#9018#0" expanded="false" />
+            <element signature="e#9063#11285#0" expanded="false" />
+            <element signature="e#11318#11340#0" expanded="false" />
+            <element signature="e#11419#12674#0" expanded="false" />
+            <element signature="e#12717#13479#0" expanded="false" />
+            <element signature="e#13589#15292#0" expanded="false" />
+            <element signature="e#17567#18094#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1560">
+          <caret line="104" column="31" lean-forward="false" selection-start-line="104" selection-start-column="23" selection-end-line="104" selection-end-column="31" />
+          <folding>
+            <element signature="e#29565#29658#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Desktop/my_work/MobileNetSSD/solver_train.prototxt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Desktop/my_work/MobileNetSSD/MobileNetSSD_train.prototxt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Desktop/my_work/MobileNetSSD/MobileNetSSD_test.prototxt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" column="13" lean-forward="true" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Desktop/my_work/MobileNetSSD/log">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-20255">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Desktop/my_work/MobileNetSSD/MobileNetSSD_deploy.prototxt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2420">
-          <caret line="751" column="83" lean-forward="false" selection-start-line="751" selection-start-column="83" selection-end-line="751" selection-end-column="83" />
+        <state relative-caret-position="123">
+          <caret line="623" column="34" lean-forward="false" selection-start-line="623" selection-start-column="27" selection-end-line="623" selection-end-column="34" />
           <folding>
-            <element signature="e#0#31#0" expanded="true" />
             <element signature="e#696#7010#0" expanded="false" />
             <element signature="e#7053#9742#0" expanded="false" />
             <element signature="e#7117#7230#0" expanded="false" />
@@ -714,32 +789,20 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/utils/datasets.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1442">
-          <caret line="324" column="9" lean-forward="false" selection-start-line="324" selection-start-column="9" selection-end-line="324" selection-end-column="9" />
-          <folding>
-            <element signature="e#8318#8340#0" expanded="false" />
-            <element signature="e#8532#9019#0" expanded="false" />
-            <element signature="e#9064#11286#0" expanded="false" />
-            <element signature="e#11319#11341#0" expanded="false" />
-            <element signature="e#12106#12622#0" expanded="false" />
-            <element signature="e#12720#13482#0" expanded="false" />
-            <element signature="e#13594#15297#0" expanded="false" />
-            <element signature="e#18217#18339#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-926">
-          <caret line="143" column="25" lean-forward="false" selection-start-line="143" selection-start-column="4" selection-end-line="143" selection-end-column="25" />
-          <folding>
-            <element signature="e#28548#28641#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ScopeChooserConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
   </component>
 </project>
