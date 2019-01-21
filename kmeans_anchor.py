@@ -18,7 +18,9 @@ def load_dataset(path):
             width = int(tree.findtext("./size/width"))
 
             for obj in tree.iter("object"):
+                print('in')
                 if obj.iter("bunbox") is not None:
+                    print(obj.iter("bunbox"))
                     xmin = int(obj.findtext("budbox/xmin")) / width
                     ymin = int(obj.findtext("budbox/ymin")) / height
                     xmax = int(obj.findtext("budbox/xmax")) / width
