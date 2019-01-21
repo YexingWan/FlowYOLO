@@ -17,10 +17,10 @@ def load_dataset(path):
             width = int(tree.findtext("./size/width"))
 
             for obj in tree.iter("object"):
-                xmin = int(obj.findtext("bndbox/xmin")) / width
-                ymin = int(obj.findtext("bndbox/ymin")) / height
-                xmax = int(obj.findtext("bndbox/xmax")) / width
-                ymax = int(obj.findtext("bndbox/ymax")) / height
+                xmin = int(obj.findtext("budbox/xmin")) / width
+                ymin = int(obj.findtext("budbox/ymin")) / height
+                xmax = int(obj.findtext("budbox/xmax")) / width
+                ymax = int(obj.findtext("budbox/ymax")) / height
                 dataset.append([xmax - xmin, ymax - ymin])
 
     return np.array(dataset)
