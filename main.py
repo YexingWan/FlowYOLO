@@ -134,9 +134,9 @@ def train(args):
 
     ###########bulit dataset for traning##########
 
-    train_dataset_list, val_dataset_list = datasets.built_VID_datasets(args.data_train_path,1/3)
+    #train_dataset_list, val_dataset_list = datasets.built_VID_datasets(args.data_train_path,1/3)
     #dataset_list = datasets.built_coco_intersect_VID_datasets(path = args.data_train_path)
-
+    train_dataset_list, val_dataset_list = datasets.built_head_datasets(args.data_train_path)
     train_final_dataset = datasets.dictDataset(train_dataset_list)
 
     train_final_loader = DataLoader(train_final_dataset,args.train_batch_size,shuffle=True)
