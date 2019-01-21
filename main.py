@@ -17,6 +17,8 @@ from PIL import Image
 from utils import utils, datasets
 from utils.parse_config import parse_data_config
 
+os.environ["CUDA_VISIBLE_DEVICES"]="2, 3"
+
 
 
 def built_args():
@@ -120,7 +122,7 @@ def train(args):
             print("GPU_NUMBER:{}".format(number_gpus))
             # use muti-GPU
             #args.train_batch_size *= number_gpus
-            print("Use No.2 and 3 GPU.")
+            #print("Use No.2 and 3 GPU.")
             args.train_batch_size *= 2
             #flow_yolo = nn.parallel.DataParallel(flow_yolo, device_ids=list(range(number_gpus)))
             #flow_yolo.set_multi_gpus(list(range(number_gpus)))
