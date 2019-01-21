@@ -6,6 +6,8 @@ path = "/disk2/wanyx/head_sequence_train/"
 
 for v in glob(os.path.join(path, '*')):
     for xml_file in glob(os.path.join(v, "Annotations/**/*.xml"), recursive=True):
+        print('modifying %s' % xml_file)
+
         tree = ET.parse(xml_file)
         root = tree.getroot()
 
