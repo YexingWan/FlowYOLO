@@ -368,9 +368,7 @@ def ProcessXMLAnnotation(xml_file):
     for object in root.iter("object"):
         box = dict()
         # Grab the 'index' annotation.
-        #box_tree = object.find("bndbox")
-        # budbox is the tem fault change for head training
-        box_tree = object.find("budbox")
+        box_tree = object.find("bndbox")
         box["xmin"] = int(box_tree.find('xmin').text)
         box["ymin"] = int(box_tree.find('ymin').text)
         box["xmax"] = int(box_tree.find('xmax').text)
