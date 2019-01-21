@@ -862,8 +862,10 @@ class Darknet(nn.Module):
                 output.append(x)
             layer_outputs.append(x)
 
-        losses["recall"] /= 3
-        losses["precision"] /= 3
+        #losses["recall"] /= 3
+        #losses["precision"] /= 3
+        losses["recall"] /= 2
+        losses["precision"] /= 2
 
         return (losses,output_features) if is_training else (torch.cat(output, 1), output_features)
 
@@ -990,6 +992,7 @@ class FlowYOLO(nn.Module):
         # no use format of weight of origin FlowNet, use torch format
         torch.save(self.flow_model.state_dict(),os.path.join(path,"flow.pth"))
         self.detect_model.save_weights(path)
+        torch.save(self,path.join(path,"EntireModel.pth"))
 
 
     def set_multi_gpus(self,gpu_id_list):

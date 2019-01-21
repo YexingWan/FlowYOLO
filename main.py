@@ -272,7 +272,7 @@ def train(args):
                 flow_yolo.train()
 
             if cur_batch % args.saving_checkpoint_interval == 0:
-                final_save_path = "%s/%d_weights" % (os.path.join(args.save,"checkpoints"), cur_batch)
+                final_save_path = "%s/%d_weights" % (os.path.join(args.save,"checkpoints_head"), cur_batch)
                 flow_yolo.save_weights(final_save_path)
                 print("Save success. Weight save in {}.".format(final_save_path))
     print("Done!")

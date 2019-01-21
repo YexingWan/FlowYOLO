@@ -4,7 +4,8 @@
     <list default="true" id="9ff04544-841e-4ebf-8528-543c869fa01e" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/head_yolov3.cfg" afterPath="$PROJECT_DIR$/config/head_yolov3.cfg" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/kmeans_anchor.py" afterPath="$PROJECT_DIR$/kmeans_anchor.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.py" afterPath="$PROJECT_DIR$/main.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/models.py" afterPath="$PROJECT_DIR$/models.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -18,21 +19,31 @@
       <file leaf-file-name="main.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="163">
-              <caret line="197" column="26" lean-forward="false" selection-start-line="197" selection-start-column="26" selection-end-line="197" selection-end-column="26" />
+            <state relative-caret-position="1004">
+              <caret line="275" column="25" lean-forward="false" selection-start-line="275" selection-start-column="16" selection-end-line="275" selection-end-column="25" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="kmeans_anchor.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="kmeans_anchor.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/kmeans_anchor.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="150">
-              <caret line="10" column="16" lean-forward="true" selection-start-line="10" selection-start-column="16" selection-end-line="10" selection-end-column="16" />
+            <state relative-caret-position="263">
+              <caret line="23" column="30" lean-forward="false" selection-start-line="23" selection-start-column="24" selection-end-line="23" selection-end-column="30" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="kmeans.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/utils/kmeans.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1020">
+              <caret line="68" column="17" lean-forward="true" selection-start-line="68" selection-start-column="17" selection-end-line="68" selection-end-column="17" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -44,22 +55,6 @@
               <caret line="31" column="44" lean-forward="false" selection-start-line="31" selection-start-column="44" selection-end-line="31" selection-end-column="44" />
               <folding>
                 <element signature="e#0#21#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="utils.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/utils/utils.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1395">
-              <caret line="190" column="28" lean-forward="false" selection-start-line="190" selection-start-column="21" selection-end-line="190" selection-end-column="28" />
-              <folding>
-                <element signature="e#295#626#0" expanded="false" />
-                <element signature="e#668#1565#0" expanded="false" />
-                <element signature="e#1613#2904#0" expanded="false" />
-                <element signature="e#2943#3820#0" expanded="false" />
-                <element signature="e#11813#12025#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -86,11 +81,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="models.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-738">
-              <caret line="623" column="34" lean-forward="false" selection-start-line="623" selection-start-column="27" selection-end-line="623" selection-end-column="34" />
+            <state relative-caret-position="-74">
+              <caret line="898" column="18" lean-forward="true" selection-start-line="898" selection-start-column="18" selection-end-line="898" selection-end-column="18" />
               <folding>
                 <element signature="e#696#7010#0" expanded="false" />
                 <element signature="e#7053#9742#0" expanded="false" />
@@ -110,8 +105,8 @@
       <file leaf-file-name="yolov3.cfg" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/config/yolov3.cfg">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="186">
-              <caret line="776" column="12" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="895" selection-end-column="0" />
+            <state relative-caret-position="195">
+              <caret line="13" column="20" lean-forward="true" selection-start-line="13" selection-start-column="20" selection-end-line="13" selection-end-column="20" />
               <folding />
             </state>
           </provider>
@@ -120,8 +115,8 @@
       <file leaf-file-name="head_yolov3.cfg" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/config/head_yolov3.cfg">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3724">
-              <caret line="675" column="0" lean-forward="true" selection-start-line="675" selection-start-column="0" selection-end-line="675" selection-end-column="0" />
+            <state relative-caret-position="-1115">
+              <caret line="515" column="16" lean-forward="true" selection-start-line="515" selection-start-column="16" selection-end-line="515" selection-end-column="16" />
               <folding />
             </state>
           </provider>
@@ -130,8 +125,8 @@
       <file leaf-file-name="data.data" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/config/data.data">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="15">
-              <caret line="1" column="10" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="6" selection-end-column="96" />
+            <state relative-caret-position="90">
+              <caret line="6" column="91" lean-forward="false" selection-start-line="6" selection-start-column="91" selection-end-line="6" selection-end-column="91" />
               <folding />
             </state>
           </provider>
@@ -159,7 +154,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>cuda</find>
       <find>one</find>
       <find>load_classes</find>
       <find>classes</find>
@@ -187,8 +181,9 @@
       <find>number</find>
       <find>sequence</find>
       <find>num_annotations</find>
-      <find>bud</find>
       <find>bnd</find>
+      <find>stride=2</find>
+      <find>bud</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -239,15 +234,15 @@
         <option value="$PROJECT_DIR$/config/yolov3.cfg" />
         <option value="$PROJECT_DIR$/config/data.data" />
         <option value="$PROJECT_DIR$/utils/utils.py" />
-        <option value="$PROJECT_DIR$/models.py" />
         <option value="$PROJECT_DIR$/utils/_training_set_gen.py" />
         <option value="$PROJECT_DIR$/utils/fix_xml.py" />
-        <option value="$PROJECT_DIR$/main.py" />
         <option value="$PROJECT_DIR$/utils/datasets.py" />
         <option value="$PROJECT_DIR$/config/head_yolov3.data" />
         <option value="$PROJECT_DIR$/config/head_data.data" />
-        <option value="$PROJECT_DIR$/config/head_yolov3.cfg" />
         <option value="$PROJECT_DIR$/kmeans_anchor.py" />
+        <option value="$PROJECT_DIR$/config/head_yolov3.cfg" />
+        <option value="$PROJECT_DIR$/main.py" />
+        <option value="$PROJECT_DIR$/models.py" />
       </list>
     </option>
   </component>
@@ -257,8 +252,8 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="x" value="30" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="12" />
     <option name="y" value="23" />
     <option name="width" value="1680" />
     <option name="height" value="1027" />
@@ -311,6 +306,11 @@
               <item name="YOLOv3_with_flow" type="b2602c69:ProjectViewProjectNode" />
               <item name="YOLOv3_with_flow" type="462c0819:PsiDirectoryNode" />
               <item name="config" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="YOLOv3_with_flow" type="b2602c69:ProjectViewProjectNode" />
+              <item name="YOLOv3_with_flow" type="462c0819:PsiDirectoryNode" />
+              <item name="utils" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -516,7 +516,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="30" y="23" width="1680" height="1027" extended-state="0" />
+    <frame x="0" y="23" width="1680" height="1027" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21794872" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -527,7 +527,7 @@
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.16990788" sideWeight="0.497558" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.39055794" sideWeight="0.497558" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20922747" sideWeight="0.497558" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -626,13 +626,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/utils/tools.py" />
-    <entry file="file://$PROJECT_DIR$/utils/kmeans.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="28" column="20" lean-forward="true" selection-start-line="28" selection-start-column="20" selection-end-line="28" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/PyTorch-YOLOv3/README.md" />
     <entry file="file://$USER_HOME$/PyTorch-YOLOv3/detect.py" />
     <entry file="file://$USER_HOME$/PyTorch-YOLOv3/requirements.txt" />
@@ -741,20 +734,60 @@
     <entry file="file://$USER_HOME$/Desktop/my_work/MobileNetSSD/log" />
     <entry file="file://$USER_HOME$/Desktop/my_work/MobileNetSSD/MobileNetSSD_deploy.prototxt" />
     <entry file="file://$PROJECT_DIR$/utils/_training_set_gen.py" />
-    <entry file="file://$PROJECT_DIR$/utils/fix_xml.py">
+    <entry file="file://$PROJECT_DIR$/kmeans_anchor.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="465">
-          <caret line="31" column="44" lean-forward="false" selection-start-line="31" selection-start-column="44" selection-end-line="31" selection-end-column="44" />
+        <state relative-caret-position="263">
+          <caret line="23" column="30" lean-forward="false" selection-start-line="23" selection-start-column="24" selection-end-line="23" selection-end-column="30" />
           <folding>
-            <element signature="e#0#21#0" expanded="true" />
+            <element signature="e#0#11#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/utils/kmeans.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1020">
+          <caret line="68" column="17" lean-forward="true" selection-start-line="68" selection-start-column="17" selection-end-line="68" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config/yolov3.cfg">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="13" column="20" lean-forward="true" selection-start-line="13" selection-start-column="20" selection-end-line="13" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config/head_data.data">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" column="30" lean-forward="true" selection-start-line="6" selection-start-column="30" selection-end-line="6" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config/data.data">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" column="91" lean-forward="false" selection-start-line="6" selection-start-column="91" selection-end-line="6" selection-end-column="91" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config/head_yolov3.cfg">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1115">
+          <caret line="515" column="16" lean-forward="true" selection-start-line="515" selection-start-column="16" selection-end-line="515" selection-end-column="16" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="163">
-          <caret line="197" column="26" lean-forward="false" selection-start-line="197" selection-start-column="26" selection-end-line="197" selection-end-column="26" />
+        <state relative-caret-position="1004">
+          <caret line="275" column="25" lean-forward="false" selection-start-line="275" selection-start-column="16" selection-end-line="275" selection-end-column="25" />
           <folding />
         </state>
       </provider>
@@ -778,10 +811,20 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/utils/fix_xml.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="465">
+          <caret line="31" column="44" lean-forward="false" selection-start-line="31" selection-start-column="44" selection-end-line="31" selection-end-column="44" />
+          <folding>
+            <element signature="e#0#21#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-738">
-          <caret line="623" column="34" lean-forward="false" selection-start-line="623" selection-start-column="27" selection-end-line="623" selection-end-column="34" />
+        <state relative-caret-position="-74">
+          <caret line="898" column="18" lean-forward="true" selection-start-line="898" selection-start-column="18" selection-end-line="898" selection-end-column="18" />
           <folding>
             <element signature="e#696#7010#0" expanded="false" />
             <element signature="e#7053#9742#0" expanded="false" />
@@ -793,48 +836,6 @@
             <element signature="e#19658#23371#0" expanded="false" />
             <element signature="e#23407#23526#0" expanded="false" />
             <element signature="e#31330#31939#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/config/yolov3.cfg">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="186">
-          <caret line="776" column="12" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="895" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/config/data.data">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="1" column="10" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="6" selection-end-column="96" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/config/head_data.data">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" column="30" lean-forward="true" selection-start-line="6" selection-start-column="30" selection-end-line="6" selection-end-column="30" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/config/head_yolov3.cfg">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3724">
-          <caret line="675" column="0" lean-forward="true" selection-start-line="675" selection-start-column="0" selection-end-line="675" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/kmeans_anchor.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="10" column="16" lean-forward="true" selection-start-line="10" selection-start-column="16" selection-end-line="10" selection-end-column="16" />
-          <folding>
-            <element signature="e#0#11#0" expanded="true" />
           </folding>
         </state>
       </provider>
