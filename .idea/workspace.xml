@@ -2,10 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9ff04544-841e-4ebf-8528-543c869fa01e" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/config/head_data.data" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/config/head_yolov3.cfg" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.py" afterPath="$PROJECT_DIR$/main.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/head_yolov3.cfg" afterPath="$PROJECT_DIR$/config/head_yolov3.cfg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/kmeans_anchor.py" afterPath="$PROJECT_DIR$/kmeans_anchor.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -26,11 +25,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="kmeans_anchor.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="kmeans_anchor.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/kmeans_anchor.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="90">
-              <caret line="6" column="54" lean-forward="false" selection-start-line="6" selection-start-column="19" selection-end-line="6" selection-end-column="54" />
+            <state relative-caret-position="150">
+              <caret line="10" column="16" lean-forward="true" selection-start-line="10" selection-start-column="16" selection-end-line="10" selection-end-column="16" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
               </folding>
@@ -121,8 +120,8 @@
       <file leaf-file-name="head_yolov3.cfg" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/config/head_yolov3.cfg">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="510">
-              <caret line="895" column="0" lean-forward="false" selection-start-line="895" selection-start-column="0" selection-end-line="895" selection-end-column="0" />
+            <state relative-caret-position="3724">
+              <caret line="675" column="0" lean-forward="true" selection-start-line="675" selection-start-column="0" selection-end-line="675" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -138,7 +137,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="head_data.data" pinned="false" current-in-tab="true">
+      <file leaf-file-name="head_data.data" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/config/head_data.data">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="90">
@@ -198,7 +197,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/__init__.py" />
         <option value="$PROJECT_DIR$/PyTorch-YOLOv3/__init__.ipynb" />
         <option value="$PROJECT_DIR$/PyTorch-YOLOv3/__init__.py" />
         <option value="$PROJECT_DIR$/flownet2-pytorch/test_import.py" />
@@ -243,12 +241,13 @@
         <option value="$PROJECT_DIR$/utils/utils.py" />
         <option value="$PROJECT_DIR$/models.py" />
         <option value="$PROJECT_DIR$/utils/_training_set_gen.py" />
-        <option value="$PROJECT_DIR$/kmeans_anchor.py" />
         <option value="$PROJECT_DIR$/utils/fix_xml.py" />
         <option value="$PROJECT_DIR$/main.py" />
         <option value="$PROJECT_DIR$/utils/datasets.py" />
         <option value="$PROJECT_DIR$/config/head_yolov3.data" />
         <option value="$PROJECT_DIR$/config/head_data.data" />
+        <option value="$PROJECT_DIR$/config/head_yolov3.cfg" />
+        <option value="$PROJECT_DIR$/kmeans_anchor.py" />
       </list>
     </option>
   </component>
@@ -742,16 +741,6 @@
     <entry file="file://$USER_HOME$/Desktop/my_work/MobileNetSSD/log" />
     <entry file="file://$USER_HOME$/Desktop/my_work/MobileNetSSD/MobileNetSSD_deploy.prototxt" />
     <entry file="file://$PROJECT_DIR$/utils/_training_set_gen.py" />
-    <entry file="file://$PROJECT_DIR$/kmeans_anchor.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" column="54" lean-forward="false" selection-start-line="6" selection-start-column="19" selection-end-line="6" selection-end-column="54" />
-          <folding>
-            <element signature="e#0#11#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/utils/fix_xml.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="465">
@@ -816,14 +805,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/config/head_yolov3.cfg">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="510">
-          <caret line="895" column="0" lean-forward="false" selection-start-line="895" selection-start-column="0" selection-end-line="895" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/config/data.data">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="15">
@@ -837,6 +818,24 @@
         <state relative-caret-position="90">
           <caret line="6" column="30" lean-forward="true" selection-start-line="6" selection-start-column="30" selection-end-line="6" selection-end-column="30" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config/head_yolov3.cfg">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3724">
+          <caret line="675" column="0" lean-forward="true" selection-start-line="675" selection-start-column="0" selection-end-line="675" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/kmeans_anchor.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="10" column="16" lean-forward="true" selection-start-line="10" selection-start-column="16" selection-end-line="10" selection-end-column="16" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

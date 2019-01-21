@@ -5,7 +5,7 @@ from utils.kmeans import kmeans, avg_iou
 import os
 
 ANNOTATIONS_PATH = "/disk2/wanyx/head_sequence_train/"
-CLUSTERS = 9
+CLUSTERS = 6
 
 def load_dataset(path):
     dataset = []
