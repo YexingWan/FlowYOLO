@@ -18,11 +18,12 @@ def load_dataset(path):
             width = int(tree.findtext("./size/width"))
 
             for obj in tree.iter("object"):
-                xmin = int(obj.findtext("budbox/xmin")) / width
-                ymin = int(obj.findtext("budbox/ymin")) / height
-                xmax = int(obj.findtext("budbox/xmax")) / width
-                ymax = int(obj.findtext("budbox/ymax")) / height
-                dataset.append([xmax - xmin, ymax - ymin])
+                if obj.iter("bunbox") is not None:
+                    xmin = int(obj.findtext("budbox/xmin")) / width
+                    ymin = int(obj.findtext("budbox/ymin")) / height
+                    xmax = int(obj.findtext("budbox/xmax")) / width
+                    ymax = int(obj.findtext("budbox/ymax")) / height
+                    dataset.append([xmax - xmin, ymax - ymin])
 
     return np.array(dataset)
 
