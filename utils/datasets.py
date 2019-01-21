@@ -514,7 +514,7 @@ def built_head_datasets(path,val_ratio:float=1/10):
         sequence_list.extend(glob.glob(os.path.join(video,'Data/*')))
     random.shuffle(sequence_list)
     sequence_list = set(sequence_list)
-    final_training_path = random.sample(sequence_list, int(len(sequence_list) * (1 - val_ratio)))
+    final_training_path = set(random.sample(sequence_list, int(len(sequence_list) * (1 - val_ratio))))
     final_val_path = sequence_list - final_training_path
     print("number of training sequence:{}".format(len(final_training_path)))
     print("number of validation sequence:{}".format(len(final_val_path)))
