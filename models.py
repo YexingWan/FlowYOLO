@@ -736,6 +736,8 @@ class YOLOLayer(nn.Module):
                                             tconf[conf_mask_true])
 
                 loss_cls = self.ce_loss(pred_cls[mask], torch.argmax(tcls[mask],1))
+                print(loss_cls)
+
 
                 # print(loss_cls)
                 # tep_mask = torch.ByteTensor(pred_cls[mask].shape).fill_(0)
