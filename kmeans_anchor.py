@@ -12,6 +12,7 @@ def load_dataset(path):
     for v in glob.glob(os.path.join(path,'*')):
         print(v)
         for xml_file in glob.glob(os.path.join(v,"Annotations/**/*.xml"),recursive=True):
+            print(xml_file)
             tree = ET.parse(xml_file)
             height = int(tree.findtext("./size/height"))
             width = int(tree.findtext("./size/width"))
