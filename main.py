@@ -124,7 +124,7 @@ def train(args):
             args.train_batch_size *= 2
             #flow_yolo = nn.parallel.DataParallel(flow_yolo, device_ids=list(range(number_gpus)))
             #flow_yolo.set_multi_gpus(list(range(number_gpus)))
-            flow_yolo.set_multi_gpus([2,3])
+            flow_yolo.set_multi_gpus([3,4])
 
     # TODO：
     # deprecated
