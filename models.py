@@ -894,7 +894,7 @@ class Darknet(nn.Module):
         if weights_path and os.path.isfile(weights_path):
             pretrained_dict = torch.load(weights_path)
         else:
-            print('Weight file is not given or not exits, random initialize')
+            print('YOLO weight file is not given or not exits, random initialize')
             self.apply(utils.utils.weights_init_normal)
             return
 
@@ -976,10 +976,13 @@ class FlowYOLO(nn.Module):
         if flow_weights_path and os.path.isfile(flow_weights_path):
             self.flow_model.load_state_dict(torch.load(flow_weights_path))
         elif flow_weights_path:
-            print(sys.stderr,"Error: flowNet no checkpoint finded")
+            print(sys.stderr,"Error: flowNet no checkpoint finded.")
             exit(1)
         else:
-            print("Random initialization")
+            print("FlowNet weight not given, random initialization.")
+            print("Open update of flowNet as the weight is random initialized.")
+            for p in self.parameters():
+                p.requires_grad = True
 
         # load yolo weight
         self.detect_model.load_fit_weights(weights_path=yolo_weights_path)

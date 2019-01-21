@@ -67,7 +67,7 @@ def built_args():
 
     #--------------------------------------flownet--------------------------------------------
     parser.add_argument('--flow_model', default='FlowNet2CS')
-    parser.add_argument('--flow_resume', default='', type=str, metavar='PATH',
+    parser.add_argument('--flow_resume', default='weights/flow.pth', type=str, metavar='PATH',
                         help='path to latest checkpoint (default: none)')
     #--------------------------------YOLO-----------------------------------------------------
 
