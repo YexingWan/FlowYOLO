@@ -999,7 +999,7 @@ class FlowYOLO(nn.Module):
 
 
     def set_multi_gpus(self,gpu_id_list):
-        self.flow_model = nn.parallel.DataParallel(self.flow_model,device_ids=gpu_id_list).cuda()
+        self.flow_model = nn.parallel.DataParallel(self.flow_model,device_ids=gpu_id_list)
         self.detect_model.set_multi_gpus(gpu_id_list)
 
 
