@@ -1,6 +1,6 @@
 rgb_max=255
-classes=30
-names=data/coco_intersect_VID.names
+classes=1
+names=data/head.names
 train=/disk2/wanyx/ILSVRC2015/
 valid=/disk2/wanyx/ILSVRC2015/
 #infer=/home/user/wanyx/vedio/HCVR_ch1_main_20181007170000_20181007180000.avi

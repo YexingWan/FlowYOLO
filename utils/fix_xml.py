@@ -2,7 +2,7 @@ from glob import glob
 import xml.etree.ElementTree as ET
 import os
 
-path = "/disk2/wanyx/head_sequence_train/"
+path = "/disk2/wanyx/people_sequence/"
 
 for v in glob(os.path.join(path, '*')):
     print('modifying annotations of %s' % v)
