@@ -208,6 +208,7 @@ def train(args):
 
             # built final flow_input
             if flow_input is not None:
+                print("learning sequence info")
                 flow_input = torch.stack(flow_input)
 
             # update the last_frame_dict
