@@ -12,20 +12,16 @@ def load_dataset(path):
     for v in glob.glob(os.path.join(path,'*')):
         print(v)
         for xml_file in glob.glob(os.path.join(v,"Annotations/**/*.xml"),recursive=True):
-            print(xml_file)
             tree = ET.parse(xml_file)
             height = int(tree.findtext("./size/height"))
             width = int(tree.findtext("./size/width"))
 
             for obj in tree.iter("object"):
-                print('in')
-                if obj.iter("bunbox") is not None:
-                    print(obj.iter("bunbox"))
-                    xmin = int(obj.findtext("budbox/xmin")) / width
-                    ymin = int(obj.findtext("budbox/ymin")) / height
-                    xmax = int(obj.findtext("budbox/xmax")) / width
-                    ymax = int(obj.findtext("budbox/ymax")) / height
-                    dataset.append([xmax - xmin, ymax - ymin])
+                xmin = int(obj.findtext("budbox/xmin")) / width
+                ymin = int(obj.findtext("budbox/ymin")) / height
+                xmax = int(obj.findtext("budbox/xmax")) / width
+                ymax = int(obj.findtext("budbox/ymax")) / height
+                dataset.append([xmax - xmin, ymax - ymin])
 
     return np.array(dataset)
 
