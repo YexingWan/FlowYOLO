@@ -1,7 +1,7 @@
 rgb_max=255
 classes=1
 names=data/head.names
-train=/disk2/wanyx/ILSVRC2015/
-valid=/disk2/wanyx/ILSVRC2015/
+train=/disk2/wanyx/head_sequence_train/
+valid=/disk2/wanyx/head_sequence_train/
 #infer=/home/user/wanyx/vedio/HCVR_ch1_main_20181007170000_20181007180000.avi
-infer=/disk2/wanyx/ILSVRC2015/Data/VID/train/ILSVRC2015_VID_train_0002/ILSVRC2015_train_00768002
+infer=None
