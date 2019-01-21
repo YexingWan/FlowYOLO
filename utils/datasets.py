@@ -62,6 +62,10 @@ origin_idx  idx class
 30  13  zebra
 """
 
+head_map = {
+    #'__background__' : 0,  # always index 0
+    'head':1
+}
 
 
 
@@ -176,9 +180,9 @@ class VideoFile(Dataset):
 class SequenceImage(Dataset):
     def __init__(self, img_folder_path:str, idx_class_map:map, img_size=448):
         self.files = sorted(glob.glob('%s/*.*' % img_folder_path))
-        self.annotation = [p.replace("Data","Annotations").replace("JPEG","xml") for p in self.files]
+        self.annotation = [p.replace("Data","Annotations").replace("jpeg","xml") for p in self.files]
         self.img_shape = (img_size, img_size)
-        self.max_objects = 50
+        self.max_objects = 20
         self.classes_map = idx_class_map
 
     def __getitem__(self, index):
@@ -364,7 +368,9 @@ def ProcessXMLAnnotation(xml_file):
     for object in root.iter("object"):
         box = dict()
         # Grab the 'index' annotation.
-        box_tree = object.find("bndbox")
+        #box_tree = object.find("bndbox")
+        # budbox is the tem fault change for head training
+        box_tree = object.find("budbox")
         box["xmin"] = int(box_tree.find('xmin').text)
         box["ymin"] = int(box_tree.find('ymin').text)
         box["xmax"] = int(box_tree.find('xmax').text)
@@ -418,9 +424,8 @@ def built_VID_intersect_datasets(path,class_ids,val_ratio:float=1/4, approx_val_
 def built_VID_datasets(path, val_ratio:float=1/4, approx_val_num_sequence:int=-1 ):
     """
     :param path: root path of VID
-    :param class_idx_list: class idx needed
-    :param ratio: training/validation ratio, 1/4 default
-    :param num_sequence: exact validation sequences number
+    :param val_ratio: training/validation ratio, 1/4 default
+    :param approx_val_num_sequence: approximated validation sequences number
     :return: two lists of dataset, first for training second for validation
 
     Currently do not support partly VID val datasets construct via classes id.
@@ -484,9 +489,49 @@ def built_VID_complet_val_datasets(path,num_sequence:int = -1):
 
 
 
-# built built list of dataloader (for val)
+# built list of dataloader (for val)
 def built_dataloaders(datasets:list, batchsize:int, shuffle:bool):
     loaders = []
     for dataset in datasets:
         loaders.append(DataLoader(dataset,batchsize,shuffle))
     return loaders
+
+
+
+def built_head_datasets(path,val_ratio:float=1/10):
+    """
+        :param path: root path of head dataset
+        :param ratio: training/validation ratio, 1/4 default
+        :param num_sequence: exact validation sequences number
+        :return: two lists of dataset, first for training second for validation
+
+        Currently do not support partly VID val datasets construct via classes id.
+        List of completed VID val datasets constructor will implemented identically
+        """
+
+    # get all sequence path than random sample
+    sequence_list = []
+    videos = glob.glob(os.path.join(path,'*'))
+    for video in videos:
+        sequence_list.extend(glob.glob(os.path.join(video,'Data/*')))
+    random.shuffle(sequence_list)
+    sequence_list = set(sequence_list)
+    final_training_path = random.sample(sequence_list, int(len(sequence_list) * (1 - val_ratio)))
+    final_val_path = sequence_list - final_training_path
+    print("number of training sequence:{}".format(len(final_training_path)))
+    print("number of validation sequence:{}".format(len(final_val_path)))
+
+    val_dataset_list = []
+    train_dataset_list = []
+    for p in final_training_path:
+        train_dataset_list.append(SequenceImage(p, head_map))
+    for p in val_dataset_list:
+        val_dataset_list.append(SequenceImage(p, head_map))
+
+    return train_dataset_list, val_dataset_list
+
+
+
+
+
+
