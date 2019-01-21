@@ -4,22 +4,23 @@ import numpy as np
 from utils.kmeans import kmeans, avg_iou
 import os
 
-ANNOTATIONS_PATH = "/disk2/wanyx/ILSVRC2015/Annotations/"
+ANNOTATIONS_PATH = "/disk2/wanyx/head_sequence_train/"
 CLUSTERS = 9
 
 def load_dataset(path):
     dataset = []
-    for xml_file in glob.glob(os.path.join(path,"**/*.xml"),recursive=True):
-        tree = ET.parse(xml_file)
-        height = int(tree.findtext("./size/height"))
-        width = int(tree.findtext("./size/width"))
+    for v in glob.glob(os.path.join(path,'*')):
+        for xml_file in glob.glob(os.path.join(v,"Annotation/**/*.xml"),recursive=True):
+            tree = ET.parse(xml_file)
+            height = int(tree.findtext("./size/height"))
+            width = int(tree.findtext("./size/width"))
 
-        for obj in tree.iter("object"):
-            xmin = int(obj.findtext("bndbox/xmin")) / width
-            ymin = int(obj.findtext("bndbox/ymin")) / height
-            xmax = int(obj.findtext("bndbox/xmax")) / width
-            ymax = int(obj.findtext("bndbox/ymax")) / height
-            dataset.append([xmax - xmin, ymax - ymin])
+            for obj in tree.iter("object"):
+                xmin = int(obj.findtext("bndbox/xmin")) / width
+                ymin = int(obj.findtext("bndbox/ymin")) / height
+                xmax = int(obj.findtext("bndbox/xmax")) / width
+                ymax = int(obj.findtext("bndbox/ymax")) / height
+                dataset.append([xmax - xmin, ymax - ymin])
 
     return np.array(dataset)
 
