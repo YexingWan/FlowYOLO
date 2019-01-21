@@ -72,7 +72,7 @@ def built_args():
     #--------------------------------YOLO-----------------------------------------------------
 
     parser.add_argument("--yolo_config_path", type=str, default="config/yolov3.cfg", help="path to model config file")
-    parser.add_argument("--yolo_resume", type=str, default="weights/yolov3.weights", help="path to weights file")
+    parser.add_argument("--yolo_resume", type=str, default="", help="path to weights file")
 
     parser.add_argument("--conf_thres", type=float, default=0.5,help="object confidence threshold required to qualify as detected")
     parser.add_argument("--cls_thres", type=float, default=0.5,help="class score threshold required to qualify as detected")
