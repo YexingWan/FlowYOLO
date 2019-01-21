@@ -121,12 +121,12 @@ def train(args):
         if number_gpus > 0:
             print("GPU_NUMBER:{}".format(number_gpus))
             # use muti-GPU
-            #args.train_batch_size *= number_gpus
+            args.train_batch_size *= number_gpus
             #print("Use No.2 and 3 GPU.")
-            args.train_batch_size *= 2
+            #args.train_batch_size *= 2
             #flow_yolo = nn.parallel.DataParallel(flow_yolo, device_ids=list(range(number_gpus)))
-            #flow_yolo.set_multi_gpus(list(range(number_gpus)))
-            flow_yolo.set_multi_gpus([2,3])
+            flow_yolo.set_multi_gpus(list(range(number_gpus)))
+            #flow_yolo.set_multi_gpus([2,3])
 
     # TODO：
     # deprecated
