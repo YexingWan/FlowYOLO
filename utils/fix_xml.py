@@ -19,8 +19,15 @@ for v in glob(os.path.join(path, '*')):
             xmax = box.find("xmax").text
             ymax = box.find("ymax").text
             boxes.append((xmin,ymin,xmax,ymax))
+        for box in tree.iter("bndbox"):
+            xmin = box.find("xmin").text
+            ymin = box.find("ymin").text
+            xmax = box.find("xmax").text
+            ymax = box.find("ymax").text
+            boxes.append((xmin,ymin,xmax,ymax))
+        for o in root.findall('object'):
+            root.remove(o)
 
-        root.remove(root.find('object'))
         for box in boxes:
             obj = ET.SubElement(root,'object')
             ET.SubElement(obj,'name').text = 'head'
