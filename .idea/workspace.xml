@@ -13,11 +13,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="main.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="main.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="375">
-              <caret line="141" column="92" lean-forward="true" selection-start-line="141" selection-start-column="92" selection-end-line="141" selection-end-column="92" />
+            <state relative-caret-position="264">
+              <caret line="126" column="32" lean-forward="false" selection-start-line="126" selection-start-column="32" selection-end-line="126" selection-end-column="32" />
               <folding />
             </state>
           </provider>
@@ -45,11 +45,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="models.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="478">
-              <caret line="1001" column="66" lean-forward="false" selection-start-line="1001" selection-start-column="56" selection-end-line="1001" selection-end-column="66" />
+            <state relative-caret-position="493">
+              <caret line="1002" column="52" lean-forward="false" selection-start-line="1002" selection-start-column="41" selection-end-line="1002" selection-end-column="52" />
               <folding>
                 <element signature="e#7053#9742#0" expanded="false" />
                 <element signature="e#7117#7230#0" expanded="false" />
@@ -779,6 +779,14 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="264">
+          <caret line="126" column="32" lean-forward="false" selection-start-line="126" selection-start-column="32" selection-end-line="126" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/utils/datasets.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="179">
@@ -801,8 +809,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="478">
-          <caret line="1001" column="66" lean-forward="false" selection-start-line="1001" selection-start-column="56" selection-end-line="1001" selection-end-column="66" />
+        <state relative-caret-position="493">
+          <caret line="1002" column="52" lean-forward="false" selection-start-line="1002" selection-start-column="41" selection-end-line="1002" selection-end-column="52" />
           <folding>
             <element signature="e#7053#9742#0" expanded="false" />
             <element signature="e#7117#7230#0" expanded="false" />
@@ -813,14 +821,6 @@
             <element signature="e#19658#23371#0" expanded="false" />
             <element signature="e#23407#23526#0" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="375">
-          <caret line="141" column="92" lean-forward="true" selection-start-line="141" selection-start-column="92" selection-end-line="141" selection-end-column="92" />
-          <folding />
         </state>
       </provider>
     </entry>
