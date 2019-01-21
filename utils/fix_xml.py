@@ -5,8 +5,9 @@ import os
 path = "/disk2/wanyx/head_sequence_train/"
 
 for v in glob(os.path.join(path, '*')):
+    print('modifying annotations of %s' % path)
     for xml_file in glob(os.path.join(v, "Annotations/**/*.xml"), recursive=True):
-        print('modifying %s' % xml_file)
+
 
         tree = ET.parse(xml_file)
         root = tree.getroot()
@@ -24,9 +25,9 @@ for v in glob(os.path.join(path, '*')):
             obj = ET.SubElement(root,'object')
             ET.SubElement(obj,'name').text = 'head'
             bndbox = ET.SubElement(obj,'bndbox')
-            ET.SubElement(obj, 'xmin').text = box[0]
-            ET.SubElement(obj, 'ymin').text = box[1]
-            ET.SubElement(obj, 'xmax').text = box[2]
-            ET.SubElement(obj, 'ymax').text = box[3]
+            ET.SubElement(bndbox, 'xmin').text = box[0]
+            ET.SubElement(bndbox, 'ymin').text = box[1]
+            ET.SubElement(bndbox, 'xmax').text = box[2]
+            ET.SubElement(bndbox, 'ymax').text = box[3]
         tree.write(xml_file)
 
