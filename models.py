@@ -928,7 +928,7 @@ class Darknet(nn.Module):
         parall_model_list = nn.ModuleList()
         for i, (module_def, module) in enumerate(zip(self.module_defs, self.module_list)):
             if module_def["type"] == "yolo":
-                module = module.cuda()
+                module = module
             else:
                 module = nn.parallel.DataParallel(module,device_ids=gpu_id_list).cuda()
             parall_model_list.append(module)
@@ -936,7 +936,7 @@ class Darknet(nn.Module):
         self.down_channel_62 = nn.parallel.DataParallel(self.down_channel_62,gpu_id_list).cuda()
         self.down_channel_37 = nn.parallel.DataParallel(self.down_channel_37,gpu_id_list).cuda()
         self.down_channel_12 = nn.parallel.DataParallel(self.down_channel_12,gpu_id_list).cuda()
-        self.flow_warp = nn.parallel.DataParallel(self.flow_warp,gpu_id_list)
+        self.flow_warp = nn.parallel.DataParallel(self.flow_warp,gpu_id_list).cuda()
         return
 
 #------------------------------------FLOW-YOLO---------------------------------
