@@ -962,7 +962,7 @@ class FlowYOLO(nn.Module):
                                             forward_feats=last_feature,
                                             flow=flows_output,
                                             targets =target)
-        if self.args.use_cuda and torch.torch.cuda.is_available() and isinstance(result,torch.Tensor):
+        if self.args.use_cuda and torch.torch.cuda.is_available():
             print("put result in cuda.")
             result = result.cuda()
         return result, features
