@@ -307,7 +307,7 @@ def test(model, dataloader_list:list,args):
         last_frame = None
         last_feature = None
 
-        for batch_i, (images, targets) in enumerate(tqdm.tqdm(dataloader, desc="Detecting objects")):
+        for batch_i, (images, targets) in enumerate(dataloader):
             """
             targets.shape:[batch,50,5(x,y,w,h,class)]
                 x: 0-1 scaled, centered, padded
