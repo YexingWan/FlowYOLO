@@ -705,7 +705,7 @@ if __name__ == "__main__":
     args = built_args()
     if not os.path.isdir(args.save):
         os.mkdir(args.save)
-    if not os.path.isdir(os.path.join(args.save,"checkpoints")):
-        os.mkdir(os.path.join(args.save,"checkpoints"))
+    if not os.path.isdir(os.path.join(args.save,"checkpoints_head")):
+        os.mkdir(os.path.join(args.save,"checkpoints_head"))
     assert(args.inference_size % 64 == 0)
     main(args,task = args.task)
