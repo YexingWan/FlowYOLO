@@ -192,9 +192,27 @@ class SequenceImage(Dataset):
         #---------
 
         img_path = self.files[index % len(self.files)]
-        # Extract image
-        img = np.array(Image.open(img_path))
+
+        # deal with brocken image loading
+        while True:
+            try:
+            # Extract image
+                img = np.array(Image.open(img_path))
+                break
+            except FileNotFoundError:
+                if index == 0:
+                    index = index + 1
+                else:
+                    index = index - 1
+                img_path = self.files[(index) % len(self.files)]
+            except OSError:
+                if index == 0:
+                    index = index + 1
+                else:
+                    index = index - 1
+                img_path = self.files[(index - 1) % len(self.files)]
         #print("Image.open max:{}".format(img.max()))
+
         h, w, _ = img.shape
         dim_diff = np.abs(h - w)
         # Upper (left) and lower (right) padding
