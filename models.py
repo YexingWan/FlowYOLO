@@ -967,7 +967,7 @@ class FlowYOLO(nn.Module):
         print("feature:{}".format(type(features)))
 
 
-        if self.args.use_cuda and torch.torch.cuda.is_available() and isinstance(result['loss'],torch.Tensor):
+        if isinstance(result,defaultdict) and self.args.use_cuda and torch.torch.cuda.is_available() and isinstance(result['loss'],torch.Tensor):
             #print("put result in cuda.")
             result['loss'] = result['loss'].cuda()
         return result, features
