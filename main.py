@@ -339,11 +339,6 @@ def test(model, dataloader_list:list,args):
                 # 其中bbox_attrs为 x y w h conf cls_conf的predict
                 # 其中xywh为每个box对应resized image的 "unscaled" x，y坐标（center）和w，h大小
                 # 注意这里是 w，h 不是 h，w
-
-                print("flow:".format(flow_input.shape))
-                print("images:".format(images.shape))
-                print("feature:".format(last_feature.shape))
-
                 outputs, features = model(flow_input = flow_input, data = images, last_feature = last_feature)
                 last_feature = features
 
