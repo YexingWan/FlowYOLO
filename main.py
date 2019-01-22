@@ -273,8 +273,8 @@ def train(args):
 
             #save checkpoint and validatio
 
-            args.validation_frequency = 1
-            args.saving_checkpoint_interval = 1
+            # args.validation_frequency = 1
+            # args.saving_checkpoint_interval = 1
 
 
             if cur_batch % args.validation_frequency == 0:
