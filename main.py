@@ -380,10 +380,7 @@ def test(model, dataloader_list:list,args):
                 all_annotations.append([np.array([]) for _ in range(num_classes)])
                 if any(torch.flatten(annotations) != 0):
                     #annotation_labels = annotations[annotations[:, -1] > 0, -1].numpy()
-                    _map = torch.Tensor([any(annotations[i] != 0) for i in range(annotations.shape[0])])
-                    print(_map)
-                    _map = _map.type(torch.uint8)
-                    print(_map.type())
+                    _map = torch.Tensor([any(annotations[i] != 0) for i in range(annotations.shape[0])]).type(torch.uint8)
                     annotations_f = annotations[_map]
                     annotation_labels = annotations_f[:, -1].numpy()
                     _annotation_boxes = annotations_f[:, :4].numpy()
