@@ -542,7 +542,7 @@ def built_head_datasets(path,val_ratio:float=1/10):
     train_dataset_list = []
     for p in final_training_path:
         train_dataset_list.append(SequenceImage(p, head_map))
-    for p in val_dataset_list:
+    for p in final_val_path:
         val_dataset_list.append(SequenceImage(p, head_map))
 
     return train_dataset_list, val_dataset_list

@@ -284,7 +284,7 @@ def train(args):
     print("Done!")
 
 
-def test(model,dataloader_list:list,args):
+def test(model, dataloader_list:list,args):
 
     # initialize
     model.eval()
