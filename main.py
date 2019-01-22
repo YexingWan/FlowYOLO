@@ -272,6 +272,11 @@ def train(args):
             torch.cuda.empty_cache()
 
             #save checkpoint and validatio
+
+            args.validation_frequency = 1
+            args.saving_checkpoint_interval = 1
+
+
             if cur_batch % args.validation_frequency == 0:
                 print("validation in {} batch".format(cur_batch))
                 test(flow_yolo,val_final_loader_list,args)
