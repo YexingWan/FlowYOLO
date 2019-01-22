@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9ff04544-841e-4ebf-8528-543c869fa01e" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.py" afterPath="$PROJECT_DIR$/main.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/models.py" afterPath="$PROJECT_DIR$/models.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/utils/datasets.py" afterPath="$PROJECT_DIR$/utils/datasets.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -13,21 +15,37 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="main.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="main.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="382" column="63" lean-forward="false" selection-start-line="382" selection-start-column="63" selection-end-line="382" selection-end-column="63" />
+            <state relative-caret-position="3971">
+              <caret line="308" column="0" lean-forward="true" selection-start-line="308" selection-start-column="0" selection-end-line="308" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="datasets.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="utils.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/utils/utils.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="655">
+              <caret line="190" column="9" lean-forward="false" selection-start-line="190" selection-start-column="9" selection-end-line="190" selection-end-column="9" />
+              <folding>
+                <element signature="e#295#626#0" expanded="false" />
+                <element signature="e#668#1565#0" expanded="false" />
+                <element signature="e#1613#2904#0" expanded="false" />
+                <element signature="e#2943#3820#0" expanded="false" />
+                <element signature="e#11814#12026#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="datasets.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/utils/datasets.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="491">
-              <caret line="545" column="24" lean-forward="false" selection-start-line="545" selection-start-column="8" selection-end-line="545" selection-end-column="24" />
+            <state relative-caret-position="242">
+              <caret line="517" column="48" lean-forward="false" selection-start-line="517" selection-start-column="48" selection-end-line="517" selection-end-column="48" />
               <folding>
                 <element signature="e#0#28#0" expanded="true" />
                 <element signature="e#214#1108#0" expanded="false" />
@@ -72,8 +90,8 @@
       <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-62">
-              <caret line="963" column="62" lean-forward="true" selection-start-line="963" selection-start-column="62" selection-end-line="963" selection-end-column="62" />
+            <state relative-caret-position="5770">
+              <caret line="1002" column="0" lean-forward="true" selection-start-line="1002" selection-start-column="0" selection-end-line="1002" selection-end-column="0" />
               <folding>
                 <element signature="e#0#31#0" expanded="true" />
                 <element signature="e#696#7010#0" expanded="false" />
@@ -132,7 +150,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>non</find>
       <find>max</find>
       <find>non_max</find>
       <find>built_</find>
@@ -141,7 +158,6 @@
       <find>conf_thres</find>
       <find>built</find>
       <find>gpu</find>
-      <find>print</find>
       <find>image_shape</find>
       <find>yolo</find>
       <find>VID_map</find>
@@ -162,6 +178,8 @@
       <find>validation_frequency</find>
       <find>checkpoint</find>
       <find>work</find>
+      <find>result</find>
+      <find>print</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -207,7 +225,6 @@
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/config/yolov3.cfg" />
         <option value="$PROJECT_DIR$/config/data.data" />
-        <option value="$PROJECT_DIR$/utils/utils.py" />
         <option value="$PROJECT_DIR$/utils/_training_set_gen.py" />
         <option value="$PROJECT_DIR$/config/head_yolov3.data" />
         <option value="$PROJECT_DIR$/kmeans_anchor.py" />
@@ -218,9 +235,10 @@
         <option value="$PROJECT_DIR$/debug_tools/demo_file.py" />
         <option value="$PROJECT_DIR$/debug_tools/check_dataset.py" />
         <option value="$PROJECT_DIR$/train.sh" />
-        <option value="$PROJECT_DIR$/utils/datasets.py" />
-        <option value="$PROJECT_DIR$/models.py" />
+        <option value="$PROJECT_DIR$/utils/utils.py" />
         <option value="$PROJECT_DIR$/main.py" />
+        <option value="$PROJECT_DIR$/models.py" />
+        <option value="$PROJECT_DIR$/utils/datasets.py" />
       </list>
     </option>
   </component>
@@ -684,20 +702,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/utils/utils.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1395">
-          <caret line="190" column="28" lean-forward="false" selection-start-line="190" selection-start-column="21" selection-end-line="190" selection-end-column="28" />
-          <folding>
-            <element signature="e#295#626#0" expanded="false" />
-            <element signature="e#668#1565#0" expanded="false" />
-            <element signature="e#1613#2904#0" expanded="false" />
-            <element signature="e#2943#3820#0" expanded="false" />
-            <element signature="e#11813#12025#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/Desktop/my_work/MobileNetSSD/solver_train.prototxt" />
     <entry file="file://$USER_HOME$/Desktop/my_work/MobileNetSSD/MobileNetSSD_train.prototxt" />
     <entry file="file://$USER_HOME$/Desktop/my_work/MobileNetSSD/MobileNetSSD_test.prototxt" />
@@ -784,26 +788,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/utils/datasets.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="491">
-          <caret line="545" column="24" lean-forward="false" selection-start-line="545" selection-start-column="8" selection-end-line="545" selection-end-column="24" />
-          <folding>
-            <element signature="e#0#28#0" expanded="true" />
-            <element signature="e#214#1108#0" expanded="false" />
-            <element signature="e#1165#1375#1" expanded="false" />
-            <element signature="e#1511#5604#0" expanded="false" />
-            <element signature="e#9071#11980#0" expanded="false" />
-            <element signature="e#9701#11923#0" expanded="false" />
-            <element signature="e#11956#11978#0" expanded="false" />
-            <element signature="e#14227#15930#0" expanded="false" />
-            <element signature="e#16022#18111#0" expanded="false" />
-            <element signature="e#18183#18710#0" expanded="false" />
-            <element signature="e#18822#18944#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/debug_tools/check_dataset.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="165">
@@ -826,8 +810,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-62">
-          <caret line="963" column="62" lean-forward="true" selection-start-line="963" selection-start-column="62" selection-end-line="963" selection-end-column="62" />
+        <state relative-caret-position="5770">
+          <caret line="1002" column="0" lean-forward="true" selection-start-line="1002" selection-start-column="0" selection-end-line="1002" selection-end-column="0" />
           <folding>
             <element signature="e#0#31#0" expanded="true" />
             <element signature="e#696#7010#0" expanded="false" />
@@ -845,9 +829,43 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="382" column="63" lean-forward="false" selection-start-line="382" selection-start-column="63" selection-end-line="382" selection-end-column="63" />
+        <state relative-caret-position="3971">
+          <caret line="308" column="0" lean-forward="true" selection-start-line="308" selection-start-column="0" selection-end-line="308" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/utils/utils.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="655">
+          <caret line="190" column="9" lean-forward="false" selection-start-line="190" selection-start-column="9" selection-end-line="190" selection-end-column="9" />
+          <folding>
+            <element signature="e#295#626#0" expanded="false" />
+            <element signature="e#668#1565#0" expanded="false" />
+            <element signature="e#1613#2904#0" expanded="false" />
+            <element signature="e#2943#3820#0" expanded="false" />
+            <element signature="e#11814#12026#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/utils/datasets.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="242">
+          <caret line="517" column="48" lean-forward="false" selection-start-line="517" selection-start-column="48" selection-end-line="517" selection-end-column="48" />
+          <folding>
+            <element signature="e#0#28#0" expanded="true" />
+            <element signature="e#214#1108#0" expanded="false" />
+            <element signature="e#1165#1375#1" expanded="false" />
+            <element signature="e#1511#5604#0" expanded="false" />
+            <element signature="e#9071#11980#0" expanded="false" />
+            <element signature="e#9701#11923#0" expanded="false" />
+            <element signature="e#11956#11978#0" expanded="false" />
+            <element signature="e#14227#15930#0" expanded="false" />
+            <element signature="e#16022#18111#0" expanded="false" />
+            <element signature="e#18183#18710#0" expanded="false" />
+            <element signature="e#18822#18944#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>

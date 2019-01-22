@@ -999,7 +999,7 @@ class FlowYOLO(nn.Module):
         # no use format of weight of origin FlowNet, use torch format
         torch.save(self.flow_model.state_dict(),os.path.join(path,"flow.pth"))
         self.detect_model.save_weights(path)
-        torch.save(self,path.join(path,"EntireModel.pth"))
+        torch.save(self,os.path.join(path,"EntireModel.pth"))
 
 
     def set_multi_gpus(self,gpu_id_list):
