@@ -2,10 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9ff04544-841e-4ebf-8528-543c869fa01e" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/debug_tools/check_dataset.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/debug_tools/gen_training_set.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/utils/fix_xml.py" afterPath="$PROJECT_DIR$/debug_tools/fix_xml.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/utils/datasets.py" afterPath="$PROJECT_DIR$/utils/datasets.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -20,30 +16,30 @@
       <file leaf-file-name="main.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="280">
+            <state relative-caret-position="900">
               <caret line="127" column="62" lean-forward="false" selection-start-line="127" selection-start-column="62" selection-end-line="127" selection-end-column="62" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="datasets.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="datasets.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/utils/datasets.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="241">
-              <caret line="181" column="64" lean-forward="true" selection-start-line="181" selection-start-column="28" selection-end-line="181" selection-end-column="64" />
+            <state relative-caret-position="750">
+              <caret line="202" column="25" lean-forward="false" selection-start-line="202" selection-start-column="20" selection-end-line="202" selection-end-column="25" />
               <folding>
                 <element signature="e#0#28#0" expanded="true" />
                 <element signature="e#214#1108#0" expanded="false" />
                 <element signature="e#1165#1375#1" expanded="false" />
                 <element signature="e#1511#5604#0" expanded="false" />
-                <element signature="e#9079#11988#0" expanded="false" />
-                <element signature="e#9709#11931#0" expanded="false" />
-                <element signature="e#11964#11986#0" expanded="false" />
-                <element signature="e#14235#15938#0" expanded="false" />
-                <element signature="e#16030#18119#0" expanded="false" />
-                <element signature="e#18191#18718#0" expanded="false" />
-                <element signature="e#18830#18952#0" expanded="false" />
+                <element signature="e#9071#11980#0" expanded="false" />
+                <element signature="e#9701#11923#0" expanded="false" />
+                <element signature="e#11956#11978#0" expanded="false" />
+                <element signature="e#14227#15930#0" expanded="false" />
+                <element signature="e#16022#18111#0" expanded="false" />
+                <element signature="e#18183#18710#0" expanded="false" />
+                <element signature="e#18822#18944#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -61,11 +57,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="check_dataset.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="check_dataset.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/debug_tools/check_dataset.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="195">
-              <caret line="13" column="46" lean-forward="false" selection-start-line="13" selection-start-column="46" selection-end-line="13" selection-end-column="46" />
+            <state relative-caret-position="165">
+              <caret line="11" column="37" lean-forward="true" selection-start-line="11" selection-start-column="37" selection-end-line="11" selection-end-column="37" />
               <folding>
                 <element signature="e#0#21#0" expanded="true" />
               </folding>
@@ -202,9 +198,9 @@
         <option value="$PROJECT_DIR$/config/head_data.data" />
         <option value="$PROJECT_DIR$/models.py" />
         <option value="$PROJECT_DIR$/main.py" />
-        <option value="$PROJECT_DIR$/utils/datasets.py" />
         <option value="$PROJECT_DIR$/debug_tools/demo_file.py" />
         <option value="$PROJECT_DIR$/debug_tools/check_dataset.py" />
+        <option value="$PROJECT_DIR$/utils/datasets.py" />
       </list>
     </option>
   </component>
@@ -772,14 +768,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="280">
-          <caret line="127" column="62" lean-forward="false" selection-start-line="127" selection-start-column="62" selection-end-line="127" selection-end-column="62" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/config/head_yolov3.cfg">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="679">
@@ -807,32 +795,40 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/debug_tools/check_dataset.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="11" column="37" lean-forward="true" selection-start-line="11" selection-start-column="37" selection-end-line="11" selection-end-column="37" />
+          <folding>
+            <element signature="e#0#21#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="900">
+          <caret line="127" column="62" lean-forward="false" selection-start-line="127" selection-start-column="62" selection-end-line="127" selection-end-column="62" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/utils/datasets.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="241">
-          <caret line="181" column="64" lean-forward="true" selection-start-line="181" selection-start-column="28" selection-end-line="181" selection-end-column="64" />
+        <state relative-caret-position="750">
+          <caret line="202" column="25" lean-forward="false" selection-start-line="202" selection-start-column="20" selection-end-line="202" selection-end-column="25" />
           <folding>
             <element signature="e#0#28#0" expanded="true" />
             <element signature="e#214#1108#0" expanded="false" />
             <element signature="e#1165#1375#1" expanded="false" />
             <element signature="e#1511#5604#0" expanded="false" />
-            <element signature="e#9079#11988#0" expanded="false" />
-            <element signature="e#9709#11931#0" expanded="false" />
-            <element signature="e#11964#11986#0" expanded="false" />
-            <element signature="e#14235#15938#0" expanded="false" />
-            <element signature="e#16030#18119#0" expanded="false" />
-            <element signature="e#18191#18718#0" expanded="false" />
-            <element signature="e#18830#18952#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/debug_tools/check_dataset.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="13" column="46" lean-forward="false" selection-start-line="13" selection-start-column="46" selection-end-line="13" selection-end-column="46" />
-          <folding>
-            <element signature="e#0#21#0" expanded="true" />
+            <element signature="e#9071#11980#0" expanded="false" />
+            <element signature="e#9701#11923#0" expanded="false" />
+            <element signature="e#11956#11978#0" expanded="false" />
+            <element signature="e#14227#15930#0" expanded="false" />
+            <element signature="e#16022#18111#0" expanded="false" />
+            <element signature="e#18183#18710#0" expanded="false" />
+            <element signature="e#18822#18944#0" expanded="false" />
           </folding>
         </state>
       </provider>
