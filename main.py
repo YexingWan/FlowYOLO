@@ -412,7 +412,7 @@ def test(model, dataloader_list:list,args):
 
         # for each image
         for i in range(len(all_annotations)):
-            print("cal image {}".format(i))
+            #print("cal image {}".format(i))
             detections = all_detections[i][label]
             annotations = all_annotations[i][label]
 

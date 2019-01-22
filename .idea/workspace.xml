@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="9ff04544-841e-4ebf-8528-543c869fa01e" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.py" afterPath="$PROJECT_DIR$/main.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -16,8 +17,8 @@
       <file leaf-file-name="main.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3563">
-              <caret line="308" column="0" lean-forward="true" selection-start-line="308" selection-start-column="0" selection-end-line="308" selection-end-column="0" />
+            <state relative-caret-position="290">
+              <caret line="457" column="35" lean-forward="false" selection-start-line="457" selection-start-column="29" selection-end-line="457" selection-end-column="35" />
               <folding />
             </state>
           </provider>
@@ -42,8 +43,8 @@
       <file leaf-file-name="datasets.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/utils/datasets.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="242">
-              <caret line="517" column="48" lean-forward="false" selection-start-line="517" selection-start-column="48" selection-end-line="517" selection-end-column="48" />
+            <state relative-caret-position="411">
+              <caret line="517" column="49" lean-forward="false" selection-start-line="517" selection-start-column="49" selection-end-line="517" selection-end-column="49" />
               <folding>
                 <element signature="e#0#28#0" expanded="true" />
                 <element signature="e#214#1108#0" expanded="false" />
@@ -148,7 +149,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>max</find>
       <find>non_max</find>
       <find>built_</find>
       <find>build_targets</find>
@@ -178,6 +178,7 @@
       <find>work</find>
       <find>result</find>
       <find>print</find>
+      <find>non</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -234,9 +235,9 @@
         <option value="$PROJECT_DIR$/debug_tools/check_dataset.py" />
         <option value="$PROJECT_DIR$/train.sh" />
         <option value="$PROJECT_DIR$/utils/utils.py" />
-        <option value="$PROJECT_DIR$/main.py" />
         <option value="$PROJECT_DIR$/models.py" />
         <option value="$PROJECT_DIR$/utils/datasets.py" />
+        <option value="$PROJECT_DIR$/main.py" />
       </list>
     </option>
   </component>
@@ -246,7 +247,7 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds" extendedState="1">
+  <component name="ProjectFrameBounds">
     <option name="y" value="23" />
     <option name="width" value="1680" />
     <option name="height" value="1027" />
@@ -526,7 +527,8 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1680" height="1027" extended-state="1" />
+    <frame x="0" y="23" width="1680" height="1027" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.13980465" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32958034" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -536,7 +538,7 @@
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.16990788" sideWeight="0.497558" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26502147" sideWeight="0.497558" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26502147" sideWeight="0.497558" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -840,8 +842,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/utils/datasets.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="242">
-          <caret line="517" column="48" lean-forward="false" selection-start-line="517" selection-start-column="48" selection-end-line="517" selection-end-column="48" />
+        <state relative-caret-position="411">
+          <caret line="517" column="49" lean-forward="false" selection-start-line="517" selection-start-column="49" selection-end-line="517" selection-end-column="49" />
           <folding>
             <element signature="e#0#28#0" expanded="true" />
             <element signature="e#214#1108#0" expanded="false" />
@@ -860,8 +862,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3563">
-          <caret line="308" column="0" lean-forward="true" selection-start-line="308" selection-start-column="0" selection-end-line="308" selection-end-column="0" />
+        <state relative-caret-position="290">
+          <caret line="457" column="35" lean-forward="false" selection-start-line="457" selection-start-column="29" selection-end-line="457" selection-end-column="35" />
           <folding />
         </state>
       </provider>
