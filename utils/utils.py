@@ -188,7 +188,7 @@ def non_max_suppression(prediction, num_classes, conf_thres=0.9, cls_thres = 0.2
             max_detections = torch.cat(max_detections)
             # Add max detections to outputs
             output[image_i] = max_detections if output[image_i] is None else torch.cat((output[image_i], max_detections))
-        print(output[image_i])
+        #print(output[image_i])
 
     return output
 

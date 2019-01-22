@@ -963,8 +963,6 @@ class FlowYOLO(nn.Module):
                                             forward_feats=last_feature,
                                             flow=flows_output,
                                             targets =target)
-        print("result:{}".format(type(result)))
-        print("feature:{}".format(type(features)))
 
 
         if isinstance(result,defaultdict) and self.args.use_cuda and torch.torch.cuda.is_available() and isinstance(result['loss'],torch.Tensor):
