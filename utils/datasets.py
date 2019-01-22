@@ -515,10 +515,10 @@ def built_dataloaders(datasets:list, batchsize:int, shuffle:bool):
 
 
 
-def built_head_datasets(path,val_ratio:float=1/10):
+def built_head_datasets(path,val_ratio:float=1/100):
     """
         :param path: root path of head dataset
-        :param ratio: training/validation ratio, 1/4 default
+        :param ratio: training/validation ratio, 1/50 default
         :param num_sequence: exact validation sequences number
         :return: two lists of dataset, first for training second for validation
 
