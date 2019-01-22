@@ -383,7 +383,7 @@ def test(model, dataloader_list:list,args):
                     _map = torch.Tensor([any(annotations[i] != 0) for i in range(annotations.shape[0])])
                     print(map)
                     _map = _map.type(torch.uint8)
-                    print(map.type())
+                    print(_map.type())
                     annotations_f = annotations[_map]
                     annotation_labels = annotations_f[:, -1].numpy()
                     _annotation_boxes = annotations_f[:, :4].numpy()
