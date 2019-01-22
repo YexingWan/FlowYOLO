@@ -321,8 +321,8 @@ def test(model, dataloader_list:list,args):
             images: input batched images, 255 base [batch_size, c, h, w], inferenced size(448)           
             """
 
-            print("image shape:{}".format(images.shape))
-            print("target shape:{}".format(targets.shape))
+            #print("image shape:{}".format(images.shape))
+            #print("target shape:{}".format(targets.shape))
 
             #assert(images.shape[0] == 1)
             flow_input = torch.unsqueeze(torch.stack([images[0], last_frame]).permute(1, 0, 2, 3),dim=0) if last_frame is not None else None
@@ -350,7 +350,7 @@ def test(model, dataloader_list:list,args):
                                                     conf_thres=args.conf_thres,
                                                     nms_thres=args.nms_thres)
 
-                print("detected box:{}".format(outputs[0]))
+                #print("detected box:{}".format(outputs[0]))
 
 
 
@@ -380,7 +380,11 @@ def test(model, dataloader_list:list,args):
                 all_annotations.append([np.array([]) for _ in range(num_classes)])
                 if any(torch.flatten(annotations) != 0):
                     #annotation_labels = annotations[annotations[:, -1] > 0, -1].numpy()
-                    annotations_f = annotations[torch.Tensor([any(annotations[i] != 0) for i in range(annotations.shape[0])])]
+                    _map = torch.Tensor([any(annotations[i] != 0) for i in range(annotations.shape[0])])
+                    print(map)
+                    _map = _map.type(torch.uint8)
+                    print(map.type())
+                    annotations_f = annotations[_map]
                     annotation_labels = annotations_f[:, -1].numpy()
                     _annotation_boxes = annotations_f[:, :4].numpy()
 

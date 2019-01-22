@@ -16,8 +16,8 @@
       <file leaf-file-name="main.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="395">
-              <caret line="340" column="34" lean-forward="true" selection-start-line="340" selection-start-column="34" selection-end-line="340" selection-end-column="34" />
+            <state relative-caret-position="187">
+              <caret line="382" column="63" lean-forward="false" selection-start-line="382" selection-start-column="63" selection-end-line="382" selection-end-column="63" />
               <folding />
             </state>
           </provider>
@@ -72,8 +72,8 @@
       <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="197">
-              <caret line="964" column="60" lean-forward="true" selection-start-line="964" selection-start-column="60" selection-end-line="964" selection-end-column="60" />
+            <state relative-caret-position="-62">
+              <caret line="963" column="62" lean-forward="true" selection-start-line="963" selection-start-column="62" selection-end-line="963" selection-end-column="62" />
               <folding>
                 <element signature="e#0#31#0" expanded="true" />
                 <element signature="e#696#7010#0" expanded="false" />
@@ -215,11 +215,11 @@
         <option value="$PROJECT_DIR$/data/head.names" />
         <option value="$PROJECT_DIR$/utils/fix_xml.py" />
         <option value="$PROJECT_DIR$/config/head_data.data" />
-        <option value="$PROJECT_DIR$/models.py" />
         <option value="$PROJECT_DIR$/debug_tools/demo_file.py" />
         <option value="$PROJECT_DIR$/debug_tools/check_dataset.py" />
         <option value="$PROJECT_DIR$/train.sh" />
         <option value="$PROJECT_DIR$/utils/datasets.py" />
+        <option value="$PROJECT_DIR$/models.py" />
         <option value="$PROJECT_DIR$/main.py" />
       </list>
     </option>
@@ -784,26 +784,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/debug_tools/gen_training_set.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="960">
-          <caret line="64" column="0" lean-forward="false" selection-start-line="64" selection-start-column="0" selection-end-line="64" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/debug_tools/check_dataset.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="11" column="37" lean-forward="false" selection-start-line="11" selection-start-column="37" selection-end-line="11" selection-end-column="37" />
-          <folding>
-            <element signature="e#0#21#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/utils/datasets.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="491">
@@ -824,10 +804,30 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/debug_tools/check_dataset.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="11" column="37" lean-forward="false" selection-start-line="11" selection-start-column="37" selection-end-line="11" selection-end-column="37" />
+          <folding>
+            <element signature="e#0#21#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/debug_tools/gen_training_set.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="960">
+          <caret line="64" column="0" lean-forward="false" selection-start-line="64" selection-start-column="0" selection-end-line="64" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="197">
-          <caret line="964" column="60" lean-forward="true" selection-start-line="964" selection-start-column="60" selection-end-line="964" selection-end-column="60" />
+        <state relative-caret-position="-62">
+          <caret line="963" column="62" lean-forward="true" selection-start-line="963" selection-start-column="62" selection-end-line="963" selection-end-column="62" />
           <folding>
             <element signature="e#0#31#0" expanded="true" />
             <element signature="e#696#7010#0" expanded="false" />
@@ -845,8 +845,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="395">
-          <caret line="340" column="34" lean-forward="true" selection-start-line="340" selection-start-column="34" selection-end-line="340" selection-end-column="34" />
+        <state relative-caret-position="187">
+          <caret line="382" column="63" lean-forward="false" selection-start-line="382" selection-start-column="63" selection-end-line="382" selection-end-column="63" />
           <folding />
         </state>
       </provider>
