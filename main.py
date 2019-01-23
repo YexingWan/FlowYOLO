@@ -526,7 +526,7 @@ def inference(args):
         #print("input_imaggs_shape:{}".format(input_imgs.shape))
         flow_input = torch.unsqueeze(torch.stack([input_imgs[0], last_frame]).permute(1, 0, 2, 3),0) if last_frame is not None else None
         last_frame = input_imgs[0]
-        last_frame_d = np.transpose(last_frame.numpy()[:,:,::-1], (1, 2, 0)).astype(int)
+        last_frame_d = np.transpose(last_frame.numpy()[::-1,:,:], (1, 2, 0)).astype(int)
 
         if args.use_cuda:
             flow_input = flow_input.cuda() if flow_input is not None else None
