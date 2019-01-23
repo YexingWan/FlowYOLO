@@ -643,7 +643,7 @@ class YOLOLayer(nn.Module):
 
         # Get outputs
         x = torch.sigmoid(prediction[..., 0])  # Center x 0-1, according grid
-        y = torch.sigmoid(prediction[..., 1])  # Center y 0-1,according grid
+        y = torch.sigmoid(prediction[..., 1])  # Center y 0-1, according grid
         w = prediction[..., 2]  # Width
         h = prediction[..., 3]  # Height
         pred_conf = torch.sigmoid(prediction[..., 4])  # Conf 0-1
