@@ -76,9 +76,9 @@ def built_args():
     parser.add_argument("--yolo_config_path", type=str, default="", help="path to model config file")
     parser.add_argument("--yolo_resume", type=str, default="", help="path to weights file")
 
-    parser.add_argument("--conf_thres", type=float, default=0.5,help="object confidence threshold required to qualify as detected")
-    parser.add_argument("--cls_thres", type=float, default=0.5,help="class score threshold required to qualify as detected")
-    parser.add_argument("--iou_thres", type=float, default=0.5, help="iou threshold required to qualify as detected")
+    parser.add_argument("--conf_thres", type=float, default=0.95,help="object confidence threshold required to qualify as detected")
+    parser.add_argument("--cls_thres", type=float, default=0.95,help="class score threshold required to qualify as detected")
+    parser.add_argument("--iou_thres", type=float, default=0.3, help="iou threshold required to qualify as detected")
 
     parser.add_argument("--nms_thres", type=float, default=0.1, help="iou thresshold for non-maximum suppression")
     args = parser.parse_args()
@@ -577,16 +577,16 @@ def draw_and_save(args,imgs,img_detections,classes,current_batch,v_writer = None
             #unique_labels = detections[:, -1].cpu().unique()
             #n_cls_preds = len(unique_labels)
             for x1, y1, x2, y2, conf, cls_conf, cls_pred in detections:
-                cv2.rectangle(img, (x2,y2), (x1,y1), (0,255,0), 2)
-                print(int(cls_pred.cpu().item()))
-                print(cls_conf.cpu().item())
-                print(classes)
+                cv2.rectangle(img, (x2,y2), (x1,y1), (0,255,0), 1)
+                #print(int(cls_pred.cpu().item()))
+                #print(cls_conf.cpu().item())
+                #print(classes)
                 cv2.putText(img,
                             classes[int(cls_pred.cpu().item())] + ' ' + str(conf.cpu().item()),
                             (x1, y1),
                             cv2.FONT_HERSHEY_SIMPLEX,
                             1e-3 * image_h,
-                            (0,255,0), 2)
+                            (0,255,0), 1)
 
         if not (os.path.exists("./output") and os.path.isdir("./output")):
             os.mkdir("./output")
@@ -601,7 +601,7 @@ def draw_and_save(args,imgs,img_detections,classes,current_batch,v_writer = None
                                            fourcc=cv2.VideoWriter_fourcc(*'MJPG'),
                                            fps=int(args.fps),
                                            frameSize=(img.shape[1], img.shape[0]))
-                print("data_shape:{}".format(img.shape))
+                #print("data_shape:{}".format(img.shape))
                 v_writer.write(img)
 
         else:
