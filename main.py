@@ -570,13 +570,13 @@ def draw_and_save(args,imgs,img_detections,classes,current_batch,v_writer = None
         img_i += start_idx
         image_h, image_w, _ = img.shape
         print("image shape :{}".format(img.shape))
-        print("image type :{}".format(img.dtype))
         img = img.astype(np.uint8)
+        print("image type :{}".format(img.dtype))
         if detections is not None:
             #unique_labels = detections[:, -1].cpu().unique()
             #n_cls_preds = len(unique_labels)
             for x1, y1, x2, y2, conf, cls_conf, cls_pred in detections:
-                cv2.rectangle(img, (x2,y2), (x1,y1), (255,0,0), 3)
+                cv2.rectangle(img, (x1,y1), (x2,y2), (255,0,0), 3)
                 cv2.putText(img,
                             classes[cls_pred] + ' ' + str(cls_conf),
                             (x1, y1),
