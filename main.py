@@ -582,7 +582,7 @@ def draw_and_save(args,imgs,img_detections,classes,current_batch,v_writer = None
                 print(cls_conf.cpu().item())
                 print(classes)
                 cv2.putText(img,
-                            classes[int(cls_pred.cpu().item())] + ' ' + str(cls_conf.cpu().item()),
+                            classes[int(cls_pred.cpu().item())] + ' ' + str(conf.cpu().item()),
                             (x1, y1),
                             cv2.FONT_HERSHEY_SIMPLEX,
                             1e-3 * image_h,
