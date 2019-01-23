@@ -4,4 +4,4 @@ names=data/head.names
 train=/disk2/wanyx/head_sequence_train/
 valid=/disk2/wanyx/head_sequence_train/
 #infer=/home/user/wanyx/vedio/HCVR_ch1_main_20181007170000_20181007180000.avi
-infer=/disk2/wanyx/head_sequence/train/20180130_140504/Data/0
+infer=/disk2/wanyx/head_sequence_train/20180130_140504/Data/0
