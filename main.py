@@ -33,7 +33,7 @@ def built_args():
     parser.add_argument("--data_config_path", type=str, default="config/data.data", help="path to data config file")
 
 
-    parser.add_argument('--validation_frequency', type=int, default=5000, help='validate every n batches')
+    parser.add_argument('--validation_frequency', type=int, default=1000, help='validate every n batches')
     parser.add_argument('--validation_n_sequence', type=int, default=5)
     parser.add_argument('--validation_batch_size', type=int, default=1, help="Do not support mini-batch validation currently")
 
@@ -51,7 +51,7 @@ def built_args():
     parser.add_argument('--learning_rate', type=float, default=0.0001,help="Learning rate for edn-to-end traning")
     parser.add_argument('--momentum', type=float, default=0.9,help="Momentum for edn-to-end traning")
     parser.add_argument('--decay', type=float, default=0.005, help="Weight decay for edn-to-end traning")
-    parser.add_argument('--saving_checkpoint_interval', type=int, default=5000, help="Number of batches for saving weight")
+    parser.add_argument('--saving_checkpoint_interval', type=int, default=1000, help="Number of batches for saving weight")
 
 
     parser.add_argument('--inference_batch_size', type=int, default=1, help="Do not support mini-batch inference currently")
