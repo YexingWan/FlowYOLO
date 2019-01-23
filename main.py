@@ -4,7 +4,7 @@ import models
 import torch
 import cv2
 from torch.utils.data import DataLoader
-import tqdm, sys
+import tqdm, sys,time
 
 import argparse, os
 import numpy as np
@@ -534,9 +534,13 @@ def inference(args):
 
         # Get detections
         with torch.no_grad():
+            s = time.time()
             detections, features = flow_yolo(flow_input = flow_input,
                                              data = input_imgs,
                                              last_feature = last_feature)
+            e = time.time()
+            print("forward time:{}".format(e-s))
+
             detections = utils.non_max_suppression(detections,
                                                    num_classes=args.data_num_classes,
                                                    cls_thres=args.cls_thres,
@@ -570,9 +574,9 @@ def draw_and_save(args,imgs,img_detections,classes,current_batch,v_writer = None
     for img_i, (img, detections) in enumerate(zip(imgs, img_detections)):
         img_i += start_idx
         image_h, image_w, _ = img.shape
-        print("image shape :{}".format(img.shape))
+        #print("image shape :{}".format(img.shape))
         img = img.astype(np.uint8).copy()
-        print("image type :{}".format(img.dtype))
+        #print("image type :{}".format(img.dtype))
         if detections is not None:
             #unique_labels = detections[:, -1].cpu().unique()
             #n_cls_preds = len(unique_labels)
