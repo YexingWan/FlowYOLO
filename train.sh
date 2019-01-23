@@ -8,7 +8,7 @@ train_batch_size=3
 data_config_path='./config/head_data.data'
 
 python3 ./main.py \
---task 'train'\
+--task 'train' \
 --yolo_config_path "$yolo_config_path" \
 --yolo_resume "$yolo_resume" \
 --flow_model 'FlowNet2CS' \
