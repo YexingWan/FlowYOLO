@@ -17,7 +17,7 @@ from PIL import Image
 from utils import utils, datasets
 from utils.parse_config import parse_data_config
 
-#os.environ["CUDA_VISIBLE_DEVICES"]="2, 3"
+os.environ["CUDA_VISIBLE_DEVICES"]="2, 3"
 
 
 
@@ -48,7 +48,7 @@ def built_args():
     parser.add_argument('--schedule_lr_frequency', type=int, default=0,
                         help='in number of iterations (0 for no schedule)')
     parser.add_argument('--schedule_lr_fraction', type=float, default=10)
-    parser.add_argument('--learning_rate', type=float, default=0.001,help="Learning rate for edn-to-end traning")
+    parser.add_argument('--learning_rate', type=float, default=0.0001,help="Learning rate for edn-to-end traning")
     parser.add_argument('--momentum', type=float, default=0.9,help="Momentum for edn-to-end traning")
     parser.add_argument('--decay', type=float, default=0.005, help="Weight decay for edn-to-end traning")
     parser.add_argument('--saving_checkpoint_interval', type=int, default=5000, help="Number of batches for saving weight")
