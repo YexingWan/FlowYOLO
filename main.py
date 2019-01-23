@@ -569,6 +569,7 @@ def draw_and_save(args,imgs,img_detections,classes,current_batch,v_writer = None
     for img_i, (img, detections) in enumerate(zip(imgs, img_detections)):
         img_i += start_idx
         image_h, image_w, _ = img.shape
+        print("image shape :{}".format(img.shape))
         if detections is not None:
             unique_labels = detections[:, -1].cpu().unique()
             #n_cls_preds = len(unique_labels)
