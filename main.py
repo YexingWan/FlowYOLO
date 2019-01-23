@@ -526,6 +526,7 @@ def inference(args):
         #print("input_imaggs_shape:{}".format(input_imgs.shape))
         flow_input = torch.unsqueeze(torch.stack([input_imgs[0], last_frame]).permute(1, 0, 2, 3),0) if last_frame is not None else None
         last_frame = input_imgs[0]
+        last_frame_d = np.transpose(last_frame.numpy()[:,:,::-1], (1, 2, 0)).astype(int)
 
         if args.use_cuda:
             flow_input = flow_input.cuda() if flow_input is not None else None
@@ -547,14 +548,14 @@ def inference(args):
             #Save image and detections depends on type of source
             if v_writer is not None:
                 v_writer = draw_and_save(args,
-                                         [np.transpose(last_frame.numpy(), (1, 2, 0)).astype(int)],
+                                         [last_frame_d],
                                          detections,
                                          classes,
                                          batch_i,
                                          v_writer=v_writer)
             else:
                 draw_and_save(args,
-                              [np.transpose(last_frame.numpy(), (1, 2, 0)).astype(int)],
+                              [last_frame_d],
                               detections,
                               classes,
                               batch_i)
@@ -576,7 +577,7 @@ def draw_and_save(args,imgs,img_detections,classes,current_batch,v_writer = None
             #unique_labels = detections[:, -1].cpu().unique()
             #n_cls_preds = len(unique_labels)
             for x1, y1, x2, y2, conf, cls_conf, cls_pred in detections:
-                cv2.rectangle(img, (x2,y2), (x1,y1), (0,255,0), 3)
+                cv2.rectangle(img, (x2,y2), (x1,y1), (255,0,0), 1)
                 print(int(cls_pred.cpu().item()))
                 print(cls_conf.cpu().item())
                 print(classes)
@@ -585,7 +586,7 @@ def draw_and_save(args,imgs,img_detections,classes,current_batch,v_writer = None
                             (x1, y1),
                             cv2.FONT_HERSHEY_SIMPLEX,
                             1e-3 * image_h,
-                            (255,0,0), 2)
+                            (255,0,0), 1)
 
         if not (os.path.exists("./output") and os.path.isdir("./output")):
             os.mkdir("./output")
