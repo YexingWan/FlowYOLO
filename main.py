@@ -570,6 +570,7 @@ def draw_and_save(args,imgs,img_detections,classes,current_batch,v_writer = None
         img_i += start_idx
         image_h, image_w, _ = img.shape
         print("image shape :{}".format(img.shape))
+        print("image type :{}".format(img.dtype))
         img = img.astype(np.uint8)
         if detections is not None:
             #unique_labels = detections[:, -1].cpu().unique()
