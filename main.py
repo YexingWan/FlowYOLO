@@ -579,6 +579,7 @@ def draw_and_save(args,imgs,img_detections,classes,current_batch,v_writer = None
                 cv2.rectangle(img, (x2,y2), (x1,y1), (0,255,0), 3)
                 print(int(cls_pred.cpu().item()))
                 print(cls_conf.cpu().item())
+                print(classes)
                 cv2.putText(img,
                             classes[int(cls_pred.cpu().item())] + ' ' + str(cls_conf.cpu().item()),
                             (x1, y1),
