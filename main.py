@@ -17,7 +17,7 @@ from matplotlib import patches as patches
 from utils import utils, datasets
 from utils.parse_config import parse_data_config
 
-#os.environ["CUDA_VISIBLE_DEVICES"]="2, 3"
+os.environ["CUDA_VISIBLE_DEVICES"]="3"
 
 
 
