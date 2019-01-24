@@ -14,7 +14,7 @@ python3 ./main.py \
 --task 'train' \
 --yolo_config_path "$yolo_config_path" \
 --yolo_resume "$yolo_resume" \
---flow_model 'FlowNet2CS' \
+--flow_model "$flow_model" \
 --flow_resume "$flow_resume" \
 --train_batch_size "$train_batch_size" \
 --data_config_path "$data_config_path"
