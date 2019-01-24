@@ -56,6 +56,6 @@ def gen_video(dir1,dir2):
 
 
 if __name__=='__main__':
-    dir1 = ""
-    dir2 = ""
+    dir1 = "/home/user/wanyx/FlowYOLO/compared/"
+    dir2 = "/home/user/wanyx/FlowYOLO/compared/"
     gen_video(dir1,dir2)
